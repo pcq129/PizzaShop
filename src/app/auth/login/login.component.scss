@@ -1,0 +1,18 @@
+.loginBanner{
+    width: 50vw;
+    float: left;
+    background-image: url('../../../assets/loginBanner.jpg');
+    background-position: center;
+    background-size:cover;
+    height: 100%;
+}
+
+@media screen and (max-width:600px) {
+    .loginBanner{
+        display: none;
+    }
+}
+
+.loginBody{
+    height: 100vh;
+}

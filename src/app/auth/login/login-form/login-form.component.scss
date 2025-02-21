@@ -1,0 +1,143 @@
+.loginBody{
+    height: 100vh;
+    width: 100vw;
+    position: fixed;
+    background-color: skyblue;
+    display: inline;
+}
+
+
+.loginContainer{
+    float: right;
+    height: 100vh;
+    width: 50%;
+    margin:0%;
+    background-color: #87CEEB ;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+@media screen and (max-width:600px) {
+    .loginBanner{
+        display: none;
+    }
+
+    .loginContainer{
+        width: 100vw;
+    }
+}
+
+.branding{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 50px;
+}
+
+.brand{
+    font-size: 40px;
+    font-weight: 400;
+    color: #0c60a4;
+    display: inline;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.brandLogo{
+    height: 70px;
+    width: auto;
+    display: inline;
+    margin-right: 30px;
+}
+
+.greeting{
+    float: left;
+    font-weight: bolder;
+    width: 60%;
+    margin-left:13px;
+    font-size: 30px;
+    margin-bottom: 10px;
+}
+
+
+.inputContainer{
+    margin-bottom: 10px;
+}
+
+
+.loginForm{
+    display: flex;
+    flex-direction: column;
+    width: 60%;
+}
+
+.loginForm input{
+    border-radius: 10px;
+    margin: 10px 10px 10px 10px;
+    width: 100%;
+    height: 60px;
+    font-size: 20px;   
+    padding-left: 30px;
+    padding-right: 30px;
+    border-style: none;
+}
+
+
+.checkbox{
+    height: 30px !important;
+    float: left;
+    width: 10% !important;
+    margin-right: 3px;
+}
+.additionalText{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 0px;
+    flex-wrap: nowrap;
+}
+
+.linkSection{
+    display: flex;
+    align-items: center;
+    justify-content:space-between;
+
+}
+
+.rememberMe{
+    display: flex;
+    flex-direction: row;
+    float: left;
+}
+
+.forgotPassword{    
+    float: right;
+}
+
+#login{
+    height: 50px;
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    background-color:#0c60a4 ;
+    color: white;
+    border-radius: 10px;
+    border: none;
+
+    
+}
+
+#login:disabled{
+    background-color: grey;
+}
+
+.example-form {
+    min-width: 150px;
+    max-width: 500px;
+    width: 100%;
+  }
+  
+  .example-full-width {
+    width: 100%;
+  }
+

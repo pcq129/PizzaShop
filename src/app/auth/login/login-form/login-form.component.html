@@ -1,0 +1,49 @@
+<div class="row-xs col-md-6 loginContainer">
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="loginForm">
+
+        <div class="branding">
+            <img class="brandLogo" [src]="brandLogo">
+            <span class="brand">PIZZASHOP</span>
+        </div>
+
+        <h2 class="greeting">Welcome,</h2>
+        <div class="inputContainer">
+            <!-- <emailInput (passValidity)="isInputValid($event)"></emailInput> -->
+            <mat-form-field  appearance="outline">
+                <mat-label>Email</mat-label>
+                <input type="email" matInput [formControl]="emailFormControl" [errorStateMatcher]="matcher"
+                    placeholder="Ex. pat@example.com" (input)="passValidity(emailFormControl.hasError('email'))" #isvalid >
+                <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+                <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+                    Please enter a valid email address
+                </mat-error>
+                <mat-error *ngIf="emailFormControl.hasError('required')">
+                    Email is <strong>required</strong>
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div class="inputContainer">
+            <!-- <passwordInput></passwordInput> -->
+            <mat-form-field appearance="outline">
+                <mat-label>Enter your password</mat-label>
+                <input matInput [type]="hide ? 'password' : 'text'">
+                <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                    [attr.aria-pressed]="hide" type="button">
+                    <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
+            </mat-form-field>
+        </div>
+        <!-- <div class="inputContainer">
+            <input formControlName="password" placeholder="Password">
+        </div> -->
+        <div class="linkSection">
+            <div class="rememberMe">
+                <input class="checkbox" type="checkbox"><span class="additionalText">Remember me</span>
+            </div>
+            <a routerLink="/forgotpassword">Forgot Password?</a>
+        </div>
+        <button type="submit" id="login" [disabled]="!loginForm.valid">
+            Login
+        </button>
+    </form>
+</div>
