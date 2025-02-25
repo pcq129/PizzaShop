@@ -1,0 +1,53 @@
+.menuCard {
+  margin: 10px;
+  height: 75vh;
+}
+
+.heading {
+  margin: 10px;
+}
+
+.itemsTab {
+  display: flex;
+  flex-direction: row;
+}
+
+.itemContent {
+  display: inline;
+}
+
+mat-tab-body {
+  height: 100%;
+}
+mat-tab-group {
+  height: 100%;
+}
+mat-drawer-container {
+  height: 100%;
+}
+mat-drawer {
+  height: 100%;
+}
+
+.mat-tab-body-wrapper {
+  height: 100%;
+}
+
+.items {
+  display: flex;
+  flex-direction: row;
+  height: 100% !important;
+}
+
+ul {
+  list-style-type: none;
+}
+
+app-category {
+  height: 100%;
+}
+
+.itemsTab {
+  display: flex;
+  flex-direction: row;
+}

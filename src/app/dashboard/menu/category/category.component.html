@@ -1,0 +1,23 @@
+<div class="category">
+    <h5>Category</h5>
+    <mat-form-field appearance="fill">
+        <mat-label>Input</mat-label>
+        <input matInput>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+        <mat-label>Select</mat-label>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+        <mat-label>Textarea</mat-label>
+        <textarea matInput></textarea>
+    </mat-form-field>
+
+    <input type="text" [(ngModel)]="name" #categoryName>
+    <input type="text" [(ngModel)]="description" #categoryDescription>
+    <button mat-raised-button (click)="addCategory()">Add</button>
+    <ul class="categoryList">
+        <div *ngFor="let category of categories">
+            <li>{{category.name}}</li>
+        </div>
+    </ul>
+</div>

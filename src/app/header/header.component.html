@@ -1,0 +1,19 @@
+<nav>
+    <div class="profile">
+        <img [src]="profile" class="profilePicture" [matMenuTriggerFor]="menu">
+        <mat-menu #menu="matMenu">
+            <button mat-menu-item>
+                <mat-icon>person</mat-icon>
+                <span>My Profile</span>
+            </button>
+            <button mat-menu-item>
+                <mat-icon>refresh</mat-icon>
+                <span>Change Password</span>
+            </button>
+            <button mat-menu-item (click)="logout()">
+                <mat-icon>exit_to_app</mat-icon>
+                <span>Logout</span>
+            </button>
+        </mat-menu>
+    </div>
+</nav>

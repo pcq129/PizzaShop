@@ -1,0 +1,29 @@
+
+
+mat-drawer-container{
+    height: 100vh;
+}
+
+mat-drawer{
+    width: 15%;
+    display: flex;
+    justify-content: center;
+}
+
+.brandLogo{
+    margin-right: 12px;
+    margin-left: 12px;
+    width:40%;
+    height: auto;
+}
+
+.branding{
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+    height: 100px;
+}
+
+.brand{
+    font-size: 20px;
+}

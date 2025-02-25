@@ -1,0 +1,24 @@
+<mat-drawer-container class="">
+    <mat-drawer mode="side" opened>
+        <div class="branding">
+            <img class="brandLogo" [src]="brandLogo">
+            <span class="brand">PIZZASHOP</span>
+        </div>
+
+        <mat-list>
+            <mat-list-item *ngFor="let item of sideBarItems" (click)="loadComponent(item.redirect)">
+                <mat-icon matListIcon>{{item.icon}}</mat-icon>
+                <p matLine>
+                    <span> {{item.title}} </span>
+                </p>
+            </mat-list-item>
+        </mat-list>
+    </mat-drawer>
+
+    <mat-drawer-content>
+        <!-- <a routerLink="/" (click)="logout()">logout</a> -->
+        <header></header>
+        <router-outlet></router-outlet>
+        <!-- <app-menu></app-menu> -->
+    </mat-drawer-content>
+</mat-drawer-container>

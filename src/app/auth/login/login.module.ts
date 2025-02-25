@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule } from '@angular/forms';
-import { LoginFormComponent } from './login-form/login-form.component';
+import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './login.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { ChangePasswordComponent } from './changePassword/changePassword.component';
@@ -10,17 +9,18 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { RouterModule } from '@angular/router';
-import { EmailInputComponent } from './login-form/email-input/email-input.component';
-import { PasswordInputComponent } from './login-form/password-input/password-input.component';
+import { LoginFormComponent } from './login-form/login-form.component';
+import { MatButtonModule } from '@angular/material/button';
+import { RouterLink, RouterOutlet } from '@angular/router';
+import { NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
+import { AuthService } from '../auth.service';
 
 @NgModule({
   declarations: [
-    LoginFormComponent,
     LoginComponent,
     ForgotPasswordComponent,
     ChangePasswordComponent,
-    EmailInputComponent,
-    PasswordInputComponent
+    LoginFormComponent,
   ],
   imports: [
     CommonModule,
@@ -29,12 +29,18 @@ import { PasswordInputComponent } from './login-form/password-input/password-inp
     RouterModule,
     MatFormFieldModule,
     MatIconModule,
+    MatButtonModule,
+    RouterLink,
+    RouterOutlet,
+    NgbAlertModule,
   ],
   providers: [
     {
       provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
       useValue: { appearance: 'fill' },
     },
+    AuthService,
   ],
+  exports: [LoginComponent],
 })
 export class LoginModule {}

@@ -7,35 +7,26 @@
         </div>
 
         <h2 class="greeting">Welcome,</h2>
-        <div class="inputContainer">
-            <!-- <emailInput (passValidity)="isInputValid($event)"></emailInput> -->
-            <mat-form-field  appearance="outline">
-                <mat-label>Email</mat-label>
-                <input type="email" matInput [formControl]="emailFormControl" [errorStateMatcher]="matcher"
-                    placeholder="Ex. pat@example.com" (input)="passValidity(emailFormControl.hasError('email'))" #isvalid >
-                <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
-                <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
-                    Please enter a valid email address
-                </mat-error>
-                <mat-error *ngIf="emailFormControl.hasError('required')">
-                    Email is <strong>required</strong>
-                </mat-error>
+        <div class="inputContainer email">
+            <!-- import input field from mui -->
+            <mat-form-field appearance="outline">
+                <mat-label>Enter your email</mat-label>
+                <input matInput placeholder="pat@example.com" [formControl]="email">
+                <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
             </mat-form-field>
+
         </div>
-        <div class="inputContainer">
-            <!-- <passwordInput></passwordInput> -->
+        <div class="inputContainer password">
+            <!-- import input field from mui -->
             <mat-form-field appearance="outline">
                 <mat-label>Enter your password</mat-label>
-                <input matInput [type]="hide ? 'password' : 'text'">
+                <input matInput [type]="hide ? 'password' : 'text'" [formControl]="password">
                 <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
-                    [attr.aria-pressed]="hide" type="button">
+                    [attr.aria-pressed]="hide">
                     <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                 </button>
             </mat-form-field>
         </div>
-        <!-- <div class="inputContainer">
-            <input formControlName="password" placeholder="Password">
-        </div> -->
         <div class="linkSection">
             <div class="rememberMe">
                 <input class="checkbox" type="checkbox"><span class="additionalText">Remember me</span>
@@ -46,4 +37,7 @@
             Login
         </button>
     </form>
+
+    <!-- alerts from ngx bootstrap -->
+    <ngb-alert *ngIf="alertState" [type]="alerts.type" (closed)="close(alerts)">{{ alerts.message }}</ngb-alert>
 </div>

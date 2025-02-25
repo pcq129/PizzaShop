@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
-
 @Component({
   selector: 'app-forgot-password',
   templateUrl: './forgot-password.component.html',
@@ -13,7 +12,7 @@ export class ForgotPasswordComponent implements OnInit {
   ngOnInit(): void {}
 
   forgotPassword = new FormGroup({
-    email: new FormControl('', [Validators.email, Validators.required]),
+  email: new FormControl('', [Validators.email, Validators.required]),
   });
 
   onSubmit() {
@@ -22,7 +21,15 @@ export class ForgotPasswordComponent implements OnInit {
 
   brandLogo = '../../assets/logos/brandLogo.png';
   login = '';
-  redirect(){
-    
+  redirect() {}
+
+  //material components
+  email = this.forgotPassword.controls.email;
+  getErrorMessage() {
+    if (this.email.hasError('required')) {
+      return 'You must enter a value';
+    }
+
+    return this.email.hasError('email') ? 'Not a valid email' : '';
   }
 }

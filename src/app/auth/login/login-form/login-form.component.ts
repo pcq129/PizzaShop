@@ -1,12 +1,18 @@
-import { Component, OnInit } from '@angular/core';
-import { MatInputModule } from '@angular/material/input';
+import { Component, OnInit, Output } from '@angular/core';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { NgFor } from '@angular/common';
+import { AuthService } from '../../auth.service';
 
-import { Validators, FormControl, FormGroup } from '@angular/forms';
-
-interface userCred {
-  email: string;
-  password: string;
+interface Alert {
+  type: string;
+  message: string;
 }
+
+let ALERTS: Alert = {
+  type: 'danger',
+  message: 'Invalid credentials',
+};
 
 @Component({
   selector: 'login-Form',
@@ -14,7 +20,19 @@ interface userCred {
   styleUrls: ['./login-form.component.scss'],
 })
 export class LoginFormComponent implements OnInit {
-  constructor() {}
+  generateAlert(): any {}
+  alerts: any = ALERTS;
+  //ngx bootstrap
+
+  close(alert: Alert) {
+    this.alerts.splice(this.alerts.indexOf(alert), 1);
+  }
+
+  alertState = false;
+
+  //regular component
+  hide: boolean = true;
+  constructor(private router: Router, private authService: AuthService) {}
   brandLogo = '../../assets/logos/brandLogo.png';
 
   ngOnInit(): void {}
@@ -23,26 +41,39 @@ export class LoginFormComponent implements OnInit {
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', Validators.required),
   });
+  email = this.loginForm.controls.email;
+  password = this.loginForm.controls.password;
 
-  User1: userCred = {
-    email: 'user@gmail.com',
+  getErrorMessage() {
+    if (this.email.hasError('required')) {
+      return 'You must enter a value';
+    }
+
+    return this.email.hasError('email') ? 'Not a valid email' : '';
+  }
+
+  userCredentials: any = {
+    email: 'user@user.com',
     password: '123456',
   };
 
-  forgotPassword = '/forgotpassword';
-  isInputValid(value: any) {
-    this.isFormValid = value;
-  }
-
-  isFormValid: boolean = false;
-
   onSubmit() {
-    let email = this.loginForm.controls.email.value;
-    let password = this.loginForm.controls.password.value;
-    if (email == this.User1.email && password == this.User1.password) {
-      alert('success');
+    let email = this.email.value;
+    let password = this.password.value;
+    console.log(email, password);
+    if (
+      email == this.userCredentials.email &&
+      password == this.userCredentials.password
+    ) {
+      this.authService.isLoggedIn = true;
+      this.authService.setItem('userId', email);
+      this.authService.setItem('isLoggedIn', 'true');
+      // this.router.navigateByUrl('dashboard');
     } else {
-      alert('not valid');
+      this.alertState = true;
+      setTimeout(() => {
+        this.alertState = false;
+      }, 2000);
     }
   }
 }

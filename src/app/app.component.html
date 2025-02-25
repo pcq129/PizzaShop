@@ -1,4 +1,12 @@
 <div class="">
-  <router-outlet></router-outlet>
- 
+  <ng-container *ngIf="authService?.isLoggedIn">
+    <app-layout></app-layout>
+  </ng-container>
+  <ng-container *ngIf="!authService.isLoggedIn">
+    <app-login></app-login>
+  </ng-container>
 </div>
+
+<!-- <div class="">
+
+</div> -->

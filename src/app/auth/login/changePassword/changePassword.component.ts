@@ -11,6 +11,9 @@ import {
   styleUrls: ['./changePassword.component.scss'],
 })
 export class ChangePasswordComponent implements OnInit {
+  matchPassword(): any {
+    throw new Error('Method not implemented.');
+  }
   constructor() {}
 
   ngOnInit(): void {}
@@ -29,4 +32,9 @@ export class ChangePasswordComponent implements OnInit {
 
   newPassword: string = '';
   confirmNewPassword: string = '';
+
+  //material components
+
+  hide = true;
+  hideConfirmPassword = true;
 }
