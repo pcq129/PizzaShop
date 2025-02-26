@@ -5,9 +5,9 @@ import { DashboardRoutingModule } from './layout-routing.module';
 import { LayoutComponent } from './layout.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { HeaderModule } from '../header/header.module';
-import { MatList, MatListModule } from '@angular/material/list';
+import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
-import { MenuComponent } from './menu/menu.component';
+import { MatTableModule } from '@angular/material/table';
 
 @NgModule({
   declarations: [LayoutComponent],
@@ -18,6 +18,7 @@ import { MenuComponent } from './menu/menu.component';
     MatListModule,
     MatIconModule,
     DashboardRoutingModule,
+    MatTableModule,
   ],
   exports: [LayoutComponent],
 })

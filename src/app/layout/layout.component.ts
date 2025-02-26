@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth/auth.service';
+import { Router, ROUTES } from '@angular/router';
 
 interface sidebar {
   icon: any;
@@ -17,12 +18,17 @@ export class LayoutComponent implements OnInit {
     {
       icon: `dashboard`,
       title: 'Dashboard',
-      redirect: '',
+      redirect: 'dashboard',
     },
     {
       icon: `restaurant_menu`,
       title: 'Menu',
-      redirect: '',
+      redirect: 'menu',
+    },
+    {
+      icon: `restaurant_menu`,
+      title: 'Menu',
+      redirect: 'items',
     },
     {
       icon: `person_outline`,

@@ -1,0 +1,15 @@
+<div mat-dialog-content>
+    <p>Category Details</p>
+    <mat-form-field appearance="outline">
+        <mat-label>Category Name</mat-label>
+        <input matInput [(ngModel)]="data.categoryName" required>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+        <mat-label>Category Description</mat-label>
+        <input matInput [(ngModel)]="data.categoryDescription" required>
+    </mat-form-field>
+</div>
+<div mat-dialog-actions>
+    <button mat-button [mat-dialog-close]="data" cdkFocusInitial>Ok</button>
+    <button mat-button (click)="onNoClick()">No Thanks</button>
+</div>

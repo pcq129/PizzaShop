@@ -37,4 +37,15 @@ export class ItemsService {
   addItem(data: any) {
     return this.http.post(environment.baseURL + `items`, data);
   }
+
+  removeItem(data: any){
+    return this.http.delete(environment.baseURL + `items`+ '/'+ data.id);
+  }
+
+  editItem(element: any) {
+    return this.http.put(
+      environment.baseURL + `items` + '/' + element.id,
+      element
+    );
+  }
 }

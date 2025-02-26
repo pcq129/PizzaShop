@@ -1,35 +1,37 @@
 {
   "items": [
     {
-      "id": 1,
-      "category": "Pizza",
-      "name": "margerita",
-      "description": "special cheese"
-    },
-    {
-      "id": 2,
-      "category": "Pizza",
-      "name": "7 cheese",
-      "description": "special cheese"
-    },
-    {
+      "id": 3,
+      "name": "adqwerqwer",
       "category": "asdfa",
-      "description": "adfa",
-      "name": "adf",
-      "id": 3
+      "description": "adfa"
+    },
+    {
+      "id": 5
+    },
+    {
+      "name": "vvv",
+      "category": "vvv",
+      "description": "vvv",
+      "id": 6
+    },
+    {
+      "id": 7
+    },
+    {
+      "name": "dasd",
+      "category": "asdad",
+      "description": "adsa",
+      "id": 8
+    },
+    {
+      "name": "dfasdfadsfadf",
+      "category": "fdfaa",
+      "description": "fadsfa",
+      "id": 9
     }
   ],
   "categories": [
-    {
-      "id": 1,
-      "name": "Pizza",
-      "description": "Famous italian itam"
-    },
-    {
-      "id": 2,
-      "name": "Burger",
-      "description": "American snacks"
-    },
     {
       "name": "Pizza1",
       "description": "Famous italian itam1",
@@ -56,104 +58,64 @@
       "id": 7
     },
     {
-      "name": "",
-      "description": "",
+      "name": "sss",
+      "description": "sss",
       "id": 8
     },
     {
-      "name": "",
-      "description": "",
+      "name": "s",
+      "description": "s",
       "id": 9
     },
     {
-      "name": "",
-      "description": "",
-      "id": 10
+      "id": 10,
+      "name": "vvvvv",
+      "description": "vvvvv"
     },
     {
-      "name": "",
-      "description": "",
-      "id": 11
+      "id": 14,
+      "name": "dsfsf",
+      "description": "sdfdsf"
     },
     {
-      "name": "",
-      "description": "",
-      "id": 12
+      "id": 15,
+      "name": " dsfsdf",
+      "description": "3rr4"
     },
     {
-      "name": "",
-      "description": "",
-      "id": 13
+      "id": 16,
+      "name": "rwerw",
+      "description": "sdfsdf"
     },
     {
-      "name": "",
-      "description": "",
-      "id": 14
+      "id": 18,
+      "name": "rwer",
+      "description": "dfscvdsxf"
     },
     {
-      "name": "p1",
-      "description": "a1",
-      "id": 15
-    },
-    {
-      "name": "addsa",
-      "description": "sadsadasd",
-      "id": 16
-    },
-    {
-      "name": "addsa",
-      "description": "sadsadasd",
-      "id": 17
-    },
-    {
-      "name": "sfasdf",
-      "description": "adfadf",
-      "id": 18
-    },
-    {
-      "name": "dfadsf",
-      "description": "adfadsf",
+      "name": "cccc",
+      "description": "ccc",
       "id": 19
     },
     {
-      "name": "asdsad",
-      "description": "afasdfad",
+      "name": "aa",
+      "description": "aa",
       "id": 20
     },
     {
-      "name": "asdsad",
-      "description": "afasdfad",
+      "name": "adfadf",
+      "description": "   adfasdf",
       "id": 21
     },
     {
-      "name": "asdasf",
-      "description": "q412341",
+      "name": "asdf",
+      "description": "adsfads",
       "id": 22
     },
     {
-      "name": "",
-      "description": "",
+      "name": "fdsf",
+      "description": "dsfdsf",
       "id": 23
-    },
-    {
-      "name": "",
-      "description": "",
-      "id": 24
-    },
-    {
-      "name": "",
-      "description": "",
-      "id": 25
-    },
-    {
-      "name": "",
-      "description": "",
-      "id": 26
-    },
-    {
-      "name": "test",
-      "description": "test",
-      "id": 27
     }
   ]
 }
