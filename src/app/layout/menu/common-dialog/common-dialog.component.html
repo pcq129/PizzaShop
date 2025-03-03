@@ -1,15 +1,18 @@
-<div mat-dialog-content>
-    <p>Category Details</p>
-    <mat-form-field appearance="outline">
-        <mat-label>Category Name</mat-label>
-        <input matInput [(ngModel)]="data.categoryName" required>
-    </mat-form-field>
-    <mat-form-field appearance="outline">
-        <mat-label>Category Description</mat-label>
-        <input matInput [(ngModel)]="data.categoryDescription" required>
-    </mat-form-field>
-</div>
-<div mat-dialog-actions>
-    <button mat-button [mat-dialog-close]="data" cdkFocusInitial>Ok</button>
-    <button mat-button (click)="onNoClick()">No Thanks</button>
-</div>
+<form [formGroup]="dataForm">
+    <div mat-dialog-content>
+        <p>Category Details</p>
+        <mat-form-field appearance="outline">
+            <mat-label>Category Name</mat-label>
+            <input matInput [(ngModel)]="data.name" [formControl]="name" required>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Category Description</mat-label>
+            <input matInput [(ngModel)]="data.description" [formControl]="description" required>
+        </mat-form-field>
+    </div>
+    <div mat-dialog-actions>
+        <button mat-button type="button" [mat-dialog-close]="data" cdkFocusInitial
+            [disabled]="!dataForm.valid">Ok</button>
+        <button mat-button type="submit" (click)="onNoClick()">Cancel</button>
+    </div>
+</form>

@@ -1,11 +1,13 @@
-<div class="">
+<!-- <div class="">
   <ng-container *ngIf="authService?.isLoggedIn">
-    <app-layout></app-layout>
+    <app-app></app-app>
   </ng-container>
-  <ng-container *ngIf="!authService.isLoggedIn">
-    <app-login></app-login>
-  </ng-container>
-</div>
+  <ng-container *ngIf="!authService.isLoggedIn"> -->
+<!-- <app-login></app-login>
+      -->
+<router-outlet></router-outlet>
+<!-- </ng-container>
+</div> -->
 
 <!-- <div class="">
 

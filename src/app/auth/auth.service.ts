@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Input } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import * as CryptoJS from 'crypto-js';
@@ -7,8 +7,29 @@ import * as CryptoJS from 'crypto-js';
   providedIn: 'root',
 })
 export class AuthService {
+  isLoggedIn: boolean = this.LoggedIn();
+
+  handleLogin() {
+    this.isLoggedIn = true;
+    // this.setItem('userId', email);
+    // this.setItem('isLoggedIn', 'true');
+    this.router.navigate(['dashboard']);
+  }
   constructor(private router: Router) {}
   secretKey = '1234';
+  id = 'user@user.com';
+  password = '123456';
+
+  checkCredentials(email: string, password: string) {
+    if (email == this.id && password == this.password) {
+      this.setItem('userCredential', { id: email, password: password });
+      this.setItem('isLoggedIn', true);
+
+      return true;
+    }
+    return false;
+  }
+
   setItem(key: any, value: any = false) {
     let encryptedValue = CryptoJS.AES.encrypt(
       JSON.stringify(value),
@@ -23,9 +44,15 @@ export class AuthService {
 
   clear() {
     localStorage.clear();
-    this.router.navigate(['/']);
+    this.router.navigate(['login']);
     this.isLoggedIn = false;
   }
 
-  isLoggedIn: boolean = true; //set to false in demo sessions
+  LoggedIn() {
+    if (localStorage.getItem('isLoggedIn')) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 }

@@ -1,121 +1,37 @@
 {
   "items": [
     {
+      "categoryId": "48",
       "id": 3,
-      "name": "adqwerqwer",
-      "category": "asdfa",
-      "description": "adfa"
-    },
-    {
-      "id": 5
-    },
-    {
-      "name": "vvv",
-      "category": "vvv",
-      "description": "vvv",
-      "id": 6
-    },
-    {
-      "id": 7
-    },
-    {
-      "name": "dasd",
-      "category": "asdad",
-      "description": "adsa",
-      "id": 8
-    },
-    {
-      "name": "dfasdfadsfadf",
-      "category": "fdfaa",
-      "description": "fadsfa",
-      "id": 9
+      "name": "adsfadsf",
+      "description": "adsfadsfa"
     }
   ],
   "categories": [
     {
-      "name": "Pizza1",
-      "description": "Famous italian itam1",
-      "id": 3
+      "id": 44,
+      "name": "dfasdfasfafqewr",
+      "description": "adfasdfasfadsfadsf"
     },
     {
-      "name": "Pizza2",
-      "description": "Famous italian itam12",
-      "id": 4
+      "name": "qewrfdsaf",
+      "description": "rrawfdsafg",
+      "id": 45
     },
     {
-      "name": "Pizza2",
-      "description": "Famous italian itam12",
-      "id": 5
+      "name": "dfasdfads",
+      "description": "adsfadsf",
+      "id": 46
     },
     {
-      "name": "Pizza2",
-      "description": "Famous italian itam12",
-      "id": 6
+      "id": 47,
+      "name": "TestCategory123456",
+      "description": "testcat123"
     },
     {
-      "name": "Pizza2",
-      "description": "Famous italian itam12",
-      "id": 7
-    },
-    {
-      "name": "sss",
-      "description": "sss",
-      "id": 8
-    },
-    {
-      "name": "s",
-      "description": "s",
-      "id": 9
-    },
-    {
-      "id": 10,
-      "name": "vvvvv",
-      "description": "vvvvv"
-    },
-    {
-      "id": 14,
-      "name": "dsfsf",
-      "description": "sdfdsf"
-    },
-    {
-      "id": 15,
-      "name": " dsfsdf",
-      "description": "3rr4"
-    },
-    {
-      "id": 16,
-      "name": "rwerw",
-      "description": "sdfsdf"
-    },
-    {
-      "id": 18,
-      "name": "rwer",
-      "description": "dfscvdsxf"
-    },
-    {
-      "name": "cccc",
-      "description": "ccc",
-      "id": 19
-    },
-    {
-      "name": "aa",
-      "description": "aa",
-      "id": 20
-    },
-    {
-      "name": "adfadf",
-      "description": "   adfasdf",
-      "id": 21
-    },
-    {
-      "name": "asdf",
-      "description": "adsfads",
-      "id": 22
-    },
-    {
-      "name": "fdsf",
-      "description": "dsfdsf",
-      "id": 23
+      "id": 48,
+      "name": "sadsadfsdfg",
+      "description": "sadsadsa"
     }
   ]
 }

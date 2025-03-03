@@ -10,6 +10,9 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root',
 })
 export class CategoryListService {
+  getCategoryName(id: any) {
+    return this.http.get(environment.baseURL + `categories` + '/' + id);
+  }
   constructor(private http: HttpClient) {}
   categoryList: CategoryInterface[] = [];
 
@@ -23,6 +26,10 @@ export class CategoryListService {
 
   removeCategory(id: number) {
     return this.http.delete(environment.baseURL + `categories` + '/' + id);
+  }
+
+  getSingleCategory(id: number) {
+    return this.http.get(environment.baseURL + `categories` + '/' + id);
   }
 
   editCategory(element: any) {

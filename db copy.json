@@ -1,0 +1,62 @@
+{
+  "items": [
+    {
+      "id": 1,
+      "name": "adsfadsfa",
+      "category": "dfasdf",
+      "description": "afadsf"
+    },
+    {
+      "id": 2,
+      "name": "adsfadsfadf",
+      "category": "dfasdf",
+      "description": "adfadfaf"
+    },
+    {
+      "id": 3,
+      "name": "afdsfasfds",
+      "category": "dfasdfasfafqewr",
+      "description": "adsfadsf"
+    },
+    {
+      "id": 4,
+      "name": "afadsfaf",
+      "category": "qewrfdsaf",
+      "description": "adsfadsfasfd"
+    },
+    {
+      "id": 5,
+      "name": "adfadsfasf",
+      "category": "dfasdf",
+      "description": "fadsfaewr"
+    },
+    {
+      "id": 6,
+      "name": "fasqdfds",
+      "category": "dfasdf",
+      "description": "fq3terfdvcsfvs"
+    }
+  ],
+  "categories": [
+    {
+      "name": "dfasdf",
+      "description": "adfa",
+      "id": 42
+    },
+    {
+      "name": "dfasdf",
+      "description": "adfadf",
+      "id": 43
+    },
+    {
+      "name": "dfasdfasfafqewr",
+      "description": "adfasdfasf",
+      "id": 44
+    },
+    {
+      "name": "qewrfdsaf",
+      "description": "rrawfdsafg",
+      "id": 45
+    }
+  ]
+}

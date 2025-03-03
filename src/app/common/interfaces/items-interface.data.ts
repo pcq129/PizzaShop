@@ -1,5 +1,6 @@
 export interface Items {
-  category: string;
+  categoryId: number;
+  // category: string;
   name: string;
   description: string;
 }

@@ -6,7 +6,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { CategoryListService } from 'src/app/_services/category-list.service';
 import { ItemsService } from 'src/app/_services/items.service';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatOptionModule } from '@angular/material/core';
 import { MatButtonModule } from '@angular/material/button';
@@ -15,6 +15,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
 import { DeleteDialogModule } from 'src/app/common/delete-dialog/delete-dialog/delete-dialog.module';
+import { CommonDialogModule } from './common-dialog/common-dialog.module';
 
 @NgModule({
   declarations: [MenuComponent],
@@ -32,6 +33,8 @@ import { DeleteDialogModule } from 'src/app/common/delete-dialog/delete-dialog/d
     MatTableModule,
     MatIconModule,
     DeleteDialogModule,
+    ReactiveFormsModule,
+    CommonDialogModule,
   ],
   exports: [MenuComponent],
   providers: [CategoryListService],

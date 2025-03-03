@@ -30,7 +30,7 @@ import { ItemsModule } from './layout/items/items.module';
     HttpClientModule,
     CommonDialogModule,
     MatButtonModule,
-    ItemsModule
+    ItemsModule,
     // MatIconModule,
   ],
   providers: [AuthService],

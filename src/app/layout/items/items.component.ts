@@ -5,6 +5,9 @@ import { Items } from 'src/app/common/interfaces/items-interface.data';
 import { ItemDialogComponent } from './item-dialog/item-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { DeleteDialogComponent } from 'src/app/common/delete-dialog/delete-dialog/delete-dialog.component';
+import { single } from 'rxjs';
+import { CategoryInterface } from 'src/app/common/interfaces/category-interface.data';
+import { CategoryListService } from 'src/app/_services/category-list.service';
 
 @Component({
   selector: 'app-items',
@@ -12,6 +15,15 @@ import { DeleteDialogComponent } from 'src/app/common/delete-dialog/delete-dialo
   styleUrls: ['./items.component.scss'],
 })
 export class ItemsComponent implements OnInit {
+  fetchCategoryName(arg0: any) {
+    const item = this.categoryList.find((category: any) => category.id == arg0 );
+    return item.name;
+
+    
+  }
+
+  categoryList: any;
+
   deletePopup(id: any): void {
     const dialogRef = this.dialog.open(DeleteDialogComponent, {
       width: '250px',
@@ -25,31 +37,44 @@ export class ItemsComponent implements OnInit {
     });
   }
   editPopup(element: any) {
+    console.log(element);
     const dialogRef = this.dialog.open(ItemDialogComponent, {
       width: '250px',
       data: {
         id: element.id,
+        categoryId: element.categoryId,
         name: element.name,
-        category: element.category,
+        // category: element.category,
         description: element.description,
       },
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      this.singleItem = result;
       console.log(result);
       this.editItems(result);
     });
   }
-  constructor(private itemService: ItemsService, private dialog: MatDialog) {}
+  constructor(
+    private itemService: ItemsService,
+    private dialog: MatDialog,
+    private categoryService: CategoryListService
+  ) {
+    this.getCategories();
+  }
 
   ngOnInit(): void {
     this.getItems();
+    // this.getCategories();
   }
   items: any;
   getItems() {
     this.itemService.getItemList().subscribe((res) => {
       this.items = res;
+    });
+  }
+  getCategories() {
+    this.categoryService.getCategoryList().subscribe((res) => {
+      this.categoryList = res;
     });
   }
   displayedColumns: string[] = [
@@ -60,26 +85,42 @@ export class ItemsComponent implements OnInit {
     'delete',
   ];
 
-  singleItem: Items = {
-    name: '',
-    category: '',
-    description: '',
-  };
+  // singleItem: Items = {
+  //   name: '',
+  //   category: '',
+  //   description: '',
+  // };
   openDialog(): void {
+    let singleItem = {
+      categoryId: '',
+      id: '',
+      name: '',
+      // category: '',
+      description: '',
+    };
     const dialogRef = this.dialog.open(ItemDialogComponent, {
       width: '250px',
       data: {
-        name: this.singleItem.name,
-        category: this.singleItem.category,
-        description: this.singleItem.description,
+        categoryId: singleItem.categoryId,
+        id: singleItem.id,
+        name: singleItem.name,
+        // category: singleItem.category,
+        description: singleItem.description,
       },
     });
 
     dialogRef.afterClosed().subscribe((result: any) => {
       console.log(result);
-      this.singleItem = result;
-      console.log(this.singleItem);
-      this.addItem(this.singleItem);
+      if (
+        result &&
+        // result.id &&
+        result.name &&
+        result.categoryId &&
+        result.description
+      ) {
+        console.log('adding data' + result);
+        this.addItem(result);
+      }
     });
   }
 

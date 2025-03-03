@@ -8,7 +8,7 @@ interface sidebar {
   redirect: string;
 }
 @Component({
-  selector: 'app-layout',
+  selector: 'layout-app',
   templateUrl: './layout.component.html',
   styleUrls: ['./layout.component.scss'],
 })
@@ -22,31 +22,31 @@ export class LayoutComponent implements OnInit {
     },
     {
       icon: `restaurant_menu`,
-      title: 'Menu',
-      redirect: 'menu',
+      title: 'Categories',
+      redirect: 'category',
     },
     {
       icon: `restaurant_menu`,
-      title: 'Menu',
+      title: 'Items',
       redirect: 'items',
     },
-    {
-      icon: `person_outline`,
-      title: 'Customers',
-      redirect: '',
-    },
-    {
-      icon: 'supervised_user_circle',
-      title: 'Roles and Permission',
-      redirect: '',
-    },
-    {
-      icon: 'border_all',
-      title: 'Tables and Sections ',
-      redirect: '',
-    },
+    // {
+    //   icon: `person_outline`,
+    //   title: 'Customers',
+    //   redirect: '',
+    // },
+    // {
+    //   icon: 'supervised_user_circle',
+    //   title: 'Roles and Permission',
+    //   redirect: '',
+    // },
+    // {
+    //   icon: 'border_all',
+    //   title: 'Tables and Sections ',
+    //   redirect: '',
+    // },
   ];
-  constructor(private LS: AuthService) {}
+  constructor(private LS: AuthService, public authService: AuthService) {}
 
   ngOnInit(): void {}
 

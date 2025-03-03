@@ -1,0 +1,33 @@
+.col {
+  display: flex;
+  flex: row;
+  justify-content: center;
+  align-items: center;
+  height: 30vh;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+.col2 {
+  display: flex;
+  flex: row;
+  justify-content: center;
+  align-items: center;
+  height: 30vh;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+.col mat-card {
+  width: 25%;
+  display: inline;
+  height: 100%;
+  margin: 10px;
+}
+
+.col2 mat-card {
+  width: 50%;
+  display: inline;
+  height: 100%;
+  margin: 10px;
+}

@@ -14,6 +14,12 @@ import { AuthService } from 'src/app/auth/auth.service';
 })
 export class AuthGuard implements CanActivate {
   constructor(private router: Router, private authService: AuthService) {}
+  // static login(): boolean {
+  //   if (localStorage.getItem('isLoggedIn')) {
+  //     return false;
+  //   }
+  //   return true;
+  // }
 
   canActivate(
     route: ActivatedRouteSnapshot,
@@ -23,14 +29,26 @@ export class AuthGuard implements CanActivate {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    console.log(this.authService.isLoggedIn);
+    console.log('route : ', route.routeConfig?.path);
+    // debugger;
+    // console.log(this.authService.isLoggedIn);
     if (this.authService.isLoggedIn) {
+      if (
+        localStorage.getItem('isLoggedIn') &&
+        route.routeConfig?.path == 'login'
+      ) {
+        console.log('loginFalse');
+        return false;
+      }
       console.log('true');
       return true;
     } else {
-      this.router.navigate(['/']);
+      if (!this.authService.isLoggedIn && route.routeConfig?.path == 'login') {
+        console.log('loginTrue');
+        return true;
+      }
       console.log('false');
-
+      this.router.navigate(['login']);
       return false;
     }
   }

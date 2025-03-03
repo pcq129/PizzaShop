@@ -1,4 +1,7 @@
-<button mat-button (click)="openDialog()">Add items</button>
+<div class="header">
+  <h3 class="title">Items</h3>
+  <button mat-button class="addItem" (click)="openDialog()">Add items</button>
+</div>
 <table mat-table [dataSource]="items" class="mat-elevation-z8">
   <!--- Note that these columns can be defined in any order.
           The actual rendered columns are set as a property on the row definition" -->
@@ -18,7 +21,7 @@
   <!-- Weight Column -->
   <ng-container matColumnDef="category">
     <th mat-header-cell *matHeaderCellDef> Category </th>
-    <td mat-cell *matCellDef="let element"> {{element.category}} </td>
+    <td mat-cell *matCellDef="let element"> {{element.categoryId | nameById : categoryList : 'name'}} </td>
   </ng-container>
 
   <ng-container matColumnDef="edit">

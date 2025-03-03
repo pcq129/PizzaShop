@@ -32,7 +32,10 @@ export class LoginFormComponent implements OnInit {
 
   //regular component
   hide: boolean = true;
-  constructor(private router: Router, private authService: AuthService) {}
+  constructor(private router: Router, private authService: AuthService) {
+    const url = router.url;
+    // console.log(url);
+  }
   brandLogo = '../../assets/logos/brandLogo.png';
 
   ngOnInit(): void {}
@@ -41,8 +44,16 @@ export class LoginFormComponent implements OnInit {
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', Validators.required),
   });
+
   email = this.loginForm.controls.email;
   password = this.loginForm.controls.password;
+
+  // relocate verification logic to auth service
+  // @Output()
+  // credentials = {
+  //   email: this.email,
+  //   password: this.password,
+  // };
 
   getErrorMessage() {
     if (this.email.hasError('required')) {
@@ -61,13 +72,11 @@ export class LoginFormComponent implements OnInit {
     let email = this.email.value;
     let password = this.password.value;
     console.log(email, password);
-    if (
-      email == this.userCredentials.email &&
-      password == this.userCredentials.password
-    ) {
-      this.authService.isLoggedIn = true;
-      this.authService.setItem('userId', email);
-      this.authService.setItem('isLoggedIn', 'true');
+    if (this.authService.checkCredentials(email!, password!)) {
+      this.authService.handleLogin();
+      // this.authService.isLoggedIn = true;
+      // this.authService.setItem('userId', email);
+      // this.authService.setItem('isLoggedIn', 'true');
       // this.router.navigateByUrl('dashboard');
     } else {
       this.alertState = true;
