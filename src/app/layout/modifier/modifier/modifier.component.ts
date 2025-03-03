@@ -1,0 +1,141 @@
+import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { ModifierGroup, Modifier } from 'src/app/common/interfaces/modifier';
+import { modifierDialog } from './modifierDialog/modifierDialog.component';
+import { ModifierService } from 'src/app/_services/modifier.service';
+import { ModifierDeleteDialogComponent } from './modifier-delete-dialog/modifier-delete-dialog.component';
+import { NameByIdPipe } from 'src/helper/name-by-id.pipe';
+
+@Component({
+  selector: 'app-modifier',
+  templateUrl: './modifier.component.html',
+  styleUrls: ['./modifier.component.scss'],
+})
+export class ModifierComponent implements OnInit {
+  ngOnInit(): void {
+    this.getModifiers();
+    this.getModifiersList();
+  }
+  constructor(
+    public dialog: MatDialog,
+    private modifierService: ModifierService
+  ) {}
+
+  displayedColumns: string[] = [
+    'item',
+    'description',
+    'group',
+    'rate',
+    'unit',
+    'quantity',
+    'edit',
+    'delete',
+  ];
+
+  //data fetching
+  modifierList: any;
+  modifierGroupList: any;
+  getModifiersList() {
+    this.modifierService.getModifierGroups().subscribe((res) => {
+      console.log(res);
+      this.modifierGroupList = res;
+    });
+  }
+  getModifiers() {
+    this.modifierService.getModifier().subscribe((res) => {
+      console.log(res);
+      this.modifierList = res;
+    });
+  }
+
+  //editing modifiers
+
+  modifier: Modifier = {
+    modifierId: 0,
+    groupId: 0,
+    name: '',
+    rate: 0,
+    quantity: 0,
+    unit: '',
+    description: '',
+  };
+
+  openDialog(modifier: any): void {
+    console.log(modifier);
+    const dialogRef = this.dialog.open(modifierDialog, {
+      width: '350px',
+      data: {
+        modifierGroupList: this.modifierGroupList,
+        name: modifier.name,
+        groupId: modifier.groupId,
+        modifierId: modifier.id,
+        quantity: modifier.quantity,
+        unit: modifier.unit,
+        description: modifier.description,
+        rate: modifier.rate,
+      },
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log(result);
+      delete result.modifierGroupList;
+      console.log(result);
+
+      this.modifierService.editModifier(result).subscribe(() => {
+        this.getModifiers();
+      });
+    });
+  }
+
+  //deleting modifiers
+
+  openDeleteDialog(modifierId: any): void {
+    const dialogRef = this.dialog.open(ModifierDeleteDialogComponent, {
+      width: '350px',
+      data: {
+        modifierId: modifierId,
+      },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log(result.modifierId);
+      this.modifierService.deleteModifier(result.modifierId).subscribe(() => {
+        this.getModifiers();
+      });
+    });
+  }
+
+  //adding modifiers
+
+  openAddDialog() {
+    const dialogRef = this.dialog.open(modifierDialog, {
+      width: '350px',
+      data: {
+        modifierGroupList: this.modifierGroupList,
+        name: this.modifier.name,
+        groupId: this.modifier.groupId,
+        quantity: this.modifier.quantity,
+        unit: this.modifier.unit,
+        description: this.modifier.description,
+        rate: this.modifier.rate,
+      },
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log(result);
+      delete result.modifierGroupList;
+      console.log(result);
+
+      if (
+        result.name &&
+        result.groupId &&
+        result.quantity &&
+        result.unit &&
+        result.description &&
+        result.rate
+      ) {
+        this.modifierService.addModifier(result).subscribe(() => {
+          this.getModifiers();
+        });
+      }
+    });
+  }
+}
