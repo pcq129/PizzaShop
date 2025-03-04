@@ -9,6 +9,10 @@ import { LoginComponent } from './auth/login/login.component';
 import { ForgotPasswordComponent } from './auth/login/forgot-password/forgot-password.component';
 import { DashboardComponent } from './layout/dashboard/dashboard.component';
 import { LayoutComponent } from './layout/layout.component';
+import { ModifierComponent } from './layout/modifier/modifier/modifier.component';
+import { ModifierGroupComponent } from './layout/modifier/modifier-group/modifier-group.component';
+import { LoginFormComponent } from './auth/login/login-form/login-form.component';
+import { AppComponent } from './app.component';
 // import { DashboardComponent } from './app/dashboard/dashboard.component';
 const routes: Routes = [
   // {
@@ -33,9 +37,26 @@ const routes: Routes = [
         component: ItemsComponent,
       },
       {
+        path: '',
+        canActivate: [AuthGuard],
+        component: DashboardComponent,
+        pathMatch: 'full',
+      },
+      {
         path: 'dashboard',
         canActivate: [AuthGuard],
         component: DashboardComponent,
+        pathMatch: 'full',
+      },
+      {
+        path: 'modifiers',
+        canActivate: [AuthGuard],
+        component: ModifierComponent,
+      },
+      {
+        path: 'modifiergroup',
+        canActivate: [AuthGuard],
+        component: ModifierGroupComponent,
       },
     ],
   },
@@ -43,24 +64,53 @@ const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    redirectTo: 'login',
+    component: AppComponent,
   },
   {
     path: 'login',
     canActivate: [AuthGuard],
     component: LoginComponent,
     children: [
-      // {
-      //   path: 'forgot-password',
-      //   canActivate: [AuthGuard],
-      //   component: ForgotPasswordComponent,
-      // },
+      {
+        path: 'forgot-password',
+        canActivate: [AuthGuard],
+        component: ForgotPasswordComponent,
+        pathMatch: 'full',
+      },
+
+      {
+        path: '',
+        // canActivate: [AuthGuard],
+        component: LoginFormComponent,
+        pathMatch: 'full',
+      },
+
+      {
+        path: 'change-password',
+        canActivate: [AuthGuard],
+        component: LoginFormComponent,
+        pathMatch: 'full',
+      },
     ],
   },
   {
     path: '**',
     canActivate: [AuthGuard],
     component: LayoutComponent,
+    children: [
+      // {
+      //   path: 'dashboard',
+      //   canActivate: [AuthGuard],
+      //   component: MenuComponent,
+      //   pathMatch: 'full',
+      // },
+      {
+        path: 'login',
+        canActivate: [AuthGuard],
+        component: DashboardComponent,
+        pathMatch: 'full',
+      },
+    ],
   },
 ];
 

@@ -8,11 +8,10 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
 import { RouterModule } from '@angular/router';
 import { DashboardModule } from './dashboard/dashboard.module';
-import { ModifierComponent } from './modifier/modifier.component';
-// import { LayoutRoutingModule } from './layout-routing.module';
+import { ModifierModule } from './modifier/modifier/modifier.module';
 
 @NgModule({
-  declarations: [LayoutComponent, ModifierComponent],
+  declarations: [LayoutComponent],
   imports: [
     CommonModule,
     MatSidenavModule,
@@ -21,7 +20,6 @@ import { ModifierComponent } from './modifier/modifier.component';
     MatIconModule,
     MatTableModule,
     RouterModule,
-    // LayoutRoutingModule,
     DashboardModule,
   ],
   exports: [LayoutComponent],

@@ -16,10 +16,8 @@ import { CategoryListService } from 'src/app/_services/category-list.service';
 })
 export class ItemsComponent implements OnInit {
   fetchCategoryName(arg0: any) {
-    const item = this.categoryList.find((category: any) => category.id == arg0 );
+    const item = this.categoryList.find((category: any) => category.id == arg0);
     return item.name;
-
-    
   }
 
   categoryList: any;

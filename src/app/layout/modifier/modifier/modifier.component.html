@@ -28,7 +28,7 @@ Modifiers
 
     <ng-container matColumnDef="group">
         <th mat-header-cell *matHeaderCellDef> Group </th>
-        <td mat-cell *matCellDef="let element"> {{element.groupId | nameById : modifierGroupList : 'name'}} </td>
+        <td mat-cell *matCellDef="let element"> {{element.groupId | NameByIdPipe : modifierGroupList : 'name'}} </td>
     </ng-container>
 
     <ng-container matColumnDef="rate">

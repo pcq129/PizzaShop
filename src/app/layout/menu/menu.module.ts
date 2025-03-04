@@ -18,7 +18,7 @@ import { DeleteDialogModule } from 'src/app/common/delete-dialog/delete-dialog/d
 import { CommonDialogModule } from './common-dialog/common-dialog.module';
 
 @NgModule({
-  declarations: [MenuComponent],
+  declarations: [MenuComponent  ],
   imports: [
     CommonModule,
     MatCardModule,

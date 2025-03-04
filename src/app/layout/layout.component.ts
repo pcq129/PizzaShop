@@ -30,6 +30,16 @@ export class LayoutComponent implements OnInit {
       title: 'Items',
       redirect: 'items',
     },
+    {
+      icon: `restaurant_menu`,
+      title: 'Modifiers',
+      redirect: 'modifiers',
+    },
+    {
+      icon: `restaurant_menu`,
+      title: 'Modifiers Group',
+      redirect: 'modifiergroup',
+    },
     // {
     //   icon: `person_outline`,
     //   title: 'Customers',

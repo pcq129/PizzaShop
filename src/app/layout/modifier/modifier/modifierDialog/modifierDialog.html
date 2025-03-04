@@ -3,47 +3,56 @@
         <p>Add Modifier Details</p>
         <mat-form-field appearance="outline">
             <mat-label>Modifier Name</mat-label>
-            <input matInput [formControl]="name" [(ngModel)]="data.name">
+            <input matInput [formControl]="name" [(ngModel)]="data.name" type="text">
         </mat-form-field>
 
         <mat-form-field appearance="outline">
             <mat-label>Rate</mat-label>
-            <input matInput [formControl]="rate" [(ngModel)]="data.rate">
+            <input matInput [formControl]="rate" [(ngModel)]="data.rate" type="number" min="0">
         </mat-form-field>
 
-        <mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Select Modidfier Group</mat-label>
             <mat-select [formControl]="groupId" [(ngModel)]="data.groupId">
-                <mat-option *ngFor="let a of data.modifierGroupList" value="{{a.id}}"
-                    (click)="clg(a)">{{a.name}}</mat-option>
+                <mat-option *ngFor="let modifierGroup of data.modifierGroupList" [value]="modifierGroup.id">
+                    {{modifierGroup.name}}
+                </mat-option>
             </mat-select>
         </mat-form-field>
 
-        <!-- <mat-form-field appearance="outline">
+        <!-- 
+        <mat-form-field appearance="outline">
             <mat-label>Modifier Name</mat-label>
             <input matInput [(ngModel)]="data.modifierId">
         </mat-form-field> -->
 
         <mat-form-field appearance="outline">
             <mat-label>Modifier Quantity</mat-label>
-            <input [formControl]="quantity" matInput [(ngModel)]="data.quantity">
+            <input [formControl]="quantity" matInput [(ngModel)]="data.quantity" type="number" min="0">
         </mat-form-field>
 
         <mat-form-field appearance="outline">
+            <!-- <mat-label>Modifier Unit</mat-label>
+            <input [formControl]="unit" matInput [(ngModel)]="data.unit"> -->
             <mat-label>Modifier Unit</mat-label>
-            <input [formControl]="unit" matInput [(ngModel)]="data.unit">
+            <mat-select [formControl]="unit" [(ngModel)]="data.unit">
+                <mat-option value="gms">Grams</mat-option>
+                <mat-option value="pcs">Pieces</mat-option>
+
+            </mat-select>
         </mat-form-field>
 
         <mat-form-field appearance="outline">
             <mat-label>Modifier Description</mat-label>
-            <input [formControl]="description" matInput [(ngModel)]="data.description">
+            <input [formControl]="description" matInput [(ngModel)]="data.description" type="text">
         </mat-form-field>
 
 
     </div>
     <div mat-dialog-actions>
-        <button mat-button type="button" (click)="onNoClick()">Cancel</button>
         <button mat-button type="submit" [disabled]="!modifierForm.valid" [mat-dialog-close]="data"
-            cdkFocusInitial>Ok</button>
-        <button (click)="printdata()"></button>
+            cdkFocusInitial>Save</button>
+        <button mat-button type="button" (click)="onNoClick()">Cancel</button>
+        <!-- <button (click)="printdata()"></button> -->
     </div>
 </form>

@@ -22,12 +22,18 @@ export class modifierDialog {
   }
 
   modifierForm = new FormGroup({
-    name: new FormControl(this.data.name, Validators.required),
+    name: new FormControl(this.data.name, [
+      Validators.required,
+      this.whitespaceValidator,
+    ]),
     rate: new FormControl(this.data.rate, Validators.required),
     groupId: new FormControl('', Validators.required),
     quantity: new FormControl(this.data.quantity, Validators.required),
     unit: new FormControl(this.data.unit, Validators.required),
-    description: new FormControl(this.data.description, Validators.required),
+    description: new FormControl(this.data.description, [
+      Validators.required,
+      this.whitespaceValidator,
+    ]),
   });
   name = this.modifierForm.controls.name;
   rate = this.modifierForm.controls.rate;
@@ -38,6 +44,7 @@ export class modifierDialog {
 
   printdata() {
     console.log(
+      this.data,
       this.name.status,
       this.rate.status,
       this.quantity.status,
@@ -46,5 +53,11 @@ export class modifierDialog {
       this.groupId,
       this.modifierForm.status
     );
+  }
+
+  public whitespaceValidator(control: FormControl) {
+    const isWhitespace = (control.value || '').trim().length === 0;
+    const isValid = !isWhitespace;
+    return isValid ? null : { whitespace: true };
   }
 }

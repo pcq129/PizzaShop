@@ -1,10 +1,10 @@
 {
   "items": [
     {
-      "categoryId": "48",
-      "id": 3,
-      "name": "adsfadsf",
-      "description": "adsfadsfa"
+      "categoryId": "50",
+      "id": 5,
+      "name": "Test Item",
+      "description": "dsfdsfdf"
     }
   ],
   "categories": [
@@ -32,6 +32,94 @@
       "id": 48,
       "name": "sadsadfsdfg",
       "description": "sadsadsa"
+    },
+    {
+      "id": 49,
+      "name": "Cat Test Demo 123",
+      "description": "Test Cat"
+    },
+    {
+      "id": 50,
+      "name": "4th march",
+      "description": "Test cat23"
+    }
+  ],
+  "modifierGroup": [
+    {
+      "name": "Demo groupsdfsasdf",
+      "description": "test12tretwretadfadsf",
+      "id": 51,
+      "isSelected": [
+        57
+      ]
+    },
+    {
+      "name": "Size Optionsadfaf",
+      "description": "fgdfgfdgasdfadsfadfadf",
+      "id": 52,
+      "isSelected": [
+        60,
+        58,
+        57
+      ]
+    }
+  ],
+  "modifier": [
+    {
+      "name": "pepperonifadf",
+      "groupId": 51,
+      "modifierId": 55,
+      "quantity": 50,
+      "unit": "pcs",
+      "description": "pepperoni",
+      "rate": 250,
+      "id": 55
+    },
+    {
+      "name": "cheeze",
+      "groupId": 51,
+      "quantity": 32,
+      "unit": "gms",
+      "description": "cheze",
+      "rate": 234,
+      "id": 56
+    },
+    {
+      "name": "March Modifier test1",
+      "groupId": 52,
+      "modifierId": 57,
+      "quantity": 51,
+      "unit": "gms",
+      "description": "dsffdsf1",
+      "rate": 101,
+      "id": 57
+    },
+    {
+      "name": "Small",
+      "groupId": 52,
+      "quantity": 10,
+      "unit": "pcs",
+      "description": "small pieces",
+      "rate": 150,
+      "id": 58
+    },
+    {
+      "name": "Medium",
+      "groupId": 52,
+      "quantity": 20,
+      "unit": "pcs",
+      "description": "medium",
+      "rate": 200,
+      "id": 59
+    },
+    {
+      "name": "Large",
+      "groupId": 52,
+      "quantity": 30,
+      "unit": "pcs",
+      "description": "large p",
+      "rate": 250,
+      "id": 60
     }
   ]
 }

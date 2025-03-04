@@ -11,10 +11,11 @@ import { MatIconModule } from '@angular/material/icon';
 import { modifierDeleteDialog } from './modifier-delete-dialog/modifier-delete-dialog.module';
 import { ModifierGroupComponent } from '../modifier-group/modifier-group.component';
 import { ModifierGroupModule } from '../modifier-group/modifier-group.module';
-import { NameByIdPipe } from 'src/helper/name-by-id.pipe';
+import { SharedModule } from 'src/app/common/common-module.module';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
-  declarations: [ModifierComponent, NameByIdPipe],
+  declarations: [ModifierComponent],
   imports: [
     CommonModule,
     MatButtonModule,
@@ -27,6 +28,7 @@ import { NameByIdPipe } from 'src/helper/name-by-id.pipe';
     ModifierGroupModule,
     MatTableModule,
     MatIconModule,
+    SharedModule,
   ],
   exports: [],
 })

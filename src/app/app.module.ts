@@ -16,6 +16,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonDialogModule } from './layout/menu/common-dialog/common-dialog.module';
 import { ItemsModule } from './layout/items/items.module';
+import { SharedModule } from './common/common-module.module';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   declarations: [AppComponent],
@@ -30,7 +32,9 @@ import { ItemsModule } from './layout/items/items.module';
     HttpClientModule,
     CommonDialogModule,
     MatButtonModule,
-    ItemsModule,
+    SharedModule,
+    MatSelectModule
+    // ItemsModule,
     // MatIconModule,
   ],
   providers: [AuthService],

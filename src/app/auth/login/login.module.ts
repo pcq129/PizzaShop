@@ -8,12 +8,28 @@ import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { LoginFormComponent } from './login-form/login-form.component';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
 import { AuthService } from '../auth.service';
+import { AuthGuard } from 'src/helper/auth.guard';
+
+// const routes: Routes = [
+//   {
+//     path: 'forgot-password',
+//     canActivate: [AuthGuard],
+//     component: ForgotPasswordComponent,
+//     pathMatch: 'full',
+//   },
+//   {
+//     path: '',
+//     canActivate: [AuthGuard],
+//     component: LoginFormComponent,
+//     pathMatch: 'full',
+//   },
+// ];
 
 @NgModule({
   declarations: [
@@ -32,6 +48,7 @@ import { AuthService } from '../auth.service';
     MatButtonModule,
     RouterLink,
     RouterOutlet,
+    // RouterModule.forChild(routes),
     NgbAlertModule,
   ],
   providers: [

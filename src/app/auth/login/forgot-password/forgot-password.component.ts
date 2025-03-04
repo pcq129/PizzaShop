@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-forgot-password',
@@ -9,18 +9,21 @@ import { Router } from '@angular/router';
 })
 export class ForgotPasswordComponent implements OnInit {
   ngOnInit(): void {}
+  constructor(private router: Router){
+
+  }
 
   forgotPassword = new FormGroup({
     email: new FormControl('', [Validators.email, Validators.required]),
   });
 
   onSubmit() {
-    console.log('null');
+    this.router.navigate(['change-password']);
   }
 
   brandLogo = '../../assets/logos/brandLogo.png';
   login = '';
-  redirect() {}
+ 
 
   //material components
   email = this.forgotPassword.controls.email;

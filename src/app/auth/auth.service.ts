@@ -50,8 +50,11 @@ export class AuthService {
 
   LoggedIn() {
     if (localStorage.getItem('isLoggedIn')) {
+      this.router.navigate(['dashboard']);
       return true;
     } else {
+      this.router.navigate(['login']);
+
       return false;
     }
   }

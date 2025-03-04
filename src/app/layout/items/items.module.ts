@@ -17,10 +17,10 @@ import { ItemDialogComponent } from './item-dialog/item-dialog.component';
 import { ItemsService } from 'src/app/_services/items.service';
 import { MatSelectModule } from '@angular/material/select';
 import { CategoryListService } from 'src/app/_services/category-list.service';
-import { NameByIdPipe } from 'src/helper/name-by-id.pipe';
+import { SharedModule } from 'src/app/common/common-module.module';
 
 @NgModule({
-  declarations: [ItemsComponent, ItemDialogComponent, NameByIdPipe],
+  declarations: [ItemsComponent, ItemDialogComponent],
   imports: [
     CommonModule,
     MatCardModule,
@@ -37,8 +37,9 @@ import { NameByIdPipe } from 'src/helper/name-by-id.pipe';
     DeleteDialogModule,
     ReactiveFormsModule,
     MatSelectModule,
+    SharedModule
   ],
-  exports: [ItemsComponent],
-  providers: [ItemsService, CategoryListService],
+  exports: [],
+  providers: [ItemsService, CategoryListService, ],
 })
 export class ItemsModule {}

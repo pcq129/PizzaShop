@@ -34,8 +34,9 @@ export class AuthGuard implements CanActivate {
     // console.log(this.authService.isLoggedIn);
     if (this.authService.isLoggedIn) {
       if (
-        localStorage.getItem('isLoggedIn') &&
-        route.routeConfig?.path == 'login'
+        (localStorage.getItem('isLoggedIn') &&
+          route.routeConfig?.path == 'login') ||
+        route.routeConfig?.path == 'login/forgot-password'
       ) {
         console.log('loginFalse');
         return false;
@@ -43,9 +44,15 @@ export class AuthGuard implements CanActivate {
       console.log('true');
       return true;
     } else {
-      if (!this.authService.isLoggedIn && route.routeConfig?.path == 'login') {
-        console.log('loginTrue');
-        return true;
+      console.log(this.authService.isLoggedIn);
+      if (!this.authService.isLoggedIn) {
+        if (
+          route.routeConfig?.path == 'login' ||
+          route.routeConfig?.path == 'forgot-password'
+        ) {
+          console.log('loginTrue');
+          return true;
+        }
       }
       console.log('false');
       this.router.navigate(['login']);

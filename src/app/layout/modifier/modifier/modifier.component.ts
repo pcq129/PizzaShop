@@ -4,7 +4,6 @@ import { ModifierGroup, Modifier } from 'src/app/common/interfaces/modifier';
 import { modifierDialog } from './modifierDialog/modifierDialog.component';
 import { ModifierService } from 'src/app/_services/modifier.service';
 import { ModifierDeleteDialogComponent } from './modifier-delete-dialog/modifier-delete-dialog.component';
-import { NameByIdPipe } from 'src/helper/name-by-id.pipe';
 
 @Component({
   selector: 'app-modifier',
@@ -111,27 +110,27 @@ export class ModifierComponent implements OnInit {
       width: '350px',
       data: {
         modifierGroupList: this.modifierGroupList,
-        name: this.modifier.name,
-        groupId: this.modifier.groupId,
-        quantity: this.modifier.quantity,
-        unit: this.modifier.unit,
-        description: this.modifier.description,
-        rate: this.modifier.rate,
+        name: '',
+        groupId: 0,
+        quantity: 0,
+        unit: 0,
+        description: '',
+        rate: 0,
       },
     });
-    dialogRef.afterClosed().subscribe((result) => {
-      console.log(result);
-      delete result.modifierGroupList;
-      console.log(result);
 
+    dialogRef.afterClosed().subscribe((result) => {
       if (
+        result &&
         result.name &&
         result.groupId &&
         result.quantity &&
         result.unit &&
-        result.description &&
-        result.rate
+        result.description
       ) {
+        delete result.modifierGroupList;
+
+        console.log('adding');
         this.modifierService.addModifier(result).subscribe(() => {
           this.getModifiers();
         });

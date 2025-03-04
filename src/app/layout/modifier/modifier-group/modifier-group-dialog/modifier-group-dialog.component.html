@@ -11,6 +11,24 @@
             <input matInput [formControl]="description" [(ngModel)]="data.description">
         </mat-form-field>
 
+        <div *ngFor="let modifier of data.containedModifierList">
+            <input type="checkbox" value="true" (change)="onChange(modifier.id, $event.target)"
+                [checked]="isChecked(modifier.id)">
+            <span>{{modifier.name}}</span>
+        </div>
+
+
+        <!-- <section formGroupName="modifiersForm" class="example-section">
+            <h4>Select modifiers:</h4>
+            <p *ngFor="let modifier of data.containedModifierList">
+                <mat-checkbox [value]="modifier.name" [formControl]="modifier.name">{{modifier.name}}</mat-checkbox>
+            </p>
+        </section> -->
+
+        <!-- <checkbox-group [(ngModel)]="selectedItems">
+            <checkbox  *ngFor="let modifier of data.containedModifierList" value="item1">Item 1</checkbox>
+        </checkbox-group> -->
+
 
     </div>
     <div mat-dialog-actions>
