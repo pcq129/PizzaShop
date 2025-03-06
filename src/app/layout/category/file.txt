@@ -16,7 +16,7 @@
 </mat-card> -->
 <div class="titlebar">
     <span>Menu</span>
-    <!-- <button class="addCategory" mat-button (click)="openDialog()">Add Category</button> -->
+    <button class="addCategory" mat-button (click)="openDialog()">Add Category</button>
 </div>
 
 <div class="menuCard">

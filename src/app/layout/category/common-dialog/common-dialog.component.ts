@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { DialogData } from '../menu.component';
+import { DialogData } from '../category.component';
 @Component({
   selector: 'dialog-overview-example-dialog',
   templateUrl: 'common-dialog.component.html',

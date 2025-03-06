@@ -8,7 +8,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
 import { RouterModule } from '@angular/router';
 import { DashboardModule } from './dashboard/dashboard.module';
-import { ModifierModule } from './modifier/modifier/modifier.module';
+import { MenuModule } from './menu/menu.module';
 
 @NgModule({
   declarations: [LayoutComponent],
@@ -21,6 +21,7 @@ import { ModifierModule } from './modifier/modifier/modifier.module';
     MatTableModule,
     RouterModule,
     DashboardModule,
+    MenuModule,
   ],
   exports: [LayoutComponent],
 })

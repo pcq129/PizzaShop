@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { MenuComponent } from './layout/menu/menu.component';
+import { CategoryComponent } from './layout/category/category.component';
 import { ItemsComponent } from './layout/items/items.component';
 import { AuthGuard } from 'src/helper/auth.guard';
 // import { LayoutComponent } from './layout/app.component';
@@ -13,6 +13,7 @@ import { ModifierComponent } from './layout/modifier/modifier/modifier.component
 import { ModifierGroupComponent } from './layout/modifier/modifier-group/modifier-group.component';
 import { LoginFormComponent } from './auth/login/login-form/login-form.component';
 import { AppComponent } from './app.component';
+import { MenuComponent } from './layout/menu/menu.component';
 // import { DashboardComponent } from './app/dashboard/dashboard.component';
 const routes: Routes = [
   // {
@@ -25,9 +26,15 @@ const routes: Routes = [
     path: '',
     canActivate: [AuthGuard],
     component: LayoutComponent,
+    // pathMatch: 'prefix',
     children: [
       {
         path: 'category',
+        canActivate: [AuthGuard],
+        component: CategoryComponent,
+      },
+      {
+        path: 'menu',
         canActivate: [AuthGuard],
         component: MenuComponent,
       },

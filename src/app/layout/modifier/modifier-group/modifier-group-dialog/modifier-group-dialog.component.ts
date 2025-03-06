@@ -7,7 +7,6 @@ import {
 } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Modifier } from 'src/app/common/interfaces/modifier';
-import { DialogData } from 'src/app/layout/menu/menu.component';
 
 @Component({
   selector: 'app-modifier-group-dialog',

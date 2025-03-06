@@ -22,6 +22,11 @@ export class LayoutComponent implements OnInit {
     },
     {
       icon: `restaurant_menu`,
+      title: 'Menu',
+      redirect: 'menu',
+    },
+    {
+      icon: `restaurant_menu`,
       title: 'Categories',
       redirect: 'category',
     },
