@@ -9,9 +9,11 @@ import { MatTableModule } from '@angular/material/table';
 import { RouterModule } from '@angular/router';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { MenuModule } from './menu/menu.module';
+import { MatButtonModule } from '@angular/material/button';
+import { TableComponent } from './table/table.component';
 
 @NgModule({
-  declarations: [LayoutComponent],
+  declarations: [LayoutComponent, TableComponent],
   imports: [
     CommonModule,
     MatSidenavModule,
@@ -22,6 +24,7 @@ import { MenuModule } from './menu/menu.module';
     RouterModule,
     DashboardModule,
     MenuModule,
+    MatButtonModule
   ],
   exports: [LayoutComponent],
 })

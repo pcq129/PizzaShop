@@ -36,7 +36,7 @@ import { CommonDialogModule } from './common-dialog/common-dialog.module';
     ReactiveFormsModule,
     CommonDialogModule,
   ],
-  exports: [],
+  exports: [CategoryComponent],
   providers: [CategoryListService],
 })
 export class CategoryModule {}

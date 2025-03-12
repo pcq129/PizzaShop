@@ -8,7 +8,7 @@ import { MatCard } from '@angular/material/card';
 })
 export class DashboardComponent implements OnInit {
   cardOneData = {
-    imageSource: '../../../src/assets/icons/waiting-time.svg',
+    imageSource: '/assets/icons/waiting-time.svg',
     mainData: 'Rs 1630',
     secondaryData: 'Total Sales',
   };

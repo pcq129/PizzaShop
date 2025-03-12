@@ -39,7 +39,7 @@ import { SharedModule } from 'src/app/common/common-module.module';
     MatSelectModule,
     SharedModule
   ],
-  exports: [],
+  exports: [ItemsComponent],
   providers: [ItemsService, CategoryListService, ],
 })
 export class ItemsModule {}

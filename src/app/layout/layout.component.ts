@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth/auth.service';
-import { Router, ROUTES } from '@angular/router';
+import { Router, RouterLink, ROUTES } from '@angular/router';
 
 interface sidebar {
   icon: any;
@@ -13,7 +13,11 @@ interface sidebar {
   styleUrls: ['./layout.component.scss'],
 })
 export class LayoutComponent implements OnInit {
-  loadComponent(arg0: string) {}
+  constructor(private LS: AuthService, public authService: AuthService, private router: Router) {}
+  loadComponent(arg0: string) {
+    this.router.navigate([arg0]);
+    console.log(event);
+  }
   sideBarItems: sidebar[] = [
     {
       icon: `dashboard`,
@@ -61,7 +65,6 @@ export class LayoutComponent implements OnInit {
     //   redirect: '',
     // },
   ];
-  constructor(private LS: AuthService, public authService: AuthService) {}
 
   ngOnInit(): void {}
 
@@ -69,5 +72,5 @@ export class LayoutComponent implements OnInit {
     this.LS.clear();
   }
 
-  brandLogo = '../../assets/logos/brandLogo.png';
+  brandLogo = '/assets/logos/brandLogo.png';
 }
