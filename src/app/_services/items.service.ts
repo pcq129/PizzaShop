@@ -31,7 +31,7 @@ export class ItemsService {
   // }
 
   getItemList() {
-    return this.http.get(environment.baseURL + `items`);
+    return this.http.get(environment.baseURL + `/items`);
   }
 
   addItem(data: any) {
