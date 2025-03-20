@@ -1,0 +1,20 @@
+.sectionHeader {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+  .titlebar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-weight: 800;
+    font-size: 30px;
+    margin: 15px 15px 15px 15px;
+  }
