@@ -11,6 +11,7 @@ import { DashboardModule } from './dashboard/dashboard.module';
 import { MenuModule } from './menu/menu.module';
 import { MatButtonModule } from '@angular/material/button';
 import { TableComponent } from './table/table.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [LayoutComponent, TableComponent],
@@ -24,7 +25,8 @@ import { TableComponent } from './table/table.component';
     RouterModule,
     DashboardModule,
     MenuModule,
-    MatButtonModule
+    MatButtonModule,
+    HttpClientModule
   ],
   exports: [LayoutComponent],
 })

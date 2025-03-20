@@ -17,24 +17,24 @@ export class CategoryListService {
   categoryList: CategoryInterface[] = [];
 
   getCategoryList() {
-    return this.http.get(environment.baseURL + `categories`);
+    return this.http.get(environment.baseURL + `category`);
   }
 
   addCategory(data: any) {
-    return this.http.post(environment.baseURL + `categories`, data);
+    return this.http.post(environment.baseURL + `category`, data);
   }
 
   removeCategory(id: number) {
-    return this.http.delete(environment.baseURL + `categories` + '/' + id);
+    return this.http.delete(environment.baseURL + `category` + '/' + id);
   }
 
   getSingleCategory(id: number) {
-    return this.http.get(environment.baseURL + `categories` + '/' + id);
+    return this.http.get(environment.baseURL + `category` + '/' + id);
   }
 
   editCategory(element: any) {
     return this.http.put(
-      environment.baseURL + `categories` + '/' + element.id,
+      environment.baseURL + `category` + '/' + element.id,
       element
     );
     // .map((response: Response) => response.json());

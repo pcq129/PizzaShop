@@ -6,6 +6,7 @@ import { ModifierGroupDialogModule } from './modifier-group-dialog/modifier-grou
 import { MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [ModifierGroupComponent],
@@ -15,6 +16,7 @@ import { MatButtonModule } from '@angular/material/button';
     MatTableModule,
     MatIconModule,
     MatButtonModule,
+    HttpClientModule
   ],
 })
 export class ModifierGroupModule {}

@@ -10,28 +10,8 @@ export class ItemsService {
   constructor(private http: HttpClient) {}
   itemList: Items[] = [];
 
-  // getItemList() {
-  //   return (this.itemList = [
-  //     {
-  //       category: 'Pizza',
-  //       name: 'margerita',
-  //       description: 'special cheese',
-  //     },
-  //     {
-  //       category: 'Pizza',
-  //       name: '7 cheese',
-  //       description: 'special cheese',
-  //     },
-  //     {
-  //       category: 'Burger',
-  //       name: 'VegBun',
-  //       description: 'special cheese',
-  //     },
-  //   ]);
-  // }
-
   getItemList() {
-    return this.http.get(environment.baseURL + `/items`);
+    return this.http.get(environment.baseURL + `items`);
   }
 
   addItem(data: any) {
@@ -43,11 +23,11 @@ export class ItemsService {
   }
 
   removeItem(data: any) {
-    return this.http.delete(environment.baseURL + `items` + '/' + data.id);
+    return this.http.delete(environment.baseURL + `items`,data);
   }
 
   removeItemById(id: any) {
-    return this.http.delete(environment.baseURL + `items` + '/' + id);
+    return this.http.delete(environment.baseURL + `items`, id);
   }
   removeItemAll() {
     // console.log(this.data);

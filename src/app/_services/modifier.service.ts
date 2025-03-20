@@ -11,14 +11,14 @@ export class ModifierService {
   }
   deleteModifier(modifierId: any) {
     return this.http.delete(
-      environment.baseURL + `modifier` + '/' + modifierId
+      environment.baseURL + `modifier`, modifierId
     );
   }
   constructor(private http: HttpClient) {}
 
   editModifier(data: Modifier) {
     return this.http.put(
-      environment.baseURL + `modifier` + '/' + data.modifierId,
+      environment.baseURL + `modifier`,
       data
     );
   }
@@ -30,23 +30,22 @@ export class ModifierService {
   //services for modifiergroups
 
   getModifierGroups() {
-    return this.http.get(environment.baseURL + `modifierGroup`);
+    return this.http.get(environment.baseURL + `modifier-group`);
   }
 
   editModifierGroup(data: ModifierGroup) {
     return this.http.put(
-      environment.baseURL + `modifierGroup` + '/' + data.id,
+      environment.baseURL + `modifier-group`,
       data
     );
   }
 
   addModifierGroup(data: any) {
-    return this.http.post(environment.baseURL + `modifierGroup`, data);
+    return this.http.post(environment.baseURL + `modifier-group`, data);
   }
 
   deleteModifierGroup(modifierId: any) {
     return this.http.delete(
-      environment.baseURL + `modifierGroup` + '/' + modifierId
-    );
+      environment.baseURL + `modifier-group`);
   }
 }

@@ -6,6 +6,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
 import { MatFormField } from '@angular/material/form-field';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [UsersComponent],
@@ -16,6 +17,7 @@ import { MatFormField } from '@angular/material/form-field';
     MatIconModule,
     MatTableModule,
     MatButtonModule,
+    HttpClientModule
   ],
 })
 export class UsersModule {}
