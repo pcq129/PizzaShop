@@ -10,20 +10,26 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root',
 })
 export class AuthService {
-  access_token: string|null = localStorage.getItem('access_token');
 
-
-  isLoggedIn = new BehaviorSubject<boolean>(this.hasToken());
-  private hasToken(): boolean {
-    return !!localStorage.getItem('access_token');
+  getToken(){
+    return localStorage.getItem('access_token');
   }
 
-  // private isLoggedIn = true;
-  // boolean = this.checkLoggedIn(this.access_token!);
+  access_token: string | null = this.getToken();
+
+  // solution of login session ending on refresh by senior
+  // isLoggedIn = new BehaviorSubject<boolean>(this.hasToken());
+  // private hasToken(): boolean {
+  //   return !!localStorage.getItem('access_token');
+  // }
+
+  //test implementation
+  isLoggedIn: boolean = this.checkLoggedIn(this.access_token!);
 
   handleLogin(data: any) {
-      this.setItem('access_token', data.access_token);
-      this.isLoggedIn.next(true);
+    this.isLoggedIn = true;
+    this.setItem('access_token', data.access_token);
+    // this.isLoggedIn.next(true);
     // this.setItem('userId', email);
     // this.setItem('isLoggedIn', 'true');
     this.router.navigate(['dashboard']);
@@ -41,8 +47,6 @@ export class AuthService {
     return this.http.post(environment.baseURL + `login`, data);
   }
 
-
-
   setItem(key: any, value: any = false) {
     let encryptedValue = CryptoJS.AES.encrypt(
       JSON.stringify(value),
@@ -56,9 +60,9 @@ export class AuthService {
     this.router.navigate(['login']);
   }
 
-
   checkLoggedIn(token: string) {
-    debugger;
+    console.log('checkedLoggedIn');
+
     if (localStorage.getItem('access_token') && this.checkValidity(token)) {
       this.router.navigate(['dashboard']);
       return true;
@@ -68,30 +72,39 @@ export class AuthService {
     }
   }
 
-  checkValidity(token :string): any {
-    let validity : boolean =false;
+  // createLoginAuthorizationHeader() {
+  //   let headers = new HttpHeaders();
+  //   headers = headers.append('X-Authentication', this.UserInfo.Token);
+  //   headers = headers.append('Content-Type', 'application/json');
+  //   return headers;
+  // }
+
+  checkValidity(token: string) {
+    console.log('checkValdity');
     let httpHeaders = new HttpHeaders({
-      Authorization: `Bearer ${token}`,
+      Authorization: `Bearer ${this.access_token}`,
     });
     console.log(httpHeaders);
     console.log(token);
 
+    return this.http.post(
+      environment.baseURL + `me`,
+      {},
+      { headers: httpHeaders }
+    );
 
-    let data = this.http.post(environment.baseURL + `me`, {headers: httpHeaders}).subscribe((res)=>{
-      console.log(res);
-      console.log(validity);
-      if (data) {
-        // debugger;
-        // console.log(data);
-        validity = true;
-      } else {
-        validity = false;
-        debugger;
-      }
-      console.log(validity);
+    // .subscribe((res)=>{
+    //   console.log(res);
+    //   console.log(validity);
+    //   if (data) {
+    //     console.log(data);
+    //     validity = true;
+    //   } else {
+    //     validity = false;
+    //   }
+    //   console.log(validity);
+    //   debugger;
 
-    });
-
-    // return validity;
+    // });
   }
 }

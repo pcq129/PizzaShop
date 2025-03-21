@@ -71,19 +71,21 @@ export class LoginFormComponent implements OnInit {
 
     console.log(email, password);
     if (email && password) {
-      this.authService.checkCredentials(email!, password!).subscribe((res)=>{
-        this.userCredentials = res;
-        console.log(res);
-        if(this.userCredentials.error){
-          this.alertState = true;
-          setTimeout(() => {
-            this.alertState = false;
-          }, 2000);
-        }
-        else{
-          this.authService.handleLogin(this.userCredentials);
-        }
-      })
+      try {
+        this.authService.checkCredentials(email!, password!).subscribe((res: any)=>{
+          this.userCredentials = res;
+          console.log(res);
+          if(res.status){
+            console.log(res.status);
+          }
+          else{
+            this.authService.handleLogin(this.userCredentials);
+          }
+        })
+      } catch (error) {
+        console.log(error);
+      }
+
     } else {
 
     }
