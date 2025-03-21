@@ -20,6 +20,8 @@ import { ItemsModule } from './layout/items/items.module';
 import { SharedModule } from './common/common-module.module';
 import { MatSelectModule } from '@angular/material/select';
 import { HeadersInterceptor } from './headers.interceptor';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+
 
 @NgModule({
   declarations: [AppComponent],
@@ -36,8 +38,8 @@ import { HeadersInterceptor } from './headers.interceptor';
     MatButtonModule,
     SharedModule,
     MatSelectModule,
-    // ItemsModule,
-    // MatIconModule,
+    MatSnackBarModule,
+    MatIconModule,
   ],
   providers: [AuthService, {
     provide: HTTP_INTERCEPTORS, useClass: LoggingInterceptor, multi: true

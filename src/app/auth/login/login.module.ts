@@ -12,9 +12,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginFormComponent } from './login-form/login-form.component';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterLink, RouterOutlet } from '@angular/router';
-import { NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
 import { AuthService } from '../../_services/auth.service';
-import { AuthGuard } from 'src/helper/auth.guard';
 
 // const routes: Routes = [
 //   {
@@ -48,8 +46,7 @@ import { AuthGuard } from 'src/helper/auth.guard';
     MatButtonModule,
     RouterLink,
     RouterOutlet,
-    // RouterModule.forChild(routes),
-    NgbAlertModule,
+    // RouterModule.forChild(routes)
   ],
   providers: [
     {

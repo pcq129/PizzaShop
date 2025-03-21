@@ -3,6 +3,8 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NgFor } from '@angular/common';
 import { AuthService } from '../../../_services/auth.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { SnackbarService } from 'src/app/snackbar.service';
 
 interface Alert {
   type: string;
@@ -13,7 +15,6 @@ let invalidCredentials: Alert = {
   type: 'danger',
   message: 'Invalid credentials',
 };
-
 
 @Component({
   selector: 'login-Form',
@@ -32,7 +33,7 @@ export class LoginFormComponent implements OnInit {
 
   //regular component
   hide: boolean = true;
-  constructor(private router: Router, private authService: AuthService) {
+  constructor(private snackbar: SnackbarService,private _snackBar: MatSnackBar, private router: Router, private authService: AuthService) {
     const url = router.url;
     // console.log(url);
   }
@@ -71,23 +72,26 @@ export class LoginFormComponent implements OnInit {
 
     console.log(email, password);
     if (email && password) {
-      try {
-        this.authService.checkCredentials(email!, password!).subscribe((res: any)=>{
+      this.authService
+        .checkCredentials(email!, password!)
+        .subscribe((res: any) => {
           this.userCredentials = res;
           console.log(res);
-          if(res.status){
+          if (res.error) {
             console.log(res.status);
-          }
-          else{
+          } else {
             this.authService.handleLogin(this.userCredentials);
           }
-        })
-      } catch (error) {
-        console.log(error);
-      }
+        }, (error)=>{
+          //   this.alertState = true;
+          // setTimeout(() => {
+          //   this.alertState = false;
+          // }, 2000)
+          this.snackbar.error('Login failed');
 
+
+        });
     } else {
-
     }
   }
 }
