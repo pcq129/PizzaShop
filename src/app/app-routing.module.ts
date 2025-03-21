@@ -52,7 +52,7 @@ const routes: Routes = [
       {
         path: 'dashboard',
         canActivate: [AuthGuard],
-        component: MenuComponent,
+        component: DashboardComponent,
         pathMatch: 'full',
       },
       {

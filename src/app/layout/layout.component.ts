@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../auth/auth.service';
+import { AuthService } from '../_services/auth.service';
 import { Router, RouterLink, ROUTES } from '@angular/router';
 
 interface sidebar {

@@ -7,9 +7,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoginModule } from './auth/login/login.module';
 import { LayoutModule } from './layout/layout.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { AuthService } from './auth/auth.service';
-import { HttpClientModule } from '@angular/common/http';
+import { AuthService } from './_services/auth.service';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { CategoryModule } from './layout/category/category.module';
+import { LoggingInterceptor } from './logging.interceptor';
 
 // import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
@@ -18,6 +19,7 @@ import { CommonDialogModule } from './layout/category/common-dialog/common-dialo
 import { ItemsModule } from './layout/items/items.module';
 import { SharedModule } from './common/common-module.module';
 import { MatSelectModule } from '@angular/material/select';
+import { HeadersInterceptor } from './headers.interceptor';
 
 @NgModule({
   declarations: [AppComponent],
@@ -37,7 +39,12 @@ import { MatSelectModule } from '@angular/material/select';
     // ItemsModule,
     // MatIconModule,
   ],
-  providers: [AuthService],
+  providers: [AuthService, {
+    provide: HTTP_INTERCEPTORS, useClass: LoggingInterceptor, multi: true
+  }, {
+    provide: HTTP_INTERCEPTORS, useClass: HeadersInterceptor, multi: true
+  }
+],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

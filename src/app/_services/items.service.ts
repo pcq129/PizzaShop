@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Items } from '../common/interfaces/items-interface.data';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -14,7 +15,7 @@ export class ItemsService {
     return this.http.get(environment.baseURL + `items`);
   }
 
-  addItem(data: any) {
+  addItem(data: any):Observable<any> {
     return this.http.post(environment.baseURL + `items`, data);
   }
 

@@ -15,6 +15,7 @@ import { DialogComponent } from './common-dialog/common-dialog.component';
 import { DeleteDialogComponent } from 'src/app/common/delete-dialog/delete-dialog/delete-dialog.component';
 import { MatIcon } from '@angular/material/icon';
 import { ItemsService } from 'src/app/_services/items.service';
+import { clippingParents } from '@popperjs/core';
 
 export interface DialogData {
   id: number;
@@ -35,8 +36,7 @@ export class CategoryComponent implements OnInit, OnChanges {
     private itemService: ItemsService
   ) {}
   ngOnChanges(changes: SimpleChanges): void {}
-
-  categories: any;
+  categories:any;
   ngOnInit(): void {
     this.getCatList();
     // this.itemsList.getItemList().subscribe((res) => {
@@ -45,8 +45,11 @@ export class CategoryComponent implements OnInit, OnChanges {
   }
 
   getCatList() {
-    this.categoryList.getCategoryList().subscribe((res) => {
-      this.categories = res;
+    this.categoryList.getCategoryList().subscribe((Response) => {
+      console.log(Response);
+
+
+      this.categories = Response;
       // console.log(this.categories);
       // this.ngOnInit();
     });

@@ -2,17 +2,18 @@ import { Component, OnInit, Output } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NgFor } from '@angular/common';
-import { AuthService } from '../../auth.service';
+import { AuthService } from '../../../_services/auth.service';
 
 interface Alert {
   type: string;
   message: string;
 }
 
-let ALERTS: Alert = {
+let invalidCredentials: Alert = {
   type: 'danger',
   message: 'Invalid credentials',
 };
+
 
 @Component({
   selector: 'login-Form',
@@ -21,8 +22,7 @@ let ALERTS: Alert = {
 })
 export class LoginFormComponent implements OnInit {
   generateAlert(): any {}
-  alerts: any = ALERTS;
-  //ngx bootstrap
+  alerts: any = invalidCredentials;
 
   close(alert: Alert) {
     this.alerts.splice(this.alerts.indexOf(alert), 1);
@@ -63,26 +63,29 @@ export class LoginFormComponent implements OnInit {
     return this.email.hasError('email') ? 'Not a valid email' : '';
   }
 
-  userCredentials: any = {
-    email: 'user@user.com',
-    password: '123456',
-  };
+  userCredentials: any = null;
 
   onSubmit() {
     let email = this.email.value;
     let password = this.password.value;
+
     console.log(email, password);
-    if (this.authService.checkCredentials(email!, password!)) {
-      this.authService.handleLogin();
-      // this.authService.isLoggedIn = true;
-      // this.authService.setItem('userId', email);
-      // this.authService.setItem('isLoggedIn', 'true');
-      // this.router.navigateByUrl('dashboard');
+    if (email && password) {
+      this.authService.checkCredentials(email!, password!).subscribe((res)=>{
+        this.userCredentials = res;
+        console.log(res);
+        if(this.userCredentials.error){
+          this.alertState = true;
+          setTimeout(() => {
+            this.alertState = false;
+          }, 2000);
+        }
+        else{
+          this.authService.handleLogin(this.userCredentials);
+        }
+      })
     } else {
-      this.alertState = true;
-      setTimeout(() => {
-        this.alertState = false;
-      }, 2000);
+
     }
   }
 }

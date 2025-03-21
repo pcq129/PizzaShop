@@ -21,7 +21,7 @@
         </mat-card-actions>
     </div>
     <mat-card-content>
-        <table mat-table [dataSource]="categories" class="mat-elevation-z8">
+        <table mat-table [dataSource]="categories.data" class="mat-elevation-z8">
             <ng-container matColumnDef="name">
                 <th mat-header-cell *matHeaderCellDef> Name </th>
                 <td mat-cell *matCellDef="let element"> {{element.name}} </td>
