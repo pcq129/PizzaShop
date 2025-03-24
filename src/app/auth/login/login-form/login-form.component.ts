@@ -76,20 +76,16 @@ export class LoginFormComponent implements OnInit {
         .checkCredentials(email!, password!)
         .subscribe((res: any) => {
           this.userCredentials = res;
+          this.snackbar.success("Login Successful");
           console.log(res);
-          if (res.error) {
-            console.log(res.status);
-          } else {
-            this.authService.handleLogin(this.userCredentials);
-          }
+          this.authService.handleLogin(this.userCredentials);
         }, (error)=>{
           //   this.alertState = true;
           // setTimeout(() => {
           //   this.alertState = false;
           // }, 2000)
-          this.snackbar.error('Login failed');
-
-
+          console.log(error);
+          this.snackbar.error(error.error.error);
         });
     } else {
     }

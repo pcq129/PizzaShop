@@ -5,9 +5,10 @@ mat-drawer-container{
 }
 
 mat-drawer{
-    width: 15%;
+    width: 270px;
     display: flex;
-    justify-content: center;
+    justify-content: start;
+    align-items: center;
 }
 
 .brandLogo{
@@ -31,3 +32,4 @@ mat-drawer{
 .navItem{
   width: 100%;
 }
+  

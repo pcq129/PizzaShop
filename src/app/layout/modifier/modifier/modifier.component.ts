@@ -20,10 +20,21 @@ export class ModifierComponent implements OnInit {
     private modifierService: ModifierService
   ) {}
 
+
+  // exemplery data
+  //           "modifier_group_id": 5,
+  //           "name": "test modifier",
+  //           "rate": 33,
+  //           "unit": "pieces",
+  //           "quantity": 5,
+  //           "description": "for testin purposes",
+  //           "modifier_group": {
+  //               "name": "test modifier Group2"
+  //           }
   displayedColumns: string[] = [
     'item',
     'description',
-    'group',
+    'modifier_group',
     'rate',
     'unit',
     'quantity',
@@ -35,15 +46,15 @@ export class ModifierComponent implements OnInit {
   modifierList: any;
   modifierGroupList: any;
   getModifiersList() {
-    this.modifierService.getModifierGroups().subscribe((res) => {
+    this.modifierService.getModifierGroupList().subscribe((res) => {
       console.log(res);
-      this.modifierGroupList = res;
+      this.modifierGroupList= res;
     });
   }
   getModifiers() {
-    this.modifierService.getModifier().subscribe((res) => {
+    this.modifierService.getModifier().subscribe((res:any) => {
       console.log(res);
-      this.modifierList = res;
+      this.modifierList = res.data;
     });
   }
 

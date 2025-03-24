@@ -13,9 +13,10 @@ import {
 } from '@angular/material/dialog';
 import { DialogComponent } from './common-dialog/common-dialog.component';
 import { DeleteDialogComponent } from 'src/app/common/delete-dialog/delete-dialog/delete-dialog.component';
-import { MatIcon } from '@angular/material/icon';
-import { ItemsService } from 'src/app/_services/items.service';
-import { clippingParents } from '@popperjs/core';
+// import { MatIcon } from '@angular/material/icon';
+// import { ItemsService } from 'src/app/_services/items.service';
+// import { clippingParents } from '@popperjs/core';
+import { SnackbarService } from 'src/app/_services/snackbar.service';
 
 export interface DialogData {
   id: number;
@@ -33,21 +34,22 @@ export class CategoryComponent implements OnInit, OnChanges {
   constructor(
     public dialog: MatDialog,
     private categoryList: CategoryListService,
-    private itemService: ItemsService
+    private snackbar: SnackbarService
   ) {}
-  ngOnChanges(changes: SimpleChanges): void {}
-  categories:any;
+  ngOnChanges(): void {}
+  categories: any;
   ngOnInit(): void {
-    this.getCatList();
+    let data = this.getCatList();
+    this.categories =data;
     // this.itemsList.getItemList().subscribe((res) => {
     //   this.items = res;
     // });
   }
 
   getCatList() {
-    this.categoryList.getCategoryList().subscribe((Response) => {
+    this.categoryList.getCategoryData().subscribe(
+      (Response) => {
       console.log(Response);
-
 
       this.categories = Response;
       // console.log(this.categories);
@@ -74,18 +76,8 @@ export class CategoryComponent implements OnInit, OnChanges {
 
   //api interaction
   deleteCategory(id: number) {
-    let category;
-    let categoryname = this.categoryList
-      .getSingleCategory(id)
-      .subscribe((res) => {
-        category = res;
-        console.log(res);
-        // this.itemService.removeItemOnCategoryDelete(res);
-        // this.itemService.removeItemOnCategoryDelete(res);
-      });
-    // console.log(res);
-
     this.categoryList.removeCategory(id).subscribe((res) => {
+      this.snackbar.success('Category deleted successfully');
       this.getCatList();
     });
   }
@@ -123,10 +115,16 @@ export class CategoryComponent implements OnInit, OnChanges {
       description: category.description,
     };
     if (data.name.length > 0 && data.description.length > 0) {
-      this.categoryList.addCategory(data).subscribe((res) => {
-        console.log(res);
-
+      this.categoryList.addCategory(data).subscribe((res:any) => {
+        if(res.success === 'false'){
+          for(const[key,value] of Object.entries(res.message)){
+            this.snackbar.error(`${value}`);
+          }
+        }
+       else{
+        this.snackbar.success('Category added successfully');
         this.getCatList();
+       }
       });
     } else {
       console.log('empty values');
@@ -160,9 +158,16 @@ export class CategoryComponent implements OnInit, OnChanges {
 
   //api interaction
   editCategory(element: object) {
-    this.categoryList.editCategory(element).subscribe((res) => {
-      console.log(res);
+    this.categoryList.editCategory(element).subscribe((res: any) => {
+      if(res.success === 'false'){
+        for(const[key,value] of Object.entries(res.message)){
+          this.snackbar.error(`${value}`);
+        }
+      }
+     else{
+      this.snackbar.success('Category updated successfully');
       this.getCatList();
+     }
     });
   }
 }

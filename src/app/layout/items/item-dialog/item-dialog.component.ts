@@ -25,18 +25,7 @@ export class ItemDialogComponent implements OnInit {
     private categoryList: CategoryListService
   ) {}
 
-  onNoClick(): void {
-    this.dialogRef.close();
-  }
-
   categories: any;
-
-  getCatList() {
-    this.categoryList.getCategoryList().subscribe((res) => {
-      this.categories = res;
-      // this.ngOnInit();
-    });
-  }
 
   dataForm = new FormGroup({
     name: new FormControl(this.data.name, [
@@ -53,10 +42,19 @@ export class ItemDialogComponent implements OnInit {
   name = this.dataForm.controls.name;
   description = this.dataForm.controls.description;
   categoryId = this.dataForm.controls.categoryId;
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
 
   public whitespaceValidator(control: FormControl) {
     const isWhitespace = (control.value || '').trim().length === 0;
     const isValid = !isWhitespace;
     return isValid ? null : { whitespace: true };
+  }
+
+  getCatList() {
+    this.categoryList.getCategoryList().subscribe((res) => {
+      this.categories = res;
+    });
   }
 }

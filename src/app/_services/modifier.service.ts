@@ -29,8 +29,12 @@ export class ModifierService {
 
   //services for modifiergroups
 
-  getModifierGroups() {
+  getModifierGroupsData() {
     return this.http.get(environment.baseURL + `modifier-group`);
+  }
+
+  getModifierGroupList(){
+    return this.http.get(environment.baseURL + `modifier-group-list`);
   }
 
   editModifierGroup(data: ModifierGroup) {

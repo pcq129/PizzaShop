@@ -1,41 +1,41 @@
 import { Injectable } from '@angular/core';
 import { Items } from '../common/interfaces/items-interface.data';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ItemsService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private authservice : AuthService) {}
   itemList: Items[] = [];
 
+  access_token = this.authservice.getToken();
+
+  httpHeaders = new HttpHeaders({
+    Authorization: `Bearer ${this.access_token}`,
+  });
+
   getItemList() {
-    return this.http.get(environment.baseURL + `items`);
+    return this.http.get(environment.baseURL + `items`,{ headers : this.httpHeaders});
   }
 
   addItem(data: any):Observable<any> {
-    return this.http.post(environment.baseURL + `items`, data);
+    return this.http.post(environment.baseURL + `items`, data,{ headers : this.httpHeaders});
   }
 
   addItemList(data: any) {
-    return this.http.put(environment.baseURL + `items`, data);
+    return this.http.put(environment.baseURL + `items`, data,{ headers : this.httpHeaders});
   }
 
-  removeItem(data: any) {
-    return this.http.delete(environment.baseURL + `items`,data);
+  removeItem(id : number) {
+    return this.http.delete(environment.baseURL + `items/` + id,{ headers : this.httpHeaders});
   }
 
   removeItemById(id: any) {
-    return this.http.delete(environment.baseURL + `items`, id);
-  }
-  removeItemAll() {
-    // console.log(this.data);
-    const postsIdsArray = this.data.map((post: any) => post.id);
-    // console.log(postsIdsArray);
-    postsIdsArray.forEach((elem: any) => this.removeItemById(elem).subscribe());
-    // return this.http.delete(environment.baseURL + 'items');
+    return this.http.delete(environment.baseURL + `items`,{ headers : this.httpHeaders});
   }
 
   editItem(element: any) {
@@ -44,26 +44,5 @@ export class ItemsService {
       element
     );
   }
-
-  DeleteInsert(input: any) {
-    console.log(input);
-    this.removeItemAll();
-    input.array.forEach((dataPoint: any) => {
-      this.addItem(dataPoint);
-      console.log(dataPoint);
-    });
-  }
   data: any;
-
-  removeItemOnCategoryDelete(category: any) {
-    this.getItemList().subscribe((res: any) => {
-      this.data = res;
-      const data = res.filter((t: any) => t.category != category.name);
-      console.log(data);
-      this.DeleteInsert(data);
-      // this.addItemList(data).subscribe((res) => {
-      //   console.log(res);
-      // });
-    });
-  }
 }

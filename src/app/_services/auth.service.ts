@@ -35,9 +35,6 @@ export class AuthService {
     this.router.navigate(['dashboard']);
   }
   constructor(private router: Router, private http: HttpClient) {}
-  secretKey = '1234';
-  id = 'user@user.com';
-  password = '123456';
 
   checkCredentials(email: string, password: string) {
     let data = {
@@ -48,11 +45,7 @@ export class AuthService {
   }
 
   setItem(key: any, value: any = false) {
-    let encryptedValue = CryptoJS.AES.encrypt(
-      JSON.stringify(value),
-      this.secretKey
-    ).toString();
-    localStorage.setItem(key, encryptedValue);
+    localStorage.setItem(key, value);
   }
 
   clear() {
@@ -61,7 +54,6 @@ export class AuthService {
   }
 
   checkLoggedIn(token: string) {
-    console.log('checkedLoggedIn');
 
     if (localStorage.getItem('access_token') && this.checkValidity(token)) {
       this.router.navigate(['dashboard']);
@@ -79,6 +71,8 @@ export class AuthService {
   //   return headers;
   // }
 
+
+
   checkValidity(token: string) {
     let httpHeaders = new HttpHeaders({
       Authorization: `Bearer ${this.access_token}`,
@@ -86,9 +80,8 @@ export class AuthService {
     console.log(httpHeaders);
     console.log(token);
 
-    return this.http.post(
+    return this.http.get(
       environment.baseURL + `me`,
-      {},
       { headers: httpHeaders }
     );
 

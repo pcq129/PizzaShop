@@ -8,6 +8,8 @@ import { DeleteDialogComponent } from 'src/app/common/delete-dialog/delete-dialo
 import { single } from 'rxjs';
 import { CategoryInterface } from 'src/app/common/interfaces/category-interface.data';
 import { CategoryListService } from 'src/app/_services/category-list.service';
+import { LoggingInterceptor } from 'src/app/logging.interceptor';
+import { SnackbarService } from 'src/app/_services/snackbar.service';
 
 @Component({
   selector: 'app-items',
@@ -15,12 +17,41 @@ import { CategoryListService } from 'src/app/_services/category-list.service';
   styleUrls: ['./items.component.scss'],
 })
 export class ItemsComponent implements OnInit {
-  fetchCategoryName(arg0: any) {
-    const item = this.categoryList.find((category: any) => category.id == arg0);
-    return item.name;
+  constructor(
+    private itemService: ItemsService,
+    private dialog: MatDialog,
+    private categoryService: CategoryListService,
+    private snackbarservice: SnackbarService,
+  ) {
   }
 
-  categoryList: any;
+  ngOnInit(): void {
+    this.getItems();
+    // this.getCategories();
+  }
+  items: any;
+
+  getItems() {
+    this.itemService.getItemList().subscribe((res:any) => {
+      this.items = res.data;
+      console.log(this.items);
+    });
+  }
+
+  //exemplery data from api
+// {
+//   "id": 3,
+//   "name": "testIte3m",
+//   "description": "testItem3",
+//   "category_id": 50,
+//   "quantity": 2,
+//   "rate": 45,
+//   "tax": 15,
+//   "category": {
+//       "id": 50,
+//       "name": "Pidizza"
+//   }
+// },
 
   deletePopup(id: any): void {
     const dialogRef = this.dialog.open(DeleteDialogComponent, {
@@ -29,9 +60,9 @@ export class ItemsComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      console.log(result);
+      let id = result.id;
       // this.id.id = result;
-      this.removeItem(result);
+      this.removeItem(id);
     });
   }
   editPopup(element: any) {
@@ -40,7 +71,7 @@ export class ItemsComponent implements OnInit {
       width: '250px',
       data: {
         id: element.id,
-        categoryId: element.categoryId,
+        categoryId: element.category_id,
         name: element.name,
         // category: element.category,
         description: element.description,
@@ -52,33 +83,21 @@ export class ItemsComponent implements OnInit {
       this.editItems(result);
     });
   }
-  constructor(
-    private itemService: ItemsService,
-    private dialog: MatDialog,
-    private categoryService: CategoryListService
-  ) {
-    this.getCategories();
-  }
 
-  ngOnInit(): void {
-    this.getItems();
-    // this.getCategories();
-  }
-  items: any;
-  getItems() {
-    this.itemService.getItemList().subscribe((res) => {
-      this.items = res;
-    });
-  }
-  getCategories() {
-    this.categoryService.getCategoryList().subscribe((res) => {
-      this.categoryList = res;
-    });
-  }
+
+
+  // getCategories() {
+  //   this.categoryService.getCategoryList().subscribe((res) => {
+  //     this.categoryList = res;
+  //   });
+  // }
   displayedColumns: string[] = [
     'item',
     'description',
     'category',
+    'quantity',
+    'rate',
+    'tax',
     'edit',
     'delete',
   ];
@@ -88,7 +107,7 @@ export class ItemsComponent implements OnInit {
   //   category: '',
   //   description: '',
   // };
-  openDialog(): void {
+  addItemPopup(): void {
     let singleItem = {
       categoryId: '',
       id: '',
@@ -100,7 +119,7 @@ export class ItemsComponent implements OnInit {
       width: '250px',
       data: {
         categoryId: singleItem.categoryId,
-        id: singleItem.id,
+        // id: singleItem.id,
         name: singleItem.name,
         // category: singleItem.category,
         description: singleItem.description,
@@ -129,9 +148,11 @@ export class ItemsComponent implements OnInit {
     });
   }
 
-  removeItem(Item: Items) {
-    this.itemService.removeItem(Item).subscribe((res) => {
-      console.log(res);
+  removeItem(id: number) {
+    console.log(id);
+
+    this.itemService.removeItem(id).subscribe((res) => {
+      this.snackbarservice.success('Item deleted successfully')
       this.getItems();
     });
   }
