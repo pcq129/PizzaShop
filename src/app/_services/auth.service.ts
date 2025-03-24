@@ -80,7 +80,6 @@ export class AuthService {
   // }
 
   checkValidity(token: string) {
-    console.log('checkValdity');
     let httpHeaders = new HttpHeaders({
       Authorization: `Bearer ${this.access_token}`,
     });

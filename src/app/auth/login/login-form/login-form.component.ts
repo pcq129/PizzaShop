@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { NgFor } from '@angular/common';
 import { AuthService } from '../../../_services/auth.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { SnackbarService } from 'src/app/snackbar.service';
+import { SnackbarService } from 'src/app/_services/snackbar.service';
 
 interface Alert {
   type: string;
