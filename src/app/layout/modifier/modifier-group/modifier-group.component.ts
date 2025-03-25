@@ -22,6 +22,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ModifierGroupDialogComponent } from './modifier-group-dialog/modifier-group-dialog.component';
 import { ModifierDeleteDialogComponent } from '../modifier/modifier-delete-dialog/modifier-delete-dialog.component';
 import { filter } from 'rxjs';
+import { SnackbarService } from 'src/app/_services/snackbar.service';
 
 @Component({
   selector: 'app-modifier-group',
@@ -31,7 +32,8 @@ import { filter } from 'rxjs';
 export class ModifierGroupComponent implements OnInit {
   constructor(
     public dialog: MatDialog,
-    private modifierService: ModifierService
+    private modifierService: ModifierService,
+    private snackbarservice :SnackbarService
   ) {}
 
 //   {
@@ -65,37 +67,48 @@ export class ModifierGroupComponent implements OnInit {
     isSelected: [0],
   };
 
-  groupedModifierList(id: number, modifierlist: any) {
-    const x = modifierlist.filter((el: any) => {
-      return el.groupId == id;
-    });
-    return x;
-  }
+  // groupedModifierList(id: number, modifierlist: any) {
+  //   const x = modifierlist.filter((el: any) => {
+  //     return el.groupId == id;
+  //   });
+  //   return x;
+  // }
 
-  openDialog(modifierGroup: ModifierGroup): void {
-    this.modifierGroup.id = modifierGroup.id;
+  //editing modifier group
+  editPopup(modifierGroup: ModifierGroup): void {
     this.modifierGroup.name = modifierGroup.name;
     this.modifierGroup.description = modifierGroup.description;
     console.log(modifierGroup);
+    let id= modifierGroup.id;
 
     const dialogRef = this.dialog.open(ModifierGroupDialogComponent, {
       width: '350px',
       data: {
         name: modifierGroup.name,
         description: modifierGroup.description,
-        id: modifierGroup.id,
-        containedModifierList: this.groupedModifierList(
-          modifierGroup.id,
-          this.modifierList
-        ),
+        // containedModifierList: this.groupedModifierList(
+        //   modifierGroup.id,
+        //   this.modifierList
+        // ),
         isSelected: modifierGroup.isSelected,
       },
     });
     dialogRef.afterClosed().subscribe((result) => {
       delete result.containedModifierList;
+      result.id = id;
+      console.log(result);
 
-      this.modifierService.editModifierGroup(result).subscribe(() => {
-        this.getModifiersGroup();
+
+      this.modifierService.editModifierGroup(result).subscribe((res:any) => {
+        if(res.status === "false"){
+          for(const[key,value] of Object.entries(res.message)){
+            this.snackbarservice.error(`${value}`);
+          }
+        }
+        else{
+          this.snackbarservice.success('Modifier Group updated successfully')
+          this.getModifiersGroup();
+        }
       });
     });
   }
@@ -113,13 +126,24 @@ export class ModifierGroupComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {
       console.log(result);
       if (result.name && result.description) {
-        this.modifierService.addModifierGroup(result).subscribe((res) => {
-          console.log(res);
-          this.getModifiersGroup();
+        this.modifierService.addModifierGroup(result).subscribe((res:any) => {
+          if(res.status === "false"){
+            for(const[key,value] of Object.entries(res.message)){
+              this.snackbarservice.error(`${value}`);
+            }
+          }
+          else{
+            this.snackbarservice.success('Modifier Group added successfully')
+            this.getModifiersGroup();
+          }
+        }, (err)=>{
+          this.snackbarservice.error('Failed to add modifier')
         });
       }
     });
   }
+
+  //delete modifier group
 
   openDeleteDialog(modifierGroupId: any): void {
     const dialogRef = this.dialog.open(ModifierDeleteDialogComponent, {
@@ -133,8 +157,18 @@ export class ModifierGroupComponent implements OnInit {
       console.log(result.modifierId);
       this.modifierService
         .deleteModifierGroup(result.modifierId)
-        .subscribe(() => {
-          this.getModifiersGroup();
+        .subscribe((res:any) => {
+          if(res.status === "false"){
+            for(const[key,value] of Object.entries(res.message)){
+              this.snackbarservice.error(`${value}`);
+            }
+          }
+          else{
+            this.snackbarservice.success('Modifier group deleted successfully')
+            this.getModifiersGroup();
+          }
+        },(err)=>{
+          this.snackbarservice.error('Failed to delete modifier group')
         });
     });
   }

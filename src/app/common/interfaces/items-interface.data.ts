@@ -1,6 +1,10 @@
 export interface Items {
+  tax: any;
+  quantity: any;
+  unit: any;
+  rate: any;
   categoryId: number;
-  // category: string;
+  category: string;
   name: string;
   description: string;
 }

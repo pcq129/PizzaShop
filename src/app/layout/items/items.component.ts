@@ -21,37 +21,130 @@ export class ItemsComponent implements OnInit {
     private itemService: ItemsService,
     private dialog: MatDialog,
     private categoryService: CategoryListService,
-    private snackbarservice: SnackbarService,
+    private snackbarservice: SnackbarService
   ) {
-  }
+    this.getCategories();
 
-  ngOnInit(): void {
-    this.getItems();
-    // this.getCategories();
-  }
-  items: any;
-
-  getItems() {
-    this.itemService.getItemList().subscribe((res:any) => {
-      this.items = res.data;
-      console.log(this.items);
-    });
   }
 
   //exemplery data from api
-// {
-//   "id": 3,
-//   "name": "testIte3m",
-//   "description": "testItem3",
-//   "category_id": 50,
-//   "quantity": 2,
-//   "rate": 45,
-//   "tax": 15,
-//   "category": {
-//       "id": 50,
-//       "name": "Pidizza"
-//   }
-// },
+  // {
+  //   "id": 3,
+  //   "name": "testIte3m",
+  //   "description": "testItem3",
+  //   "category_id": 50,
+  //   "quantity": 2,
+  //   "rate": 45,
+  //   "tax": 15,
+  //   "category": {
+  //       "id": 50,
+  //       "name": "Pidizza"
+  //   }
+  // },
+
+  displayedColumns: string[] = [
+    'item',
+    'description',
+    'category',
+    'quantity',
+    'unit',
+    'rate',
+    'tax',
+    'edit',
+    'delete',
+  ];
+  items: any;
+  categories : any;
+
+
+  ngOnInit(): void {
+    this.getItems();
+    this.getCategories();
+  }
+
+  //fetch all item records
+  getItems() {
+    this.itemService.getItemList().subscribe((res: any) => {
+      this.items = res.data;
+    });
+  }
+
+  //fetch category with name and id column
+  getCategories() {
+    this.categoryService.getCategoryList().subscribe((res: any) => {
+    this.categories = res;
+    });
+  }
+
+
+  //process for adding category
+
+  addItemPopup(): void {
+
+    //empty element initialized so that the same modal can be used for editing the data...
+    let singleItem = {
+      category_id: '',
+      name: '',
+      category: '',
+      description: '',
+      quantity: '',
+      rate: '',
+      tax: '',
+      unit: ''
+    };
+    const dialogRef = this.dialog.open(ItemDialogComponent, {
+      width: '250px',
+      data: {
+        categories : this.categories,
+        category_id: singleItem.category_id,
+        name: singleItem.name,
+        category: singleItem.category,
+        description: singleItem.description,
+        quantity : singleItem.quantity,
+        rate: singleItem.rate,
+        tax : singleItem.tax,
+        unit: singleItem.unit
+      },
+    });
+
+    dialogRef.afterClosed().subscribe((result: any) => {
+      console.log('testing');
+
+      let formatData = {
+        category_id: `${result.category_id}`,
+        description: `${result.description}`,
+        name: `${result.name}`,
+        quantity: `${result.quantity}`,
+        rate: `${result.rate}`,
+        tax: `${result.tax}`,
+        unit: `${result.unit}`,
+      };
+      if (
+        formatData &&
+        // formatData.id &&
+        formatData.name &&
+        formatData.category_id &&
+        formatData.description
+      ) {
+        this.addItem(formatData);
+      }
+    });
+  }
+
+  addItem(Item: any) {
+
+    this.itemService.addItem(Item).subscribe((res) => {
+      if(res.success === "false"){
+        for(const[key,value] of Object.entries(res.message)){
+          this.snackbarservice.error(`${value}`);
+        }
+      }
+      else{
+        this.snackbarservice.success(`Item added successfully`);
+      this.getItems();
+      }
+    });
+  }
 
   deletePopup(id: any): void {
     const dialogRef = this.dialog.open(DeleteDialogComponent, {
@@ -65,104 +158,80 @@ export class ItemsComponent implements OnInit {
       this.removeItem(id);
     });
   }
+
+  removeItem(id: number) {
+
+    this.itemService.removeItem(id).subscribe((res) => {
+      this.snackbarservice.success('Item deleted successfully');
+      this.getItems();
+    },(error)=>{
+      this.snackbarservice.success('Error deleting item');
+
+    });
+  }
+
   editPopup(element: any) {
-    console.log(element);
+    let id = element.id;
     const dialogRef = this.dialog.open(ItemDialogComponent, {
       width: '250px',
       data: {
-        id: element.id,
-        categoryId: element.category_id,
+        categories : this.categories,
+        category_id: element.category_id,
         name: element.name,
-        // category: element.category,
+        category: element.category.name,
         description: element.description,
+        quantity: element.quantity,
+        rate: element.rate,
+        tax: element.tax,
+        unit: element.unit
       },
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      console.log(result);
-      this.editItems(result);
+
+      let formatData = {
+        id: `${id}`,
+        category_id: `${result.category_id}`,
+        description: `${result.description}`,
+        name: `${result.name}`,
+        quantity: `${result.quantity}`,
+        rate: `${result.rate}`,
+        tax: `${result.tax}`,
+        unit: `${result.unit}`,
+      };
+      console.log(formatData);
+      if(formatData.id && formatData.description && formatData.category_id && formatData.name && formatData.quantity && formatData.rate && formatData.tax && formatData.unit){
+        this.editItems(formatData);
+        console.log("post edit items");
+
+      }
+
     });
   }
 
+  editItems(Item: any) {
 
-
-  // getCategories() {
-  //   this.categoryService.getCategoryList().subscribe((res) => {
-  //     this.categoryList = res;
-  //   });
-  // }
-  displayedColumns: string[] = [
-    'item',
-    'description',
-    'category',
-    'quantity',
-    'rate',
-    'tax',
-    'edit',
-    'delete',
-  ];
+    this.itemService.editItem(Item).subscribe((res:any) => {
+      if(res.success === "false"){
+        for(const[key,value] of Object.entries(res.message)){
+          this.snackbarservice.error(`${value}`);
+        }
+      }
+      else{
+        this.snackbarservice.success(`Item updated successfully`);
+      this.getItems();
+      }
+    },(err)=>{
+      this.snackbarservice.error('Error edititng Item')
+    });
+  }
 
   // singleItem: Items = {
   //   name: '',
   //   category: '',
   //   description: '',
   // };
-  addItemPopup(): void {
-    let singleItem = {
-      categoryId: '',
-      id: '',
-      name: '',
-      // category: '',
-      description: '',
-    };
-    const dialogRef = this.dialog.open(ItemDialogComponent, {
-      width: '250px',
-      data: {
-        categoryId: singleItem.categoryId,
-        // id: singleItem.id,
-        name: singleItem.name,
-        // category: singleItem.category,
-        description: singleItem.description,
-      },
-    });
 
-    dialogRef.afterClosed().subscribe((result: any) => {
-      console.log(result);
-      if (
-        result &&
-        // result.id &&
-        result.name &&
-        result.categoryId &&
-        result.description
-      ) {
-        console.log('adding data' + result);
-        this.addItem(result);
-      }
-    });
-  }
-
-  addItem(Item: Items) {
-    this.itemService.addItem(Item).subscribe((res) => {
-      console.log(res);
-      this.getItems();
-    });
-  }
-
-  removeItem(id: number) {
-    console.log(id);
-
-    this.itemService.removeItem(id).subscribe((res) => {
-      this.snackbarservice.success('Item deleted successfully')
-      this.getItems();
-    });
-  }
-
-  editItems(Item: Items) {
-    console.log(Item);
-    console.log('into the editing');
-    this.itemService.editItem(Item).subscribe((res) => {
-      console.log(res);
-      this.getItems();
-    });
-  }
 }
+
+

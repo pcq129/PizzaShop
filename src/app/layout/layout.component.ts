@@ -24,11 +24,11 @@ export class LayoutComponent implements OnInit {
       title: 'Dashboard',
       redirect: 'dashboard',
     },
-    {
-      icon: `restaurant_menu`,
-      title: 'Menu',
-      redirect: 'menu',
-    },
+    // {
+    //   icon: `restaurant_menu`,
+    //   title: 'Menu',
+    //   redirect: 'menu',
+    // },
     {
       icon: `restaurant_menu`,
       title: 'Categories',

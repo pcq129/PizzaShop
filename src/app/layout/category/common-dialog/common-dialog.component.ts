@@ -30,9 +30,6 @@ export class DialogComponent {
     ]),
   });
 
-  name = this.dataForm.controls.name;
-  description = this.dataForm.controls.description;
-
   public whitespaceValidator(control: FormControl) {
     const isWhitespace = (control.value || '').trim().length === 0;
     const isValid = !isWhitespace;

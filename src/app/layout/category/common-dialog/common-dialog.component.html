@@ -3,15 +3,15 @@
         <p>Category Details</p>
         <mat-form-field appearance="outline">
             <mat-label>Category Name</mat-label>
-            <input matInput [(ngModel)]="data.name" [formControl]="name" required>
+            <input matInput formControlName="name" required>
         </mat-form-field>
         <mat-form-field appearance="outline">
             <mat-label>Category Description</mat-label>
-            <input matInput [(ngModel)]="data.description" [formControl]="description" required>
+            <input matInput formControlName="description" required>
         </mat-form-field>
     </div>
     <div mat-dialog-actions>
-        <button mat-button type="button" [mat-dialog-close]="data" cdkFocusInitial
+        <button mat-button type="button" [mat-dialog-close]="dataForm.value" cdkFocusInitial
             [disabled]="!dataForm.valid">Ok</button>
         <button mat-button type="submit" (click)="onNoClick()">Cancel</button>
     </div>

@@ -14,7 +14,10 @@ export class modifierDialog {
   constructor(
     public dialogRef: MatDialogRef<modifierDialog>,
     @Inject(MAT_DIALOG_DATA) public data: any
-  ) {}
+  ) {
+    console.log(data);
+
+  }
 
   onNoClick(): void {
     this.dialogRef.close();
@@ -26,7 +29,7 @@ export class modifierDialog {
       this.whitespaceValidator,
     ]),
     rate: new FormControl(this.data.rate, Validators.required),
-    groupId: new FormControl('', Validators.required),
+    modifier_group_id: new FormControl(this.data.modifier_group_id, Validators.required),
     quantity: new FormControl(this.data.quantity, Validators.required),
     unit: new FormControl(this.data.unit, Validators.required),
     description: new FormControl(this.data.description, [
@@ -34,22 +37,22 @@ export class modifierDialog {
       this.whitespaceValidator,
     ]),
   });
-  name = this.modifierForm.controls.name;
-  rate = this.modifierForm.controls.rate;
-  quantity = this.modifierForm.controls.quantity;
-  unit = this.modifierForm.controls.unit;
-  description = this.modifierForm.controls.description;
-  groupId = this.modifierForm.controls.groupId;
+  // name = this.modifierForm.controls.name;
+  // rate = this.modifierForm.controls.rate;
+  // quantity = this.modifierForm.controls.quantity;
+  // unit = this.modifierForm.controls.unit;
+  // description = this.modifierForm.controls.description;
+  // groupId = this.modifierForm.controls.groupId;
 
   printdata() {
     console.log(
       this.data,
-      this.name.status,
-      this.rate.status,
-      this.quantity.status,
-      this.unit.status,
-      this.description.status,
-      this.groupId,
+      this.modifierForm.controls.name.status,
+      this.modifierForm.controls.rate.status,
+      this.modifierForm.controls.quantity.status,
+      this.modifierForm.controls.unit.status,
+      this.modifierForm.controls.description.status,
+      this.modifierForm.controls.modifier_group_id,
       this.modifierForm.status
     );
   }

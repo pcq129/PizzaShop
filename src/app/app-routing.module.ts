@@ -43,18 +43,24 @@ const routes: Routes = [
         canActivate: [AuthGuard],
         component: ItemsComponent,
       },
-      {
-        path: '',
-        canActivate: [AuthGuard],
-        component: DashboardComponent,
-        pathMatch: 'full',
-      },
+      // {
+      //   path: '',
+      //   canActivate: [AuthGuard],
+      //   component: DashboardComponent,
+      //   pathMatch: 'full',
+      // },
       {
         path: 'dashboard',
         canActivate: [AuthGuard],
-        component: DashboardComponent,
+        component: ModifierComponent,
         pathMatch: 'full',
       },
+      // {
+      //   path: 'dashboard',
+      //   canActivate: [AuthGuard],
+      //   component: DashboardComponent,
+      //   pathMatch: 'full',
+      // },
       {
         path: 'modifiers',
         canActivate: [AuthGuard],

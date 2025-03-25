@@ -6,8 +6,7 @@ import {
   ReactiveFormsModule,
 } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { CategoryListService } from 'src/app/_services/category-list.service';
-import { Items } from 'src/app/common/interfaces/items-interface.data';
+
 
 @Component({
   selector: 'app-item-dialog',
@@ -15,17 +14,20 @@ import { Items } from 'src/app/common/interfaces/items-interface.data';
   styleUrls: ['./item-dialog.component.scss'],
 })
 export class ItemDialogComponent implements OnInit {
+
+
   ngOnInit(): void {
-    this.getCatList();
   }
 
   constructor(
     public dialogRef: MatDialogRef<ItemDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: Items,
-    private categoryList: CategoryListService
-  ) {}
+    @Inject(MAT_DIALOG_DATA) public data: any,
 
-  categories: any;
+  ) {
+  }
+
+
+
 
   dataForm = new FormGroup({
     name: new FormControl(this.data.name, [
@@ -36,15 +38,20 @@ export class ItemDialogComponent implements OnInit {
       Validators.required,
       this.whitespaceValidator,
     ]),
-    categoryId: new FormControl(this.data.categoryId, Validators.required),
+    tax: new FormControl(this.data.tax, [
+      Validators.required,
+    ]),
+    quantity: new FormControl(this.data.quantity, [
+      Validators.required,
+    ]),
+    unit: new FormControl(this.data.unit, [
+      Validators.required,
+    ]),
+    rate: new FormControl(this.data.rate, [
+      Validators.required,
+    ]),
+    category_id: new FormControl(this.data.category_id, Validators.required),
   });
-
-  name = this.dataForm.controls.name;
-  description = this.dataForm.controls.description;
-  categoryId = this.dataForm.controls.categoryId;
-  onNoClick(): void {
-    this.dialogRef.close();
-  }
 
   public whitespaceValidator(control: FormControl) {
     const isWhitespace = (control.value || '').trim().length === 0;
@@ -52,9 +59,69 @@ export class ItemDialogComponent implements OnInit {
     return isValid ? null : { whitespace: true };
   }
 
-  getCatList() {
-    this.categoryList.getCategoryList().subscribe((res) => {
-      this.categories = res;
-    });
+  onNoClick(): void {
+    this.dialogRef.close();
   }
+
+  getNameError() {
+      if (this.dataForm.controls.name.hasError('required')) {
+        return 'You must enter a name';
+      };
+      if (this.dataForm.controls.name.hasError('whitespace')) {
+        return 'Invalid input';
+      };
+      return;
+  }
+  getUnitError() {
+    if (this.dataForm.controls.unit.hasError('required')) {
+      return 'You must select a unit';
+    };
+    return;
+  }
+  getDescriptionError() {
+    if (this.dataForm.controls.description.hasError('required')) {
+      return 'You must enter a description';
+    };
+    if (this.dataForm.controls.name.hasError('whitespace')) {
+      return 'Invalid input';
+    };
+    return;
+  }
+  getRateError() {
+    if (this.dataForm.controls.rate.hasError('required')) {
+      return 'You must enter a rate';
+    };
+    if (this.dataForm.controls.name.hasError('whitespace')) {
+      return 'Invalid input';
+    };
+    return;
+  }
+  getQuantityError() {
+    if (this.dataForm.controls.quantity.hasError('required')) {
+      return 'You must enter a quantity';
+    };
+    if (this.dataForm.controls.name.hasError('whitespace')) {
+      return 'Invalid input';
+    };
+    return;
+  }
+  getTaxError() {
+    if (this.dataForm.controls.tax.hasError('required')) {
+      return 'You must specify tax';
+    };
+    if (this.dataForm.controls.name.hasError('whitespace')) {
+      return 'Invalid input';
+    };
+    return;
+  }
+  getCategoryError(){
+    return 'You must select a category';
+  }
+
+
+  // getCatList() {
+  //   this.categoryList.getCategoryList().subscribe((res) => {
+  //     this.categories = res;
+  //   });
+  // }
 }

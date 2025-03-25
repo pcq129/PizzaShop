@@ -43,19 +43,37 @@ export class ModifierGroupDialogComponent implements OnInit {
   }
 
   modifierGroupForm = new FormGroup({
-    name: new FormControl('', [Validators.required, this.whitespaceValidator]),
-    description: new FormControl('', [
+    name: new FormControl(this.data.name, [Validators.required, this.whitespaceValidator]),
+    description: new FormControl(this.data.description, [
       Validators.required,
       this.whitespaceValidator,
     ]),
   });
 
-  name = this.modifierGroupForm.controls.name;
-  description = this.modifierGroupForm.controls.description;
 
   public whitespaceValidator(control: FormControl) {
     const isWhitespace = (control.value || '').trim().length === 0;
     const isValid = !isWhitespace;
     return isValid ? null : { whitespace: true };
   }
+
+  getNameError() {
+    if (this.modifierGroupForm.controls.name.hasError('required')) {
+      return 'You must enter a name';
+    };
+    if (this.modifierGroupForm.controls.name.hasError('whitespace')) {
+      return 'Invalid input';
+    };
+    return;
+}
+
+getDescriptionError() {
+  if (this.modifierGroupForm.controls.description.hasError('required')) {
+    return 'You must enter a description';
+  };
+  if (this.modifierGroupForm.controls.name.hasError('whitespace')) {
+    return 'Invalid input';
+  };
+  return;
+}
 }

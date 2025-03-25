@@ -24,7 +24,7 @@ import { HttpClientModule } from '@angular/common/http';
     MatTableModule,
     RouterModule,
     DashboardModule,
-    MenuModule,
+    // MenuModule,
     MatButtonModule,
     HttpClientModule
   ],

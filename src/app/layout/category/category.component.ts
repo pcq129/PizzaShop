@@ -91,7 +91,7 @@ export class CategoryComponent implements OnInit, OnChanges {
   };
 
   //popup
-  openDialog(): void {
+  addCategoryPopup(): void {
     const dialogRef = this.dialog.open(DialogComponent, {
       width: '250px',
       data: {
@@ -101,6 +101,7 @@ export class CategoryComponent implements OnInit, OnChanges {
     });
 
     dialogRef.afterClosed().subscribe((result) => {
+      console.log(result);
       this.data = result;
       if (result && result.name && result.description) {
         this.addCategory(result);
@@ -135,10 +136,10 @@ export class CategoryComponent implements OnInit, OnChanges {
 
   //popup
   editPopup(element: DialogData) {
+    let id = element.id;
     const dialogRef = this.dialog.open(DialogComponent, {
       width: '250px',
       data: {
-        id: element.id,
         name: element.name,
         description: element.description,
       },
@@ -146,6 +147,7 @@ export class CategoryComponent implements OnInit, OnChanges {
 
     dialogRef.afterClosed().subscribe((result) => {
       this.data = result;
+      result.id = id;
       console.log(result);
       // const model = {
       //   id: result.id,
