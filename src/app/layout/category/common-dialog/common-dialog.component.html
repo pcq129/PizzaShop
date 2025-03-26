@@ -11,8 +11,8 @@
         </mat-form-field>
     </div>
     <div mat-dialog-actions>
-        <button mat-button type="button" [mat-dialog-close]="dataForm.value" cdkFocusInitial
-            [disabled]="!dataForm.valid">Ok</button>
-        <button mat-button type="submit" (click)="onNoClick()">Cancel</button>
+      <button mat-button type="submit" (click)="onNoClick()">Cancel</button>
+      <button mat-button type="button" [mat-dialog-close]="dataForm.value" cdkFocusInitial
+          [disabled]="!dataForm.valid">Ok</button>
     </div>
 </form>

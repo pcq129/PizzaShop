@@ -41,14 +41,15 @@ export class LayoutComponent implements OnInit {
     },
     {
       icon: `restaurant_menu`,
-      title: 'Modifiers',
-      redirect: 'modifiers',
-    },
-    {
-      icon: `restaurant_menu`,
       title: 'Modifiers Group',
       redirect: 'modifiergroup',
     },
+    {
+      icon: `restaurant_menu`,
+      title: 'Modifiers',
+      redirect: 'modifiers',
+    },
+
     // {
     //   icon: `person_outline`,
     //   title: 'Customers',

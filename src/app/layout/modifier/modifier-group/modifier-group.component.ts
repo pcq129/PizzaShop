@@ -43,6 +43,7 @@ export class ModifierGroupComponent implements OnInit {
 
   ngOnInit(): void {
     this.getModifiersGroup();
+    this.getModifiers();
   }
 
   modifierList: any;
@@ -54,6 +55,12 @@ export class ModifierGroupComponent implements OnInit {
       console.log(res);
       this.modifierGroupList = res.data;
     });
+  }
+
+  getModifiers(){
+    this.modifierService.getModifierData().subscribe((res:any)=>{
+      this.modifierList = res.data;
+    })
   }
 
   displayedColumns: string[] = ['name', 'description', 'edit', 'delete'];
@@ -84,6 +91,7 @@ export class ModifierGroupComponent implements OnInit {
     const dialogRef = this.dialog.open(ModifierGroupDialogComponent, {
       width: '350px',
       data: {
+        modifiers : this.modifierList,
         name: modifierGroup.name,
         description: modifierGroup.description,
         // containedModifierList: this.groupedModifierList(
@@ -96,11 +104,8 @@ export class ModifierGroupComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {
       delete result.containedModifierList;
       result.id = id;
-      console.log(result);
-
-
       this.modifierService.editModifierGroup(result).subscribe((res:any) => {
-        if(res.status === "false"){
+        if(res.success === "false"){
           for(const[key,value] of Object.entries(res.message)){
             this.snackbarservice.error(`${value}`);
           }
@@ -119,6 +124,7 @@ export class ModifierGroupComponent implements OnInit {
     const dialogRef = this.dialog.open(ModifierGroupDialogComponent, {
       width: '350px',
       data: {
+        modifiers : this.modifierList,
         name: '',
         description: '',
       },
@@ -127,7 +133,7 @@ export class ModifierGroupComponent implements OnInit {
       console.log(result);
       if (result.name && result.description) {
         this.modifierService.addModifierGroup(result).subscribe((res:any) => {
-          if(res.status === "false"){
+          if(res.success === "false"){
             for(const[key,value] of Object.entries(res.message)){
               this.snackbarservice.error(`${value}`);
             }

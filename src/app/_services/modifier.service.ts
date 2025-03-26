@@ -7,6 +7,16 @@ import { SnackbarService } from './snackbar.service';
   providedIn: 'root',
 })
 export class ModifierService {
+
+  //services for mappers
+
+  getMapper(){
+    return this.http.get(environment.baseURL + `modifier-mapper`);
+  }
+
+  //services for modifiers
+
+
   addModifier(result: any) {
     return this.http.post(environment.baseURL + `modifier`, result);
   }

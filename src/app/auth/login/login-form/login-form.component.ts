@@ -72,22 +72,43 @@ export class LoginFormComponent implements OnInit {
 
     console.log(email, password);
     if (email && password) {
-      this.authService
-        .checkCredentials(email!, password!)
-        .subscribe((res: any) => {
-          this.userCredentials = res;
-          this.snackbar.success("Login Successful");
-          console.log(res);
-          this.authService.handleLogin(this.userCredentials);
-        }, (error)=>{
-          //   this.alertState = true;
-          // setTimeout(() => {
-          //   this.alertState = false;
-          // }, 2000)
-          console.log(error);
-          this.snackbar.error(error.error.error);
+// subscribe(next?: ((value: Object) => void) | null | undefined, error?: ((error: any) => void) | null, complete?: (() => void) | null): Subscription
+    // .subscribe((res: any) => {
+    //   console.log(res);
+    //  if(res.error === "Unauthorized"){
+    //   console.log("wrong pass");
+    //   this.snackbar.error('Invalid Credentials')
+    //  }
+    //  else{
+    //   this.userCredentials = res;
+    //   this.snackbar.success("Login Successful");
+    //   console.log(res);
+    //   this.authService.handleLogin(this.userCredentials);
+    //  }
+    // }, (error)=>{
+    //   this.snackbar.error('Invalid Credentials');
+    //   this.snackbar.error(error.error);
+    // });
+        this.authService.checkCredentials(email!, password!).subscribe({
+          next: (res: any) => {
+                console.log(res);
+              if(res.error === "Unauthorized"){
+                this.snackbar.error('Invalid Credentials')
+              }
+              else{
+                this.userCredentials = res;
+                this.snackbar.success("Login Successful");
+                this.authService.handleLogin(this.userCredentials);
+              }
+          },
+          error: (err) => {
+            //unreachable code block
+            //errors will be handled by headers intercepter so no meaning in
+            //implementing anything here.
+          }
         });
-    } else {
     }
   }
 }
+
+

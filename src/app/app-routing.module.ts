@@ -14,6 +14,7 @@ import { ModifierGroupComponent } from './layout/modifier/modifier-group/modifie
 import { LoginFormComponent } from './auth/login/login-form/login-form.component';
 import { AppComponent } from './app.component';
 import { MenuComponent } from './layout/menu/menu.component';
+import { TableSectionComponent } from './layout/table-section/table-section.component';
 // import { DashboardComponent } from './app/dashboard/dashboard.component';
 const routes: Routes = [
   // {

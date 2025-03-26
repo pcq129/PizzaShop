@@ -14,4 +14,6 @@ export class TableSectionComponent implements OnInit {
   tableData: any; //fetch table data from api
   sections: any; //fetch sections list from api
   value: any;
+
+  
 }

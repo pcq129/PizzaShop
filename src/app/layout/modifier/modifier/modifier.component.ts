@@ -13,8 +13,6 @@ import { SnackbarService } from 'src/app/_services/snackbar.service';
 })
 export class ModifierComponent implements OnInit {
   ngOnInit(): void {
-    this.getModifierGroupList();
-    this.getModifierList();
   }
   constructor(
     public dialog: MatDialog,
@@ -22,19 +20,26 @@ export class ModifierComponent implements OnInit {
   ) {
     this.getModifierGroupList();
     this.getModifierList();
+    // this.getMapping();
   }
 
 
   // exemplery data
-  //           "modifier_group_id": 5,
-  //           "name": "test modifier",
-  //           "rate": 33,
-  //           "unit": "pieces",
-  //           "quantity": 5,
-  //           "description": "for testin purposes",
-  //           "modifier_group": {
-  //               "name": "test modifier Group2"
-  //           }
+  //        {
+//     "id": 1,
+//     "name": "Tomatoes",
+//     "rate": 40,
+//     "unit": "grams",
+//     "quantity": 8,
+//     "description": "Add tomatoes to you order",
+//     "modifier_groups":
+//         {
+//             "name": "Veggies",
+//             "pivot": {
+//                 "modifier_id": 1,
+//                 "modifier_group_id": 2
+//             }
+//         }
   displayedColumns: string[] = [
     'item',
     'description',
@@ -49,6 +54,7 @@ export class ModifierComponent implements OnInit {
   //data fetching
   modifierList: any;
   modifierGroupList: any;
+  // mapper:any;
   modifier: Modifier = {
     modifierId: 0,
     groupId: 0,
@@ -60,9 +66,15 @@ export class ModifierComponent implements OnInit {
   };
 
 
+  // getMapping(){
+  //   this.modifierService.getMapper().subscribe((res) => {
+  //     console.log(res);
+  //     this.mapper = res;
+  //   });
+  // }
+
   getModifierGroupList() {
     this.modifierService.getModifierGroupList().subscribe((res) => {
-      console.log(res);
       this.modifierGroupList= res;
     });
   }
@@ -92,6 +104,7 @@ export class ModifierComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe((result) => {
+
 
       if (
         result &&
@@ -155,7 +168,7 @@ export class ModifierComponent implements OnInit {
         this.getModifierList();
         }
       },(err)=>{
-        this.snackbarservice.error('Error updateing modifier')
+        this.snackbarservice.error('Error updating modifier')
       });
     });
   }

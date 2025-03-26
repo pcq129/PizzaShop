@@ -1,19 +1,10 @@
 <form [formGroup]="modifierForm">
   <div mat-dialog-content>
     <p>Add Modifier Details</p>
-    <mat-form-field appearance="outline">
-      <mat-label>Modifier Name</mat-label>
-      <input matInput formControlName="name" type="text" />
-    </mat-form-field>
-
-    <mat-form-field appearance="outline">
-      <mat-label>Modifier Description</mat-label>
-      <input formControlName="description" matInput type="text" />
-    </mat-form-field>
 
     <mat-form-field appearance="outline">
       <mat-label>Select Modidfier Group</mat-label>
-      <mat-select formControlName="modifier_group_id">
+      <mat-select multiple formControlName="modifier_group_id">
         <mat-option
           *ngFor="let modifierGroup of data.modifierGroupList"
           [value]="modifierGroup.id"
@@ -22,6 +13,14 @@
         </mat-option>
       </mat-select>
     </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Modifier Name</mat-label>
+      <input matInput formControlName="name" type="text" />
+    </mat-form-field>
+
+
+
 
     <mat-form-field appearance="outline">
       <mat-label>Rate</mat-label>
@@ -48,6 +47,13 @@
         <mat-option value="pieces">Pieces</mat-option>
       </mat-select>
     </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Modifier Description</mat-label>
+      <input formControlName="description" matInput type="text" />
+    </mat-form-field>
+
+
   </div>
 
   <div mat-dialog-actions>

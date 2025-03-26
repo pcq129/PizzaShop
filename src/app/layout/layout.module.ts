@@ -12,6 +12,7 @@ import { MenuModule } from './menu/menu.module';
 import { MatButtonModule } from '@angular/material/button';
 import { TableComponent } from './table/table.component';
 import { HttpClientModule } from '@angular/common/http';
+import { TableSectionModule } from './table-section/table-section.module';
 
 @NgModule({
   declarations: [LayoutComponent, TableComponent],
@@ -24,6 +25,7 @@ import { HttpClientModule } from '@angular/common/http';
     MatTableModule,
     RouterModule,
     DashboardModule,
+    // TableSectionModule,
     // MenuModule,
     MatButtonModule,
     HttpClientModule

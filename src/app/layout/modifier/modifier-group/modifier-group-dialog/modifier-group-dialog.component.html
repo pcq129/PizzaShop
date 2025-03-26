@@ -15,6 +15,20 @@
 
         </mat-form-field>
 
+
+      <mat-form-field appearance="outline">
+        <mat-label>Select Modidfiers</mat-label>
+      <mat-select multiple formControlName="containedModifiers">
+        <mat-option
+          *ngFor="let modifier of data.modifiers"
+          [value]="modifier.id"
+        >
+          {{modifier.name}}
+        </mat-option>
+      </mat-select>
+      </mat-form-field>
+
+
         <!-- <div *ngFor="let modifier of data.containedModifierList">
             <input type="checkbox" value="true" (change)="onChange(modifier.id, $event.target)"
                 [checked]="isChecked(modifier.id)">

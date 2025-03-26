@@ -6,6 +6,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 @Component({
   selector: 'modifierDialog',
   templateUrl: 'modifierDialog.html',
+  styleUrls: ['modifierDialog.scss']
 })
 export class modifierDialog {
   clg(a: any) {
