@@ -8,9 +8,11 @@ import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule, NgModel } from '@angular/forms';
+import { SectionComponent } from './section/section.component';
+import { TablesComponent } from './tables/tables.component';
 
 @NgModule({
-  declarations: [TableSectionComponent,],
+  declarations: [TableSectionComponent, SectionComponent, TablesComponent,],
   imports: [
     CommonModule,
     MatSidenavModule,

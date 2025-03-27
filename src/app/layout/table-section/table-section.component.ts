@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output } from '@angular/core';
 import { NgModel } from '@angular/forms';
 
 @Component({
@@ -11,9 +11,9 @@ export class TableSectionComponent implements OnInit {
 
   ngOnInit(): void {}
   displayedColumns = ['name', 'capacity', 'status', 'action'];
-  tableData: any; //fetch table data from api
-  sections: any; //fetch sections list from api
+  @Output() tableData: any; //fetch table data from api
+  @Output() sections: any; //fetch sections list from api
   value: any;
 
-  
+
 }
