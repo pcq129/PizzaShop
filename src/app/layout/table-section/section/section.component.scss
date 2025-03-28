@@ -5,3 +5,35 @@
   justify-content: space-between;
 }
 
+
+.sectionList{
+
+}
+
+.sectionList ul{
+  padding: 0px;
+}
+
+.hiddenIcon{
+  visibility: hidden;
+}
+
+.sectionButton{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  height: 100%;
+}
+
+.sectionButton:hover
+.hiddenIcon{
+  visibility: visible;
+}
+
+.editSectionDialogInput{
+  width: 100%;
+}
+
+
+

@@ -1,11 +1,25 @@
 <div class="header">
   <h4 class="mt-2 ms-2">Sections</h4>
-  <button mat-button class="border-2 me-4">
+  <button mat-button class="border-2 me-4" (click)="addSection()">
     <mat-icon>add</mat-icon>
   </button>
 </div>
-section list to be displayed
-<ul *ngFor="let section of sections">
-  <mat-icon>drag_indicator</mat-icon>
-  <li></li>
-</ul>
+<div class="sectionList">
+  <ul>
+    <button
+      class="sectionButton"
+      mat-button
+      *ngFor="let section of sectionsList"
+      (click)="getTables(section.id)"
+    >
+      <mat-icon>drag_indicator</mat-icon>
+      {{ section.name }}
+      <mat-icon class="hiddenIcon" (click)="editSection(section)"
+        >edit</mat-icon
+      >
+      <mat-icon class="hiddenIcon" (click)="deleteSection(section)"
+        >delete</mat-icon
+      >
+    </button>
+  </ul>
+</div>

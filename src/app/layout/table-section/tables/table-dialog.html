@@ -1,0 +1,42 @@
+<h1 mat-dialog-title>{{(data.name) ? (data.name) : "Add new Table"}}</h1>
+<div mat-dialog-content>
+  <form [formGroup]="tableData" >
+    <mat-form-field class="editTableDialogInput" appearance="outline">
+      <mat-label>Table Name</mat-label>
+      <input formControlName="name" matInput />
+      <mat-error>{{getNameError()}}</mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="editTableDialogInput" appearance="outline">
+      <mat-label>Capacity</mat-label>
+      <input matInput formControlName="capacity" type="number" max="25" min="1">
+      <mat-error>{{getCapacityError()}}</mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="editTableDialogInput" appearance="outline">
+      <mat-label>Select Section</mat-label>
+      <mat-select formControlName="section_id">
+        <mat-option
+          *ngFor="let section of data.sectionsList"
+          [value]="section.id"
+        >
+          {{ section.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+
+    <mat-form-field class="editTableDialogInput" appearance="outline">
+      <mat-label>Set Status</mat-label>
+      <mat-select formControlName="status">
+        <mat-option value="Available">Available</mat-option>
+        <mat-option value="Occupied">Occupied</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+  </form>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Cancel</button>
+  <button mat-button [mat-dialog-close]="tableData.value" [disabled]="tableData.invalid" cdkFocusInitial>Save</button>
+</div>
