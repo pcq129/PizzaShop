@@ -33,7 +33,15 @@ export class ModifierGroupDialogComponent implements OnInit {
     public dialogRef: MatDialogRef<ModifierGroupDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {}
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    console.log(this.data);
+    this.data.modifiers.forEach((modifier: any) => {
+      this.modifiers.push(modifier.id);
+    });
+    console.log(this.modifiers);
+  }
+
+  modifiers: any[] = [];
 
   onNoClick(): void {
     this.dialogRef.close();
@@ -43,14 +51,14 @@ export class ModifierGroupDialogComponent implements OnInit {
   }
 
   modifierGroupForm = new FormGroup({
-    containedModifiers: new FormControl(this.data.modifiers),
-    name: new FormControl(this.data.name, [Validators.required, this.whitespaceValidator]),
-    description: new FormControl(this.data.description, [
+    modifiers: new FormControl(this.modifiers),
+    name: new FormControl(this.data.name, [
       Validators.required,
       this.whitespaceValidator,
     ]),
+    description: new FormControl(this.data.description, [
+    ]),
   });
-
 
   public whitespaceValidator(control: FormControl) {
     const isWhitespace = (control.value || '').trim().length === 0;
@@ -61,20 +69,20 @@ export class ModifierGroupDialogComponent implements OnInit {
   getNameError() {
     if (this.modifierGroupForm.controls.name.hasError('required')) {
       return 'You must enter a name';
-    };
+    }
     if (this.modifierGroupForm.controls.name.hasError('whitespace')) {
       return 'Invalid input';
-    };
+    }
     return;
-}
+  }
 
-getDescriptionError() {
-  if (this.modifierGroupForm.controls.description.hasError('required')) {
-    return 'You must enter a description';
-  };
-  if (this.modifierGroupForm.controls.name.hasError('whitespace')) {
-    return 'Invalid input';
-  };
-  return;
-}
+  getDescriptionError() {
+    if (this.modifierGroupForm.controls.description.hasError('required')) {
+      return 'You must enter a description';
+    }
+    if (this.modifierGroupForm.controls.name.hasError('whitespace')) {
+      return 'Invalid input';
+    }
+    return;
+  }
 }

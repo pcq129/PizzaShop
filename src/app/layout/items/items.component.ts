@@ -10,6 +10,7 @@ import { CategoryInterface } from 'src/app/common/interfaces/category-interface.
 import { CategoryListService } from 'src/app/_services/category-list.service';
 import { LoggingInterceptor } from 'src/app/logging.interceptor';
 import { SnackbarService } from 'src/app/_services/snackbar.service';
+import { ModifierService } from 'src/app/_services/modifier.service';
 
 @Component({
   selector: 'app-items',
@@ -21,9 +22,11 @@ export class ItemsComponent implements OnInit {
     private itemService: ItemsService,
     private dialog: MatDialog,
     private categoryService: CategoryListService,
-    private snackbarservice: SnackbarService
+    private snackbarService: SnackbarService,
+    private modifierService: ModifierService
   ) {
     this.getCategories();
+    this.getModifierGroups();
 
   }
 
@@ -55,6 +58,7 @@ export class ItemsComponent implements OnInit {
   ];
   items: any;
   categories : any;
+  modifierGroups: any;
 
 
   ngOnInit(): void {
@@ -76,57 +80,38 @@ export class ItemsComponent implements OnInit {
     });
   }
 
+  getModifierGroups(){
+    this.modifierService.getModifierGroupsData().subscribe({
+      next: (res:any)=>{
+        this.modifierGroups = res.data;
+      },
+      error: (error)=>{
+        this.snackbarService.multipleErrors(error);
+      }
+    })
+  }
+
 
   //process for adding category
 
   addItemPopup(): void {
 
     //empty element initialized so that the same modal can be used for editing the data...
-    let singleItem = {
-      category_id: '',
-      name: '',
-      category: '',
-      description: '',
-      quantity: '',
-      rate: '',
-      tax: '',
-      unit: ''
-    };
     const dialogRef = this.dialog.open(ItemDialogComponent, {
-      width: '250px',
+      width: '1000px',
       data: {
+        modifierGroupList : this.modifierGroups,
         categories : this.categories,
-        category_id: singleItem.category_id,
-        name: singleItem.name,
-        category: singleItem.category,
-        description: singleItem.description,
-        quantity : singleItem.quantity,
-        rate: singleItem.rate,
-        tax : singleItem.tax,
-        unit: singleItem.unit
+        modifier_group_ids : [],
+        default: false,
+        enabled: false
       },
     });
 
     dialogRef.afterClosed().subscribe((result: any) => {
-      console.log('testing');
-
-      let formatData = {
-        category_id: `${result.category_id}`,
-        description: `${result.description}`,
-        name: `${result.name}`,
-        quantity: `${result.quantity}`,
-        rate: `${result.rate}`,
-        tax: `${result.tax}`,
-        unit: `${result.unit}`,
-      };
-      if (
-        formatData &&
-        // formatData.id &&
-        formatData.name &&
-        formatData.category_id &&
-        formatData.description
-      ) {
-        this.addItem(formatData);
+      console.log(result);
+      if(result.id && result.name && result.modifier_group_ids){
+        this.addItem(result);
       }
     });
   }
@@ -134,13 +119,13 @@ export class ItemsComponent implements OnInit {
   addItem(Item: any) {
 
     this.itemService.addItem(Item).subscribe((res) => {
-      if(res.success === "false"){
+      if(res.status === "false"){
         for(const[key,value] of Object.entries(res.message)){
-          this.snackbarservice.error(`${value}`);
+          this.snackbarService.error(`${value}`);
         }
       }
       else{
-        this.snackbarservice.success(`Item added successfully`);
+        this.snackbarService.success(`Item added successfully`);
       this.getItems();
       }
     });
@@ -162,46 +147,88 @@ export class ItemsComponent implements OnInit {
   removeItem(id: number) {
 
     this.itemService.removeItem(id).subscribe((res) => {
-      this.snackbarservice.success('Item deleted successfully');
+      this.snackbarService.success('Item deleted successfully');
       this.getItems();
     },(error)=>{
-      this.snackbarservice.success('Error deleting item');
+      this.snackbarService.success('Error deleting item');
 
     });
   }
 
   editPopup(element: any) {
+    // "id": 4,
+    // "name": "Margherita",
+    // "item_type": "veg",
+    // "category_id": 1,
+    // "quantity": 43,
+    // "unit": "pcs",
+    // "rate": 456,
+    // "default_tax": 1,
+    // "tax_perentage": 8,]]]]
+    // "tax_percentage": 30,
+    // "available": 0,
+    // "short_code": 12,
+    // "image": null,
+    // "category": {
+    //     "id": 1,
+    //     "name": "Pizza"
+    // },
+    // "modifier_groups": [
+    //     {
+    //         "id": 1,
+    //         "name": "tses",
+    //         "pivot": {
+    //             "item_id": 4,
+    //             "modifier_group_id": 1
+    //         }
+    //     },
+    //     {
+    //         "id": 2,
+    //         "name": "Veggies",
+    //         "pivot": {
+    //             "item_id": 4,
+    //             "modifier_group_id": 2
+    //         }
+    //     }
+    // ]
     let id = element.id;
     const dialogRef = this.dialog.open(ItemDialogComponent, {
-      width: '250px',
+      width: '1000px',
       data: {
-        categories : this.categories,
-        category_id: element.category_id,
         name: element.name,
+        unit: element.unit,
+        rate: element.rate,
+        quantity: element.quantity,
+        categories : this.categories,
+        available : element.available,
+        item_type : element.item_type,
+        short_code : element.short_code,
         category: element.category.name,
         description: element.description,
-        quantity: element.quantity,
-        rate: element.rate,
-        tax: element.tax,
-        unit: element.unit
+        category_id: element.category_id,
+        default_tax : element.default_tax,
+        image : element.image,
+        tax_percentage : element.tax_percentage,
+        modifierGroupList : this.modifierGroups,
+        modifier_group_ids : element.modifier_groups,
       },
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-
-      let formatData = {
-        id: `${id}`,
-        category_id: `${result.category_id}`,
-        description: `${result.description}`,
-        name: `${result.name}`,
-        quantity: `${result.quantity}`,
-        rate: `${result.rate}`,
-        tax: `${result.tax}`,
-        unit: `${result.unit}`,
-      };
-      console.log(formatData);
-      if(formatData.id && formatData.description && formatData.category_id && formatData.name && formatData.quantity && formatData.rate && formatData.tax && formatData.unit){
-        this.editItems(formatData);
+      result.id = id;
+      // let formatData = {
+      //   id: `${id}`,
+      //   category_id: `${result.category_id}`,
+      //   description: `${result.description}`,
+      //   name: `${result.name}`,
+      //   quantity: `${result.quantity}`,
+      //   rate: `${result.rate}`,
+      //   tax: `${result.tax}`,
+      //   unit: `${result.unit}`,
+      // };
+      // console.log(formatData);
+      if(result.id){
+        this.editItems(result);
         console.log("post edit items");
 
       }
@@ -212,17 +239,17 @@ export class ItemsComponent implements OnInit {
   editItems(Item: any) {
 
     this.itemService.editItem(Item).subscribe((res:any) => {
-      if(res.success === "false"){
+      if(res.status === "false"){
         for(const[key,value] of Object.entries(res.message)){
-          this.snackbarservice.error(`${value}`);
+          this.snackbarService.error(`${value}`);
         }
       }
       else{
-        this.snackbarservice.success(`Item updated successfully`);
+        this.snackbarService.success(`Item updated successfully`);
       this.getItems();
       }
     },(err)=>{
-      this.snackbarservice.error('Error edititng Item')
+      this.snackbarService.error('Error edititng Item')
     });
   }
 

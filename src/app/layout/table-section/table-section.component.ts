@@ -29,6 +29,10 @@ export class TableSectionComponent implements OnInit {
   refreshSectionList(e : boolean){
     if(e == true)
     this.getSectionData();
+
+
+    //refreshing table data (might be needed when deleting the section)
+    this.getTableData();
   }
   refreshTableList($event: boolean) {
     if($event == true){

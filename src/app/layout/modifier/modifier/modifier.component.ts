@@ -13,6 +13,15 @@ import { SnackbarService } from 'src/app/_services/snackbar.service';
 })
 export class ModifierComponent implements OnInit {
   ngOnInit(): void {
+    // this.modifiedModifierList = {
+    //   ...this.modifierList,
+    //   modifier_groups: {
+    //       name: `[${this.modifierList.modifier_groups.map((modifierGroup:any) => modifierGroup.name).join(', ')}]`,
+    //       modifier_group_id: `[${this.modifierList.modifier_groups.map((modifierGroup:any) => modifierGroup.pivot.modifier_group_id).join(', ')}]`
+    //   }
+  // };
+  // console.log(this.modifiedModifierList);
+
   }
   constructor(
     public dialog: MatDialog,
@@ -26,20 +35,27 @@ export class ModifierComponent implements OnInit {
 
   // exemplery data
   //        {
-//     "id": 1,
-//     "name": "Tomatoes",
-//     "rate": 40,
-//     "unit": "grams",
-//     "quantity": 8,
-//     "description": "Add tomatoes to you order",
-//     "modifier_groups":
-//         {
-//             "name": "Veggies",
-//             "pivot": {
-//                 "modifier_id": 1,
-//                 "modifier_group_id": 2
-//             }
-//         }
+    // "id": 1,
+    // "name": "Tomatoes",
+    // "rate": 40,
+    // "unit": "grams",
+    // "quantity": 8,
+    // "description": "Add tomatoes to you order",
+    // "modifier_groups":
+    //     {
+    //         "name": "Veggies",
+    //         "pivot": {
+    //             "modifier_id": 1,
+    //             "modifier_group_id": 2  modifier_groups.pivot.modifier_group_id
+    //         }
+    //     },
+    //         {
+    //           "name": "Veggies",
+    //           "pivot": {
+    //               "modifier_id": 1,
+    //               "modifier_group_id": 2  modifier_groups.pivot.modifier_group_id
+    //           }
+    //       }
   displayedColumns: string[] = [
     'item',
     'description',
@@ -51,8 +67,14 @@ export class ModifierComponent implements OnInit {
     'delete',
   ];
 
+
   //data fetching
   modifierList: any;
+
+  modifiedModifierList : any;
+
+  //formating data
+
   modifierGroupList: any;
   // mapper:any;
   modifier: Modifier = {
@@ -90,12 +112,13 @@ export class ModifierComponent implements OnInit {
    //adding modifiers
 
    openAddDialog() {
+    let modifier_group_ids = []
     const dialogRef = this.dialog.open(modifierDialog, {
       width: '350px',
       data: {
         modifierGroupList: this.modifierGroupList,
         name: '',
-        modifier_group_id: 0,
+        modifier_group_id: [],
         quantity: 0,
         unit: 0,
         description: '',
@@ -118,7 +141,7 @@ export class ModifierComponent implements OnInit {
 
         console.log('adding');
         this.modifierService.addModifier(result).subscribe((res:any) => {
-          if(res.success === "false"){
+          if(res.status === "false"){
             for(const[key,value] of Object.entries(res.message)){
               this.snackbarservice.error(`${value}`);
             }
@@ -138,13 +161,14 @@ export class ModifierComponent implements OnInit {
 
   openEditDialog(modifier: any): void {
     console.log(modifier);
-    let modifierId = modifier.id;
+    let modifier_ids = modifier.id;
+
     const dialogRef = this.dialog.open(modifierDialog, {
       width: '350px',
       data: {
         modifierGroupList: this.modifierGroupList,
         name: modifier.name,
-        modifier_group_id: modifier.modifier_group_id,
+        modifier_group_id: modifier.modifier_groups,
         quantity: modifier.quantity,
         unit: modifier.unit,
         description: modifier.description,
@@ -154,11 +178,11 @@ export class ModifierComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {
       console.log(result);
       delete result.modifierGroupList;
-      result.id = modifierId;
+      result.id = modifier_ids;
       console.log(result);
 
       this.modifierService.editModifier(result).subscribe((res:any) => {
-        if(res.success === "false"){
+        if(res.status === "false"){
           for(const[key,value] of Object.entries(res.message)){
             this.snackbarservice.error(`${value}`);
           }
@@ -168,7 +192,7 @@ export class ModifierComponent implements OnInit {
         this.getModifierList();
         }
       },(err)=>{
-        this.snackbarservice.error('Error updating modifier')
+        this.snackbarservice.error('Error updating modifier ' + err)
       });
     });
   }
@@ -186,7 +210,7 @@ export class ModifierComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {
       console.log(result);
       this.modifierService.deleteModifier(result.modifier_group_id).subscribe((res:any) => {
-        if(res.success === "false"){
+        if(res.status === "false"){
           for(const[key,value] of Object.entries(res.message)){
             this.snackbarservice.error(`${value}`);
           }

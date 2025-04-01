@@ -10,9 +10,9 @@ export class ModifierService {
 
   //services for mappers
 
-  getMapper(){
-    return this.http.get(environment.baseURL + `modifier-mapper`);
-  }
+  // getMapper(){
+  //   return this.http.get(environment.baseURL + `modifier-mapper`);
+  // }
 
   //services for modifiers
 

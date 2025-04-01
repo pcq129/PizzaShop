@@ -50,4 +50,29 @@ export class HeadersInterceptor implements HttpInterceptor {
     .pipe(catchError(err=> this.handleAuthError(err)));
   }
 
+  //
+  // console.log(request);
+  //   let access_token = this.authservice.getToken();
+  //   console.log(request);
+
+  //   const url = window.location.href;
+  //   const pattern = /^http:\/\/127\.0\.0\.1:8000\/api\/item/;
+
+  //   if (pattern.test(url)) {
+
+  //     const modifiedRequest = request.clone({
+  //       headers: request.headers.set('Content-Type', 'application/json')})
+  //   } else {
+  //     const modifiedRequest = request.clone({
+  //       setHeaders: {
+  //         Authorization: `Bearer ${access_token}`,
+  //       },
+  //     });
+  //     return next
+  //       .handle(modifiedRequest)
+  //       .pipe(catchError((err) => this.handleAuthError(err)));
+  //   }
+  //   }
+
+
 }

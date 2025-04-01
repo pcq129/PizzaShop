@@ -7,12 +7,12 @@
         </mat-form-field>
         <mat-form-field appearance="outline">
             <mat-label>Category Description</mat-label>
-            <input matInput formControlName="description" required>
+            <input matInput formControlName="description">
         </mat-form-field>
     </div>
     <div mat-dialog-actions>
       <button mat-button type="submit" (click)="onNoClick()">Cancel</button>
       <button mat-button type="button" [mat-dialog-close]="dataForm.value" cdkFocusInitial
-          [disabled]="!dataForm.valid">Ok</button>
+          [disabled]="!dataForm.valid">Save</button>
     </div>
 </form>

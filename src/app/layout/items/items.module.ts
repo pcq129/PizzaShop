@@ -18,6 +18,13 @@ import { ItemsService } from 'src/app/_services/items.service';
 import { MatSelectModule } from '@angular/material/select';
 import { CategoryListService } from 'src/app/_services/category-list.service';
 import { SharedModule } from 'src/app/common/common-module.module';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { FileInputConfig, MaterialFileInputModule, NGX_MAT_FILE_INPUT_CONFIG } from 'ngx-material-file-input';
+import {MatGridListModule} from '@angular/material/grid-list';
+
+export const config: FileInputConfig = {
+  sizeUnit: 'Octet'
+};
 
 @NgModule({
   declarations: [ItemsComponent, ItemDialogComponent],
@@ -37,9 +44,12 @@ import { SharedModule } from 'src/app/common/common-module.module';
     DeleteDialogModule,
     ReactiveFormsModule,
     MatSelectModule,
-    SharedModule
+    SharedModule,
+    MatSlideToggleModule,
+    MaterialFileInputModule,
+    MatGridListModule
   ],
   exports: [ItemsComponent],
-  providers: [ItemsService, CategoryListService, ],
+  providers: [ItemsService, CategoryListService,{ provide: NGX_MAT_FILE_INPUT_CONFIG, useValue: config } ],
 })
 export class ItemsModule {}

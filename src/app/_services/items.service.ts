@@ -19,28 +19,28 @@ export class ItemsService {
   });
 
   getItemList() {
-    return this.http.get(environment.baseURL + `items`,{ headers : this.httpHeaders});
+    return this.http.get(environment.baseURL + `item`,{ headers : this.httpHeaders});
   }
 
   addItem(data: any):Observable<any> {
-    return this.http.post(environment.baseURL + `items`, data,{ headers : this.httpHeaders});
+    return this.http.post(environment.baseURL + `item`, data,{ headers : this.httpHeaders});
   }
 
   addItemList(data: any) {
-    return this.http.put(environment.baseURL + `items`, data,{ headers : this.httpHeaders});
+    return this.http.put(environment.baseURL + `item`, data,{ headers : this.httpHeaders});
   }
 
   removeItem(id : number) {
-    return this.http.delete(environment.baseURL + `items/` + id,{ headers : this.httpHeaders});
+    return this.http.delete(environment.baseURL + `item/` + id,{ headers : this.httpHeaders});
   }
 
   removeItemById(id: any) {
-    return this.http.delete(environment.baseURL + `items`,{ headers : this.httpHeaders});
+    return this.http.delete(environment.baseURL + `item`,{ headers : this.httpHeaders});
   }
 
   editItem(element: any) {
     return this.http.put(
-      environment.baseURL + `items` + '/' + element.id,
+      environment.baseURL + `item` + '/' + element.id,
       element
     );
   }

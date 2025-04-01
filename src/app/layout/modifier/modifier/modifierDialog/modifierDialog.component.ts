@@ -18,7 +18,17 @@ export class modifierDialog {
   ) {
     console.log(data);
 
+    console.log(data.modifier_group_id);
+    data.modifier_group_id.forEach((element:any) => {
+      this.modifierGroupId.push(element.pivot.modifier_group_id);
+    });
+
+    console.log(this.modifierGroupId);
+
+
   }
+
+  modifierGroupId : any[] = [];
 
   onNoClick(): void {
     this.dialogRef.close();
@@ -30,7 +40,7 @@ export class modifierDialog {
       this.whitespaceValidator,
     ]),
     rate: new FormControl(this.data.rate, Validators.required),
-    modifier_group_id: new FormControl(this.data.modifier_group_id, Validators.required),
+    modifier_group_id: new FormControl(this.modifierGroupId),
     quantity: new FormControl(this.data.quantity, Validators.required),
     unit: new FormControl(this.data.unit, Validators.required),
     description: new FormControl(this.data.description, [
@@ -44,19 +54,6 @@ export class modifierDialog {
   // unit = this.modifierForm.controls.unit;
   // description = this.modifierForm.controls.description;
   // groupId = this.modifierForm.controls.groupId;
-
-  printdata() {
-    console.log(
-      this.data,
-      this.modifierForm.controls.name.status,
-      this.modifierForm.controls.rate.status,
-      this.modifierForm.controls.quantity.status,
-      this.modifierForm.controls.unit.status,
-      this.modifierForm.controls.description.status,
-      this.modifierForm.controls.modifier_group_id,
-      this.modifierForm.status
-    );
-  }
 
   public whitespaceValidator(control: FormControl) {
     const isWhitespace = (control.value || '').trim().length === 0;

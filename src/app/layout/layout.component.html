@@ -7,10 +7,10 @@
 
         <mat-list>
             <mat-list-item *ngFor="let item of sideBarItems" (click)="loadComponent(item.redirect)">
-              <a mat-button class="navItem" routerLink="{{item.redirect}}" >
+              <button mat-button class="navItem" routerLink="{{item.redirect}}" >
                 <mat-icon matListIcon>{{item.icon}}</mat-icon>
                 {{item.title}}
-              </a>
+              </button>
                 <!-- <a routerLink="{{item.redirect}}">
                     <mat-icon matListIcon>{{item.icon}}</mat-icon>
                 </a>

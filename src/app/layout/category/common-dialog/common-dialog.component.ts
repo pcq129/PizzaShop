@@ -25,8 +25,6 @@ export class DialogComponent {
       this.whitespaceValidator,
     ]),
     description: new FormControl(this.data.description, [
-      Validators.required,
-      this.whitespaceValidator,
     ]),
   });
 

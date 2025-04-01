@@ -10,12 +10,13 @@ import { RouterModule } from '@angular/router';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { MenuModule } from './menu/menu.module';
 import { MatButtonModule } from '@angular/material/button';
-import { TableComponent } from './table/table.component';
 import { HttpClientModule } from '@angular/common/http';
 import { TableSectionModule } from './table-section/table-section.module';
+import { TaxFeesComponent } from './tax-fees/tax-fees.component';
+import { TaxFeesModule } from './tax-fees/tax-fees.module';
 
 @NgModule({
-  declarations: [LayoutComponent, TableComponent],
+  declarations: [LayoutComponent, ],
   imports: [
     CommonModule,
     MatSidenavModule,
@@ -25,10 +26,10 @@ import { TableSectionModule } from './table-section/table-section.module';
     MatTableModule,
     RouterModule,
     DashboardModule,
-    // TableSectionModule,
-    // MenuModule,
+    TableSectionModule,
     MatButtonModule,
-    HttpClientModule
+    HttpClientModule,
+    TaxFeesModule
   ],
   exports: [LayoutComponent],
 })

@@ -13,7 +13,7 @@ import { Inject, Input } from '@angular/core';
       <p>Arey you sure?</p>
     </div>
     <div mat-dialog-actions>
-      <button mat-button (click)="onNoClick()">cancel</button>
+      <button mat-button (click)="onNoClick()">Cancel</button>
       <button mat-button [mat-dialog-close]="data" cdkFocusInitial>Delete</button>
     </div>
   `,

@@ -30,4 +30,15 @@ export class SnackbarService {
     return this._snackBar.open(message, 'close', {panelClass: ['snackbar-info','snackbar'],horizontalPosition: this.horizontalPosition,
       verticalPosition: this.verticalPosition,duration: this.durationInSeconds * 1000});
   }
+
+
+  multipleErrors(message: any){
+
+    // message.forEach(element => {
+    //   this.error(`${element}`)
+    // });
+    for(const[key,value] of Object.entries(message)){
+      this.error(`${value}`);
+    }
+  }
 }

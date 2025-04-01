@@ -34,26 +34,27 @@ export class ModifierGroupComponent implements OnInit {
     public dialog: MatDialog,
     private modifierService: ModifierService,
     private snackbarservice :SnackbarService
-  ) {}
+  ) {
+    this.getModifiers();
+    this.getModifiersGroup();
+  }
 
-//   {
-//     "name": "test modifier Group2",
-//     "description": "this record is for testing purposes"
-// },
+
 
   ngOnInit(): void {
-    this.getModifiersGroup();
-    this.getModifiers();
+
   }
 
   modifierList: any;
   modifierGroupList: any;
 
 
+
+
   getModifiersGroup() {
     this.modifierService.getModifierGroupsData().subscribe((res:any) => {
-      console.log(res);
       this.modifierGroupList = res.data;
+
     });
   }
 
@@ -63,7 +64,7 @@ export class ModifierGroupComponent implements OnInit {
     })
   }
 
-  displayedColumns: string[] = ['name', 'description', 'edit', 'delete'];
+  displayedColumns: string[] = ['name', 'description','modifiers', 'edit', 'delete'];
 
   //editing modifier group
 
@@ -82,7 +83,7 @@ export class ModifierGroupComponent implements OnInit {
   // }
 
   //editing modifier group
-  editPopup(modifierGroup: ModifierGroup): void {
+  editPopup(modifierGroup: any): void {
     this.modifierGroup.name = modifierGroup.name;
     this.modifierGroup.description = modifierGroup.description;
     console.log(modifierGroup);
@@ -91,21 +92,20 @@ export class ModifierGroupComponent implements OnInit {
     const dialogRef = this.dialog.open(ModifierGroupDialogComponent, {
       width: '350px',
       data: {
-        modifiers : this.modifierList,
+        modifierList : this.modifierList,
         name: modifierGroup.name,
         description: modifierGroup.description,
         // containedModifierList: this.groupedModifierList(
         //   modifierGroup.id,
         //   this.modifierList
         // ),
-        isSelected: modifierGroup.isSelected,
+        modifiers: modifierGroup.modifiers,
       },
     });
     dialogRef.afterClosed().subscribe((result) => {
-      delete result.containedModifierList;
       result.id = id;
       this.modifierService.editModifierGroup(result).subscribe((res:any) => {
-        if(res.success === "false"){
+        if(res.status === "false"){
           for(const[key,value] of Object.entries(res.message)){
             this.snackbarservice.error(`${value}`);
           }
@@ -124,16 +124,16 @@ export class ModifierGroupComponent implements OnInit {
     const dialogRef = this.dialog.open(ModifierGroupDialogComponent, {
       width: '350px',
       data: {
-        modifiers : this.modifierList,
+        modifierList : this.modifierList,
         name: '',
         description: '',
       },
     });
     dialogRef.afterClosed().subscribe((result) => {
       console.log(result);
-      if (result.name && result.description) {
+      if (result.name) {
         this.modifierService.addModifierGroup(result).subscribe((res:any) => {
-          if(res.success === "false"){
+          if(res.status === "false"){
             for(const[key,value] of Object.entries(res.message)){
               this.snackbarservice.error(`${value}`);
             }

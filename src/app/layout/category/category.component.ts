@@ -103,7 +103,7 @@ export class CategoryComponent implements OnInit, OnChanges {
     dialogRef.afterClosed().subscribe((result) => {
       console.log(result);
       this.data = result;
-      if (result && result.name && result.description) {
+      if (result && result.name) {
         this.addCategory(result);
       }
     });
@@ -115,9 +115,9 @@ export class CategoryComponent implements OnInit, OnChanges {
       name: category.name,
       description: category.description,
     };
-    if (data.name.length > 0 && data.description.length > 0) {
+    if (data.name.length > 0) {
       this.categoryList.addCategory(data).subscribe((res:any) => {
-        if(res.success === 'false'){
+        if(res.status === 'false'){
           for(const[key,value] of Object.entries(res.message)){
             this.snackbar.error(`${value}`);
           }
@@ -161,7 +161,7 @@ export class CategoryComponent implements OnInit, OnChanges {
   //api interaction
   editCategory(element: object) {
     this.categoryList.editCategory(element).subscribe((res: any) => {
-      if(res.success === 'false'){
+      if(res.status === 'false'){
         for(const[key,value] of Object.entries(res.message)){
           this.snackbar.error(`${value}`);
         }

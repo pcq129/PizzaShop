@@ -15,6 +15,8 @@ import { LoginFormComponent } from './auth/login/login-form/login-form.component
 import { AppComponent } from './app.component';
 import { MenuComponent } from './layout/menu/menu.component';
 import { TableSectionComponent } from './layout/table-section/table-section.component';
+import { SectionComponent } from './layout/table-section/section/section.component';
+import { TaxFeesComponent } from './layout/tax-fees/tax-fees.component';
 // import { DashboardComponent } from './app/dashboard/dashboard.component';
 const routes: Routes = [
   // {
@@ -53,15 +55,15 @@ const routes: Routes = [
       {
         path: 'dashboard',
         canActivate: [AuthGuard],
-        component: ModifierComponent,
+        component: MenuComponent,
         pathMatch: 'full',
       },
-      // {
-      //   path: 'dashboard',
-      //   canActivate: [AuthGuard],
-      //   component: DashboardComponent,
-      //   pathMatch: 'full',
-      // },
+      {
+        path: 'sections',
+        canActivate: [AuthGuard],
+        component: TableSectionComponent,
+        pathMatch: 'full',
+      },
       {
         path: 'modifiers',
         canActivate: [AuthGuard],
@@ -71,6 +73,10 @@ const routes: Routes = [
         path: 'modifiergroup',
         canActivate: [AuthGuard],
         component: ModifierGroupComponent,
+      },{
+        path: 'taxes-fees',
+        canActivate: [AuthGuard],
+        component: TaxFeesComponent,
       },
     ],
   },

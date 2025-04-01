@@ -1,0 +1,33 @@
+<h1 mat-dialog-title>{{(data.name) ? (data.name) : "Add new Tax"}}</h1>
+<div mat-dialog-content>
+  <form [formGroup]="taxFeesData" >
+    <mat-form-field class="editTaxDialogInput" appearance="outline">
+      <mat-label>Tax Name</mat-label>
+      <input formControlName="name" matInput />
+      <mat-error>{{getNameError()}}</mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="editTaxDialogInput" appearance="outline">
+      <mat-label>Type</mat-label>
+      <mat-select formControlName="type">
+        <mat-option value="percentage">Percentage</mat-option>
+        <mat-option value="flat_amount">Flat Amount</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field class="editTaxDialogInput" appearance="outline">
+      <mat-label>Tax Amount</mat-label>
+      <input matInput formControlName="amount" type="number" min="1">
+      <mat-error>{{getTaxError()}}</mat-error>
+    </mat-form-field>
+
+    <mat-slide-toggle formControlName="enabled">Enabled</mat-slide-toggle>
+    <mat-slide-toggle formControlName="default">Default</mat-slide-toggle>
+
+
+  </form>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Cancel</button>
+  <button mat-button [mat-dialog-close]="taxFeesData.value" [disabled]="taxFeesData.invalid" cdkFocusInitial>Save</button>
+</div>

@@ -113,6 +113,8 @@ export class TablesComponent implements OnInit {
       }
     });
   }
+
+  
   deleteTable(table : Table) {
     {
       console.log(table);
