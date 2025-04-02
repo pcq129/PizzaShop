@@ -1,0 +1,30 @@
+.toolbar{
+  background-color: skyblue;
+  height: 80px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.logo{
+  height: 60px;
+}
+
+.brandName{
+  margin-left: 10px;
+  color: white;
+}
+
+.userProfile{
+  height: 40px;
+  margin-left: 20px;
+}
+
+.chipsAndProfile{
+  display: flex;
+  direction: row;
+  justify-content: center;
+}
+
+.chips{
+  align-items: center;
+}
