@@ -5,6 +5,9 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import {MatChipsModule} from '@angular/material/chips';
+import { OrderTablesModule } from './order-tables/order-tables.module';
+import { RouterModule } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -16,7 +19,10 @@ import {MatChipsModule} from '@angular/material/chips';
     MatToolbarModule,
     MatMenuModule,
     MatIconModule,
-    MatChipsModule
+    MatChipsModule,
+    OrderTablesModule,
+    RouterModule,
+    HttpClientModule
   ]
 })
 export class OrderappModule { }

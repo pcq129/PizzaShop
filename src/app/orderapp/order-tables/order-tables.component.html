@@ -1,0 +1,45 @@
+<div class="titlebar">
+  <span class="title">Tables View</span>
+  <ul class="noBullets horizontal">
+    <li><span class="dot available"></span>Available</li>
+    <li><span class="dot selected"></span>Selected</li>
+    <li><span class="dot assigned"></span>Assigned</li>
+    <li><span class="dot running"></span>Running</li>
+  </ul>
+</div>
+
+<div >
+  <mat-accordion *ngFor="let section of sectionData" class="accordion">
+    <mat-expansion-panel class="expansionPanel">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+         <h4 class="bottomMargin">{{section.name}}</h4>
+        </mat-panel-title>
+        <mat-panel-description class="statusContainer">
+          <ul class="noBullets bottomMargin horizontal">
+            <li class="status"><span class="dot available"></span>Available</li>
+            <li class="status"><span class="dot selected"></span>Selected</li>
+            <li class="status"><span class="dot assigned"></span>Assigned</li>
+            <li class="status"><span class="dot running"></span>Running</li>
+          </ul>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="tableCardContainer">
+        <mat-card *ngFor="let table of section.tables" class="tableCard clickable" (click)="selectTable(table.id)">
+          <div class="table-header">
+            <h5>{{table.name}}</h5>
+            <ul class="noBullets">
+              <li><mat-icon> attach_money</mat-icon></li><li>Bill: </li>
+              <li><mat-icon>groups</mat-icon></li><li>People: {{table.capacity}} </li>
+              <li><mat-icon>settings</mat-icon></li><li>Status: {{table.status}} </li>
+              <!-- <li><mat-icon>timer</mat-icon></li><li>Time: </li> -->
+            </ul>
+          </div>
+        </mat-card>
+      </div>
+      <button class="assignButton" mat-raised-button color="accent">
+        Assign
+      </button>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>

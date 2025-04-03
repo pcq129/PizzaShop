@@ -37,8 +37,14 @@ export class SnackbarService {
     // message.forEach(element => {
     //   this.error(`${element}`)
     // });
-    for(const[key,value] of Object.entries(message)){
-      this.error(`${value}`);
+    if(Object.keys(message).length == 1){
+      this.error('message');
     }
+    else{
+      for(const[key,value] of Object.entries(message)){
+        this.error(`${value}`);
+      }
+    }
+
   }
 }

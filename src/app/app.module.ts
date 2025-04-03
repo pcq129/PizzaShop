@@ -21,7 +21,7 @@ import { SharedModule } from './common/common-module.module';
 import { MatSelectModule } from '@angular/material/select';
 import { HeadersInterceptor } from './headers.interceptor';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { OrderappModule } from './order/orderapp/orderapp.module';
+import { OrderappModule } from './orderapp/orderapp.module';
 
 
 @NgModule({

@@ -1,0 +1,96 @@
+.titlebar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin: 15px 35px 15px 35px;
+}
+
+.title{
+  font-weight: 800;
+  font-size: 30px;
+}
+
+.clickable{
+  cursor: pointer;
+}
+
+.dot{
+  height: 10px;
+  width: 10px;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 10px;
+  margin-left: 20px;
+}
+
+.noBullets{
+  list-style-type: none;
+  padding-left: 2px;
+}
+
+.horizontal{
+  display: flex;
+  flex-direction: row;
+}
+
+.selected{
+  border-width: 2px;
+  border-style: solid;
+  border-color: greenyellow;
+}
+
+.available{
+  background-color: gray;
+}
+
+.assigned{
+  background-color: greenyellow;
+}
+
+.running{
+  background-color: skyblue;
+}
+
+.bottomMargin{
+  margin-bottom: auto;
+}
+
+.accordion{
+  margin: 5px;
+}
+
+.expansionPanel{
+  margin-left: 30px;
+  margin-right: 30px;
+}
+
+.status{
+  margin-top: 6px;
+  margin-bottom: auto;
+  float: right;
+  align-items: center;
+}
+
+.statusContainer{
+  justify-content : end;
+}
+
+.tableCard{
+  width: 400px;
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-bottom: 20px;
+  height: 200px;
+}
+
+.tableCardContainer{
+  display: flex;
+  flex-direction: row;
+}
+
+.assignButton{
+  float: right;
+}
+
+
