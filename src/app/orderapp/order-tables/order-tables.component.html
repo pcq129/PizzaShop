@@ -1,45 +1,127 @@
-<div class="titlebar">
-  <span class="title">Tables View</span>
-  <ul class="noBullets horizontal">
-    <li><span class="dot available"></span>Available</li>
-    <li><span class="dot selected"></span>Selected</li>
-    <li><span class="dot assigned"></span>Assigned</li>
-    <li><span class="dot running"></span>Running</li>
-  </ul>
-</div>
+<mat-drawer-container class="body" autosize>
+  <mat-drawer #drawer mode="side" class="drawer" position="end">
+    <h3 class="customerDataFormTitle">Customer Details</h3>
+    <form [formGroup]="customerData">
+      <!-- <mat-form-field appearance="fill">
+        <mat-label>Input</mat-label>
+        <input matInput>
+      </mat-form-field> -->
 
-<div >
-  <mat-accordion *ngFor="let section of sectionData" class="accordion">
-    <mat-expansion-panel class="expansionPanel">
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-         <h4 class="bottomMargin">{{section.name}}</h4>
-        </mat-panel-title>
-        <mat-panel-description class="statusContainer">
-          <ul class="noBullets bottomMargin horizontal">
-            <li class="status"><span class="dot available"></span>Available</li>
-            <li class="status"><span class="dot selected"></span>Selected</li>
-            <li class="status"><span class="dot assigned"></span>Assigned</li>
-            <li class="status"><span class="dot running"></span>Running</li>
-          </ul>
-        </mat-panel-description>
-      </mat-expansion-panel-header>
-      <div class="tableCardContainer">
-        <mat-card *ngFor="let table of section.tables" class="tableCard clickable" (click)="selectTable(table.id)">
-          <div class="table-header">
-            <h5>{{table.name}}</h5>
-            <ul class="noBullets">
-              <li><mat-icon> attach_money</mat-icon></li><li>Bill: </li>
-              <li><mat-icon>groups</mat-icon></li><li>People: {{table.capacity}} </li>
-              <li><mat-icon>settings</mat-icon></li><li>Status: {{table.status}} </li>
-              <!-- <li><mat-icon>timer</mat-icon></li><li>Time: </li> -->
-            </ul>
-          </div>
-        </mat-card>
+      <mat-form-field class="itemDetailInput" appearance="outline">
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email" />
+        <mat-error class="error" *ngIf="customerData.controls.email.invalid">{{
+          getEmailError()
+        }}</mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="itemDetailInput" appearance="outline">
+        <mat-label>Name</mat-label>
+        <input matInput formControlName="name" />
+        <mat-error class="error" *ngIf="customerData.controls.name.invalid">{{
+          getNameError()
+        }}</mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="itemDetailInput" appearance="outline">
+        <mat-label>Mobile Number</mat-label>
+        <input matInput formControlName="mobile" />
+        <mat-error class="error" *ngIf="customerData.controls.mobile.invalid">{{
+          getMobileError()
+        }}</mat-error>
+      </mat-form-field>
+
+      <input hidden [value]="currentSection">
+
+      <mat-form-field class="itemDetailInput" appearance="outline">
+        <mat-label>People</mat-label>
+        <input matInput formControlName="people" />
+        <mat-error class="error" *ngIf="customerData.controls.people.invalid">{{
+          getPeopleError()
+        }}</mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="itemDetailInput" appearance="outline">
+        <mat-label>Section</mat-label>
+        <input matInput readonly="true" formControlName="section" />
+      </mat-form-field>
+
+      <div class="customerDataButtons">
+        <button mat-raised-button  type="submit" [disabled]="!customerData.valid" (click)="assignTable()">
+          Assign
+        </button>
+        <button mat-stroked-button type="button" (click)="drawer.toggle()">
+          Cancel
+        </button>
       </div>
-      <button class="assignButton" mat-raised-button color="accent">
-        Assign
-      </button>
-    </mat-expansion-panel>
-  </mat-accordion>
-</div>
+    </form>
+  </mat-drawer>
+  <div class="titlebar">
+    <span class="title">Tables View</span>
+    <ul class="noBullets horizontal">
+      <li><span class="dot available"></span>Available</li>
+      <li><span class="dot selected"></span>Selected</li>
+      <li><span class="dot assigned"></span>Assigned</li>
+      <li><span class="dot running"></span>Running</li>
+    </ul>
+  </div>
+
+  <div>
+    <mat-accordion *ngFor="let section of sectionData" class="accordion">
+      <mat-expansion-panel
+        class="expansionPanel"
+        [expanded]="currentSection == section.id"
+        (opened)="setCurrentSection(section)"
+        (closed)="clearSelection()"
+      >
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <h4 class="bottomMargin">{{ section.name }}</h4>
+          </mat-panel-title>
+          <mat-panel-description class="statusContainer">
+            <ul class="noBullets bottomMargin horizontal">
+              <li class="status">
+                <span class="dot available"></span>Available
+              </li>
+              <li class="status"><span class="dot selected"></span>Selected</li>
+              <li class="status"><span class="dot assigned"></span>Assigned</li>
+              <li class="status"><span class="dot running"></span>Running</li>
+            </ul>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <div class="tableCardContainer">
+          <mat-card
+            *ngFor="let table of section.tables"
+            class="tableCard clickable {{ table.status }}"
+            [ngClass]="{ selected: selectedTables.includes(table.id) }"
+            id="{{ table.id }}"
+            (click)="selectTable(table, section.id)"
+          >
+            <div class="table-header">
+              <h5>{{ table.name }}</h5>
+              <ul class="noBullets">
+                <li><mat-icon>money</mat-icon> Bill:</li>
+                <li>
+                  <mat-icon>groups</mat-icon> People: {{ table.capacity }}
+                </li>
+                <li>
+                  <mat-icon>settings</mat-icon> Status: {{ table.status }}
+                </li>
+                <!-- <li><mat-icon>timer</mat-icon></li><li>Time: </li> -->
+              </ul>
+            </div>
+          </mat-card>
+        </div>
+        <button
+          class="assignButton"
+          (click)="drawer.toggle()"
+          [disabled]="selectedTables.length == 0 || assignable == false"
+          mat-raised-button
+          color="accent"
+        >
+          Assign
+        </button>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
+</mat-drawer-container>

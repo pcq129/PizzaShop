@@ -15,7 +15,7 @@ export class HeaderComponent implements OnInit {
   profile = '../../assets/pfp.png';
 
   openOrderApp(){
-    this.route.navigate(['order'])
+    this.route.navigate(['order/tables'])
   }
 
   logout() {
