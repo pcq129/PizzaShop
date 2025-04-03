@@ -133,9 +133,7 @@ export class ModifierComponent implements OnInit {
         result &&
         result.name &&
         result.modifier_group_id &&
-        result.quantity &&
-        result.unit &&
-        result.description
+        result.unit
       ) {
         delete result.modifierGroupList;
 
@@ -176,10 +174,9 @@ export class ModifierComponent implements OnInit {
       },
     });
     dialogRef.afterClosed().subscribe((result) => {
-      console.log(result);
+
       delete result.modifierGroupList;
       result.id = modifier_ids;
-      console.log(result);
 
       this.modifierService.editModifier(result).subscribe((res:any) => {
         if(res.status === "false"){

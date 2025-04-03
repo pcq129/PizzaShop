@@ -44,8 +44,7 @@ export class modifierDialog {
     quantity: new FormControl(this.data.quantity, Validators.required),
     unit: new FormControl(this.data.unit, Validators.required),
     description: new FormControl(this.data.description, [
-      Validators.required,
-      this.whitespaceValidator,
+
     ]),
   });
   // name = this.modifierForm.controls.name;

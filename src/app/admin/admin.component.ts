@@ -8,11 +8,11 @@ interface sidebar {
   redirect: string;
 }
 @Component({
-  selector: 'layout-app',
-  templateUrl: './layout.component.html',
-  styleUrls: ['./layout.component.scss'],
+  selector: 'admin-app',
+  templateUrl: './admin.component.html',
+  styleUrls: ['./admin.component.scss'],
 })
-export class LayoutComponent implements OnInit {
+export class AdminComponent implements OnInit {
   constructor( public authService: AuthService, private router: Router) {}
   loadComponent(arg0: string) {
     this.router.navigate([arg0]);
@@ -107,6 +107,10 @@ export class LayoutComponent implements OnInit {
 
   logout() {
     this.authService.clear();
+  }
+
+  addClass(){
+
   }
 
   brandLogo = '/assets/logos/brandLogo.png';

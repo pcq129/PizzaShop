@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LayoutComponent } from './layout.component';
+import { AdminComponent } from './admin.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
-import { HeaderModule } from '../header/header.module';
+import { HeaderModule } from './header/header.module';
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
@@ -16,7 +16,7 @@ import { TaxFeesComponent } from './tax-fees/tax-fees.component';
 import { TaxFeesModule } from './tax-fees/tax-fees.module';
 
 @NgModule({
-  declarations: [LayoutComponent, ],
+  declarations: [AdminComponent, ],
   imports: [
     CommonModule,
     MatSidenavModule,
@@ -31,6 +31,6 @@ import { TaxFeesModule } from './tax-fees/tax-fees.module';
     HttpClientModule,
     TaxFeesModule
   ],
-  exports: [LayoutComponent],
+  exports: [AdminComponent],
 })
-export class LayoutModule {}
+export class AdminModule {}

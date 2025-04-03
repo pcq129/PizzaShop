@@ -110,14 +110,14 @@ export class ItemsComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result: any) => {
       console.log(result);
-      if(result.id && result.name && result.modifier_group_ids){
+      if(result.name && result.category_id){
         this.addItem(result);
       }
     });
   }
 
   addItem(Item: any) {
-
+    console.log(Item);
     this.itemService.addItem(Item).subscribe((res) => {
       if(res.status === "false"){
         for(const[key,value] of Object.entries(res.message)){
@@ -215,22 +215,14 @@ export class ItemsComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe((result) => {
+      console.log(result);
+      if(element.image != result.image){
+        this.deleteElementImage(element.image);
+      }
       result.id = id;
-      // let formatData = {
-      //   id: `${id}`,
-      //   category_id: `${result.category_id}`,
-      //   description: `${result.description}`,
-      //   name: `${result.name}`,
-      //   quantity: `${result.quantity}`,
-      //   rate: `${result.rate}`,
-      //   tax: `${result.tax}`,
-      //   unit: `${result.unit}`,
-      // };
-      // console.log(formatData);
-      if(result.id){
+      if(result.id && result.name && result.category_id){
         this.editItems(result);
         console.log("post edit items");
-
       }
 
     });
@@ -251,6 +243,20 @@ export class ItemsComponent implements OnInit {
     },(err)=>{
       this.snackbarService.error('Error edititng Item')
     });
+  }
+
+
+  deleteElementImage(imageName :any){
+    this.itemService.removeImage(imageName).subscribe({
+      next: (res)=>{
+        console.log(res);
+
+      },
+      error: (err) => {
+        console.log(err);
+
+      }
+    })
   }
 
   // singleItem: Items = {

@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, Inject, Input, OnInit } from '@angular/core';
 import {
   FormControl,
@@ -7,6 +8,8 @@ import {
 } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { FileValidator } from 'ngx-material-file-input';
+import { ItemsService } from 'src/app/_services/items.service';
+import { SnackbarService } from 'src/app/_services/snackbar.service';
 
 
 @Component({
@@ -15,26 +18,52 @@ import { FileValidator } from 'ngx-material-file-input';
   styleUrls: ['./item-dialog.component.scss'],
 })
 export class ItemDialogComponent implements OnInit {
+imageUrl: any= (this.data.image) ? ("http://127.0.0.1:8000/storage/uploads/"+ this.data.image) : ("http://127.0.0.1:8000/storage/uploads/default.png");
 
 
   ngOnInit(): void {
+    console.log(this.data);
+
   }
 
   constructor(
     public dialogRef: MatDialogRef<ItemDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-
+    private itemService : ItemsService,
+    private snackbarSerice: SnackbarService
   ) {
     this.formatModifierGroups();
+    this.getCurrentImage();
   }
 
-
+  currentImage : string|null = null;
+  uploadedImage : string|null = null;
   modifier_group_ids : any[] = [];
 
+  getCurrentImage(){
+    this.currentImage = this.data.image;
+  }
   formatModifierGroups(){
     this.data.modifier_group_ids.forEach((modifierGroup: any) => {
       this.modifier_group_ids.push(modifierGroup.id);
     });
+  }
+  deleteUploadedImage(imageName :any){
+    this.itemService.removeImage(imageName).subscribe({
+      next: (res)=>{
+        console.log(res);
+
+      },
+      error: (err) => {
+        console.log(err);
+
+      }
+    })
+  }
+
+  printData(){
+    console.log(this.dataForm);
+
   }
 
   dataForm = new FormGroup({
@@ -57,13 +86,12 @@ export class ItemDialogComponent implements OnInit {
       Validators.required,
     ]),
     short_code:  new FormControl(this.data.short_code,[
-      Validators.required
     ]),
     available: new FormControl(this.data.available ? this.data.available : false,[Validators.required]),
     default_tax : new FormControl(this.data.default_tax ? this.data.default_tax : false, [Validators.required]),
     category_id: new FormControl(this.data.category_id, [Validators.required]),
-    modifier_groups_id : new FormControl(this.modifier_group_ids, [Validators.required]),
-    image: new FormControl(this.data.image, [FileValidator.maxContentSize(5000000)]),
+    modifier_groups_id : new FormControl(this.modifier_group_ids, []),
+    image : new FormControl (),
   });
 
   public whitespaceValidator(control: FormControl) {
@@ -73,6 +101,7 @@ export class ItemDialogComponent implements OnInit {
   }
 
   onNoClick(): void {
+    this.deleteUploadedImage(this.uploadedImage);
     this.dialogRef.close();
   }
 
@@ -153,4 +182,40 @@ export class ItemDialogComponent implements OnInit {
   //     this.categories = res;
   //   });
   // }
+
+  selectedFile: File | null = null;
+
+
+  onFileSelected(event: Event) {
+    const input = event.target as HTMLInputElement;
+    if (input.files?.length) {
+      this.selectedFile = input.files[0];
+    }
+  }
+
+  onUpload() {
+    if (!this.selectedFile) return;
+    if(this.currentImage){
+      this.deleteUploadedImage(this.currentImage);
+    }
+
+    if(this.selectedFile.type != "jpg" && this.selectedFile.type != "png"){
+      const formData = new FormData();
+    formData.append('image', this.selectedFile);
+
+    this.itemService.uploadImage(formData).subscribe(
+      (res: any) => {
+        this.uploadedImage = res.path;
+        this.dataForm.controls.image.setValue(res.path);
+        this.snackbarSerice.success(res.message);
+      },
+      (error) => this.snackbarSerice.error(error)
+    );
+    }
+    else{
+      this.snackbarSerice.error("Image must be jpg or png")
+    }
+  }
 }
+
+

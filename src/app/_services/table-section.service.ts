@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { Section, Table } from '../layout/table-section/table-section';
+import { Section, Table } from '../admin/table-section/table-section';
 
 @Injectable({
   providedIn: 'root'

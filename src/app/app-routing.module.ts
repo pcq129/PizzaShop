@@ -1,34 +1,35 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { CategoryComponent } from './layout/category/category.component';
-import { ItemsComponent } from './layout/items/items.component';
+import { CategoryComponent } from './admin/category/category.component';
+import { ItemsComponent } from './admin/items/items.component';
 import { AuthGuard } from 'src/helper/auth.guard';
-// import { LayoutComponent } from './layout/app.component';
+// import { LayoutComponent } from './admin/app.component';
 // import { AppComponent } from './app.component';
 import { LoginComponent } from './auth/login/login.component';
 import { ForgotPasswordComponent } from './auth/login/forgot-password/forgot-password.component';
-import { DashboardComponent } from './layout/dashboard/dashboard.component';
-import { LayoutComponent } from './layout/layout.component';
-import { ModifierComponent } from './layout/modifier/modifier/modifier.component';
-import { ModifierGroupComponent } from './layout/modifier/modifier-group/modifier-group.component';
+import { DashboardComponent } from './admin/dashboard/dashboard.component';
+import { AdminComponent } from './admin/admin.component';
+import { ModifierComponent } from './admin/modifier/modifier/modifier.component';
+import { ModifierGroupComponent } from './admin/modifier/modifier-group/modifier-group.component';
 import { LoginFormComponent } from './auth/login/login-form/login-form.component';
 import { AppComponent } from './app.component';
-import { MenuComponent } from './layout/menu/menu.component';
-import { TableSectionComponent } from './layout/table-section/table-section.component';
-import { SectionComponent } from './layout/table-section/section/section.component';
-import { TaxFeesComponent } from './layout/tax-fees/tax-fees.component';
+import { MenuComponent } from './admin/menu/menu.component';
+import { TableSectionComponent } from './admin/table-section/table-section.component';
+import { SectionComponent } from './admin/table-section/section/section.component';
+import { TaxFeesComponent } from './admin/tax-fees/tax-fees.component';
+import { OrderappComponent } from './order/orderapp/orderapp.component';
 // import { DashboardComponent } from './app/dashboard/dashboard.component';
 const routes: Routes = [
   // {
   //   path: 'dashboard',
   //   title: 'Welcome | E-com',
   //   loadChildren: () =>
-  //     import('./layout/layout.module').then((m) => m.LayoutModule)
+  //     import('./admin/layout.module').then((m) => m.LayoutModule)
   // },
   {
     path: '',
     canActivate: [AuthGuard],
-    component: LayoutComponent,
+    component: AdminComponent,
     // pathMatch: 'prefix',
     children: [
       {
@@ -87,6 +88,11 @@ const routes: Routes = [
     component: AppComponent,
   },
   {
+    path: 'order',
+    pathMatch: 'full',
+    component: OrderappComponent,
+  },
+  {
     path: 'login',
     canActivate: [AuthGuard],
     component: LoginComponent,
@@ -116,7 +122,7 @@ const routes: Routes = [
   {
     path: '**',
     canActivate: [AuthGuard],
-    component: LayoutComponent,
+    component: AdminComponent,
     children: [
       // {
       //   path: 'dashboard',

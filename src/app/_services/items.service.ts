@@ -18,6 +18,14 @@ export class ItemsService {
     Authorization: `Bearer ${this.access_token}`,
   });
 
+  uploadImage(formData: any){
+    return this.http.post(environment.baseURL + `upload-image`, formData, { headers : this.httpHeaders});
+  }
+
+  removeImage(formData: any){
+    return this.http.delete(environment.baseURL + `upload-image/${formData}`, { headers : this.httpHeaders});
+  }
+
   getItemList() {
     return this.http.get(environment.baseURL + `item`,{ headers : this.httpHeaders});
   }

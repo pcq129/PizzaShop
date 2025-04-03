@@ -60,7 +60,7 @@ export class TaxFeesComponent implements OnInit {
     })
   }
 
-  displayedColumns = ['name', 'type', 'enabled', 'default', 'actions'];
+  displayedColumns = ['name','amount', 'type', 'enabled', 'default', 'actions'];
 
 
   addTax() {
