@@ -1,0 +1,149 @@
+<mat-drawer-container class="menuContainer">
+  <mat-drawer mode="side" opened class="sidenav">
+    <h4 class="navHeader">Categories</h4>
+    <ul class="noBullets">
+      <!-- <li class="itemCategoryContainer">
+        <button class="itemCategory" id="favItem" mat-button>Favourite Items</button>
+      </li> -->
+      <li class="itemCategoryContainer">
+        <button
+          mat-raised-button
+          (click)="loadItems(0)"
+          class="itemCategory"
+          [color]="0 == currentCategory ? 'accent' : 'none'"
+          id="0"
+        >
+          All
+        </button>
+      </li>
+      <li *ngFor="let category of categoryData" class="itemCategoryContainer">
+        <button
+          mat-raised-button
+          [color]="category.id == currentCategory ? 'accent' : 'none'"
+          class="itemCategory"
+          id="{{ category.id }}"
+          (click)="loadItems(category.id)"
+        >
+          {{ category.name }}
+        </button>
+      </li>
+    </ul>
+  </mat-drawer>
+  <mat-drawer-content class="drawerBody">
+    <div>
+      <div class="itemsHeader">
+        <h3 class="itemsTitle">Items</h3>
+        <ul class="noBullets horizontal">
+          <li><span class="veg dot"></span>Vegetarian</li>
+          <li><span class="nonveg dot"></span>Non-Vegetarian</li>
+          <li><span class="vegan dot"></span>Vegan</li>
+        </ul>
+      </div>
+      <div class="itemsContainer">
+        <mat-card class="item" *ngFor="let item of viewItemData">
+          <!-- <div class="food-image">
+          <img src="assets/food-icon.png" alt="Food Icon" />
+        </div> -->
+          <div class="food-details">
+            <h5>
+              {{ item.name }}<span class="dot {{ item.item_type }}"></span>
+            </h5>
+            <p class="price">₹{{ item.rate }}</p>
+          </div>
+          <mat-icon class="wishlist">favorite_border</mat-icon>
+        </mat-card>
+
+        <!-- <mat-card class="item">
+        <span class="itemIndicator"></span>
+        <h6>itemName</h6>
+        <p>itemPrice</p>
+        <mat-icon>favourite</mat-icon>
+      </mat-card> -->
+      </div>
+    </div>
+
+    <mat-card class="invoice-card">
+      <!-- Header -->
+      <div class="header">
+        <div class="location">
+          <mat-icon>business</mat-icon>
+          <div>
+            <strong>First Floor</strong>
+            <p><strong>Table:</strong> T2, T6</p>
+          </div>
+        </div>
+        <div class="icons">
+          <mat-icon>list</mat-icon>
+          <mat-icon>grid_on</mat-icon>
+          <mat-icon>menu</mat-icon>
+        </div>
+      </div>
+
+      <!-- Item List -->
+      <mat-list>
+        <mat-list-item>
+          <div class="item-details">
+            <strong>Item Name</strong>
+          </div>
+          <div class="quantity-controls">
+            <button mat-icon-button >
+              <mat-icon>remove</mat-icon>
+            </button>
+            <span>{{ item.quantity</span>
+            <button mat-icon-button >
+              <mat-icon>add</mat-icon>
+            </button>
+          </div>
+          <div class="price">
+            ₹{{ item.price
+            <p class="small-price">₹{{ item.extra </p>
+          </div>
+          <button mat-icon-button color="warn" >
+            <mat-icon>delete</mat-icon>
+          </button>
+        </mat-list-item>
+      </mat-list>
+
+      <!-- Summary Section -->
+      <div class="summary">
+        <p><strong>SubTotal</strong> <span>₹234</span></p>
+        <p>CGST <span>₹37.20</span></p>
+        <p>GST <span>₹6.20</span></p>
+        <p>Other <span>₹15.50</span></p>
+        <mat-checkbox >SGST</mat-checkbox>
+        <p class="total"><strong>Total</strong> <span>₹243</span></p>
+      </div>
+
+      <!-- Payment Method -->
+      <div class="payment">
+        <p><strong>Payment Method</strong></p>
+        <mat-radio-group>
+          <mat-radio-button value="cash">Cash</mat-radio-button>
+          <mat-radio-button value="card">Card</mat-radio-button>
+          <mat-radio-button value="upi">UPI</mat-radio-button>
+        </mat-radio-group>
+      </div>
+
+      <!-- Buttons -->
+      <div class="actions">
+        <button mat-button color="primary">Save</button>
+        <button mat-button>Complete</button>
+        <button mat-button>Generate Invoice</button>
+        <button mat-button color="warn">Cancel</button>
+      </div>
+    </mat-card>
+    <!-- <mat-card class="orderDetailsCard">
+      <mat-card-title>Order Details</mat-card-title>
+      <mat-card-subtitle>Table Name : Customer Name</mat-card-subtitle>
+
+      <mat-card-actions>
+        <button mat-flat-button color="accent">Save</button>
+        <button mat-stroked-button>Complete</button>
+        <button mat-stroked-button>Generate Invoice</button>
+        <button mat-stroked-button>Cancel</button>
+      </mat-card-actions>
+    </mat-card> -->
+
+    <!-- </div> -->
+  </mat-drawer-content>
+</mat-drawer-container>

@@ -1,0 +1,160 @@
+.menuContainer{
+  height: 100vh;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+}
+
+.sidenav{
+  width: 270px;
+}
+
+.noBullets{
+  list-style-type: none;
+  padding-left: 2px;
+}
+
+.horizontal{
+  display: flex;
+  flex-direction: row;
+  margin-bottom: auto;
+  margin-top: auto;
+  margin-right: 20px;
+}
+
+.dot{
+  height: 10px;
+  width: 10px;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 10px;
+  margin-left: 20px;
+}
+
+.itemCategory{
+  width: 80%;
+  margin-top: 4px;
+  margin-bottom: 4px;
+  padding-left: 10px;
+  justify-content: start;
+  display: flex;
+}
+
+.itemCategoryContainer{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.navHeader{
+  margin: 20px;
+}
+
+.itemsTitle{
+  margin-left: 20px;
+  margin-top: 16px;
+}
+
+.itemsHeader{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.veg{
+  background-color: green;
+}
+
+.nonveg, .non-veg{
+  background-color: red;
+}
+
+.vegan{
+  background-color: orange;
+}
+
+.grid{
+  height: 90%;
+}
+
+.drawerBody{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  width:100%;
+}
+
+.item{
+  height: 130px;
+  width: 250px;
+  border-radius: 10px;
+  margin: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.orderDetailsCard{
+  float: right;
+  width: 500px;
+  margin-top: 20px;
+  border-radius: 8px;
+  height: 600px ;
+}
+
+.itemsContainer{
+  width: 900px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+
+.itemIndicator{
+  position: relative;
+  left: 0;
+  top: 0;
+  color: red;
+}
+
+// item card
+
+.food-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px;
+  width: 250px;
+  border-radius: 8px;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.food-image img {
+  // width: 40px;
+  // height: 40px;
+  // border-radius: 50%;
+  // background: orange;
+  // padding: 5px;
+}
+
+.food-details {
+  margin-left: 1px;
+}
+
+.price {
+  color: #e4e1e1;
+}
+
+.wishlist {
+  color: gray;
+  cursor: pointer;
+}
+
+//
+
+.dot{
+  height: 10px;
+  width: 10px;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 10px;
+  margin-left: 20px;
+}

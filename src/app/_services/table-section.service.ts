@@ -36,6 +36,10 @@ export class TableSectionService {
     return this.http.delete(environment.baseURL + `table/${id}`);
   }
 
+  assignTables(data: any){
+    return this.http.post(environment.baseURL + 'customer/assign-table', data)
+  }
+
 
 
 

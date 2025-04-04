@@ -1,4 +1,4 @@
-<mat-drawer-container class="body" autosize>
+<mat-drawer-container class="body" autosize hasBackdrop="true">
   <mat-drawer #drawer mode="side" class="drawer" position="end">
     <h3 class="customerDataFormTitle">Customer Details</h3>
     <form [formGroup]="customerData">
@@ -25,7 +25,7 @@
 
       <mat-form-field class="itemDetailInput" appearance="outline">
         <mat-label>Mobile Number</mat-label>
-        <input matInput formControlName="mobile" />
+        <input matInput formControlName="mobile" type="number" min="0" />
         <mat-error class="error" *ngIf="customerData.controls.mobile.invalid">{{
           getMobileError()
         }}</mat-error>
@@ -34,8 +34,8 @@
       <input hidden [value]="currentSection">
 
       <mat-form-field class="itemDetailInput" appearance="outline">
-        <mat-label>People</mat-label>
-        <input matInput formControlName="people" />
+        <mat-label>No. of person(s)</mat-label>
+        <input matInput formControlName="people" type="number" min="0"/>
         <mat-error class="error" *ngIf="customerData.controls.people.invalid">{{
           getPeopleError()
         }}</mat-error>
@@ -46,8 +46,10 @@
         <input matInput readonly="true" formControlName="section" />
       </mat-form-field>
 
+      {{currentSection}}
+
       <div class="customerDataButtons">
-        <button mat-raised-button  type="submit" [disabled]="!customerData.valid" (click)="assignTable()">
+        <button mat-raised-button  type="submit" [disabled]="!customerData.valid" (click)="assignTable(customerData.value)">
           Assign
         </button>
         <button mat-stroked-button type="button" (click)="drawer.toggle()">
@@ -90,6 +92,7 @@
           </mat-panel-description>
         </mat-expansion-panel-header>
         <div class="tableCardContainer">
+          {{section.tables.length == 0 ? "No tables" : "" }}
           <mat-card
             *ngFor="let table of section.tables"
             class="tableCard clickable {{ table.status }}"

@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDrawer } from '@angular/material/sidenav';
+import { Router } from '@angular/router';
 import { SnackbarService } from 'src/app/_services/snackbar.service';
 import { TableSectionService } from 'src/app/_services/table-section.service';
 
@@ -110,7 +111,9 @@ export class OrderTablesComponent implements OnInit {
   };
   constructor(
     private sectionService: TableSectionService,
-    private snackbarService: SnackbarService
+    private snackbarService: SnackbarService,
+    private router: Router,
+    private cdr: ChangeDetectorRef
   ) {
     this.getSectionData();
   }
@@ -132,6 +135,7 @@ export class OrderTablesComponent implements OnInit {
 
   selectedTables: number[] = [];
   currentSection: number = 0;
+  currentSectionName: string = "";
   assignable : boolean = true;
   runningTables = 0;
   selectTable(table: any, sectionId: any) {
@@ -183,8 +187,9 @@ export class OrderTablesComponent implements OnInit {
       Validators.pattern(this.mobilePattern),
     ]),
     people: new FormControl("",[Validators.required, Validators.min(1), Validators.max(75)]),
-    section: new FormControl("",[Validators.required]),
-    section_id : new FormControl(``)
+    section: new FormControl(this.currentSectionName,[Validators.required]),
+    section_id : new FormControl(``),
+    table_ids : new FormControl(this.selectedTables)
   });
 
   public whitespaceValidator(control: FormControl) {
@@ -219,7 +224,7 @@ export class OrderTablesComponent implements OnInit {
   }
   getPeopleError() {
     if (this.customerData.controls.people.hasError('required')) {
-      return 'You must the number of people';
+      return 'You must enter the number of people';
     };
     if (this.customerData.controls.people.hasError('min')) {
       return 'Minimum 1 person required';
@@ -236,25 +241,46 @@ export class OrderTablesComponent implements OnInit {
     return;
   }
 
+  setCurrentSection(section: any){
+    this.currentSection = section.id;
+    this.currentSectionName = section.name;
+    this.customerData.controls.section.patchValue(`${section.name}`);
+    console.log(section.name);
+
+    this.customerData.controls.section_id.setValue(section.id);
+  }
+
 
   clearSelection(){
+    this.currentSectionName = '';
     this.selectedTables = [];
     this.assignable = true;
     this.runningTables = 0;
-    this.customerData.controls.section.setValue("");
+    this.cdr.detectChanges();
   }
 
 
-  assignTable(){
-    console.log(this.customerData.value);
+  assignTable(data : any){
+    this.sectionService.assignTables(data).subscribe({
+      next: (res:any)=>{
+        if(res.status == "false"){
+          this.snackbarService.error(res.message);
+          this.router.navigateByUrl('order/menu');
+
+        }
+        else{
+          this.snackbarService.success(res.message);
+          this.router.navigateByUrl('order/menu');
+        }
+      },
+      error: (err)=>{
+        this.snackbarService.error(err);
+      }
+    })
   }
 
 
-  setCurrentSection(section: any){
-    this.currentSection = section.id;
-    this.customerData.controls.section.setValue(`${section.name}`);
-    this.customerData.controls.section_id.setValue(section.id);
-  }
+
 
 
 }

@@ -19,6 +19,7 @@ import { SectionComponent } from './admin/table-section/section/section.componen
 import { TaxFeesComponent } from './admin/tax-fees/tax-fees.component';
 import { OrderappComponent } from './orderapp/orderapp.component';
 import { OrderTablesComponent } from './orderapp/order-tables/order-tables.component';
+import { OrderMenuComponent } from './orderapp/order-menu/order-menu.component';
 // import { DashboardComponent } from './app/dashboard/dashboard.component';
 const routes: Routes = [
   // {
@@ -93,10 +94,16 @@ const routes: Routes = [
     component: OrderappComponent,
     children: [
       {
+        path: 'menu',
+        canActivate: [AuthGuard],
+        component: OrderMenuComponent ,
+      },
+      {
         path: 'tables',
         canActivate: [AuthGuard],
         component: OrderTablesComponent ,
       },
+
     ]
   },
   {

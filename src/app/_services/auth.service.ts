@@ -56,7 +56,7 @@ export class AuthService {
   checkLoggedIn(token: string) {
 
     if (localStorage.getItem('access_token') && this.checkValidity(token)) {
-      this.router.navigate(['order/tables']);
+      this.router.navigate(['order/menu']);
       return true;
     } else {
       this.router.navigate(['login']);

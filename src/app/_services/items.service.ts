@@ -26,7 +26,7 @@ export class ItemsService {
     return this.http.delete(environment.baseURL + `upload-image/${formData}`, { headers : this.httpHeaders});
   }
 
-  getItemList() {
+  getItemData() {
     return this.http.get(environment.baseURL + `item`,{ headers : this.httpHeaders});
   }
 

@@ -68,7 +68,7 @@ export class ItemsComponent implements OnInit {
 
   //fetch all item records
   getItems() {
-    this.itemService.getItemList().subscribe((res: any) => {
+    this.itemService.getItemData().subscribe((res: any) => {
       this.items = res.data;
     });
   }
