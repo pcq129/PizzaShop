@@ -3,27 +3,36 @@ import { CommonModule } from '@angular/common';
 import { OrderMenuComponent } from './order-menu.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatButtonModule } from '@angular/material/button';
-import { MatGridListModule } from '@angular/material/grid-list';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
-import { MatListModule } from '@angular/material/list';
+import { modifierDialog } from './modifier-dialog.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatSelectModule } from '@angular/material/select';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import {MatRadioModule} from '@angular/material/radio';
-import { FormsModule } from '@angular/forms';
+import { MatDividerModule } from '@angular/material/divider';
 
 @NgModule({
-  declarations: [OrderMenuComponent],
+  declarations: [OrderMenuComponent, modifierDialog],
   imports: [
     CommonModule,
     MatSidenavModule,
     MatButtonModule,
-    // MatGridListModule,
     MatCardModule,
-    // MatListModule,
-    // MatCheckboxModule,
-    // MatRadioModule,
     MatIconModule,
-    // FormsModule
+    MatExpansionModule,
+    MatInputModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatDialogModule,
+    MatSelectModule,
+    MatCheckboxModule,
+    MatDividerModule,
+
   ],
 })
 export class OrderMenuModule {}

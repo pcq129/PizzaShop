@@ -1,5 +1,5 @@
 <mat-drawer-container class="">
-    <mat-drawer mode="side" opened>
+    <mat-drawer #nav mode="side" opened>
         <div class="branding">
             <img class="brandLogo" [src]="brandLogo">
             <span class="brand">PIZZASHOP</span>
@@ -7,7 +7,7 @@
 
         <mat-list>
             <mat-list-item *ngFor="let item of sideBarItems" (click)="loadComponent(item.redirect)">
-              <button mat-button (click)="addClass()" class="navItem" routerLink="{{item.redirect}}" >
+              <button mat-button id="item.redirect" (click)="addClass()" class="navItem" routerLink="{{item.redirect}}" >
                 <mat-icon matListIcon>{{item.icon}}</mat-icon>
                 {{item.title}}
               </button>
@@ -24,6 +24,34 @@
     <mat-drawer-content>
         <!-- <a routerLink="/" (click)="logout()">logout</a> -->
         <header></header>
+        <nav>
+
+          <div class="profile">
+              <img [src]="profile" class="profilePicture clickable" [matMenuTriggerFor]="menu">
+              <mat-menu #menu="matMenu">
+                  <button mat-menu-item>
+                      <mat-icon>person</mat-icon>
+                      <span>My Profile</span>
+                  </button>
+                  <button mat-menu-item>
+                      <mat-icon>refresh</mat-icon>
+                      <span>Change Password</span>
+                  </button>
+                  <button mat-menu-item (click)="logout()">
+                      <mat-icon>exit_to_app</mat-icon>
+                      <span>Logout</span>
+                  </button>
+              </mat-menu>
+          </div>
+          <div>
+            <button mat-button (click)="openOrderApp()">
+              <mat-icon>
+                phone_android
+              </mat-icon>
+            </button>
+          </div>
+          <mat-icon mat-button class="clickable navtoggle" (click)="nav.toggle()">menu</mat-icon>
+      </nav>
         <router-outlet></router-outlet>
         <!-- <app-menu></app-menu> -->
     </mat-drawer-content>

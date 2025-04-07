@@ -1,0 +1,89 @@
+<h6 mat-dialog-title>Add Modifiers for {{data.name}}</h6>
+<div mat-dialog-content>
+  <mat-accordion class="example-headers-align" multi>
+    <mat-expansion-panel *ngFor="let modifierGroup of data.modifier_groups">
+      <mat-expansion-panel-header>
+        <mat-panel-title>{{modifierGroup.name}}</mat-panel-title>
+        <mat-panel-description>
+          {{modifierGroup.description}}
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+     <div class="modifierContainer">
+      {{modifierGroup.modifiers.length == 0 ? "No modifiers available" : ""}}
+      <mat-card *ngFor="let modifier of modifierGroup.modifiers" class="modifier  {{modifier_ids.includes(modifier.id) ? 'selected' : ''}}" id="modifier.id" (click)="selectModifier(modifier)">
+        <div class="productName">{{modifier.name}}</div>
+        <div class="productPrice">₹{{modifier.rate}}</div>
+      </mat-card>
+     </div>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>
+<div mat-dialog-actions class="bottom">
+  <button mat-button [mat-dialog-close]="selectedModifiers" >Add</button>
+  <button mat-button (click)="onNoClick()">Close</button>
+</div>
+
+<!-- {
+  "id": 5,
+  "name": "Tandoori Burger",
+  "item_type": "non-veg",
+  "description": null,
+  "category_id": 4,
+  "quantity": 1,
+  "unit": "pcs",
+  "rate": 450,
+  "default_tax": 0,
+  "tax_percentage": 12,
+  "available": 0,
+  "short_code": null,
+  "image": null,
+  "modifier_groups": [
+      {
+          "id": 4,
+          "name": "Sauce Option",
+          "description": null,
+          "pivot": {
+              "item_id": 5,
+              "modifier_group_id": 4
+          },
+          "modifiers": [
+              {
+                  "id": 4,
+                  "name": "BBQ",
+                  "rate": 50,
+                  "unit": "grams",
+                  "quantity": 200,
+                  "description": null,
+                  "pivot": {
+                      "modifier_group_id": 4,
+                      "modifier_id": 4
+                  }
+              },
+              {
+                  "id": 5,
+                  "name": "Alfredo",
+                  "rate": 200,
+                  "unit": "grams",
+                  "quantity": 150,
+                  "description": null,
+                  "pivot": {
+                      "modifier_group_id": 4,
+                      "modifier_id": 5
+                  }
+              },
+              {
+                  "id": 6,
+                  "name": "Tomato",
+                  "rate": 200,
+                  "unit": "grams",
+                  "quantity": 200,
+                  "description": null,
+                  "pivot": {
+                      "modifier_group_id": 4,
+                      "modifier_id": 6
+                  }
+              }
+          ]
+      }
+  ]
+} -->

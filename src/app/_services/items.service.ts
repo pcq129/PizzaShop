@@ -30,6 +30,10 @@ export class ItemsService {
     return this.http.get(environment.baseURL + `item`,{ headers : this.httpHeaders});
   }
 
+  getSingleItem(id: any) {
+    return this.http.get(environment.baseURL + `item/${id}`,{ headers : this.httpHeaders});
+  }
+
   addItem(data: any):Observable<any> {
     return this.http.post(environment.baseURL + `item`, data,{ headers : this.httpHeaders});
   }

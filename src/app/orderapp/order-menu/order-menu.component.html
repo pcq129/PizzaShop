@@ -30,120 +30,133 @@
     </ul>
   </mat-drawer>
   <mat-drawer-content class="drawerBody">
-    <div>
+    <div class="menu">
       <div class="itemsHeader">
         <h3 class="itemsTitle">Items</h3>
         <ul class="noBullets horizontal">
-          <li><span class="veg dot"></span>Vegetarian</li>
-          <li><span class="nonveg dot"></span>Non-Vegetarian</li>
-          <li><span class="vegan dot"></span>Vegan</li>
+          <li><span class="green dot"></span>Vegetarian</li>
+          <li><span class="red dot"></span>Non-Vegetarian</li>
+          <li><span class="orange dot"></span>Vegan</li>
         </ul>
       </div>
       <div class="itemsContainer">
-        <mat-card class="item" *ngFor="let item of viewItemData">
-          <!-- <div class="food-image">
-          <img src="assets/food-icon.png" alt="Food Icon" />
-        </div> -->
+        <mat-card
+          class="item"
+          *ngFor="let item of viewItemData"
+          (click)="addModifierPopup(item.id)"
+        >
+          <div class="ribbon-corner {{ item.item_type }}"></div>
+          <img
+            *ngIf="item.image"
+            class="itemImage"
+            src="{{ 'http://127.0.0.1:8000/storage/uploads/' + item.image }}"
+          />
           <div class="food-details">
             <h5>
-              {{ item.name }}<span class="dot {{ item.item_type }}"></span>
+              {{ item.name }}
             </h5>
             <p class="price">₹{{ item.rate }}</p>
           </div>
-          <mat-icon class="wishlist">favorite_border</mat-icon>
+          <mat-icon mat-icon-button (click)="addFavourite()" class="wishlist"
+            >favorite_border</mat-icon
+          >
         </mat-card>
-
-        <!-- <mat-card class="item">
-        <span class="itemIndicator"></span>
-        <h6>itemName</h6>
-        <p>itemPrice</p>
-        <mat-icon>favourite</mat-icon>
-      </mat-card> -->
       </div>
     </div>
 
-    <mat-card class="invoice-card">
-      <!-- Header -->
-      <div class="header">
-        <div class="location">
-          <mat-icon>business</mat-icon>
-          <div>
-            <strong>First Floor</strong>
-            <p><strong>Table:</strong> T2, T6</p>
-          </div>
-        </div>
-        <div class="icons">
-          <mat-icon>list</mat-icon>
-          <mat-icon>grid_on</mat-icon>
-          <mat-icon>menu</mat-icon>
+    <mat-card class="billingContainer">
+      <div class="tableDetails">
+        <strong>{{ orderData.section }}</strong>
+        <div>
+          <strong
+            >Table:<span *ngFor="let table_name of orderData.table_names"
+              >{{table_name}}
+            </span>
+          </strong>
         </div>
       </div>
 
-      <!-- Item List -->
-      <mat-list>
-        <mat-list-item>
-          <div class="item-details">
-            <strong>Item Name</strong>
-          </div>
-          <div class="quantity-controls">
-            <button mat-icon-button >
-              <mat-icon>remove</mat-icon>
-            </button>
-            <span>{{ item.quantity</span>
-            <button mat-icon-button >
-              <mat-icon>add</mat-icon>
-            </button>
-          </div>
-          <div class="price">
-            ₹{{ item.price
-            <p class="small-price">₹{{ item.extra </p>
-          </div>
-          <button mat-icon-button color="warn" >
-            <mat-icon>delete</mat-icon>
-          </button>
-        </mat-list-item>
-      </mat-list>
-
-      <!-- Summary Section -->
-      <div class="summary">
-        <p><strong>SubTotal</strong> <span>₹234</span></p>
-        <p>CGST <span>₹37.20</span></p>
-        <p>GST <span>₹6.20</span></p>
-        <p>Other <span>₹15.50</span></p>
-        <mat-checkbox >SGST</mat-checkbox>
-        <p class="total"><strong>Total</strong> <span>₹243</span></p>
+      <div class="headerRow">
+        <span>Item</span>
+        <span>Quantity</span>
+        <span>Amount</span>
       </div>
 
-      <!-- Payment Method -->
-      <div class="payment">
-        <p><strong>Payment Method</strong></p>
-        <mat-radio-group>
-          <mat-radio-button value="cash">Cash</mat-radio-button>
-          <mat-radio-button value="card">Card</mat-radio-button>
-          <mat-radio-button value="upi">UPI</mat-radio-button>
-        </mat-radio-group>
-      </div>
 
-      <!-- Buttons -->
-      <div class="actions">
-        <button mat-button color="primary">Save</button>
-        <button mat-button>Complete</button>
-        <button mat-button>Generate Invoice</button>
-        <button mat-button color="warn">Cancel</button>
+
+<!--
+      [
+  {
+    "item_id": 3,
+    "item_name": "Veg Sandwich",
+    "item_rate": 150,
+    "modifiers": []
+  },
+  {
+    "item_id": 5,
+    "item_name": "Tandoori Burger",
+    "item_rate": 450,
+    "modifiers": [
+      {
+        "modifier_id": 1,
+        "modifier_name": "Small",
+        "modifier_rate": 100
+      }
+    ]
+  }
+] -->
+
+
+
+      <mat-card *ngFor="let item of items" class="itemCard">
+        <div class="itemHeader">
+          <div class="itemName">
+            <mat-icon>expand_more</mat-icon> <strong>{{item.item_name}}</strong>
+          </div>
+          <div class="quantityControl">
+            <button mat-icon-button>-</button>
+            <span>1</span>
+            <button mat-icon-button>+</button>
+          </div>
+          <!-- <mat-icon class="deleteIcon">delete</mat-icon> -->
+          <div class="itemAmount">₹{{item.item_rate}}</div>
+        </div>
+
+        <div class="itemExtras"><ul>
+          <li *ngFor="let modifier of item.modifiers" class="modifierInBill">
+            <span>{{modifier.modifier_name}}</span>
+            <span class="modifierPrice">{{modifier.modifier_rate}}</span></li>
+        </ul></div>
+      </mat-card>
+
+      <!-- Summary -->
+      <div class="summarySection">
+        <div class="summaryRow"><span>SubTotal</span><span>₹{{billAmount}}</span></div>
+        <div *ngFor="let tax of taxData" class="summaryRow"><span>{{tax.name}}</span><span>₹{{calculateTax(tax, billAmount)}}</span></div>
+
+
+        <!-- <mat-checkbox class="summaryCheckbox">SGST</mat-checkbox> -->
+
+        <div class="totalRow">
+          <strong>Total</strong><strong>₹2118.20</strong>
+        </div>
+
+        <div class="paymentMethod">
+          <span>Payment Method</span>
+          <!-- <mat-radio-group>
+            <mat-radio-button value="cash">Cash</mat-radio-button>
+            <mat-radio-button value="card">Card</mat-radio-button>
+            <mat-radio-button value="upi">UPI</mat-radio-button>
+          </mat-radio-group> -->
+        </div>
+
+        <div class="actionButtons">
+          <button mat-flat-button color="primary">Save</button>
+          <button mat-stroked-button>Complete</button>
+          <button mat-stroked-button>Generate Invoice</button>
+          <button mat-stroked-button color="warn">Cancel</button>
+        </div>
       </div>
     </mat-card>
-    <!-- <mat-card class="orderDetailsCard">
-      <mat-card-title>Order Details</mat-card-title>
-      <mat-card-subtitle>Table Name : Customer Name</mat-card-subtitle>
-
-      <mat-card-actions>
-        <button mat-flat-button color="accent">Save</button>
-        <button mat-stroked-button>Complete</button>
-        <button mat-stroked-button>Generate Invoice</button>
-        <button mat-stroked-button>Cancel</button>
-      </mat-card-actions>
-    </mat-card> -->
-
-    <!-- </div> -->
   </mat-drawer-content>
 </mat-drawer-container>

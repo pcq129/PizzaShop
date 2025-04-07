@@ -114,4 +114,11 @@ export class AdminComponent implements OnInit {
   }
 
   brandLogo = '/assets/logos/brandLogo.png';
+  profile = '../../assets/pfp.png';
+
+  openOrderApp(){
+    this.router.navigate(['order/menu'])
+  }
+
+
 }

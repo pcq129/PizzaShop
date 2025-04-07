@@ -14,9 +14,10 @@ import { HttpClientModule } from '@angular/common/http';
 import { TableSectionModule } from './table-section/table-section.module';
 import { TaxFeesComponent } from './tax-fees/tax-fees.component';
 import { TaxFeesModule } from './tax-fees/tax-fees.module';
+import { MatMenuModule } from '@angular/material/menu';
 
 @NgModule({
-  declarations: [AdminComponent, ],
+  declarations: [AdminComponent],
   imports: [
     CommonModule,
     MatSidenavModule,
@@ -29,7 +30,10 @@ import { TaxFeesModule } from './tax-fees/tax-fees.module';
     TableSectionModule,
     MatButtonModule,
     HttpClientModule,
-    TaxFeesModule
+    TaxFeesModule,
+    MatMenuModule,
+    MatIconModule,
+    MatButtonModule,
   ],
   exports: [AdminComponent],
 })

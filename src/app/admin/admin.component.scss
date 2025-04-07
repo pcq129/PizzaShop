@@ -36,3 +36,31 @@ mat-drawer{
   justify-content: flex-start;
   height: 100%;
 }
+
+
+nav{
+  height: 8vh;
+  background-color: skyblue;
+  display: flex;
+  align-items: center;
+  flex-direction: row-reverse;
+}
+
+.profile{
+  float: right;
+  margin-right: 15px;
+  height: 5vh;
+}
+
+.profilePicture{
+  height: 100%;
+}
+
+.clickable{
+cursor: pointer;
+}
+
+.navtoggle{
+  position: absolute;
+  left: 18px;
+}
