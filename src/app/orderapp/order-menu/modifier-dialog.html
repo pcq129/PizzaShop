@@ -1,7 +1,7 @@
 <h6 mat-dialog-title>Add Modifiers for {{data.name}}</h6>
 <div mat-dialog-content>
-  <mat-accordion class="example-headers-align" multi>
-    <mat-expansion-panel *ngFor="let modifierGroup of data.modifier_groups">
+  <mat-accordion class="example-headers-align" *ngFor="let modifierGroup of data.modifier_groups">
+    <mat-expansion-panel *ngIf="modifierGroup.modifiers.length != 0" >
       <mat-expansion-panel-header>
         <mat-panel-title>{{modifierGroup.name}}</mat-panel-title>
         <mat-panel-description>
@@ -33,7 +33,7 @@
   "unit": "pcs",
   "rate": 450,
   "default_tax": 0,
-  "tax_percentage": 12,
+  "tax_percentage": 12
   "available": 0,
   "short_code": null,
   "image": null,

@@ -81,13 +81,14 @@
             <h4 class="bottomMargin">{{ section.name }}</h4>
           </mat-panel-title>
           <mat-panel-description class="statusContainer">
-            <ul class="noBullets bottomMargin horizontal">
+            <ul class="noBullets bottomMargin horizontal" *ngFor="let status of tableStatusCounter(section.tables)">
+              <!-- {{status}} -->
               <li class="status">
-                <span class="dot available"></span>Available
+                <span class="dot {{status[0]}}"></span>{{status[1]}}
               </li>
-              <li class="status"><span class="dot selected"></span>Selected</li>
+              <!-- <li class="status"><span class="dot selected"></span>Selected</li>
               <li class="status"><span class="dot assigned"></span>Assigned</li>
-              <li class="status"><span class="dot running"></span>Running</li>
+              <li class="status"><span class="dot running"></span>Running</li> -->
             </ul>
           </mat-panel-description>
         </mat-expansion-panel-header>

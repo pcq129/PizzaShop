@@ -280,26 +280,35 @@ export class OrderTablesComponent implements OnInit {
     //     ]
     // }
 
-    this.orderService.assignTable(data, 2);
-    this.router.navigateByUrl('order/menu');
 
-    // this.sectionService.assignTables(data).subscribe({
-    //   next: (res:any)=>{
-    //     if(res.status == "false"){
-    //       this.snackbarService.error(res.message);
-    //       this.router.navigateByUrl('order/menu');
 
-    //     }
-    //     else{
-    //       console.log(data);
-    //       this.snackbarService.success(res.message);
-    //       this.router.navigateByUrl('order/menu');
+    this.sectionService.assignTables(data).subscribe({
+      next: (res:any)=>{
+        if(res.status == "false"){
+          this.snackbarService.error(res.message);
+          this.router.navigateByUrl('order/menu');
+        }
+        else{
+          console.log(data);
+          this.snackbarService.success(res.message);
+          this.orderService.assignTable(data, res.data);
+          this.router.navigateByUrl('order/menu');
+        }
+      },
+      error: (err)=>{
+        this.snackbarService.error(err);
+      }
+    })
+  }
 
-    //     }
-    //   },
-    //   error: (err)=>{
-    //     this.snackbarService.error(err);
-    //   }
-    // })
+  tableStatusCounter(data: any){
+    //accumulator
+    const counts = data.reduce((acc: any, table: any) => {
+      const status = table.status;
+      acc[status] = (acc[status] || 0) + 1;
+      return acc;
+    }, {});
+
+    return Object.entries(counts);
   }
 }

@@ -207,10 +207,14 @@
   gap: 4px;
 }
 
+
+
 .quantityControl {
   display: flex;
   align-items: center;
   gap: 8px;
+  position: absolute;
+  right: 270px;
 }
 
 .itemAmount {
@@ -245,7 +249,11 @@
 }
 
 .paymentMethod {
-  margin: 12px 0;
+  // margin: 12px 0;
+  display: flex;
+  align-content: center;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .actionButtons {
@@ -258,6 +266,8 @@
 .itemImage{
   height: 100px;
   width: 100px;
+  // background-image: url('../../../assets/dining-menu.png');
+  background-size: cover;
 }
 
 .ribbon-corner {
@@ -321,4 +331,35 @@
 
 .modifierPrice{
   margin-right: 100px;
+}
+
+.scrollableContainer {
+  height: 300px;         /* Set your fixed height */
+  overflow-y: auto;      /* Enables vertical scrolling */
+  overflow-x: hidden;    /* Optional: hide horizontal scroll */
+  padding: 1rem;         /* Optional: inner spacing */
+}
+
+.checkboxContainer{
+  margin-left: 10px;
+}
+
+.checkbox{
+  padding: 10px;
+}
+
+.noItemBanner{
+  height: 80vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.noBillItem{
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

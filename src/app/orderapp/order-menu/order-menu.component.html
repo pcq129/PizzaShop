@@ -40,6 +40,9 @@
         </ul>
       </div>
       <div class="itemsContainer">
+        <div *ngIf="viewItemData.length == 0" class="noItemBanner">
+          <span>No Items</span>
+        </div>
         <mat-card
           class="item"
           *ngFor="let item of viewItemData"
@@ -47,15 +50,15 @@
         >
           <div class="ribbon-corner {{ item.item_type }}"></div>
           <img
-            *ngIf="item.image"
+
             class="itemImage"
-            src="{{ 'http://127.0.0.1:8000/storage/uploads/' + item.image }}"
+            src="{{item.image ? 'http://127.0.0.1:8000/storage/uploads/' + item.image : '../../../assets/dining-menu.png'}}"
           />
           <div class="food-details">
-            <h5>
+            <h6>
               {{ item.name }}
-            </h5>
-            <p class="price">₹{{ item.rate }}</p>
+            </h6>
+            <p class="price">₹{{getItemAmount(item)}}</p>
           </div>
           <mat-icon mat-icon-button (click)="addFavourite()" class="wishlist"
             >favorite_border</mat-icon
@@ -106,29 +109,31 @@
   }
 ] -->
 
-
-
-      <mat-card *ngFor="let item of items" class="itemCard">
-        <div class="itemHeader">
-          <div class="itemName">
-            <mat-icon>expand_more</mat-icon> <strong>{{item.item_name}}</strong>
-          </div>
-          <div class="quantityControl">
-            <button mat-icon-button>-</button>
-            <span>1</span>
-            <button mat-icon-button>+</button>
-          </div>
-          <!-- <mat-icon class="deleteIcon">delete</mat-icon> -->
-          <div class="itemAmount">₹{{item.item_rate}}</div>
+      <div class="scrollableContainer">
+        <div *ngIf="items.length == 0" class="noBillItem">
+          <span>No Items</span>
         </div>
+        <mat-card *ngFor="let item of items" class="itemCard">
+          <div class="itemHeader">
+            <div class="itemName">
+              <mat-icon>expand_more</mat-icon> <strong>{{item.item_name}}</strong>
+            </div>
+            <div class="quantityControl">
+              <!-- <button mat-icon-button>-</button> -->
+              <span>1</span>
+              <!-- <button mat-icon-button>+</button> -->
+            </div>
+            <!-- <mat-icon class="deleteIcon">delete</mat-icon> -->
+            <div class="itemAmount">₹{{item.item_rate}}</div>
+          </div>
 
-        <div class="itemExtras"><ul>
-          <li *ngFor="let modifier of item.modifiers" class="modifierInBill">
-            <span>{{modifier.modifier_name}}</span>
-            <span class="modifierPrice">{{modifier.modifier_rate}}</span></li>
-        </ul></div>
-      </mat-card>
-
+          <div class="itemExtras"><ul>
+            <li *ngFor="let modifier of item.modifiers" class="modifierInBill">
+              <span>{{modifier.modifier_name}}</span>
+              <span class="modifierPrice">{{modifier.modifier_rate}}</span></li>
+          </ul></div>
+        </mat-card>
+      </div>
       <!-- Summary -->
       <div class="summarySection">
         <div class="summaryRow"><span>SubTotal</span><span>₹{{billAmount}}</span></div>
@@ -138,23 +143,23 @@
         <!-- <mat-checkbox class="summaryCheckbox">SGST</mat-checkbox> -->
 
         <div class="totalRow">
-          <strong>Total</strong><strong>₹2118.20</strong>
+          <strong>Total</strong><strong>₹{{calculateTotal()}}</strong>
         </div>
 
-        <div class="paymentMethod">
+        <!-- <div class="paymentMethod">
           <span>Payment Method</span>
-          <!-- <mat-radio-group>
-            <mat-radio-button value="cash">Cash</mat-radio-button>
-            <mat-radio-button value="card">Card</mat-radio-button>
-            <mat-radio-button value="upi">UPI</mat-radio-button>
-          </mat-radio-group> -->
-        </div>
+          <mat-radio-group class="checkboxContainer">
+            <mat-radio-button class="checkbox" value="cash">Cash</mat-radio-button>
+            <mat-radio-button class="checkbox" value="card">Card</mat-radio-button>
+            <mat-radio-button class="checkbox" value="upi">UPI</mat-radio-button>
+          </mat-radio-group>
+        </div> -->
 
         <div class="actionButtons">
-          <button mat-flat-button color="primary">Save</button>
-          <button mat-stroked-button>Complete</button>
-          <button mat-stroked-button>Generate Invoice</button>
-          <button mat-stroked-button color="warn">Cancel</button>
+          <button mat-flat-button [color]="items.length == 0 ? '' : 'primary'" [disabled]="items.length == 0" (click)="generateOrder()">Save</button>
+          <button mat-stroked-button (click)="completeOrder()">Complete</button>
+          <!-- <button mat-stroked-button>Generate Invoice</button> -->
+          <button mat-stroked-button color="warn" (click)="cancelOrder()">Cancel</button>
         </div>
       </div>
     </mat-card>

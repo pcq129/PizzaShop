@@ -34,7 +34,7 @@ export class modifierDialog {
   selectedModifiers: selectedModifers = {
     item_id: this.data.id,
     item_name: this.data.name,
-    item_rate : this.data.rate,
+    item_rate : this.data.rate + this.data.rate*(this.data.tax_percentage/100),
     modifiers: [],
   };
 

@@ -8,7 +8,6 @@ import {MatChipsModule} from '@angular/material/chips';
 import { OrderTablesModule } from './order-tables/order-tables.module';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
-import { OrderService } from './order-service.service';
 
 
 @NgModule({
@@ -25,6 +24,5 @@ import { OrderService } from './order-service.service';
     RouterModule,
     HttpClientModule
   ],
-  providers: [OrderService]
 })
 export class OrderappModule { }

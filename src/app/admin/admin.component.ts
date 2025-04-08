@@ -49,11 +49,11 @@ export class AdminComponent implements OnInit {
       title: 'Taxes and Fees',
       redirect: 'taxes-fees',
     },
-    // {
-    //   icon: `assignment_turned_in`,
-    //   title: 'Orders',
-    //   redirect: '#',
-    // },
+    {
+      icon: `assignment_turned_in`,
+      title: 'Orders',
+      redirect: 'orders',
+    },
     // {
     //   icon: `supervised_user_circle`,
     //   title: 'Customers',

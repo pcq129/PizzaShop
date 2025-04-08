@@ -37,6 +37,7 @@ import { OrderService } from '../order-service.service';
     MatInputModule,
     OrderMenuModule
   ],
+  providers: [OrderService]
 
 })
 export class OrderTablesModule { }

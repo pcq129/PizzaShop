@@ -20,6 +20,7 @@ import { TaxFeesComponent } from './admin/tax-fees/tax-fees.component';
 import { OrderappComponent } from './orderapp/orderapp.component';
 import { OrderTablesComponent } from './orderapp/order-tables/order-tables.component';
 import { OrderMenuComponent } from './orderapp/order-menu/order-menu.component';
+import { OrdersComponent } from './admin/orders/orders.component';
 // import { DashboardComponent } from './app/dashboard/dashboard.component';
 const routes: Routes = [
   // {
@@ -80,6 +81,10 @@ const routes: Routes = [
         path: 'taxes-fees',
         canActivate: [AuthGuard],
         component: TaxFeesComponent,
+      },{
+        path: 'orders',
+        canActivate: [AuthGuard],
+        component: OrdersComponent,
       },
     ],
   },
@@ -103,6 +108,12 @@ const routes: Routes = [
         canActivate: [AuthGuard],
         component: OrderTablesComponent ,
       },
+      {
+        path: 'running',
+        canActivate: [AuthGuard],
+        component: OrderTablesComponent ,
+      },
+
 
     ]
   },

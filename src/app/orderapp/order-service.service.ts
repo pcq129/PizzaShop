@@ -1,5 +1,9 @@
+import { HttpBackend, HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
+import { environment } from 'src/environments/environment';
 
 
 // export interface orderData{
@@ -20,31 +24,24 @@ import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 })
 export class OrderService {
 
-  constructor(){};
+  constructor(
+    private http : HttpClient,
+    private router : Router
+  ){};
 
-  private orderData = new BehaviorSubject<any>({
-    "email": "test@test.com",
-    "name": "Harmit",
-    "mobile": 8788394783,
-    "people": 23,
-    "section": "Ground Floor",
-    "section_id": 1,
-    "table_ids": [
-      10
-    ],
-    "table_names": [
-      "T1"
-    ],
-    "id": 2
-  }
-);
+  private orderData = new BehaviorSubject<any>(null);
   currentData = this.orderData.asObservable();
 
 
   assignTable(data: any, id: number){
-     data.id = id;
+     data.customer_id = id;
      this.orderData.next(data);
   }
+
+  placeOrder(data: any){
+    return this.http.post(environment.baseURL + 'order', data);
+  }
+
 
 
   // getOrderData(){

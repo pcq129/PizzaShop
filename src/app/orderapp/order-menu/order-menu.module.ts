@@ -12,8 +12,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSelectModule } from '@angular/material/select';
-import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDividerModule } from '@angular/material/divider';
+import {MatRadioModule} from '@angular/material/radio';
+
 
 @NgModule({
   declarations: [OrderMenuComponent, modifierDialog],
@@ -30,9 +31,8 @@ import { MatDividerModule } from '@angular/material/divider';
     MatFormFieldModule,
     MatDialogModule,
     MatSelectModule,
-    MatCheckboxModule,
     MatDividerModule,
-
+    MatRadioModule
   ],
 })
 export class OrderMenuModule {}
