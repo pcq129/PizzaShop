@@ -1,9 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {
-  categoryDialogComponent,
-  ItemCategoryComponent,
-} from './item-category.component';
+import { ItemCategoryComponent } from './item-category.component';
 import { MatTableModule } from '@angular/material/table';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -17,7 +14,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { DeleteDialogModule } from 'src/app/common/delete-dialog/delete-dialog/delete-dialog.module';
-import { ItemDialogComponent } from './item-dialog.component';
+import { ItemDialogComponent } from './item-dialog/item-dialog.component';
+import { categoryDialogComponent } from './category-dialog/category-dialog.component';
 @NgModule({
   declarations: [
     ItemCategoryComponent,

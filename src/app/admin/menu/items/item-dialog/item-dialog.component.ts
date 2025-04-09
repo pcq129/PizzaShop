@@ -7,7 +7,7 @@ import { SnackbarService } from 'src/app/_services/snackbar.service';
 @Component({
   selector: 'app-item-dialog',
   templateUrl: 'item-dialog.html',
-  styleUrls: ['./item-category.component.scss'],
+  styleUrls: ['../item-category.component.scss'],
 })
 export class ItemDialogComponent implements OnInit {
   imageUrl: any = this.data.image
@@ -15,7 +15,7 @@ export class ItemDialogComponent implements OnInit {
     : 'http://127.0.0.1:8000/storage/uploads/default.png';
 
   ngOnInit(): void {
-    // console.log(this.data);
+    console.log(this.data);
   }
 
   constructor(
@@ -109,8 +109,6 @@ export class ItemDialogComponent implements OnInit {
     return;
   }
   getTypeError() {
-    console.log('test');
-
     if (this.dataForm.controls.item_type.hasError('required')) {
       return 'You must select a Type';
     }

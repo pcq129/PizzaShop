@@ -17,8 +17,8 @@ import { ItemsService } from 'src/app/_services/items.service';
 import { ModifierService } from 'src/app/_services/modifier.service';
 import { SnackbarService } from 'src/app/_services/snackbar.service';
 import { DeleteDialogComponent } from 'src/app/common/delete-dialog/delete-dialog/delete-dialog.component';
-import { ItemDialogComponent } from './item-dialog.component';
-
+import { ItemDialogComponent } from './item-dialog/item-dialog.component';
+import { categoryDialogComponent } from './category-dialog/category-dialog.component';
 export interface DialogData {
   id: number;
   name: string;
@@ -73,7 +73,7 @@ export class ItemCategoryComponent implements OnInit {
 
   getModifierGroupList() {
     this.modifierService.getModifierGroupList().subscribe((res: any) => {
-      this.modifierData = res.data;
+      this.modifierData = res;
       console.log(res);
     });
   }
@@ -284,19 +284,18 @@ export class ItemCategoryComponent implements OnInit {
         name: element.name,
         unit: element.unit,
         rate: element.rate,
+        image: element.image,
         quantity: element.quantity,
-        categories: this.categoryData,
         available: element.available,
         item_type: element.item_type,
+        categories: this.categoryData,
         short_code: element.short_code,
-        // category: element.category.name,
         description: element.description,
         category_id: element.category_id,
         default_tax: element.default_tax,
-        image: element.image,
-        tax_percentage: element.tax_percentage,
         modifierGroupList: this.modifierData,
-        // modifier_group_ids: element.modifier_groups,
+        tax_percentage: element.tax_percentage,
+        modifier_group_ids: element.modifier_groups,
       },
     });
 
@@ -349,44 +348,4 @@ export class ItemCategoryComponent implements OnInit {
   //   category: '',
   //   description: '',
   // };
-}
-
-//dialog components
-
-//for items
-
-
-
-//for category
-
-@Component({
-  selector: 'dialog-category',
-  templateUrl: 'category-dialog.html',
-})
-export class categoryDialogComponent {
-  categoryName: string = '';
-  categoryDescription: string = '';
-
-  constructor(
-    public dialogRef: MatDialogRef<categoryDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData
-  ) {}
-
-  onNoClick(): void {
-    this.dialogRef.close();
-  }
-
-  dataForm = new FormGroup({
-    name: new FormControl(this.data.name, [
-      Validators.required,
-      this.whitespaceValidator,
-    ]),
-    description: new FormControl(this.data.description, []),
-  });
-
-  public whitespaceValidator(control: FormControl) {
-    const isWhitespace = (control.value || '').trim().length === 0;
-    const isValid = !isWhitespace;
-    return isValid ? null : { whitespace: true };
-  }
 }

@@ -4,6 +4,9 @@
 
 <div class="menuCard">
   <mat-tab-group class="matTab">
+    <!-- <mat-tab>
+    </mat-tab> -->
+
     <mat-tab>
       <ng-template mat-tab-label class="tab">
         <mat-icon class="itemsTabIcon">menu</mat-icon>
@@ -12,21 +15,9 @@
       <app-item-category
         [categoryData]="categoryData"
         [allItems]="allItems"
-        [viewItems] = "allItems"
+        [viewItems]="allItems"
         (refreshCategoryData)="refreshCategoryData($event)"
       ></app-item-category>
-    </mat-tab>
-    <mat-tab>
-      <ng-template mat-tab-label class="tab">
-        <mat-icon class="itemsTabIcon">menu</mat-icon>
-        <span class="tabName">Modifiers</span>
-      </ng-template>
-      <mat-drawer-container class="menuContainer">
-        <mat-drawer class="categoryList" mode="side" opened>
-          Modifiers Group
-        </mat-drawer>
-        <mat-drawer-content>Modifiers</mat-drawer-content>
-      </mat-drawer-container>
     </mat-tab>
   </mat-tab-group>
 </div>

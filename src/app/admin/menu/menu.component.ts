@@ -38,6 +38,10 @@ export class MenuComponent implements OnInit {
     });
   }
 
+  getModifierData(){
+    
+  }
+
   extractAllItems(data: any) {
     let allItems = data.flatMap((data: any) => data.items || []);
     this.allItems = allItems;
