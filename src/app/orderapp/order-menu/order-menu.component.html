@@ -62,88 +62,79 @@
       </div>
     </div>
 
-    <mat-card class="invoice-card">
-      <!-- Header -->
-      <div class="header">
-        <div class="location">
-          <mat-icon>business</mat-icon>
-          <div>
-            <strong>First Floor</strong>
-            <p><strong>Table:</strong> T2, T6</p>
+    <div class="billingContainer">
+      <!-- Header
+        <div class="header">
+          <div class="location">
+            <mat-icon>business</mat-icon>
+            <div>
+              <strong>First Floor</strong>
+              <p><strong>Table:</strong> T2, T6</p>
+            </div>
           </div>
+          <div class="icons">
+            <mat-icon>list</mat-icon>
+            <mat-icon>grid_on</mat-icon>
+            <mat-icon>menu</mat-icon>
+          </div>
+        </div> -->
+
+      <mat-card class="billingCard">
+        <div class="tableHeader">
+          <mat-icon>table_restaurant</mat-icon>
+          <span>First Floor</span>
+          <span class="tableNumbers">Table: T2, T6</span>
         </div>
-        <div class="icons">
-          <mat-icon>list</mat-icon>
-          <mat-icon>grid_on</mat-icon>
-          <mat-icon>menu</mat-icon>
+
+        <div class="itemList">
+          <mat-card class="itemCard">
+            <div class="itemHeader">
+              <strong> item.name </strong>
+              <button mat-icon-button>
+                <mat-icon>delete</mat-icon>
+              </button>
+            </div>
+
+            <ul class="itemDetails">
+              <li>detail.name - detail.price</li>
+            </ul>
+
+            <div class="itemActions">
+              <button mat-icon-button>-</button>
+              <span>item.quantity </span>
+              <button mat-icon-button>+</button>
+              <span class="itemAmount">₹item.amount </span>
+            </div>
+          </mat-card>
         </div>
-      </div>
 
-      <!-- Item List -->
-      <mat-list>
-        <mat-list-item>
-          <div class="item-details">
-            <strong>Item Name</strong>
-          </div>
-          <div class="quantity-controls">
-            <button mat-icon-button >
-              <mat-icon>remove</mat-icon>
-            </button>
-            <span>{{ item.quantity</span>
-            <button mat-icon-button >
-              <mat-icon>add</mat-icon>
-            </button>
-          </div>
-          <div class="price">
-            ₹{{ item.price
-            <p class="small-price">₹{{ item.extra </p>
-          </div>
-          <button mat-icon-button color="warn" >
-            <mat-icon>delete</mat-icon>
-          </button>
-        </mat-list-item>
-      </mat-list>
+        <mat-divider></mat-divider>
 
-      <!-- Summary Section -->
-      <div class="summary">
-        <p><strong>SubTotal</strong> <span>₹234</span></p>
-        <p>CGST <span>₹37.20</span></p>
-        <p>GST <span>₹6.20</span></p>
-        <p>Other <span>₹15.50</span></p>
-        <mat-checkbox >SGST</mat-checkbox>
-        <p class="total"><strong>Total</strong> <span>₹243</span></p>
-      </div>
+        <div class="totalsSection">
+          <div class="totalsRow">SubTotal: ₹subtotal</div>
+          <div class="totalsRow">CGST: ₹cgst</div>
+          <div class="totalsRow">GST: ₹ gst</div>
+          <div class="totalsRow">Other: ₹ other</div>
 
-      <!-- Payment Method -->
-      <div class="payment">
-        <p><strong>Payment Method</strong></p>
-        <mat-radio-group>
-          <mat-radio-button value="cash">Cash</mat-radio-button>
-          <mat-radio-button value="card">Card</mat-radio-button>
-          <mat-radio-button value="upi">UPI</mat-radio-button>
-        </mat-radio-group>
-      </div>
+          <div class="grandTotal">Total: ₹1234</div>
+        </div>
 
-      <!-- Buttons -->
-      <div class="actions">
-        <button mat-button color="primary">Save</button>
-        <button mat-button>Complete</button>
-        <button mat-button>Generate Invoice</button>
-        <button mat-button color="warn">Cancel</button>
-      </div>
-    </mat-card>
-    <!-- <mat-card class="orderDetailsCard">
-      <mat-card-title>Order Details</mat-card-title>
-      <mat-card-subtitle>Table Name : Customer Name</mat-card-subtitle>
+        <div class="paymentSection">
+          <label>Payment Method</label>
+          <mat-radio-group>
+            <mat-radio-button value="cash">Cash</mat-radio-button>
+            <mat-radio-button value="card">Card</mat-radio-button>
+            <mat-radio-button value="upi">UPI</mat-radio-button>
+          </mat-radio-group>
+        </div>
 
-      <mat-card-actions>
-        <button mat-flat-button color="accent">Save</button>
-        <button mat-stroked-button>Complete</button>
-        <button mat-stroked-button>Generate Invoice</button>
-        <button mat-stroked-button>Cancel</button>
-      </mat-card-actions>
-    </mat-card> -->
-
-    <!-- </div> -->
+        <div class="actionButtons">
+          <button mat-stroked-button>Complete</button>
+          <button mat-stroked-button>Generate Invoice</button>
+          <button mat-stroked-button color="warn">Cancel</button>
+          <button mat-flat-button color="primary">Save</button>
+        </div>
+      </mat-card>
+    </div>
   </mat-drawer-content>
 </mat-drawer-container>

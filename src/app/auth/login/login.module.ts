@@ -12,7 +12,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginFormComponent } from './login-form/login-form.component';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterLink, RouterOutlet } from '@angular/router';
-import { AuthService } from '../../_services/auth.service';
+import { AuthService } from '../_services/auth.service';
 
 // const routes: Routes = [
 //   {

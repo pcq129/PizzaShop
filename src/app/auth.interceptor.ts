@@ -6,7 +6,7 @@ import {
   HttpRequest,
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { AuthService } from './_services/auth.service';
+import { AuthService } from './auth/_services/auth.service';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
@@ -20,13 +20,12 @@ export class AuthInterceptor implements HttpInterceptor {
     // this.AuthService.access_token;
     // console.log('intercepting');
 
-
     if (authToken) {
       // Clone the request and attach the token
       const authReq = req.clone({
         setHeaders: {
-          Authorization: `Bearer ${authToken}`
-        }
+          Authorization: `Bearer ${authToken}`,
+        },
       });
 
       return next.handle(authReq);

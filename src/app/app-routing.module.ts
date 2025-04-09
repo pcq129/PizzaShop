@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { CategoryComponent } from './admin/category/category.component';
-import { ItemsComponent } from './admin/items/items.component';
+
 import { AuthGuard } from 'src/helper/auth.guard';
 // import { LayoutComponent } from './admin/app.component';
 // import { AppComponent } from './app.component';
@@ -9,8 +8,7 @@ import { LoginComponent } from './auth/login/login.component';
 import { ForgotPasswordComponent } from './auth/login/forgot-password/forgot-password.component';
 import { DashboardComponent } from './admin/dashboard/dashboard.component';
 import { AdminComponent } from './admin/admin.component';
-import { ModifierComponent } from './admin/modifier/modifier/modifier.component';
-import { ModifierGroupComponent } from './admin/modifier/modifier-group/modifier-group.component';
+
 import { LoginFormComponent } from './auth/login/login-form/login-form.component';
 import { AppComponent } from './app.component';
 import { MenuComponent } from './admin/menu/menu.component';
@@ -34,21 +32,21 @@ const routes: Routes = [
     component: AdminComponent,
     // pathMatch: 'prefix',
     children: [
-      {
-        path: 'category',
-        canActivate: [AuthGuard],
-        component: CategoryComponent,
-      },
+      // {
+      //   path: 'category',
+      //   canActivate: [AuthGuard],
+      //   component: CategoryComponent,
+      // },
       {
         path: 'menu',
         canActivate: [AuthGuard],
         component: MenuComponent,
       },
-      {
-        path: 'items',
-        canActivate: [AuthGuard],
-        component: ItemsComponent,
-      },
+      // {
+      //   path: 'items',
+      //   canActivate: [AuthGuard],
+      //   component: ItemsComponent,
+      // },
       // {
       //   path: '',
       //   canActivate: [AuthGuard],
@@ -67,16 +65,17 @@ const routes: Routes = [
         component: TableSectionComponent,
         pathMatch: 'full',
       },
+      // {
+      //   path: 'modifiers',
+      //   canActivate: [AuthGuard],
+      //   component: ModifierComponent,
+      // },
+      // {
+      //   path: 'modifiergroup',
+      //   canActivate: [AuthGuard],
+      //   component: ModifierGroupComponent,
+      // },
       {
-        path: 'modifiers',
-        canActivate: [AuthGuard],
-        component: ModifierComponent,
-      },
-      {
-        path: 'modifiergroup',
-        canActivate: [AuthGuard],
-        component: ModifierGroupComponent,
-      },{
         path: 'taxes-fees',
         canActivate: [AuthGuard],
         component: TaxFeesComponent,
@@ -96,15 +95,14 @@ const routes: Routes = [
       {
         path: 'menu',
         canActivate: [AuthGuard],
-        component: OrderMenuComponent ,
+        component: OrderMenuComponent,
       },
       {
         path: 'tables',
         canActivate: [AuthGuard],
-        component: OrderTablesComponent ,
+        component: OrderTablesComponent,
       },
-
-    ]
+    ],
   },
   {
     path: 'login',

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../_services/auth.service';
+import { AuthService } from '../auth/_services/auth.service';
 import { Router } from '@angular/router';
 
 interface sidebar {
@@ -13,7 +13,7 @@ interface sidebar {
   styleUrls: ['./admin.component.scss'],
 })
 export class AdminComponent implements OnInit {
-  constructor( public authService: AuthService, private router: Router) {}
+  constructor(public authService: AuthService, private router: Router) {}
   loadComponent(arg0: string) {
     this.router.navigate([arg0]);
     console.log(event);
@@ -83,8 +83,7 @@ export class AdminComponent implements OnInit {
       icon: `restaurant_menu`,
       title: 'Modifiers',
       redirect: 'modifiers',
-    }
-
+    },
 
     // {
     //   icon: `person_outline`,
@@ -109,9 +108,7 @@ export class AdminComponent implements OnInit {
     this.authService.clear();
   }
 
-  addClass(){
-
-  }
+  addClass() {}
 
   brandLogo = '/assets/logos/brandLogo.png';
 }

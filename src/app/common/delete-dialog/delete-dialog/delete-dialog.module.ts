@@ -8,5 +8,6 @@ import { MatButtonModule } from '@angular/material/button';
 @NgModule({
   declarations: [DeleteDialogComponent],
   imports: [CommonModule, MatDialogModule, MatIconModule, MatButtonModule],
+  exports: [DeleteDialogComponent],
 })
 export class DeleteDialogModule {}

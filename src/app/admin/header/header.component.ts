@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../../_services/auth.service';
+import { AuthService } from '../../auth/_services/auth.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -8,14 +8,14 @@ import { Router } from '@angular/router';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
-  constructor(private authservice: AuthService,private route : Router) {}
+  constructor(private authservice: AuthService, private route: Router) {}
 
   ngOnInit(): void {}
 
   profile = '../../assets/pfp.png';
 
-  openOrderApp(){
-    this.route.navigate(['order/menu'])
+  openOrderApp() {
+    this.route.navigate(['order/menu']);
   }
 
   logout() {

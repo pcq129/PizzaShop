@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { AuthService } from './_services/auth.service';
+import { AuthService } from './auth/_services/auth.service';
 import { ItemsService } from './_services/items.service';
 
 @Component({

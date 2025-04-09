@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from 'src/app/_services/auth.service';
+import { AuthService } from 'src/app/auth/_services/auth.service';
 import { TableSectionService } from '../_services/table-section.service';
 import { SnackbarService } from '../_services/snackbar.service';
 
@@ -10,17 +10,18 @@ import { SnackbarService } from '../_services/snackbar.service';
   styleUrls: ['./orderapp.component.scss'],
 })
 export class OrderappComponent implements OnInit {
-  constructor(private authservice : AuthService,
-              private router: Router,
-              private tableSectionService: TableSectionService,
-              private snackbarService : SnackbarService
-            ) {}
+  constructor(
+    private authservice: AuthService,
+    private router: Router,
+    private tableSectionService: TableSectionService,
+    private snackbarService: SnackbarService
+  ) {}
 
   ngOnInit(): void {}
   logout() {
     this.authservice.clear();
   }
-  navigate(link: string){
+  navigate(link: string) {
     this.router.navigateByUrl(link);
   }
 

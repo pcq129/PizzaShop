@@ -8,7 +8,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import {MatRadioModule} from '@angular/material/radio';
+import { MatRadioModule } from '@angular/material/radio';
 import { FormsModule } from '@angular/forms';
 
 @NgModule({
@@ -17,13 +17,13 @@ import { FormsModule } from '@angular/forms';
     CommonModule,
     MatSidenavModule,
     MatButtonModule,
-    // MatGridListModule,
+    MatGridListModule,
     MatCardModule,
-    // MatListModule,
-    // MatCheckboxModule,
-    // MatRadioModule,
+    MatListModule,
+    MatCheckboxModule,
+    MatRadioModule,
     MatIconModule,
-    // FormsModule
+    FormsModule,
   ],
 })
 export class OrderMenuModule {}

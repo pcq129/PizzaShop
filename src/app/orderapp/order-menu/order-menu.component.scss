@@ -1,18 +1,18 @@
-.menuContainer{
+.menuContainer {
   height: 100vh;
   border: 1px solid rgba(0, 0, 0, 0.5);
 }
 
-.sidenav{
-  width: 270px;
+.sidenav {
+  width: 14%;
 }
 
-.noBullets{
+.noBullets {
   list-style-type: none;
   padding-left: 2px;
 }
 
-.horizontal{
+.horizontal {
   display: flex;
   flex-direction: row;
   margin-bottom: auto;
@@ -20,7 +20,7 @@
   margin-right: 20px;
 }
 
-.dot{
+.dot {
   height: 10px;
   width: 10px;
   border-radius: 50%;
@@ -29,7 +29,7 @@
   margin-left: 20px;
 }
 
-.itemCategory{
+.itemCategory {
   width: 80%;
   margin-top: 4px;
   margin-bottom: 4px;
@@ -38,51 +38,53 @@
   display: flex;
 }
 
-.itemCategoryContainer{
+.itemCategoryContainer {
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.navHeader{
+.navHeader {
   margin: 20px;
 }
 
-.itemsTitle{
+.itemsTitle {
   margin-left: 20px;
   margin-top: 16px;
 }
 
-.itemsHeader{
+.itemsHeader {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.veg{
+.veg {
   background-color: green;
 }
 
-.nonveg, .non-veg{
+.nonveg,
+.non-veg {
   background-color: red;
 }
 
-.vegan{
+.vegan {
   background-color: orange;
 }
 
-.grid{
+.grid {
   height: 90%;
 }
 
-.drawerBody{
+.drawerBody {
   display: flex;
   flex-direction: row;
-  flex-wrap: nowrap;
-  width:100%;
+  flex-wrap: wrap;
+  width: 88%;
+  justify-content: space-between;
 }
 
-.item{
+.item {
   height: 130px;
   width: 250px;
   border-radius: 10px;
@@ -92,23 +94,22 @@
   justify-content: space-between;
 }
 
-.orderDetailsCard{
+.orderDetailsCard {
   float: right;
   width: 500px;
   margin-top: 20px;
   border-radius: 8px;
-  height: 600px ;
+  height: 600px;
 }
 
-.itemsContainer{
+.itemsContainer {
   width: 900px;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
 }
 
-
-.itemIndicator{
+.itemIndicator {
   position: relative;
   left: 0;
   top: 0;
@@ -128,11 +129,11 @@
 }
 
 .food-image img {
-  // width: 40px;
-  // height: 40px;
-  // border-radius: 50%;
-  // background: orange;
-  // padding: 5px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: orange;
+  padding: 5px;
 }
 
 .food-details {
@@ -150,11 +151,111 @@
 
 //
 
-.dot{
+.dot {
   height: 10px;
   width: 10px;
   border-radius: 50%;
   display: inline-block;
   margin-right: 10px;
   margin-left: 20px;
+}
+
+.invoiceCard {
+  width: 400px;
+  margin: 20px;
+
+  float: right;
+}
+
+//billing card
+
+.billingCard {
+  height: 800px;
+}
+
+.billingContainer {
+  padding: 20px;
+  max-width: 700px;
+  width: 100%;
+  margin-right: 20px;
+  margin-top: 20px;
+  margin-right: 60px;
+  height: 600px;
+  border-radius: 12px;
+}
+
+.tableHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.tableNumbers {
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.itemList {
+  margin-bottom: 10px;
+}
+
+.itemCard {
+  margin-bottom: 15px;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+.itemHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.itemDetails {
+  list-style: none;
+  padding-left: 0;
+  margin: 10px 0;
+}
+
+.itemActions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.itemAmount {
+  margin-left: auto;
+  font-weight: bold;
+}
+
+.totalsSection {
+  margin-top: 20px;
+  font-size: 16px;
+}
+
+.totalsRow {
+  margin-bottom: 5px;
+}
+
+.taxCheckbox {
+  margin-top: 10px;
+}
+
+.grandTotal {
+  font-weight: bold;
+  font-size: 18px;
+  margin-top: 10px;
+}
+
+.paymentSection {
+  margin-top: 20px;
+}
+
+.actionButtons {
+  margin-top: 20px;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
 }
