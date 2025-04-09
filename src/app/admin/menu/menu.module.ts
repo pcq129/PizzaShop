@@ -6,7 +6,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { ItemCategoryModule } from './items/item-category.module';
-
+import { ModifierModule } from './modifier/modifier.module';
 @NgModule({
   declarations: [MenuComponent],
   imports: [
@@ -16,6 +16,7 @@ import { ItemCategoryModule } from './items/item-category.module';
     MatIconModule,
     MatSidenavModule,
     ItemCategoryModule,
+    ModifierModule,
   ],
   exports: [MenuComponent],
 })

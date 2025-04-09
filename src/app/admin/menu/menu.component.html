@@ -4,8 +4,16 @@
 
 <div class="menuCard">
   <mat-tab-group class="matTab">
-    <!-- <mat-tab>
-    </mat-tab> -->
+    <mat-tab>
+      <ng-template mat-tab-label class="tab">
+        <mat-icon class="itemsTabIcon">menu</mat-icon>
+        <span class="tabName">Modifiers</span>
+      </ng-template>
+      <app-modifier 
+      [modifierGroupData]="modifierGroupData"
+      [allModifiers]="allModifiers"
+      [viewModifiers]="allModifiers"></app-modifier>
+    </mat-tab>
 
     <mat-tab>
       <ng-template mat-tab-label class="tab">
