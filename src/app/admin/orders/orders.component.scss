@@ -1,0 +1,33 @@
+.titlebar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-weight: 800;
+  font-size: 30px;
+  margin: 15px 15px 15px 30px;
+}
+
+.search {
+  height: 30px;
+  font-size: 16px;
+  width: 400px;
+  margin-right: 20px;
+}
+
+.orderData{
+  width: 100%;
+}
+
+.actionIconContainer{
+  display: flex;
+  align-items: center;
+  height: inherit;
+  cursor: pointer;
+}
+
+.actionIcon{
+  margin-right: 20px;
+}
+
+
+
