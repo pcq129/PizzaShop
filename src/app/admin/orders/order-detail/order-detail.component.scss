@@ -69,3 +69,55 @@
   width: 100%;
   // background-color: grey;
 }
+
+
+
+// .serial{
+// }
+// .itemName{
+// }
+// .itemQuantity{
+// }
+// .itemRate{
+// }
+// .itemAmount{
+// }
+// .modifierName{}
+// .modifierQuantity{}
+// .modifierPrice{}
+// .modifierAmount{}
+
+
+
+.itemTable {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: Arial, sans-serif;
+  margin-bottom: 1rem;
+}
+
+.itemTable th,
+.itemTable td {
+  padding: 8px 12px;
+  text-align: left;
+  // color: #4a4a4a;
+  font-size: 14px;
+}
+
+.itemTable thead {
+  border-bottom: 1px solid #ccc;
+}
+
+.itemRow {
+  border-top: 1px solid #ddd;
+}
+
+// .modifierRow {
+//   // background-color: #f9f9f9;
+//   font-size: 13px;
+  // color: #777;
+// }
+
+.modifierRow td {
+  padding-left: 24px;
+}

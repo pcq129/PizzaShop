@@ -5,13 +5,13 @@
 
     <mat-card class="summaryCard">
       <div class="summaryHeader">
-        <div><strong>Invoice No.:</strong> #DOM2025000229</div>
-        <mat-chip color="primary" selected>InProgress</mat-chip>
+        <div><strong>Invoice No.:</strong> {{data.id}}</div>
+        <mat-chip color="primary" selected>{{data.order_status}}</mat-chip>
       </div>
       <div class="summaryDates">
         <span><strong>Paid on:</strong></span>
-        <span><strong>Placed on:</strong> 20-38-2024 15:12</span>
-        <span><strong>Modified on:</strong> 22-01-2025 11:47</span>
+        <span><strong>Placed on:</strong>{{data.created_at}}</span>
+        <span><strong>Modified on:</strong> {{data.updated_at}}</span>
         <span><strong>Order Duration:</strong></span>
       </div>
       <button mat-flat-button color="primary" class="exportBtn">
@@ -22,123 +22,50 @@
     <div class="detailSection">
       <mat-card class="detailCard">
         <h3><mat-icon>person</mat-icon> Customer Details</h3>
-        <p>Name: ajet lodhi</p>
-        <p>Phone: 9012345231</p>
-        <p>No of Person: 7</p>
-        <p>Email: ajetecom</p>
+        <p>Name: {{data.customer.name}}</p>
+        <p>Phone: {{data.customer.mobile}}</p>
+        <p>No of Person: {{data.customer.number_of_persons}}</p>
+        <p>Email: {{data.customer.email}}</p>
       </mat-card>
 
       <mat-card class="detailCard">
         <h3><mat-icon>table_restaurant</mat-icon> Table Details</h3>
-        <p>Table: T3</p>
-        <p>Section: Ground Floor</p>
+        <p>Table: <span *ngFor="let table_name of orderData.order_data.tables">table_name</span></p>
+        <p>Section: {{orderData.section_name}}</p>
       </mat-card>
     </div>
 
-    <!-- // {
-      //   "id": 8,
-      //   "customer_id": 2,
-      //   "order_status": "Completed",
-      //   {
-      // order_data:
-    //   "tables": [
-    //     13
-    //   ],
-    //   "items": [
-    //     {
-    //       "item_id": 2,
-    //       "item_name": "Thin Crust",
-    //       "item_rate": 560.88,
-    //       "modifiers": [],
-    //       "multiplier": 3
-    //     }
-    //   ],
-    //   "taxes": {
-    //     "GST": 100.8,
-    //     "SGST": 100.8,
-    //     "CGST": 0,
-    //     "Service charges": 230
-    //   },
-    //   "subTotal": 560,
-    //   "total": 991.6
-    // }
-      //   "payment_mode": "Cash",
-      //   "payment_status": "Completed",
-      //   "bill_amount": 992,
-      //   "rating": "1",
-      //   "comment": null,
-      //   "deleted_at": null,
-      //   "created_at": "2025-04-08T04:19:16.000000Z",
-      //   "updated_at": "2025-04-09T09:30:22.000000Z",
-      //   "customer": {
-      //     "id": 2,
-      //     "mobile": "9477384958",
-      //     "email": "user@user.com",
-      //     "name": "harmti",
-      //     "created_at": "2025-04-07T09:06:33.000000Z",
-      //     "updated_at": "2025-04-07T09:06:33.000000Z",
-      //     "deleted_at": null
-      //   }
-      // } -->
 
     <mat-card class="itemsCard">
       <h3>Order Items</h3>
-      <table mat-table [dataSource]="orderItems" class="mat-elevation-z1 table" multiTemplateDataRows>
 
-        <ng-container matColumnDef="srNo">
-          <th mat-header-cell *matHeaderCellDef> Sr.No </th>
-          <td mat-cell *matCellDef="let item; let i = index"> {{ i + 1 }} </td>
-        </ng-container>
-
-        <ng-container matColumnDef="item">
-          <th mat-header-cell *matHeaderCellDef> Item </th>
-          <td mat-cell *matCellDef="let item">
-            <div><strong>{{ item.name }}</strong></div>
-            <ul class="subItems">
-              <li *ngFor="let sub of item.subItems">{{ sub }}</li>
-            </ul>
-          </td>
-        </ng-container>
-
-        <ng-container matColumnDef="qty">
-          <th mat-header-cell *matHeaderCellDef> Quantity </th>
-          <td mat-cell *matCellDef="let item">
-            <div *ngFor="let q of item.quantities">{{ q }}</div>
-          </td>
-        </ng-container>
-
-        <ng-container matColumnDef="price">
-          <th mat-header-cell *matHeaderCellDef> Price </th>
-          <td mat-cell *matCellDef="let item">
-            <div *ngFor="let p of item.prices">{{ p | number:'1.2-2' }}</div>
-          </td>
-        </ng-container>
-
-        <ng-container matColumnDef="amount">
-          <th mat-header-cell *matHeaderCellDef> Total Amount </th>
-          <td mat-cell *matCellDef="let item">
-            <div *ngFor="let a of item.amounts">{{ a | number:'1.2-2' }}</div>
-          </td>
-        </ng-container>
-
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      <table class="itemTable">
+        <thead>
+          <tr>
+            <th class="serial">Sr. No.</th>
+            <th class="itemName">Item</th>
+            <th class="itemQuantity">Quantity</th>
+            <th class="itemPrice">Price</th>
+            <th class="itemAmount">Amount</th>
+          </tr>
+        </thead>
+        <tbody *ngFor="let item of orderData.items">
+          <tr class="itemRow">
+            <td class="serial">{{counter()}}</td>
+            <td class="itemName"><strong>{{item.item_name}}</strong></td>
+            <td class="itemQuantity">1</td>
+            <td class="itemPrice">70.00</td>
+            <td class="itemAmount">70.00</td>
+          </tr>
+          <tr *ngFor="let modifier of item.modifiers" class="modifierRow">
+            <td></td>
+            <td class="modifierName">• {{modifier.modifier_name}}</td>
+            <td class="modifierQuantity">1</td>
+            <td class="modifierPrice">5.00</td>
+            <td class="modifierAmount">5.00</td>
+          </tr>
+        </tbody>
       </table>
-      <!-- <div class="itemContainer">
-        <div class="item">
-          <div>sr.no.</div>
-          <div>item name</div>
-          <div>item quantity</div>
-          <div>item price</div>
-          <div>item amount</div>
-        </div>
-        <div class="modifier">
-          <div>modifier name</div>
-          <div>modifier quantity</div>
-          <div>modifier price</div>
-          <div>modifier amount</div>
-        </div>
-      </div> -->
 
       <div class="totals">
         <p><strong>Subtotal:</strong> ₹399.00</p>

@@ -16,9 +16,6 @@ export class OrderDetailDialogComponent implements OnInit {
     console.log(this.data);
     this.orderData = JSON.parse(this.data.order_data);
     console.log(this.orderData);
-
-
-
   }
 
   onCancel(): void {
@@ -29,78 +26,84 @@ export class OrderDetailDialogComponent implements OnInit {
 
 
   orderData : any;
-  // displayedColumns = []
-
-  orderItems = [
-    {
-      name: 'Grilled burger',
-      subItems: ['Tomato'],
-      quantities: [1, 1],
-      prices: [70, 5],
-      amounts: [70, 5]
-    },
-    {
-      name: 'Margherita',
-      subItems: ['test'],
-      quantities: [2, 2],
-      prices: [120, 2],
-      amounts: [240, 4]
-    },
-    {
-      name: 'Grilled burger',
-      subItems: ['Babycorn'],
-      quantities: [1, 1],
-      prices: [70, 10],
-      amounts: [70, 10]
-    }
-  ];
-
-  displayedColumns: string[] = ['srNo', 'item', 'qty', 'price', 'amount'];
+  count = 0;
+  counter(){
+    this.count+=1;
+    return this.count;
+  }
 
 
+// data
   // {
-  //   "id": 8,
-  //   "customer_id": 2,
-  //   "order_status": "Completed",
-  //   {
-  // order_data:
-//   "tables": [
-//     13
-//   ],
-//   "items": [
-//     {
-//       "item_id": 2,
-//       "item_name": "Thin Crust",
-//       "item_rate": 560.88,
-//       "modifiers": [],
-//       "multiplier": 3
-//     }
-//   ],
-//   "taxes": {
-//     "GST": 100.8,
-//     "SGST": 100.8,
-//     "CGST": 0,
-//     "Service charges": 230
-//   },
-//   "subTotal": 560,
-//   "total": 991.6
-// }
-  //   "payment_mode": "Cash",
-  //   "payment_status": "Completed",
-  //   "bill_amount": 992,
-  //   "rating": "1",
+  //   "id": 31,
+  //   "customer_id": 10,
+  //   "order_status": "Ordered",
+  //   "order_data":{
+                //   "tables":[13],
+                //   "items":[{
+                //     "item_id":3,
+                //     "item_name":"Veg Sandwich",
+                //     "item_rate":184.5,
+                //     "modifiers":[],
+                //     "multiplier":1,
+                //     }],
+                //   "number_of_persons":4,
+                //   "taxes":{
+                //     "GST":33.12,
+                //     "SGST":33.12,
+                //     "CGST":0,
+                //     "Service charges":0
+                //     },
+                //   "subTotal":184,
+                //   "total":250.24,
+                // "section_name"
+                // "section_id"
+}
+
+
+
+  //   "payment_mode": "Card",
+  //   "payment_status": "Pending",
+  //   "bill_amount": 4334,
+  //   "rating": "4",
   //   "comment": null,
   //   "deleted_at": null,
-  //   "created_at": "2025-04-08T04:19:16.000000Z",
-  //   "updated_at": "2025-04-09T09:30:22.000000Z",
+  //   "created_at": "2025-04-09T13:19:32.000000Z",
+  //   "updated_at": "2025-04-09T13:19:32.000000Z",
   //   "customer": {
-  //     "id": 2,
-  //     "mobile": "9477384958",
-  //     "email": "user@user.com",
-  //     "name": "harmti",
-  //     "created_at": "2025-04-07T09:06:33.000000Z",
-  //     "updated_at": "2025-04-07T09:06:33.000000Z",
+  //     "id": 10,
+  //     "mobile": "9834937844",
+  //     "email": "spaneliya@gmail.com",
+  //     "name": "feewrer",
+  //     "created_at": "2025-04-09T06:23:49.000000Z",
+  //     "updated_at": "2025-04-09T11:13:14.000000Z",
   //     "deleted_at": null
   //   }
   // }
-}
+
+
+
+
+  // {
+  //   "id": 30,
+  //   "customer_id": 10,
+  //   "order_status": "Ordered",
+  //   "order_data": "{\"tables\":[13],\"items\":[{\"item_id\":3,\"item_name\":\"Veg Sandwich\",\"item_rate\":184.5,\"modifiers\":[]}],\"number_of_persons\":4,\"taxes\":{\"GST\":33.12,\"SGST\":33.12,\"CGST\":0,\"Service charges\":0},\"subTotal\":184,\"total\":250.24}",
+  //   "payment_mode": "Card",
+  //   "payment_status": "Pending",
+  //   "bill_amount": 250,
+  //   "rating": "4",
+  //   "comment": null,
+  //   "deleted_at": null,
+  //   "created_at": "2025-04-09T11:47:29.000000Z",
+  //   "updated_at": "2025-04-09T11:47:29.000000Z",
+  //   "customer": {
+  //     "id": 10,
+  //     "mobile": "9834937844",
+  //     "email": "spaneliya@gmail.com",
+  //     "name": "feewrer",
+  //     "created_at": "2025-04-09T06:23:49.000000Z",
+  //     "updated_at": "2025-04-09T11:13:14.000000Z",
+  //     "deleted_at": null
+  //   }
+  // }
