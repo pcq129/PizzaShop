@@ -113,6 +113,7 @@ export class OrderTablesComponent implements OnInit {
     private sectionService: TableSectionService,
     private snackbarService: SnackbarService,
     private router: Router,
+    private tableSectionService: TableSectionService,
     private cdr: ChangeDetectorRef,
     private orderService: OrderService
   ) {
@@ -279,29 +280,31 @@ export class OrderTablesComponent implements OnInit {
     //         11
     //     ]
     // }
-
+    console.log(data);
 
 
     this.sectionService.assignTables(data).subscribe({
-      next: (res:any)=>{
-        if(res.status == "false"){
+      next: (res: any) => {
+        if (res.status == 'false') {
           this.snackbarService.error(res.message);
           this.router.navigateByUrl('order/menu');
-        }
-        else{
+          console.log(data);
+
+        } else {
           console.log(data);
           this.snackbarService.success(res.message);
           this.orderService.assignTable(data, res.data);
           this.router.navigateByUrl('order/menu');
         }
       },
-      error: (err)=>{
+      error: (err) => {
         this.snackbarService.error(err);
-      }
-    })
+      },
+    });
   }
 
-  tableStatusCounter(data: any){
+
+  tableStatusCounter(data: any) {
     //accumulator
     const counts = data.reduce((acc: any, table: any) => {
       const status = table.status;
@@ -310,5 +313,37 @@ export class OrderTablesComponent implements OnInit {
     }, {});
 
     return Object.entries(counts);
+  }
+
+  searchedCustomers : any = {} ;
+
+  test : string = '';
+  searchCustomer(email: string) {
+    if(email.length<4){
+      this.searchedCustomers = {};
+      return;
+    }
+    this.tableSectionService.searchCustomer(email).subscribe({
+      next: (res: any) => {
+        if(res.status == "true"){
+          this.searchedCustomers = (res.data);
+          console.log(this.searchedCustomers);
+
+        }else{
+          return
+        }
+
+      },
+      error: (err)=>{
+        console.log(err);
+      }
+    });
+  }
+
+  loadCustomerData(customer : any){
+    this.customerData.controls.email.setValue(customer.email);
+    this.customerData.controls.mobile.setValue(customer.mobile);
+    this.customerData.controls.name.setValue(customer.name);
+    return;
   }
 }

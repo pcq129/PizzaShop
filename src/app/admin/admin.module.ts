@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AdminComponent } from './admin.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
-import { HeaderModule } from './header/header.module';
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
@@ -15,13 +14,13 @@ import { TableSectionModule } from './table-section/table-section.module';
 import { TaxFeesComponent } from './tax-fees/tax-fees.component';
 import { TaxFeesModule } from './tax-fees/tax-fees.module';
 import { MatMenuModule } from '@angular/material/menu';
+import { OrdersModule } from './orders/orders.module';
 
 @NgModule({
   declarations: [AdminComponent],
   imports: [
     CommonModule,
     MatSidenavModule,
-    HeaderModule,
     MatListModule,
     MatIconModule,
     MatTableModule,
@@ -34,6 +33,7 @@ import { MatMenuModule } from '@angular/material/menu';
     MatMenuModule,
     MatIconModule,
     MatButtonModule,
+    OrdersModule
   ],
   exports: [AdminComponent],
 })

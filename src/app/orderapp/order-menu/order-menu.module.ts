@@ -14,6 +14,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDividerModule } from '@angular/material/divider';
 import {MatRadioModule} from '@angular/material/radio';
+import { ConfirmationDialogModule } from 'src/app/common/confirmation-dialog/confirmation-dialog.module';
 
 
 @NgModule({
@@ -32,7 +33,8 @@ import {MatRadioModule} from '@angular/material/radio';
     MatDialogModule,
     MatSelectModule,
     MatDividerModule,
-    MatRadioModule
+    MatRadioModule,
+    ConfirmationDialogModule
   ],
 })
 export class OrderMenuModule {}

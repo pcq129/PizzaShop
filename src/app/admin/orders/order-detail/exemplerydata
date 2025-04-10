@@ -1,0 +1,112 @@
+
+{
+  "id": 33,
+  "customer_id": 10,
+  "order_status": "Ordered",
+  "orderData":
+
+        {
+          "table_ids": [],
+          "table_names": [
+            "h5"
+          ],
+          "section_id": 2,
+          "section_name": "First Floor",
+          "items": [
+            {
+              "item_id": 5,
+              "item_name": "Tandoori Burger",
+              "item_rate": 504,
+              "modifiers": [
+                {
+                  "modifier_id": 7,
+                  "modifier_name": "Jumbo",
+                  "modifier_rate": 80
+                },
+                {
+                  "modifier_id": 8,
+                  "modifier_name": "Regular",
+                  "modifier_rate": 60
+                },
+                {
+                  "modifier_id": 2,
+                  "modifier_name": "Medium",
+                  "modifier_rate": 200
+                }
+              ],
+              "multiplier": 1
+            },
+            {
+              "item_id": 4,
+              "item_name": "Aloo Tikki Burger",
+              "item_rate": 384.2,
+              "modifiers": [
+                {
+                  "modifier_id": 4,
+                  "modifier_name": "BBQ",
+                  "modifier_rate": 50
+                },
+                {
+                  "modifier_id": 5,
+                  "modifier_name": "Alfredo",
+                  "modifier_rate": 200
+                }
+              ],
+              "multiplier": 1
+            },
+            {
+              "item_id": 2,
+              "item_name": "Thin Crust",
+              "item_rate": 560.88,
+              "modifiers": [],
+              "multiplier": 1
+            }
+          ],
+          "number_of_persons": 4,
+          "taxes": {
+            "GST": 367.02,
+            "SGST": 367.02,
+            "CGST": 0,
+            "Service charges": 0
+          },
+          "subTotal": 2039,
+          "total": 2773.04
+        }
+  ,
+  "payment_mode": "Card",
+  "payment_status": "Pending",
+  "bill_amount": 1013,
+  "rating": "4",
+  "comment": null,
+  "deleted_at": null,
+  "created_at": "2025-04-10T03:56:33.000000Z",
+  "updated_at": "2025-04-10T03:56:33.000000Z",
+  "customer": {
+    "id": 10,
+    "mobile": "9834937844",
+    "email": "spaneliya@gmail.com",
+    "name": "feewrer",
+    "created_at": "2025-04-09T06:23:49.000000Z",
+    "updated_at": "2025-04-09T11:13:14.000000Z",
+    "deleted_at": null
+  }
+}
+
+[
+  [
+    "GST",
+    367.02
+  ],
+  [
+    "SGST",
+    367.02
+  ],
+  [
+    "CGST",
+    0
+  ],
+  [
+    "Service charges",
+    0
+  ]
+]

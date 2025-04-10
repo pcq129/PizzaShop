@@ -1,32 +1,20 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-
-
-
-
-
+import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-order-detail',
-  templateUrl: './order-detail.component.html',
-  styleUrls: ['./order-detail.component.scss']
+  selector: 'app-order-details',
+  templateUrl: './order-details.component.html',
+  styleUrls: ['./order-details.component.scss']
 })
-export class OrderDetailDialogComponent implements OnInit {
+export class OrderDetailsComponent implements OnInit {
 
-  constructor(
-    public dialogRef: MatDialogRef<OrderDetailDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any
-  ) {}
+  constructor() { }
+
   ngOnInit(): void {
-    console.log(this.data);
-    this.orderData = JSON.parse(this.data.order_data);
-    this.formatTax(this.orderData);
+
   }
 
   onCancel(): void {
     this.data = null;
-    this.dialogRef.close();
-    console.log();
   }
 
 
@@ -112,6 +100,7 @@ export class OrderDetailDialogComponent implements OnInit {
     //   printContainer.innerHTML = '';
     // });
   }
+
 
 
 }

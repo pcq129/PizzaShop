@@ -1,18 +1,17 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { OrderDetailDialogComponent } from './order-detail.component';
-import { MatCardModule } from '@angular/material/card';
+import { OrderDetailsComponent } from './order-details.component';
+import { OrderService } from 'src/app/orderapp/order-service.service';
 import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
-import { MatChipsModule } from '@angular/material/chips';
-import { MatDialogModule } from '@angular/material/dialog';
+
 
 
 @NgModule({
-  declarations: [
-    OrderDetailDialogComponent
-  ],
+  declarations: [OrderDetailsComponent],
   imports: [
     CommonModule,
     MatCardModule,
@@ -20,8 +19,8 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatIconModule,
     MatChipsModule,
     MatTableModule,
-    MatDialogModule
   ],
-  exports: [OrderDetailDialogComponent]
+  providers: [OrderService],
+  exports:[OrderDetailsComponent]
 })
-export class OrderDetailModule { }
+export class OrderDetailsModule { }

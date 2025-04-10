@@ -203,6 +203,9 @@ imageUrl: any= (this.data.image) ? ("http://127.0.0.1:8000/storage/uploads/"+ th
       const formData = new FormData();
     formData.append('image', this.selectedFile);
 
+    this.snackbarSerice.info("Uploading image");
+
+
     this.itemService.uploadImage(formData).subscribe(
       (res: any) => {
         this.uploadedImage = res.path;

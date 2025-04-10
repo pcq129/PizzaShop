@@ -117,7 +117,7 @@ export class AdminComponent implements OnInit {
   profile = '../../assets/pfp.png';
 
   openOrderApp(){
-    this.router.navigate(['order/menu'])
+    this.router.navigate(['order/tables'])
   }
 
 

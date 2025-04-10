@@ -40,6 +40,10 @@ export class TableSectionService {
     return this.http.post(environment.baseURL + 'customer/assign-table', data)
   }
 
+  searchCustomer(data: string){
+    return this.http.get(environment.baseURL + `customer/${data}`)
+  }
+
 
 
 

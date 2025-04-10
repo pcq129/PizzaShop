@@ -15,6 +15,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { OrderMenuModule } from '../order-menu/order-menu.module';
 import { OrderService } from '../order-service.service';
+import { MatRadioModule } from '@angular/material/radio';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { OrderService } from '../order-service.service';
     MatFormFieldModule,
     MatSelectModule,
     MatInputModule,
-    OrderMenuModule
+    OrderMenuModule,
+    MatRadioModule
   ],
   providers: [OrderService]
 

@@ -1,5 +1,6 @@
 <h1 mat-dialog-title>Order Details</h1>
-<mat-dialog-content>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<mat-dialog-content id="invoice">
   <div class="orderContainer">
     <h2>Order-Details</h2>
 
@@ -10,11 +11,11 @@
       </div>
       <div class="summaryDates">
         <span><strong>Paid on:</strong></span>
-        <span><strong>Placed on:</strong>{{data.created_at}}</span>
-        <span><strong>Modified on:</strong> {{data.updated_at}}</span>
+        <span><strong>Placed on:</strong>{{convertDate(data.created_at)}}</span>
+        <span><strong>Modified on:</strong> {{convertDate(data.updated_at)}}</span>
         <span><strong>Order Duration:</strong></span>
       </div>
-      <button mat-flat-button color="primary" class="exportBtn">
+      <button mat-flat-button (click)="generateInvoice()" color="primary" class="exportBtn">
         <mat-icon>file_download</mat-icon> Export
       </button>
     </mat-card>
@@ -24,14 +25,19 @@
         <h3><mat-icon>person</mat-icon> Customer Details</h3>
         <p>Name: {{data.customer.name}}</p>
         <p>Phone: {{data.customer.mobile}}</p>
-        <p>No of Person: {{data.customer.number_of_persons}}</p>
+        <p>No of Person: {{data.order_data.number_of_persons}}</p>
         <p>Email: {{data.customer.email}}</p>
       </mat-card>
 
       <mat-card class="detailCard">
         <h3><mat-icon>table_restaurant</mat-icon> Table Details</h3>
-        <p>Table: <span *ngFor="let table_name of orderData.order_data.tables">table_name</span></p>
-        <p>Section: {{orderData.section_name}}</p>
+        <p>
+          Table:
+          <span *ngFor="let table of orderData.table_names">{{table}} </span>
+        </p>
+        <p>Section:
+          <span>{{orderData.section_name}} </span>
+        </p>
       </mat-card>
     </div>
 
@@ -51,29 +57,29 @@
         </thead>
         <tbody *ngFor="let item of orderData.items">
           <tr class="itemRow">
-            <td class="serial">{{counter()}}</td>
+            <td class="serial">1</td>
             <td class="itemName"><strong>{{item.item_name}}</strong></td>
-            <td class="itemQuantity">1</td>
-            <td class="itemPrice">70.00</td>
-            <td class="itemAmount">70.00</td>
+            <td class="itemQuantity">{{item.multiplier}}</td>
+            <td class="itemPrice">{{item.item_rate}}</td>
+            <td class="itemAmount">{{calculateItemAmount(item)}}</td>
           </tr>
           <tr *ngFor="let modifier of item.modifiers" class="modifierRow">
             <td></td>
             <td class="modifierName">• {{modifier.modifier_name}}</td>
-            <td class="modifierQuantity">1</td>
-            <td class="modifierPrice">5.00</td>
-            <td class="modifierAmount">5.00</td>
+            <td class="modifierQuantity">{{item.multiplier}}</td>
+            <td class="modifierPrice">{{modifier.modifier_rate}}</td>
+            <td class="modifierAmount">{{calculateModifierTotal(modifier, item.multiplier)}}</td>
           </tr>
         </tbody>
       </table>
 
       <div class="totals">
-        <p><strong>Subtotal:</strong> ₹399.00</p>
-        <p><strong>CGST:</strong> ₹47.88</p>
-        <p><strong>SGST:</strong> ₹150.00</p>
-        <p><strong>GST:</strong> ₹7.98</p>
-        <p><strong>Other:</strong> ₹19.95</p>
-        <h3><strong>Total:</strong> ₹624.81</h3>
+        <p class="taxEntry"><strong>Subtotal:</strong> ₹{{orderData.subTotal}}</p>
+        <!-- {{orderData.taxes | keyvalue}} -->
+        <p  class="taxEntry" *ngFor="let tax of  taxData"><strong>{{tax[0]}}:</strong> ₹{{tax[1]}}</p>
+
+        <!-- <p><strong>Other:</strong> ₹19.95</p> -->
+        <h3 class="totalAmount"><strong>Total:</strong> ₹{{totalRoundOff(orderData.total)}}</h3>
       </div>
     </mat-card>
   </div>

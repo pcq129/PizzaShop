@@ -10,6 +10,7 @@ export interface selectedModifers {
   item_name: string;
   item_rate : number,
   modifiers: any[];
+  multiplier : number
 }
 
 @Component({
@@ -36,6 +37,7 @@ export class modifierDialog {
     item_name: this.data.name,
     item_rate : this.data.rate + this.data.rate*(this.data.tax_percentage/100),
     modifiers: [],
+    multiplier: 1
   };
 
   selectModifier(modifier: any) {

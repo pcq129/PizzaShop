@@ -8,6 +8,7 @@ import { modifierDialog } from './modifier-dialog.component';
 import { OrderService } from '../order-service.service';
 import { TaxFeesService } from 'src/app/_services/tax-fees.service';
 import { Router } from '@angular/router';
+import { ConfirmationDialogComponent } from 'src/app/common/confirmation-dialog/confirmation-dialog.component';
 
 @Component({
   selector: 'app-order-menu',
@@ -151,6 +152,7 @@ export class OrderMenuComponent implements OnInit {
               item_rate:
                 res.data.rate + (res.data.rate * res.data.tax_percentage) / 100,
               modifiers: [],
+              multiplier: 1
             });
             this.calculateSubTotal(this.items);
             // console.log(this.items);
@@ -158,6 +160,10 @@ export class OrderMenuComponent implements OnInit {
         }
       },
     });
+  }
+
+  itemMultiplier(){
+
   }
 
   openPopup() {
@@ -201,11 +207,12 @@ export class OrderMenuComponent implements OnInit {
 
     for (const item of orderData) {
       // Add item rate
-      total += item.item_rate;
+      let multiplier = item.multiplier
+      total += item.item_rate*multiplier;
 
       // Add modifier rates (if any)
       for (const modifier of item.modifiers) {
-        total += modifier.modifier_rate;
+        total += modifier.modifier_rate*multiplier;
       }
     }
 
@@ -249,7 +256,6 @@ export class OrderMenuComponent implements OnInit {
   }
 
   generateOrder() {
-    console.log(this.orderData);
     // {
     //   "email": "test@test.com",
     //   "name": "Harmit",
@@ -264,10 +270,7 @@ export class OrderMenuComponent implements OnInit {
     //     "T1"
     //   ],
     //   "customer_id": 2
-    // }
-
-    console.log(this.items);
-    // {
+    //
     //   "item_id": 6,
     //   "item_name": "Cheeze Tweeze",
     //   "item_rate": 352.82,
@@ -278,10 +281,6 @@ export class OrderMenuComponent implements OnInit {
     //       "modifier_rate": 200
     //     }
     //   ]
-    // }
-
-    console.log(this.taxBreakup);
-    // {
     //   "GST": 208.08,
     //   "SGST": 208.08,
     //   "CGST": 0,
@@ -293,8 +292,12 @@ export class OrderMenuComponent implements OnInit {
     let order = {
       customer_id: this.orderData.customer_id,
       order_data: JSON.stringify({
-        tables: this.orderData.table_ids,
+        table_ids: this.orderData.table_ids,
+        table_names: this.orderData.table_names,
+        section_id : this.orderData.section_id,
+        section_name : this.orderData.section,
         items : this.items,
+        number_of_persons : this.orderData.people,
         taxes : this.taxBreakup,
         subTotal : this.billAmount,
         total : this.amount,
@@ -309,16 +312,67 @@ export class OrderMenuComponent implements OnInit {
         }
         else{
           this.snackbarService.success("Order placed successfully");
-          // this.router.navigateByUrl('order/kot');
+          this.router.navigateByUrl('order/tables');
         }
       },
       error: (err)=>{
-        this.snackbarService.error(err);
+        this.snackbarService.error("Error occured");
       }
     });
   }
 
-  cancelOrder() {}
+  cancelOrder() {
+
+
+    // {
+    //   "email": "spaneliya@gmail.com",
+    //   "name": "feewrer",
+    //   "mobile": "9834937844",
+    //   "people": 3,
+    //   "section": "First Floor",
+    //   "section_id": 2,
+    //   "table_ids": [
+    //     17
+    //   ],
+    //   "table_names": [
+    //     "t5"
+    //   ],
+    //   "customer_id": 10
+    // }
+    let orderData = this.orderData;
+    orderData.dialogTitle = "Confirm order cancellation";
+    orderData.dialogMessage = "Are you sure to cancel this order ?"
+    orderData.cancelButton = "No",
+    orderData.confirmButton = "Yes"
+
+    const confirmationDialog = this.dialog.open(ConfirmationDialogComponent,{
+      width: '600px',
+      data: this.orderData
+    })
+
+    confirmationDialog.afterClosed().subscribe((res)=>{
+      if(res){
+        this.orderService.cancelOrder(res).subscribe({
+          next: (res:any)=>{
+            if(res.status == 'false'){
+              this.snackbarService.error(res.message);
+            }
+            else{
+              this.snackbarService.success("Order cancelled");
+              this.orderService.clearAssigned();
+            }
+          },
+          error: (err)=>{
+            this.snackbarService.error("Error occured");
+          }
+        })
+      }
+    })
+
+
+
+
+  }
 
   completeOrder() {}
 }

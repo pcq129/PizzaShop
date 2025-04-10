@@ -94,7 +94,7 @@
       <th mat-header-cell *matHeaderCellDef>Actions</th>
       <td class="actionIconContainer" mat-cell *matCellDef="let order">
         <mat-icon class="actionIcon" mat-icon-button (click)="viewOrderDetail(order)">remove_red_eye</mat-icon>
-        <mat-icon class="actionIcon">picture_as_pdf</mat-icon>
+        <!-- <mat-icon class="actionIcon">picture_as_pdf</mat-icon> -->
         <mat-icon mat-icon-button *ngIf="order.order_status!='Completed'" (click)="completeOrder(order.id)" class="actionIcon">assignment_turned_in</mat-icon>
       </td>
     </ng-container>
@@ -102,4 +102,7 @@
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
   </table>
+
+  <!-- fixes for printing -->
+  <div id="print-container" style="display: none;"></div>
 </mat-card>
