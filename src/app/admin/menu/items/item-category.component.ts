@@ -96,6 +96,25 @@ export class ItemCategoryComponent implements OnInit {
     }
   }
 
+  // api call post actions for refreshing the data
+
+  getCategoryData() {
+    this.categoryService.getCategoryData().subscribe({
+      next: (res: any) => {
+        if (res.status == 'true') {
+          this.categoryData = res.data;
+          this.extractAllItems(res.data);
+          this.loadItems(this.currentCategory);
+        } else {
+          this.snackbarService.error(res.message);
+        }
+      },
+      error: (err) => {
+        this.snackbarService.error(err);
+      },
+    });
+  }
+
   //actions for category
 
   deleteCategoryPopup(id: any): void {
@@ -115,7 +134,8 @@ export class ItemCategoryComponent implements OnInit {
   deleteCategory(id: number) {
     this.categoryService.removeCategory(id).subscribe((res) => {
       this.snackbarService.success('Category deleted successfully');
-      // this.getCatList();
+      this.refreshCategoryData.emit(true);
+      this.loadItems(this.currentCategory);
     });
   }
 
@@ -161,6 +181,7 @@ export class ItemCategoryComponent implements OnInit {
         } else {
           this.snackbarService.success('Category added successfully');
           this.refreshCategoryData.emit(true);
+          this.loadItems(this.currentCategory);
         }
       });
     } else {
@@ -204,6 +225,7 @@ export class ItemCategoryComponent implements OnInit {
       } else {
         this.snackbarService.success('Category updated successfully');
         this.refreshCategoryData.emit(true);
+        this.loadItems(this.currentCategory);
       }
     });
   }
@@ -349,8 +371,5 @@ export class ItemCategoryComponent implements OnInit {
   //   description: '',
   // };
 
-
-
   //actions for category
-
 }

@@ -46,6 +46,7 @@ export class ModifierComponent implements OnInit {
     let allModifiers = data.flatMap((data: any) => data.modifiers || []);
     console.log(allModifiers);
     this.viewModifiers = allModifiers;
+    this.loadModifiers(this.currentModifierGroup);
   }
 
   loadModifiers(mdifierGroupId: number) {
@@ -60,6 +61,24 @@ export class ModifierComponent implements OnInit {
 
       this.viewModifiers = modifierItems;
     }
+  }
+
+  //api call for refreshing data post actions
+  getModifierGroupData() {
+    this.modifierService.getModifierGroupsData().subscribe({
+      next: (res: any) => {
+        if (res.status == 'true') {
+          this.modifierGroupData = res.data;
+          console.log(this.modifierGroupData);
+          this.extractAllModifiers(res.data);
+        } else {
+          this.snackbarService.error(res.message + 'test');
+        }
+      },
+      error: (err) => {
+        this.snackbarService.error('Error fetching Moidifiers data');
+      },
+    });
   }
 
   // actions for modifier groups
@@ -85,7 +104,7 @@ export class ModifierComponent implements OnInit {
               }
             } else {
               this.snackbarService.success('Modifier Group added successfully');
-              // this.();
+              this.getModifierGroupData();
             }
           },
           (err) => {
@@ -114,7 +133,7 @@ export class ModifierComponent implements OnInit {
             }
           } else {
             this.snackbarService.success('Modifier group deleted successfully');
-            // this.getModifiersGroup();
+            this.getModifierGroupData();
           }
         },
         (err) => {
@@ -155,7 +174,7 @@ export class ModifierComponent implements OnInit {
           }
         } else {
           this.snackbarService.success('Modifier Group updated successfully');
-          // this.getModifiersGroup();
+          this.getModifierGroupData();
         }
       });
     });
@@ -191,7 +210,7 @@ export class ModifierComponent implements OnInit {
               }
             } else {
               this.snackbarService.success(`Modifier added successfully`);
-              // this.getModifierList();
+              this.getModifierGroupData();
             }
           },
           (err) => {
@@ -230,7 +249,7 @@ export class ModifierComponent implements OnInit {
             }
           } else {
             this.snackbarService.success(`Modifier updated successfully`);
-            // this.getModifierList();
+            this.getModifierGroupData();
           }
         },
         (err) => {
@@ -258,7 +277,7 @@ export class ModifierComponent implements OnInit {
             }
           } else {
             this.snackbarService.success(`Modifier deleted successfully`);
-            // this.getModifierList();
+            this.getModifierGroupData();
           }
         },
         (err) => {
