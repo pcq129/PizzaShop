@@ -1,4 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { ModifierService } from 'src/app/_services/modifier.service';
+import { SnackbarService } from 'src/app/_services/snackbar.service';
+import { ModifierGroupDialogComponent } from './modifier-group-dialog/modifier-group-dialog.component';
+import { modifierDialog } from './modifier-dialog/modifier-dialog.component';
+import { DeleteDialogComponent } from 'src/app/common/delete-dialog/delete-dialog/delete-dialog.component';
 
 @Component({
   selector: 'app-modifier',
@@ -6,7 +12,11 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./modifier.component.scss'],
 })
 export class ModifierComponent implements OnInit {
-  constructor() {
+  constructor(
+    private snackbarService: SnackbarService,
+    private dialog: MatDialog,
+    private modifierService: ModifierService
+  ) {
     this.extractAllModifiers(this.modifierGroupData);
   }
 
@@ -29,7 +39,7 @@ export class ModifierComponent implements OnInit {
     'edit',
     'delete',
   ];
-  currentModifierGroup: any;
+  currentModifierGroup = 0;
   currentCategory: any;
 
   extractAllModifiers(data: any) {
@@ -51,17 +61,210 @@ export class ModifierComponent implements OnInit {
       this.viewModifiers = modifierItems;
     }
   }
+
+  // actions for modifier groups
+
   addModifierGroupPopup() {
-    throw new Error('Method not implemented.');
+    const dialogRef = this.dialog.open(ModifierGroupDialogComponent, {
+      width: '350px',
+      data: {
+        modifierList: this.allModifiers,
+        name: '',
+        description: '',
+        modifiers: [],
+      },
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log(result);
+      if (result.name) {
+        this.modifierService.addModifierGroup(result).subscribe(
+          (res: any) => {
+            if (res.status === 'false') {
+              for (const [key, value] of Object.entries(res.message)) {
+                this.snackbarService.error(`${value}`);
+              }
+            } else {
+              this.snackbarService.success('Modifier Group added successfully');
+              // this.();
+            }
+          },
+          (err) => {
+            this.snackbarService.error('Failed to add modifier');
+          }
+        );
+      }
+    });
   }
 
+  deleteModifierGroupPopup(modifierGroupId: any): void {
+    console.log(modifierGroupId);
+
+    const dialogRef = this.dialog.open(DeleteDialogComponent, {
+      width: '350px',
+      data: { id: modifierGroupId },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log(result);
+      this.modifierService.deleteModifierGroup(result.id).subscribe(
+        (res: any) => {
+          if (res.status === 'false') {
+            for (const [key, value] of Object.entries(res.message)) {
+              this.snackbarService.error(`${value}`);
+            }
+          } else {
+            this.snackbarService.success('Modifier group deleted successfully');
+            // this.getModifiersGroup();
+          }
+        },
+        (err) => {
+          this.snackbarService.error('Failed to delete modifier group');
+        }
+      );
+    });
+  }
+
+  editModifierGroupPopup(modifierGroup: any): void {
+    console.log(modifierGroup);
+
+    // this.modifierGroup.name = modifierGroup.name;
+    // this.modifierGroup.description = modifierGroup.description;
+    console.log(modifierGroup);
+    let id = modifierGroup.id;
+
+    const dialogRef = this.dialog.open(ModifierGroupDialogComponent, {
+      width: '350px',
+      data: {
+        modifierList: this.allModifiers,
+        // modifiers: modifierGroup.modifiers,
+        name: modifierGroup.name,
+        description: modifierGroup.description,
+        // containedModifierList: this.groupedModifierList(
+        //   modifierGroup.id,
+        //   this.modifierList
+        // ),
+        modifiers: modifierGroup.modifiers,
+      },
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      result.id = id;
+      this.modifierService.editModifierGroup(result).subscribe((res: any) => {
+        if (res.status === 'false') {
+          for (const [key, value] of Object.entries(res.message)) {
+            this.snackbarService.error(`${value}`);
+          }
+        } else {
+          this.snackbarService.success('Modifier Group updated successfully');
+          // this.getModifiersGroup();
+        }
+      });
+    });
+  }
+
+  //actions for modifiers
+
   addModifierPopup() {
-    throw new Error('Method not implemented.');
+    let modifier_group_ids = [];
+    const dialogRef = this.dialog.open(modifierDialog, {
+      width: '350px',
+      data: {
+        modifierGroupList: this.modifierGroupData,
+        name: '',
+        modifier_group_id: [],
+        quantity: 0,
+        unit: 0,
+        description: '',
+        rate: 0,
+      },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result && result.name && result.modifier_group_id && result.unit) {
+        delete result.modifierGroupList;
+
+        console.log('adding');
+        this.modifierService.addModifier(result).subscribe(
+          (res: any) => {
+            if (res.status === 'false') {
+              for (const [key, value] of Object.entries(res.message)) {
+                this.snackbarService.error(`${value}`);
+              }
+            } else {
+              this.snackbarService.success(`Modifier added successfully`);
+              // this.getModifierList();
+            }
+          },
+          (err) => {
+            this.snackbarService.error('Error adding modifier');
+          }
+        );
+      }
+    });
   }
-  editModifierPopup(_t108: any) {
-    throw new Error('Method not implemented.');
+
+  editModifierPopup(modifier: any): void {
+    console.log(modifier);
+    let modifier_ids = modifier.id;
+
+    const dialogRef = this.dialog.open(modifierDialog, {
+      width: '350px',
+      data: {
+        modifierGroupList: this.modifierGroupData,
+        name: modifier.name,
+        modifier_group_id: modifier.modifier_groups,
+        quantity: modifier.quantity,
+        unit: modifier.unit,
+        description: modifier.description,
+        rate: modifier.rate,
+      },
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      delete result.modifierGroupList;
+      result.id = modifier_ids;
+
+      this.modifierService.editModifier(result).subscribe(
+        (res: any) => {
+          if (res.status === 'false') {
+            for (const [key, value] of Object.entries(res.message)) {
+              this.snackbarService.error(`${value}`);
+            }
+          } else {
+            this.snackbarService.success(`Modifier updated successfully`);
+            // this.getModifierList();
+          }
+        },
+        (err) => {
+          this.snackbarService.error('Error updating modifier ' + err);
+        }
+      );
+    });
   }
-  deleteModifierPopup(arg0: any) {
-    throw new Error('Method not implemented.');
+
+  deleteModifierPopup(modifier_group_id: any): void {
+    const dialogRef = this.dialog.open(DeleteDialogComponent, {
+      width: '350px',
+      data: {
+        modifier_group_id: modifier_group_id,
+      },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log(result);
+      this.modifierService.deleteModifier(result.modifier_group_id).subscribe(
+        (res: any) => {
+          if (res.status === 'false') {
+            for (const [key, value] of Object.entries(res.message)) {
+              this.snackbarService.error(`${value}`);
+            }
+          } else {
+            this.snackbarService.success(`Modifier deleted successfully`);
+            // this.getModifierList();
+          }
+        },
+        (err) => {
+          this.snackbarService.error('Error deleting modifier');
+        }
+      );
+    });
   }
 }

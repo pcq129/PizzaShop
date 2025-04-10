@@ -30,7 +30,25 @@
       class="modifierGroupButton"
       [color]="modifierGroup.id == currentModifierGroup? 'accent' : ''"
     >
-      {{ modifierGroup.name }}
+      {{ modifierGroup.name }} 
+      <div class="actionButtonContainer">
+        <mat-icon
+          mat-icon-button
+          (click)="editModifierGroupPopup(modifierGroup)"
+          class="{{
+            modifierGroup.id != currentModifierGroup ? 'hidden' : ''
+          }} actionButton"
+          >edit</mat-icon
+        >
+        <mat-icon
+          mat-icon-button
+          (click)="deleteModifierGroupPopup(modifierGroup.id)"
+          class="{{
+            modifierGroup.id != currentModifierGroup ? 'hidden' : ''
+          }} actionButton"
+          >delete</mat-icon
+        >
+      </div>
     </button>
   </mat-drawer>
   <mat-drawer-content>

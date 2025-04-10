@@ -21,6 +21,18 @@
       (click)="loadItems(0)"
     >
       All Items
+      <div class="actionButtonContainer">
+        <!-- <mat-icon
+          mat-icon-button
+          class="{{ 0 != currentCategory ? 'hidden' : '' }} actionButton"
+          >edit</mat-icon
+        >
+        <mat-icon
+          mat-icon-button
+          class="{{ 0 != currentCategory ? 'hidden' : '' }} actionButton"
+          >delete</mat-icon
+        > -->
+      </div>
     </button>
     <button
       mat-flat-button
@@ -31,6 +43,24 @@
       [color]="category.id == currentCategory ? 'accent' : ''"
     >
       {{ category.name }}
+      <div class="actionButtonContainer">
+        <mat-icon
+          mat-icon-button
+          (click)="editCategoryPopup(category)"
+          class="{{
+            category.id != currentCategory ? 'hidden' : ''
+          }} actionButton"
+          >edit</mat-icon
+        >
+        <mat-icon
+          mat-icon-button
+          (click)="deleteCategoryPopup(category.id)"
+          class="{{
+            category.id != currentCategory ? 'hidden' : ''
+          }} actionButton"
+          >delete</mat-icon
+        >
+      </div>
     </button>
   </mat-drawer>
   <mat-drawer-content>

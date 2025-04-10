@@ -14,26 +14,34 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatTableModule } from '@angular/material/table';
 import { DeleteDialogModule } from 'src/app/common/delete-dialog/delete-dialog/delete-dialog.module';
+import { ModifierGroupDialogComponent } from './modifier-group-dialog/modifier-group-dialog.component';
+import { modifierDialog } from './modifier-dialog/modifier-dialog.component';
 
 @NgModule({
-  declarations: [ModifierComponent],
-  imports: [CommonModule,
-      MatSidenavModule,
-      MatIconModule,
-      MatSidenavModule,
-      MatCardModule,
-      MatTableModule,
-      MatButtonModule,
-      MatInputModule,
-      FormsModule,
-      MatDialogModule,
-      ReactiveFormsModule,
-      MatFormFieldModule,
-      MatOptionModule,
-      MatSelectModule,
-      MatSlideToggleModule,
-      MatDialogModule,
-      DeleteDialogModule,],
+  declarations: [
+    ModifierComponent,
+    ModifierGroupDialogComponent,
+    modifierDialog,
+  ],
+  imports: [
+    CommonModule,
+    MatSidenavModule,
+    MatIconModule,
+    MatSidenavModule,
+    MatCardModule,
+    MatTableModule,
+    MatButtonModule,
+    MatInputModule,
+    FormsModule,
+    MatDialogModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatOptionModule,
+    MatSelectModule,
+    MatSlideToggleModule,
+    MatDialogModule,
+    DeleteDialogModule,
+  ],
   exports: [ModifierComponent],
 })
 export class ModifierModule {}

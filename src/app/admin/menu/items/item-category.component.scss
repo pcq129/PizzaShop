@@ -40,3 +40,13 @@
   align-items: center;
   flex-direction: column;
 }
+
+.hidden {
+  visibility: hidden;
+}
+
+.actionButtonContainer {
+  position: absolute;
+  right: 12px;
+  top: 18px;
+}

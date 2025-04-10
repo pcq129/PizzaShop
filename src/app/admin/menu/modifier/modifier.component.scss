@@ -11,19 +11,32 @@
 }
 
 .modifierGroupButton {
-    width: 90%;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    height: 60px;
-    margin: 12px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-
+  width: 90%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  height: 60px;
+  margin: 12px;
+  margin-left: auto;
+  margin-right: auto;
+}
 
 .modifiersTable {
-    width: 100%;
-  }
-  
-  
+  width: 100%;
+}
+
+// dialogs styling
+
+.dialogInput {
+  width: 100%;
+}
+
+.hidden {
+  visibility: hidden;
+}
+
+.actionButtonContainer {
+  position: absolute;
+  right: 12px;
+  top: 18px;
+}

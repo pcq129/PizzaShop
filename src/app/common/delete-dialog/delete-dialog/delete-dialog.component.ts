@@ -9,10 +9,13 @@ export class DeleteDialogComponent {
   constructor(
     public dialogRef: MatDialogRef<DeleteDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public id: number
-  ) {}
+  ) {
+    console.log(this.id);
+  }
 
   onCancel(): void {
+    this.id = 0;
     this.dialogRef.close();
-    console.log(this.id);
+    // console.log(this.id);
   }
 }
