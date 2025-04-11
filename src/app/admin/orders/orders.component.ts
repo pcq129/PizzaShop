@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { SnackbarService } from 'src/app/_services/snackbar.service';
-import { OrderService } from 'src/app/orderapp/order-service.service';
+import { OrderService } from 'src/app/_services/order-service.service';
 import { OrderDetailDialogComponent } from './order-detail/order-detail.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-orders',
@@ -14,16 +15,18 @@ export class OrdersComponent implements OnInit {
   constructor(
     private snackbarService : SnackbarService,
     private orderService : OrderService,
-    private dialog : MatDialog
+    private dialog : MatDialog,
+    private router: Router
   ) {
     this.getOrderData();
    }
 
   ngOnInit(): void {
+    this.orderService.clearOrderData();
   }
 
   orderData: any;
-  displayedColumns = ['order','date', 'customer', 'orderStatus', 'paymentStatus', 'payment_mode', 'rating', 'total_amount', 'actions'];
+  displayedColumns = ['order','date', 'customer', 'paymentStatus', 'payment_mode', 'rating', 'total_amount', 'orderStatus', 'actions'];
 
 
 
@@ -71,11 +74,15 @@ export class OrdersComponent implements OnInit {
 
   viewOrderDetail(order : any){
     console.log(order);
+    this.orderService.setOrderData(order);
+    this.router.navigateByUrl('orders/details')
 
-    const orderDetailDialog = this.dialog.open(OrderDetailDialogComponent, {
-      data: order,
-      width: '1000px',
-    });
+
+
+    // const orderDetailDialog = this.dialog.open(OrderDetailDialogComponent, {
+    //   data: order,
+    //   width: '1000px',
+    // });
   }
 
 }

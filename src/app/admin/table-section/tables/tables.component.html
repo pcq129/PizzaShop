@@ -13,7 +13,10 @@
   </div>
 </div>
 <div class="tableBody">
-  <table mat-table [dataSource]="tablesList" class="tablesTable">
+  <h5 *ngIf="tablesList.length == 0" class="noTableBanner">
+    {{ tablesList.length == 0 ? "No Tables" : "" }}
+</h5>
+  <table *ngIf="tablesList.length != 0" mat-table [dataSource]="tablesList" class="tablesTable">
     <!-- Name Column -->
     <ng-container matColumnDef="name">
       <th mat-header-cell *matHeaderCellDef>Name</th>
@@ -45,7 +48,5 @@
     <tr mat-row *matRowDef="let row; columns: tablesColumns"></tr>
   </table>
 
-    <h3>
-        {{ tablesList.length == 0 ? "no Tables" : "" }}
-    </h3>
+
 </div>

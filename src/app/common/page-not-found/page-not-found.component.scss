@@ -1,0 +1,50 @@
+body,
+html {
+  height: 100%;
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+.pageWrapper {
+  background-color: #e6f6ff;
+  color: #005a9e;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 20px;
+}
+
+.logoSection {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 30px;
+}
+
+.logoImage {
+  height: 70px;
+}
+
+.logoTitle {
+  font-size: 30px;
+  font-weight: bold;
+  margin: 0;
+}
+
+.errorCode {
+  font-size: 200px;
+  font-weight: bold;
+  margin: 0;
+}
+
+.errorMessage {
+  font-size: 20px;
+  margin: 10px 0;
+}
+
+.errorSubtext {
+  font-size: 14px;
+  color: #0078d4;
+}

@@ -1,0 +1,61 @@
+<div class="titlebar">
+  <span class="title">Customers</span>
+  <div>
+    <mat-form-field class="search" appearance="outline">
+      <mat-label>Search</mat-label>
+      <input class="" matInput placeholder="Search" />
+      <button *ngIf="" matSuffix mat-icon-button aria-label="Clear">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
+    <!-- <button mat-button class="border-2" (click)="addTax()">
+      <mat-icon>add</mat-icon>
+      <span class="ms-2">New </span>
+    </button> -->
+  </div>
+</div>
+
+<mat-card class="m-4 h-75">
+  <table mat-table [dataSource]="customerList" class="mat-elevation-z8 customerData">
+    <!--- Note that these columns can be defined in any order.
+              The actual rendered columns are set as a property on the row definition" -->
+
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef>Name</th>
+      <td mat-cell *matCellDef="let customer">{{ customer.name }}</td>
+    </ng-container>
+
+     <!-- Type Column -->
+     <ng-container matColumnDef="email">
+      <th mat-header-cell *matHeaderCellDef>Email</th>
+      <td mat-cell *matCellDef="let customer">{{customer.email}}</td>
+    </ng-container>
+
+
+
+    <!-- customer Amount Column -->
+    <ng-container matColumnDef="phone">
+      <th mat-header-cell *matHeaderCellDef>Phone</th>
+      <td mat-cell *matCellDef="let customer">{{ customer.mobile }}</td>
+    </ng-container>
+
+       <!-- customer Amount Column -->
+       <ng-container matColumnDef="date">
+        <th mat-header-cell *matHeaderCellDef>Date</th>
+        <td mat-cell *matCellDef="let customer">{{ customer.created_at | date:'dd/MM/yyyy' }}</td>
+      </ng-container>
+
+         <!-- customer Amount Column -->
+    <ng-container matColumnDef="totalOrders">
+      <th mat-header-cell *matHeaderCellDef>Total Orders</th>
+      <td mat-cell *matCellDef="let customer">56</td>
+    </ng-container>
+
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let customer; columns: displayedColumns"
+    (click)="customerDataPopup(customer)"></tr>
+  </table>
+</mat-card>

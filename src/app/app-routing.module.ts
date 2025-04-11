@@ -21,6 +21,9 @@ import { OrderappComponent } from './orderapp/orderapp.component';
 import { OrderTablesComponent } from './orderapp/order-tables/order-tables.component';
 import { OrderMenuComponent } from './orderapp/order-menu/order-menu.component';
 import { OrdersComponent } from './admin/orders/orders.component';
+import { OrderDetailsComponent } from './admin/orders/order-details/order-details.component';
+import { CustomerComponent } from './admin/customer/customer.component';
+import { PageNotFoundComponent } from './common/page-not-found/page-not-found.component';
 // import { DashboardComponent } from './app/dashboard/dashboard.component';
 const routes: Routes = [
   // {
@@ -86,6 +89,16 @@ const routes: Routes = [
         canActivate: [AuthGuard],
         component: OrdersComponent,
       },
+      {
+        path: 'orders/details',
+        canActivate: [AuthGuard],
+        component: OrderDetailsComponent,
+      },
+      {
+        path: 'customers',
+        canActivate: [AuthGuard],
+        component: CustomerComponent,
+      },
     ],
   },
 
@@ -147,7 +160,7 @@ const routes: Routes = [
   {
     path: '**',
     canActivate: [AuthGuard],
-    component: OrderappComponent,
+    component: PageNotFoundComponent,
     children: [
       // {
       //   path: 'dashboard',

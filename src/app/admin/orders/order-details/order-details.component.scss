@@ -1,6 +1,16 @@
 .orderContainer {
   padding: 24px;
+  // margin: 20px;
 }
+
+
+.titlebar{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+}
+
 
 .summaryCard {
   padding: 16px;
@@ -21,12 +31,9 @@
 }
 
 .exportBtn {
-  // position: absolute;
-  // right: 16px;
-  // top: 16px;
-  position: static; /* Or remove positioning entirely for PDF */
-  align-self: flex-end;
-  margin-left: auto;
+  position: absolute;
+  right: 16px;
+  bottom: 16px;
 }
 
 .detailSection {
@@ -112,7 +119,7 @@
 }
 
 .itemRow {
-  border-top: 1px solid #ddd;
+  border-top: 1px solid #0070c0;
 }
 
 // .modifierRow {
@@ -162,5 +169,26 @@
 // .orderContainer {
 //   background-color: #eee; /* light grey background */
 // }
+
+.pdf-dark {
+  background-color: #2f2f2f; /* Dark grey */
+  color: white;
+}
+
+.pdf-dark .mat-card {
+  background-color: #3a3a3a !important;
+  // color: white;
+}
+
+.pdf-dark table {
+  // background-color: #202020;
+  // color: white;
+  border-color: #2f2f2f;
+
+}
+
+.pdf-dark th, .pdf-dark td {
+  // border: 1px solid white;
+}
 
 // end for fixing invoice printint

@@ -1,5 +1,8 @@
-<div class="orderContainer">
-  <h2>Order-Details</h2>
+<div class="orderContainer" id="invoice">
+  <div class="titlebar">
+    <h2>Order-Details</h2>
+  <button class="backButton" (click)="redirect('orders')" mat-stroked-button>Back</button>
+  </div>
 
   <mat-card class="summaryCard">
     <div class="summaryHeader">
@@ -52,9 +55,9 @@
           <th class="itemAmount">Amount</th>
         </tr>
       </thead>
-      <tbody *ngFor="let item of orderData.items">
+      <tbody *ngFor="let item of orderData.items; let i = index">
         <tr class="itemRow">
-          <td class="serial">1</td>
+          <td class="serial">{{i+1}}</td>
           <td class="itemName"><strong>{{item.item_name}}</strong></td>
           <td class="itemQuantity">{{item.multiplier}}</td>
           <td class="itemPrice">{{item.item_rate}}</td>
@@ -72,11 +75,94 @@
 
     <div class="totals">
       <p class="taxEntry"><strong>Subtotal:</strong> ₹{{orderData.subTotal}}</p>
-      <!-- {{orderData.taxes | keyvalue}} -->
+
       <p  class="taxEntry" *ngFor="let tax of  taxData"><strong>{{tax[0]}}:</strong> ₹{{tax[1]}}</p>
 
-      <!-- <p><strong>Other:</strong> ₹19.95</p> -->
       <h3 class="totalAmount"><strong>Total:</strong> ₹{{totalRoundOff(orderData.total)}}</h3>
     </div>
   </mat-card>
+
+  <div id="invoicePdf" [hidden]="!invoiceVisibility" style=" font-family: Arial, sans-serif; padding: 20px; color: #000;">
+    <div style="text-align: center;
+    align-items: center;
+    display: flex;
+    justify-content: center;">
+      <img src="assets\logos\brandLogo.png" alt="Logo" style="height: 90px;
+  display: inline;" />
+      <h2 style="color: #0070c0;
+      margin: 10px 0;
+      display: inline;
+      font-weight: 600;">PIZZASHOP</h2>
+    </div>
+
+    <div style="display: flex; justify-content: space-between; margin-bottom: 20px;">
+      <div>
+        <strong>Customer Details</strong><br />
+        Name: {{ data.customer.name }}<br />
+        Mob: {{ data.customer.mobile }}
+      </div>
+      <div>
+        <strong>Order Details</strong><br />
+        Invoice Number: #{{ data.id }}<br />
+        Date: {{ convertDate(data.created_at) }}<br />
+        Section: {{ orderData.section_name }}<br />
+        Table: {{ orderData.table_names[0] }}
+      </div>
+    </div>
+
+    <table border="0" cellspacing="0" cellpadding="5" width="100%" style="border-collapse: collapse; margin-bottom: 20px;">
+      <thead style="background-color: #0070c0; color: white;">
+        <tr>
+          <th>Sr.No.</th>
+          <th>Item</th>
+          <th>Quantity</th>
+          <th>Unit Price</th>
+          <th>Total</th>
+        </tr>
+      </thead>
+
+        <tbody *ngFor="let item of orderData.items; let i = index">
+          <tr class="itemRow">
+            <td class="serial">{{i+1}}</td>
+            <td class="itemName"><strong>{{item.item_name}}</strong></td>
+            <td class="itemQuantity">{{item.multiplier}}</td>
+            <td class="itemPrice">{{item.item_rate}}</td>
+            <td class="itemAmount">{{calculateItemAmount(item)}}</td>
+          </tr>
+          <tr *ngFor="let modifier of item.modifiers" class="modifierRow">
+            <td></td>
+            <td class="modifierName">• {{modifier.modifier_name}}</td>
+            <td class="modifierQuantity">{{item.multiplier}}</td>
+            <td class="modifierPrice">{{modifier.modifier_rate}}</td>
+            <td class="modifierAmount">{{calculateModifierTotal(modifier, item.multiplier)}}</td>
+          </tr>
+        </tbody>
+
+
+
+
+    </table>
+
+    <div style="text-align: right; margin-right: 10px;">
+      <p style="justify-content: space-between;" class="taxEntry"><strong>Subtotal:</strong> ₹{{orderData.subTotal}}</p>
+
+      <p style="justify-content: space-between;"  class="taxEntry" *ngFor="let tax of  taxData"><strong class="floatLeft">{{tax[0]}} :</strong> ₹{{tax[1]}}</p>
+
+
+      <!-- <p>Sub Total: {{ orderData.subTotal.toFixed(2) }}</p>
+      <p>CGST: {{ orderData.taxes.CGST.toFixed(2) }}</p>
+      <p>SGST: {{ orderData.taxes.SGST.toFixed(2) }}</p>
+      <p>GST: {{ orderData.taxes.GST.toFixed(2) }}</p>
+      <p>Other: 0.00</p> -->
+      <h3 style="justify-content: space-between;color: #0070c0;"><strong>Total Amount Due :</strong> {{ orderData.total.toFixed(2) }}</h3>
+    </div>
+
+    <div style="margin-top: 30px;">
+      <strong>Payment Information</strong><br />
+      Payment Method: {{ data.payment_mode }}
+    </div>
+
+    <div style="text-align: center; margin-top: 40px; font-weight: bold;">THANK YOU!</div>
+  </div>
+
 </div>

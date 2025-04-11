@@ -21,7 +21,8 @@ export class TableSectionComponent implements OnInit {
 
   ngOnInit(): void {}
   displayedColumns = ['name', 'capacity', 'status', 'action'];
-  @Output() tablesList: any; //fetch table data from api
+  @Output() viewTables: any; //fetch table data from api
+  tablesList: any;
   sectionsList: any; //fetch sections list from api
   currentSection : number = 0;
 
@@ -73,6 +74,7 @@ export class TableSectionComponent implements OnInit {
           }
           else{
             this.tablesList = res.data;
+            this.viewTables = res.data;
           }
 
         },
@@ -87,6 +89,9 @@ export class TableSectionComponent implements OnInit {
   }
 
   getTableDataBySection(id: number) {
+    if(id == 0){
+      this.viewTables = this.tablesList
+    }
     return this.sectionTableService.getTableDataBySection(id).subscribe(
       {
         next: (res : any)=>{
@@ -94,7 +99,7 @@ export class TableSectionComponent implements OnInit {
             this.snackbarservice.multipleErrors(res);
           }
           else{
-            this.tablesList = res.data.tables;
+            this.viewTables = res.data.tables;
           }
 
         },

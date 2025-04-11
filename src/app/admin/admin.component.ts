@@ -54,11 +54,11 @@ export class AdminComponent implements OnInit {
       title: 'Orders',
       redirect: 'orders',
     },
-    // {
-    //   icon: `supervised_user_circle`,
-    //   title: 'Customers',
-    //   redirect: '#',
-    // },
+    {
+      icon: `supervised_user_circle`,
+      title: 'Customers',
+      redirect: 'customers',
+    },
     {
       icon: ``,
       title: '',

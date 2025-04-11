@@ -40,8 +40,16 @@ export class TableSectionService {
     return this.http.post(environment.baseURL + 'customer/assign-table', data)
   }
 
-  searchCustomer(data: string){
-    return this.http.get(environment.baseURL + `customer/${data}`)
+  searchCustomer(data: any){
+    console.log(data);
+
+    return this.http.post(environment.baseURL + `customer/search`, data)
+  }
+
+  createWaitingToken(data : any){
+    console.log(data);
+
+    return this.http.post(environment.baseURL + 'customer/waiting-token', data)
   }
 
 

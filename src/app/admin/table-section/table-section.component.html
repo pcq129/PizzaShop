@@ -9,7 +9,7 @@
     <app-section (sectionId)="getTableDataBySection($event)" (getSectionList)="refreshSectionList($event)" [sectionsList]="sectionsList"></app-section>
     </mat-drawer>
     <mat-drawer-content>
-      <app-tables (getTableList)="refreshTableList($event)" [sectionsList]="sectionsList" [tablesList]="tablesList"></app-tables>
+      <app-tables (getTableList)="refreshTableList($event)" [sectionsList]="sectionsList" [tablesList]="viewTables"></app-tables>
     </mat-drawer-content>
   </mat-drawer-container>
 </mat-card>

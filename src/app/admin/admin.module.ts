@@ -15,6 +15,7 @@ import { TaxFeesComponent } from './tax-fees/tax-fees.component';
 import { TaxFeesModule } from './tax-fees/tax-fees.module';
 import { MatMenuModule } from '@angular/material/menu';
 import { OrdersModule } from './orders/orders.module';
+import { CustomerModule } from './customer/customer.module';
 
 @NgModule({
   declarations: [AdminComponent],
@@ -33,7 +34,8 @@ import { OrdersModule } from './orders/orders.module';
     MatMenuModule,
     MatIconModule,
     MatButtonModule,
-    OrdersModule
+    OrdersModule,
+    CustomerModule
   ],
   exports: [AdminComponent],
 })

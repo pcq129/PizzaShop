@@ -1,0 +1,81 @@
+<h1 mat-dialog-title>Waiting Token</h1>
+<div mat-dialog-content>
+  <form [formGroup]="customerData">
+    <!-- <mat-form-field appearance="fill">
+      <mat-label>Input</mat-label>
+      <input matInput>
+    </mat-form-field> -->
+
+    <mat-form-field class="itemDetailInput" appearance="outline">
+      <mat-label>Email</mat-label>
+      <input
+        matInput
+        #email
+        formControlName="email"
+      />
+      <mat-error class="error" *ngIf="customerData.controls.email.invalid">{{
+        getEmailError()
+      }}</mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="itemDetailInput" appearance="outline">
+      <mat-label>Name</mat-label>
+      <input matInput formControlName="name" />
+      <mat-error class="error" *ngIf="customerData.controls.name.invalid">{{
+        getNameError()
+      }}</mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="itemDetailInput" appearance="outline">
+      <mat-label>Mobile Number</mat-label>
+      <input matInput formControlName="mobile" type="number" min="0" />
+      <mat-error class="error" *ngIf="customerData.controls.mobile.invalid">{{
+        getMobileError()
+      }}</mat-error>
+    </mat-form-field>
+
+
+    <mat-form-field class="itemDetailInput" appearance="outline">
+      <mat-label>No. of person(s)</mat-label>
+      <input matInput formControlName="headCount" type="number" min="1" />
+      <mat-error
+        class="error"
+        *ngIf="customerData.controls.headCount.invalid"
+        >{{ getHeadCountError() }}</mat-error
+      >
+    </mat-form-field>
+
+    <mat-form-field class="itemDetailInput" appearance="outline">
+      <mat-label>Section</mat-label>
+      <mat-select matInput formControlName="sectionId">
+        <mat-option *ngFor="let section of data.sectionList" [value]="section.id">{{section.name}}</mat-option>
+      </mat-select>
+      <mat-error>{{getSectionError()}}</mat-error>
+    </mat-form-field>
+
+
+  </form>
+  <!-- <div class="foundRecords" *ngIf="searchedCustomers.length > 0">
+    <label id="previousCustomers">Waiting List</label>
+    <mat-radio-group
+      aria-labelledby="previousCustomers"
+      class=""
+    >
+      <mat-radio-button
+        class="foundCustomer"
+        *ngFor="let customer of searchedCustomers"
+        [value]="customer"
+        (change)="loadCustomerData(customer)"
+      >
+        <span>{{ customer.name }}</span>
+        <span class="customerEmail">{{ customer.email }}</span>
+      </mat-radio-button>
+    </mat-radio-group>
+  </div> -->
+</div>
+<div mat-dialog-actions class="right">
+  <button mat-button [disabled]="!this.customerData.valid" [mat-dialog-close]="customerData.value" cdkFocusInitial>
+    Create Token
+  </button>
+  <button mat-button (click)="onNoClick()">Cancel</button>
+</div>

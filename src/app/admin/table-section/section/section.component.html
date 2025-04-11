@@ -9,6 +9,14 @@
     <button
       class="sectionButton"
       mat-button
+      (click)="getTables(0)"
+    >
+      <mat-icon>drag_indicator</mat-icon>
+      All Tables
+    </button>
+    <button
+      class="sectionButton"
+      mat-button
       *ngFor="let section of sectionsList"
       (click)="getTables(section.id)"
     >

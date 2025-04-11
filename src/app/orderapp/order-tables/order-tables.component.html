@@ -12,7 +12,7 @@
         <input
           #email
           matInput
-          (input)="searchCustomer(email.value)"
+          (input)="searchCustomer(email.value, currentSection)"
           formControlName="email"
         />
         <mat-error class="error" *ngIf="customerData.controls.email.invalid">{{
@@ -40,18 +40,18 @@
 
       <mat-form-field class="itemDetailInput" appearance="outline">
         <mat-label>No. of person(s)</mat-label>
-        <input matInput formControlName="people" type="number" min="0" />
-        <mat-error class="error" *ngIf="customerData.controls.people.invalid">{{
-          getPeopleError()
-        }}</mat-error>
+        <input matInput formControlName="headCount" type="number" min="0" />
+        <mat-error
+          class="error"
+          *ngIf="customerData.controls.headCount.invalid"
+          >{{ getHeadCountError() }}</mat-error
+        >
       </mat-form-field>
 
       <mat-form-field class="itemDetailInput" appearance="outline">
         <mat-label>Section</mat-label>
         <input matInput readonly="true" formControlName="section" />
       </mat-form-field>
-
-      <!-- {{currentSection}} -->
 
       <div class="customerDataButtons">
         <button
@@ -68,7 +68,7 @@
       </div>
     </form>
     <div class="foundRecords" *ngIf="searchedCustomers.length > 0">
-      <label id="previousCustomers">Found records</label>
+      <label id="previousCustomers">Waiting List</label>
       <mat-radio-group
         aria-labelledby="previousCustomers"
         class=""
@@ -89,12 +89,23 @@
   <mat-drawer-content>
     <div class="titlebar">
       <span class="title">Tables View</span>
-      <ul class="noBullets horizontal">
-        <li><span class="dot available"></span>Available</li>
-        <li><span class="dot selected"></span>Selected</li>
-        <li><span class="dot assigned"></span>Assigned</li>
-        <li><span class="dot running"></span>Running</li>
-      </ul>
+      <div class="titlebarDescription">
+        <ul class="noBullets horizontal">
+          <li><span class="dot available"></span>Available</li>
+          <li><span class="dot selected"></span>Selected</li>
+          <li><span class="dot assigned"></span>Assigned</li>
+          <li><span class="dot running"></span>Running</li>
+        </ul>
+
+        <button
+          mat-stroked-button
+          color="accent"
+          class="waitingTokenBtn"
+          (click)="createWaitingToken()"
+        >
+          <mat-icon>add</mat-icon><span>Waiting Token</span>
+        </button>
+      </div>
     </div>
 
     <div>

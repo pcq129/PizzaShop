@@ -3,7 +3,9 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { SnackbarService } from 'src/app/_services/snackbar.service';
 import { TableSectionService } from 'src/app/_services/table-section.service';
-import { OrderService } from '../order-service.service';
+import { OrderService } from '../../_services/order-service.service';
+import { MatDialog } from '@angular/material/dialog';
+import { waitingTokenDialog } from './dialogs/waitingTokenDialog.component';
 
 @Component({
   selector: 'app-order-tables',
@@ -115,7 +117,8 @@ export class OrderTablesComponent implements OnInit {
     private router: Router,
     private tableSectionService: TableSectionService,
     private cdr: ChangeDetectorRef,
-    private orderService: OrderService
+    private orderService: OrderService,
+    private dialog : MatDialog
   ) {
     this.getSectionData();
   }
@@ -134,6 +137,7 @@ export class OrderTablesComponent implements OnInit {
       },
     });
   }
+
 
   selectedTables: number[] = [];
   selectedTablesNames: string[] = [];
@@ -192,7 +196,7 @@ export class OrderTablesComponent implements OnInit {
       Validators.required,
       Validators.pattern(this.mobilePattern),
     ]),
-    people: new FormControl('', [
+    headCount: new FormControl('', [
       Validators.required,
       Validators.min(1),
       Validators.max(75),
@@ -233,14 +237,14 @@ export class OrderTablesComponent implements OnInit {
     }
     return;
   }
-  getPeopleError() {
-    if (this.customerData.controls.people.hasError('required')) {
+  getHeadCountError() {
+    if (this.customerData.controls.headCount.hasError('required')) {
       return 'You must enter the number of people';
     }
-    if (this.customerData.controls.people.hasError('min')) {
+    if (this.customerData.controls.headCount.hasError('min')) {
       return 'Minimum 1 person required';
     }
-    if (this.customerData.controls.people.hasError('max')) {
+    if (this.customerData.controls.headCount.hasError('max')) {
       return 'People cannot exceed 75 in single seating';
     }
     return;
@@ -266,6 +270,38 @@ export class OrderTablesComponent implements OnInit {
     this.assignable = true;
     this.runningTables = 0;
     this.cdr.detectChanges();
+  }
+
+  createWaitingToken(){
+    console.log("waitin token generatino");
+
+    const newTokenDialog = this.dialog.open(waitingTokenDialog, {
+      width: '600px',
+      data:{
+        sectionList : this.sectionData,
+      }
+    })
+
+    newTokenDialog.afterClosed().subscribe((res: any)=>{
+      console.log(res);
+      if(res){
+
+        this.sectionService.createWaitingToken(res).subscribe({
+          next: (res: any) => {
+            if (res.status == 'false') {
+              this.snackbarService.error(res.message);
+              // this.router.navigateByUrl('order/menu');
+            } else {
+              this.snackbarService.success(res.message);
+              // this.router.navigateByUrl('order/menu');
+            }
+          },
+          error: (err) => {
+            this.snackbarService.error(err);
+          },
+        });
+      }
+    })
   }
 
   assignTable(data: any) {
@@ -318,12 +354,16 @@ export class OrderTablesComponent implements OnInit {
   searchedCustomers : any = {} ;
 
   test : string = '';
-  searchCustomer(email: string) {
+  searchCustomer(email: string, sectionId : number) {
     if(email.length<4){
       this.searchedCustomers = {};
       return;
     }
-    this.tableSectionService.searchCustomer(email).subscribe({
+    let data = {
+      email : email,
+      sectionId : sectionId
+    }
+    this.tableSectionService.searchCustomer(data).subscribe({
       next: (res: any) => {
         if(res.status == "true"){
           this.searchedCustomers = (res.data);
@@ -344,6 +384,7 @@ export class OrderTablesComponent implements OnInit {
     this.customerData.controls.email.setValue(customer.email);
     this.customerData.controls.mobile.setValue(customer.mobile);
     this.customerData.controls.name.setValue(customer.name);
+    this.customerData.controls.headCount.setValue(customer.head_count);
     return;
   }
 }

@@ -5,7 +5,7 @@ import { ItemsService } from 'src/app/_services/items.service';
 import { ModifierService } from 'src/app/_services/modifier.service';
 import { SnackbarService } from 'src/app/_services/snackbar.service';
 import { modifierDialog } from './modifier-dialog.component';
-import { OrderService } from '../order-service.service';
+import { OrderService } from '../../_services/order-service.service';
 import { TaxFeesService } from 'src/app/_services/tax-fees.service';
 import { Router } from '@angular/router';
 import { ConfirmationDialogComponent } from 'src/app/common/confirmation-dialog/confirmation-dialog.component';
@@ -301,6 +301,7 @@ export class OrderMenuComponent implements OnInit {
         taxes : this.taxBreakup,
         subTotal : this.billAmount,
         total : this.amount,
+
       }),
       amount : this.amount
     };

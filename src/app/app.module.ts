@@ -22,6 +22,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { HeadersInterceptor } from './headers.interceptor';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { OrderappModule } from './orderapp/orderapp.module';
+import { PageNotFoundModule } from './common/page-not-found/page-not-found.module';
 
 
 @NgModule({
@@ -41,7 +42,8 @@ import { OrderappModule } from './orderapp/orderapp.module';
     MatSelectModule,
     MatSnackBarModule,
     MatIconModule,
-    OrderappModule
+    OrderappModule,
+    PageNotFoundModule
   ],
   providers: [AuthService, {
     provide: HTTP_INTERCEPTORS, useClass: LoggingInterceptor, multi: true
