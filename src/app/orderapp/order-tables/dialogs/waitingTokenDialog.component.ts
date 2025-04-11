@@ -9,6 +9,8 @@ import { TableSectionService } from "src/app/_services/table-section.service";
   styleUrls : ['../order-tables.component.scss']
 })
 export class waitingTokenDialog {
+
+
   constructor(
     public dialogRef: MatDialogRef<waitingTokenDialog>,
     @Inject(MAT_DIALOG_DATA) public data: any,private tableSectionService: TableSectionService
@@ -56,23 +58,38 @@ export class waitingTokenDialog {
 
 
 
+   // {
+  //   "id": 7,
+  //   "mobile": "8988347384",
+  //   "email": "uer@user.com",
+  //   "name": "harmit`",
+  //   "status": null,
+  //   "head_count": 0,
+  //   "created_at": "2025-04-08T10:08:08.000000Z",
+  //   "updated_at": "2025-04-08T10:08:08.000000Z",
+  //   "deleted_at": null,
+  //   "section_id": 1
+  // }
+
+
+
   customerData = new FormGroup({
-    email: new FormControl('', [
+    email: new FormControl(this.data.waitingToken?.email, [
       Validators.required,
       Validators.email,
       this.whitespaceValidator,
     ]),
-    name: new FormControl('', [Validators.required, this.whitespaceValidator]),
-    mobile: new FormControl('', [
+    name: new FormControl(this.data.waitingToken?.name, [Validators.required, this.whitespaceValidator]),
+    mobile: new FormControl(this.data.waitingToken?.mobile, [
       Validators.required,
       Validators.pattern(this.mobilePattern),
     ]),
-    headCount: new FormControl('', [
+    headCount: new FormControl(this.data.waitingToken?.head_count, [
       Validators.required,
       Validators.min(1),
       Validators.max(75),
     ]),
-    sectionId : new FormControl("", [
+    sectionId : new FormControl(this.data.waitingToken?.section_id, [
       Validators.required
     ])
   });

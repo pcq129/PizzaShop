@@ -1,0 +1,55 @@
+.body{
+  height: 100%;
+  width: 100%;
+  background-color: #212529;
+  color: white;
+}
+
+.titlebar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-weight: 800;
+  font-size: 30px;
+  padding: 15px 15px 15px 15px;
+}
+
+.search {
+  height: 30px;
+  font-size: 16px;
+  width: 400px;
+}
+
+.title{
+  margin-left: 10px;
+}
+
+.tabBody{
+  padding-left: 20px;
+  padding-right: 20px;
+  margin-left: 20px;
+  margin-right: 20px;
+  height: 70%;
+}
+
+.waitingListCount{
+  display: inline-flex;
+  align-items: center;
+  margin-left: 12px;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  background-color: #a0a7af; /* soft grey background */
+  color: white;
+  border-radius: 50%;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.tabGroup{
+  height: 100%;
+}
+
+.waitingList{
+  width: 100%;
+}

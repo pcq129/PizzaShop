@@ -47,11 +47,12 @@ export class TableSectionService {
   }
 
   createWaitingToken(data : any){
-    console.log(data);
-
     return this.http.post(environment.baseURL + 'customer/waiting-token', data)
   }
 
+  updateWaitingToken(data : any){
+    return this.http.post(environment.baseURL + 'customer/update-waiting-token', data)
+  }
 
 
 

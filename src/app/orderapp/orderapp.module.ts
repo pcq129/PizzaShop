@@ -8,6 +8,7 @@ import {MatChipsModule} from '@angular/material/chips';
 import { OrderTablesModule } from './order-tables/order-tables.module';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
+import { WaitingListModule } from './waiting-list/waiting-list.module';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { HttpClientModule } from '@angular/common/http';
     MatChipsModule,
     OrderTablesModule,
     RouterModule,
-    HttpClientModule
+    HttpClientModule,
+    WaitingListModule
   ],
 })
 export class OrderappModule { }

@@ -18,6 +18,7 @@ import { OrderService } from '../../_services/order-service.service';
 import { MatRadioModule } from '@angular/material/radio';
 import { waitingTokenDialog } from './dialogs/waitingTokenDialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { DeleteDialogModule } from 'src/app/common/delete-dialog/delete-dialog/delete-dialog.module';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { MatDialogModule } from '@angular/material/dialog';
     OrderMenuModule,
     MatRadioModule,
     MatDialogModule,
-    MatSelectModule
+    MatSelectModule,
+    DeleteDialogModule
   ],
   providers: [OrderService]
 

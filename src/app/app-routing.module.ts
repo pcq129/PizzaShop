@@ -24,6 +24,7 @@ import { OrdersComponent } from './admin/orders/orders.component';
 import { OrderDetailsComponent } from './admin/orders/order-details/order-details.component';
 import { CustomerComponent } from './admin/customer/customer.component';
 import { PageNotFoundComponent } from './common/page-not-found/page-not-found.component';
+import { WaitingListComponent } from './orderapp/waiting-list/waiting-list.component';
 // import { DashboardComponent } from './app/dashboard/dashboard.component';
 const routes: Routes = [
   // {
@@ -125,6 +126,11 @@ const routes: Routes = [
         path: 'running',
         canActivate: [AuthGuard],
         component: OrderTablesComponent ,
+      },
+      {
+        path: 'waiting-list',
+        canActivate: [AuthGuard],
+        component: WaitingListComponent ,
       },
 
 
