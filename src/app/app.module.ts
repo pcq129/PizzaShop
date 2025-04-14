@@ -16,14 +16,12 @@ import { LoggingInterceptor } from './logging.interceptor';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonDialogModule } from './admin/category/common-dialog/common-dialog.module';
-import { ItemsModule } from './admin/items/items.module';
 import { SharedModule } from './common/common-module.module';
 import { MatSelectModule } from '@angular/material/select';
 import { HeadersInterceptor } from './headers.interceptor';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { OrderappModule } from './orderapp/orderapp.module';
 import { PageNotFoundModule } from './common/page-not-found/page-not-found.module';
-
 
 @NgModule({
   declarations: [AppComponent],
@@ -43,14 +41,21 @@ import { PageNotFoundModule } from './common/page-not-found/page-not-found.modul
     MatSnackBarModule,
     MatIconModule,
     OrderappModule,
-    PageNotFoundModule
+    PageNotFoundModule,
   ],
-  providers: [AuthService, {
-    provide: HTTP_INTERCEPTORS, useClass: LoggingInterceptor, multi: true
-  }, {
-    provide: HTTP_INTERCEPTORS, useClass: HeadersInterceptor, multi: true
-  }
-],
+  providers: [
+    AuthService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: LoggingInterceptor,
+      multi: true,
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HeadersInterceptor,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

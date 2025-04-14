@@ -13,7 +13,7 @@ interface sidebar {
   styleUrls: ['./admin.component.scss'],
 })
 export class AdminComponent implements OnInit {
-  constructor( public authService: AuthService, private router: Router) {}
+  constructor(public authService: AuthService, private router: Router) {}
   loadComponent(arg0: string) {
     this.router.navigate([arg0]);
     console.log(event);
@@ -59,32 +59,6 @@ export class AdminComponent implements OnInit {
       title: 'Customers',
       redirect: 'customers',
     },
-    {
-      icon: ``,
-      title: '',
-      redirect: '#',
-    },
-    {
-      icon: `restaurant_menu`,
-      title: 'Categories',
-      redirect: 'category',
-    },
-    {
-      icon: `restaurant_menu`,
-      title: 'Items',
-      redirect: 'items',
-    },
-    {
-      icon: `restaurant_menu`,
-      title: 'Modifiers Group',
-      redirect: 'modifiergroup',
-    },
-    {
-      icon: `restaurant_menu`,
-      title: 'Modifiers',
-      redirect: 'modifiers',
-    }
-
 
     // {
     //   icon: `person_outline`,
@@ -109,16 +83,16 @@ export class AdminComponent implements OnInit {
     this.authService.clear();
   }
 
-  addClass(){
-
-  }
+  addClass() {}
 
   brandLogo = '/assets/logos/brandLogo.png';
   profile = '../../assets/pfp.png';
 
-  openOrderApp(){
-    this.router.navigate(['order/tables'])
+  openOrderApp() {
+    this.router.navigate(['order/tables']);
   }
 
-
+  redirect(url: string) {
+    this.router.navigateByUrl(url);
+  }
 }

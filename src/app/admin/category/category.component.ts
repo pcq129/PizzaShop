@@ -70,7 +70,7 @@ export class CategoryComponent implements OnInit, OnChanges {
     dialogRef.afterClosed().subscribe((result) => {
       // console.log(result);
       // this.id.id = result;
-      this.deleteCategory(result.id);
+      this.deleteCategory(id);
     });
   }
 

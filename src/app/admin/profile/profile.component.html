@@ -1,0 +1,93 @@
+<div class="body">
+  <div class="titlebar">
+    <span class="title">My Profile</span>
+  </div>
+  <div>
+    <mat-card class="profile-card">
+      <!-- <div class="profile-header">
+        <div class="avatar-container">
+          <img
+            src="https://via.placeholder.com/80"
+            class="avatar"
+            alt="User Avatar"
+          />
+          <button mat-icon-button class="camera-icon">
+            <mat-icon>photo_camera</mat-icon>
+          </button>
+        </div> -->
+      <div class="user-info">
+        <h3>Admin admin</h3>
+        <p>Admin</p>
+        <a href="mailto:admin@yopmail.com">admin.com</a>
+      </div>
+      <!-- </div> -->
+
+      <form class="profile-form" [formGroup]="profileForm">
+        <div class="form-row">
+          <mat-form-field appearance="fill">
+            <mat-label>First Name</mat-label>
+            <input matInput formControlName="firstName" />
+          </mat-form-field>
+
+          <mat-form-field appearance="fill">
+            <mat-label>Last Name</mat-label>
+            <input matInput formControlName="lastName" />
+          </mat-form-field>
+        </div>
+
+        <div class="form-row">
+          <mat-form-field appearance="fill">
+            <mat-label>User Name</mat-label>
+            <input matInput formControlName="username" />
+          </mat-form-field>
+
+          <mat-form-field appearance="fill">
+            <mat-label>Phone</mat-label>
+            <input matInput formControlName="phone" />
+          </mat-form-field>
+        </div>
+
+        <div class="form-row">
+          <mat-form-field appearance="fill">
+            <mat-label>Country</mat-label>
+            <!-- <mat-select formControlName="country">
+              <mat-option value="United States">United States</mat-option>
+              <mat-option value="India">India</mat-option>
+            </mat-select> -->
+          </mat-form-field>
+
+          <mat-form-field appearance="fill">
+            <mat-label>State</mat-label>
+            <!-- <mat-select formControlName="state">
+              <mat-option value="California">California</mat-option>
+            </mat-select> -->
+          </mat-form-field>
+
+          <mat-form-field appearance="fill">
+            <mat-label>City</mat-label>
+            <!-- <mat-select formControlName="city">
+              <mat-option value="Los Angeles">Los Angeles</mat-option>
+            </mat-select> -->
+          </mat-form-field>
+        </div>
+
+        <div class="form-row">
+          <mat-form-field appearance="fill" class="full-width">
+            <mat-label>Address</mat-label>
+            <input matInput formControlName="address" />
+          </mat-form-field>
+
+          <mat-form-field appearance="fill">
+            <mat-label>Zipcode</mat-label>
+            <input matInput formControlName="zipcode" />
+          </mat-form-field>
+        </div>
+
+        <div class="form-actions">
+          <button mat-flat-button color="primary">Update</button>
+          <button mat-stroked-button type="button">Cancel</button>
+        </div>
+      </form>
+    </mat-card>
+  </div>
+</div>

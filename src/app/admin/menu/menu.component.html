@@ -1,52 +1,32 @@
-
-<!-- <h2 class="heading">Menu</h2> -->
-
-<!-- <mat-card class="menuCard">
-    <mat-tab-group>
-        <mat-tab label="Items" class="itemsTab">
-            <div>
-                <app-category [categories]="categories"></app-category>
-                <app-items [items]="items"></app-items>
-            </div>
-        </mat-tab>
-        <mat-tab label="Modifiers">
-
-        </mat-tab>
-    </mat-tab-group>
-</mat-card> -->
 <div class="titlebar">
-    <span>Menu</span>
-    <!-- <button class="addCategory" mat-button (click)="openDialog()">Add Category</button> -->
+  <span>Menu</span>
 </div>
 
 <div class="menuCard">
-    <mat-tab-group class="matTab">
-        <mat-tab>
-            <ng-template mat-tab-label class="tab">
-                <mat-icon class="itemsTabIcon">menu</mat-icon>
-                <span class="tabName">Items</span>
-            </ng-template>
-            <!-- <mat-card-content> -->
-            <mat-drawer-container class="menuContainer">
-                <mat-drawer class="categoryList" mode="side" opened>
-                  <app-category></app-category>
-                </mat-drawer>
-                <mat-drawer-content>
-                  <app-items></app-items>
-                </mat-drawer-content>
-            </mat-drawer-container>
-        </mat-tab>
-        <mat-tab>
-            <ng-template mat-tab-label class="tab">
-                <mat-icon class="itemsTabIcon">menu</mat-icon>
-                <span class="tabName">Modifiers</span>
-            </ng-template>
-            <mat-drawer-container class="menuContainer">
-                <mat-drawer class="categoryList" mode="side" opened>
-                  Modifiers Group
-                </mat-drawer>
-                <mat-drawer-content>Modifiers</mat-drawer-content>
-            </mat-drawer-container>
-        </mat-tab>
-    </mat-tab-group>
+  <mat-tab-group class="matTab">
+    <mat-tab>
+      <ng-template mat-tab-label class="tab">
+        <mat-icon class="itemsTabIcon">menu</mat-icon>
+        <span class="tabName">Items</span>
+      </ng-template>
+      <app-item-category
+        [categoryData]="categoryData"
+        [allItems]="allItems"
+        [viewItems]="allItems"
+        (refreshCategoryData)="refreshCategoryData($event)"
+      ></app-item-category>
+    </mat-tab>
+
+    <mat-tab>
+      <ng-template mat-tab-label class="tab">
+        <mat-icon class="itemsTabIcon">menu</mat-icon>
+        <span class="tabName">Modifiers</span>
+      </ng-template>
+      <app-modifier
+        [modifierGroupData]="modifierGroupData"
+        [allModifiers]="allModifiers"
+        [viewModifiers]="allModifiers"
+      ></app-modifier>
+    </mat-tab>
+  </mat-tab-group>
 </div>

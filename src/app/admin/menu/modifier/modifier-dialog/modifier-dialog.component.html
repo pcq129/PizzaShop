@@ -1,0 +1,73 @@
+<form [formGroup]="modifierForm">
+    <div mat-dialog-content>
+      <p>Add Modifier Details</p>
+  
+      <mat-form-field class="dialogInput" appearance="outline">
+        <mat-label>Select Modidfier Group</mat-label>
+        <mat-select multiple formControlName="modifier_group_id">
+          <mat-option
+            *ngFor="let modifierGroup of data.modifierGroupList"
+            [value]="modifierGroup.id"
+          >
+            {{modifierGroup.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+  
+      <mat-form-field class="dialogInput" appearance="outline">
+        <mat-label>Modifier Name</mat-label>
+        <input matInput formControlName="name" type="text" />
+      </mat-form-field>
+  
+  
+  
+  
+      <mat-form-field class="dialogInput"  appearance="outline">
+        <mat-label>Rate</mat-label>
+        <input matInput formControlName="rate" type="number" min="0" />
+      </mat-form-field>
+  
+      <!--
+          <mat-form-field appearance="outline">
+              <mat-label>Modifier Name</mat-label>
+              <input matInput [(ngModel)]="data.modifierId">
+          </mat-form-field> -->
+  
+      <mat-form-field class="dialogInput" appearance="outline">
+        <mat-label>Modifier Quantity</mat-label>
+        <input formControlName="quantity" matInput type="number" min="0" />
+      </mat-form-field>
+  
+      <mat-form-field class="dialogInput" appearance="outline">
+        <!-- <mat-label>Modifier Unit</mat-label>
+              <input [formControl]="unit" matInput [(ngModel)]="data.unit"> -->
+        <mat-label>Modifier Unit</mat-label>
+        <mat-select formControlName="unit">
+          <mat-option value="pieces">Pieces</mat-option>
+          <mat-option value="grams">Grams</mat-option>
+        </mat-select>
+      </mat-form-field>
+  
+      <mat-form-field class="dialogInput" appearance="outline">
+        <mat-label>Modifier Description</mat-label>
+        <input formControlName="description" matInput type="text" />
+      </mat-form-field>
+  
+  
+    </div>
+  
+    <div mat-dialog-actions>
+      <button mat-button type="button" (click)="onNoClick()">Cancel</button>
+      <button
+        mat-button
+        type="submit"
+        [disabled]="!modifierForm.valid"
+        [mat-dialog-close]="modifierForm.value"
+        cdkFocusInitial
+      >
+        Save
+      </button>
+      <!-- <button (click)="printdata()"></button> -->
+    </div>
+  </form>
+  

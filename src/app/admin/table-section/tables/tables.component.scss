@@ -19,23 +19,26 @@
   margin: 15px 15px 15px 15px;
 }
 
-
-.tablesTable{
+.tablesTable {
   width: 100%;
   margin-top: 4%;
 }
 
-.editTableDialogInput{
+.editTableDialogInput {
   width: 100%;
 }
 
-.noTableBanner{
+.noTableBanner {
   height: 90%;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.tableBody{
+.tableBody {
   height: 90%;
+}
+
+.body {
+  width: 100%;
 }

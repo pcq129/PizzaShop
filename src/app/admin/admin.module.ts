@@ -7,7 +7,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
 import { RouterModule } from '@angular/router';
 import { DashboardModule } from './dashboard/dashboard.module';
-import { MenuModule } from './menu/menu.module';
 import { MatButtonModule } from '@angular/material/button';
 import { HttpClientModule } from '@angular/common/http';
 import { TableSectionModule } from './table-section/table-section.module';
@@ -16,6 +15,9 @@ import { TaxFeesModule } from './tax-fees/tax-fees.module';
 import { MatMenuModule } from '@angular/material/menu';
 import { OrdersModule } from './orders/orders.module';
 import { CustomerModule } from './customer/customer.module';
+import { MenuModule } from './menu/menu.module';
+import { ChangePasswordModule } from './change-password/change-password.module';
+import { ProfileModule } from './profile/profile.module';
 
 @NgModule({
   declarations: [AdminComponent],
@@ -35,7 +37,10 @@ import { CustomerModule } from './customer/customer.module';
     MatIconModule,
     MatButtonModule,
     OrdersModule,
-    CustomerModule
+    CustomerModule,
+    MenuModule,
+    ChangePasswordModule,
+    ProfileModule,
   ],
   exports: [AdminComponent],
 })
