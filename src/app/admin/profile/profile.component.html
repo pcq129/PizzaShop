@@ -3,7 +3,7 @@
     <span class="title">My Profile</span>
   </div>
   <div>
-    <mat-card class="profile-card">
+    <mat-card class="profile-card"  *ngIf="profileForm">
       <div class="profile-header">
         <!-- <div class="avatar-container">
           <img
@@ -16,13 +16,14 @@
           </button>
         </div> -->
       <div class="user-info">
-        <h3>Name</h3>
-        <p>Admin (role)</p>
-       <span class="email">email</span>
+        <h3>{{userData.first_name}} {{userData.last_name}}</h3>
+        <p>Role : {{userData.role}}</p>
+        <span class="email readonly">{{userData.email}}</span>
       </div>
       </div>
 
       <form class="profile-form" [formGroup]="profileForm">
+
         <div class="form-row">
           <mat-form-field appearance="outline">
             <mat-label>First Name</mat-label>
@@ -41,9 +42,9 @@
             <input matInput formControlName="username" />
           </mat-form-field>
 
-          <mat-form-field appearance="outline">
+          <mat-form-field appearance="outline" >
             <mat-label>Phone</mat-label>
-            <input matInput formControlName="phone" type="number" />
+            <input matInput formControlName="phone" class="readonly" readonly />
           </mat-form-field>
         </div>
 
@@ -102,7 +103,7 @@
 
         <div class="form-actions">
           <button mat-stroked-button type="button">Cancel</button>
-          <button mat-flat-button color="accent">Update</button>
+          <button mat-flat-button color="accent" (click)="updateProfile()">Update</button>
         </div>
       </form>
     </mat-card>

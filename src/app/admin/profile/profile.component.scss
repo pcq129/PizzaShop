@@ -36,6 +36,9 @@
     margin: 5px;
   }
 }
+.readonly{
+  color: grey;
+}
 
 .form-actions{
   display: flex;
@@ -45,4 +48,12 @@
   button{
     margin: 5px;
   }
+}
+
+.readonly{
+  color: grey;
+}
+
+.user-info{
+  padding: 15px;
 }

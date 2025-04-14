@@ -10,7 +10,7 @@ import { SnackbarService } from '../_services/snackbar.service';
   styleUrls: ['./orderapp.component.scss'],
 })
 export class OrderappComponent implements OnInit {
-  constructor(private authservice : AuthService,
+  constructor(private authService : AuthService,
               private router: Router,
               private tableSectionService: TableSectionService,
               private snackbarService : SnackbarService
@@ -18,7 +18,7 @@ export class OrderappComponent implements OnInit {
 
   ngOnInit(): void {}
   logout() {
-    this.authservice.clear();
+    this.authService.clear();
   }
   navigate(link: string){
     this.router.navigateByUrl(link);
@@ -35,5 +35,16 @@ export class OrderappComponent implements OnInit {
         }
       },
     });
+  }
+
+  redirect(url: string) {
+    this.router.navigateByUrl(url);
+  }
+
+  loadUserData(){
+    // this.authService.fetchUserData();
+    console.log(this.authService.user$);
+
+    this.redirect('profile')
   }
 }

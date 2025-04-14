@@ -1,5 +1,5 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable, Input, OnInit } from '@angular/core';
+import { Injectable, Input } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import * as CryptoJS from 'crypto-js';
@@ -9,23 +9,10 @@ import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root',
 })
-export class AuthService implements OnInit {
+export class AuthService {
+  constructor(private router: Router, private http: HttpClient) {}
 
-  constructor(private router: Router, private http: HttpClient) {
-  }
-  ngOnInit(): void {
-    this.http.get(environment.baseURL + 'userdata').subscribe({
-      next: (res) => {
-        this.userDataSubject.next(res); // update the subject
-      },
-      error: (err) => {
-        console.error(err);
-      }
-    });
-  }
-
-
-  getToken(){
+  getToken() {
     return localStorage.getItem('access_token');
   }
 
@@ -49,7 +36,6 @@ export class AuthService implements OnInit {
     this.router.navigate(['dashboard']);
   }
 
-
   checkCredentials(email: string, password: string) {
     let data = {
       email: email,
@@ -68,7 +54,6 @@ export class AuthService implements OnInit {
   }
 
   checkLoggedIn(token: string) {
-
     if (localStorage.getItem('access_token') && this.checkValidity(token)) {
       // this.router.navigate(['customers']);
       return true;
@@ -85,8 +70,6 @@ export class AuthService implements OnInit {
   //   return headers;
   // }
 
-
-
   checkValidity(token: string) {
     let httpHeaders = new HttpHeaders({
       Authorization: `Bearer ${this.access_token}`,
@@ -94,10 +77,7 @@ export class AuthService implements OnInit {
     console.log(httpHeaders);
     console.log(token);
 
-    return this.http.get(
-      environment.baseURL + `me`,
-      { headers: httpHeaders }
-    );
+    return this.http.get(environment.baseURL + `me`, { headers: httpHeaders });
 
     // .subscribe((res)=>{
     //   console.log(res);
@@ -115,23 +95,32 @@ export class AuthService implements OnInit {
   }
 
   private userDataSubject = new BehaviorSubject<any>(null);
-user$ = this.userDataSubject.asObservable();
+  user$ = this.userDataSubject.asObservable();
 
+  fetchUserData(): any {
+    this.http.get(environment.baseURL + 'userdata').subscribe({
+      next: (res) => {
+        this.userDataSubject.next(res); // update the subject
 
-fetchUserData(): void {
-  this.http.get(environment.baseURL + 'userdata').subscribe({
-    next: (res) => {
-      this.userDataSubject.next(res); // update the subject
-    },
-    error: (err) => {
-      console.error(err);
-    }
-  });
-}
+        return res;
+      },
+      error: (err) => {
+        console.error(err);
+        return err;
+      },
+    });
+  }
 
+  updatePassword(passwordData: any) {
+    return this.http.post(
+      environment.baseURL + 'update-password',
+      passwordData
+    );
+  }
 
-
-  updatePassword(passwordData : any){
-    return this.http.post(environment.baseURL + 'update-password', passwordData);
+  updateProfile(data: any){
+    return this.http.post(
+      environment.baseURL + 'update-profile', data
+    )
   }
 }

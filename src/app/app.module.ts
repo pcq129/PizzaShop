@@ -22,12 +22,14 @@ import { HeadersInterceptor } from './headers.interceptor';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { OrderappModule } from './orderapp/orderapp.module';
 import { PageNotFoundModule } from './common/page-not-found/page-not-found.module';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [AppComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    RouterModule,
     BrowserAnimationsModule,
     LoginModule,
     NgbModule,

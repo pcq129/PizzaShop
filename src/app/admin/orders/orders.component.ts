@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { SnackbarService } from 'src/app/_services/snackbar.service';
 import { OrderService } from 'src/app/_services/order-service.service';
-import { OrderDetailDialogComponent } from './order-detail/order-detail.component';
 import { Router } from '@angular/router';
 
 @Component({

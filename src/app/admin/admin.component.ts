@@ -97,7 +97,11 @@ export class AdminComponent implements OnInit {
   }
 
   loadUserData(){
-    this.authService.fetchUserData();
+    // this.authService.fetchUserData();
+    console.log(this.authService.user$);
+
     this.redirect('profile')
   }
+
+
 }

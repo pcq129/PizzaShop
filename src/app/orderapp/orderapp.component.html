@@ -17,19 +17,20 @@
       <img class="userProfile clickable" src="assets/pfp.png" [matMenuTriggerFor]="menu">
     </div>
     <mat-menu #menu="matMenu">
-      <button mat-menu-item>
-          <mat-icon>person</mat-icon>
-          <span>My Profile</span>
+      <button mat-menu-item (click)="loadUserData()">
+        <mat-icon>person</mat-icon>
+        <span>My Profile</span>
       </button>
-      <button mat-menu-item>
-          <mat-icon>refresh</mat-icon>
-          <span>Change Password</span>
+      <button mat-menu-item (click)="redirect('profile-password')">
+        <mat-icon>refresh</mat-icon>
+        <span>Change Password</span>
       </button>
       <button mat-menu-item (click)="logout()">
-          <mat-icon>exit_to_app</mat-icon>
-          <span>Logout</span>
+        <mat-icon>exit_to_app</mat-icon>
+        <span>Logout</span>
       </button>
-  </mat-menu>
+    </mat-menu>
+
   </div>
 </mat-toolbar>
 <router-outlet></router-outlet>

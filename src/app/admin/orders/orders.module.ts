@@ -9,7 +9,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
-import { OrderDetailModule } from './order-detail/order-detail.module';
 import { OrderDetailsModule } from './order-details/order-details.module';
 
 
@@ -29,7 +28,6 @@ import { OrderDetailsModule } from './order-details/order-details.module';
     ReactiveFormsModule,
     MatButtonModule,
     MatInputModule,
-    OrderDetailModule,
     OrderDetailsModule
   ]
 })
