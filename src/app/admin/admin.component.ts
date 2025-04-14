@@ -95,4 +95,9 @@ export class AdminComponent implements OnInit {
   redirect(url: string) {
     this.router.navigateByUrl(url);
   }
+
+  loadUserData(){
+    this.authService.fetchUserData();
+    this.redirect('profile')
+  }
 }

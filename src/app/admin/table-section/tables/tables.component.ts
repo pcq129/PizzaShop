@@ -114,7 +114,7 @@ export class TablesComponent implements OnInit {
     });
   }
 
-  
+
   deleteTable(table : Table) {
     {
       console.log(table);
@@ -125,7 +125,7 @@ export class TablesComponent implements OnInit {
       }
 
       const deleteDialog = this.dialog.open(TableDeleteDialog, {
-        width: '300px',
+        width: '318px',
         data: {
           id: table.id,
           name: table.name,

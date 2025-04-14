@@ -1,5 +1,5 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable, Input } from '@angular/core';
+import { Injectable, Input, OnInit } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import * as CryptoJS from 'crypto-js';
@@ -9,7 +9,21 @@ import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root',
 })
-export class AuthService {
+export class AuthService implements OnInit {
+
+  constructor(private router: Router, private http: HttpClient) {
+  }
+  ngOnInit(): void {
+    this.http.get(environment.baseURL + 'userdata').subscribe({
+      next: (res) => {
+        this.userDataSubject.next(res); // update the subject
+      },
+      error: (err) => {
+        console.error(err);
+      }
+    });
+  }
+
 
   getToken(){
     return localStorage.getItem('access_token');
@@ -34,7 +48,7 @@ export class AuthService {
     // this.setItem('isLoggedIn', 'true');
     this.router.navigate(['dashboard']);
   }
-  constructor(private router: Router, private http: HttpClient) {}
+
 
   checkCredentials(email: string, password: string) {
     let data = {
@@ -98,5 +112,26 @@ export class AuthService {
     //   debugger;
 
     // });
+  }
+
+  private userDataSubject = new BehaviorSubject<any>(null);
+user$ = this.userDataSubject.asObservable();
+
+
+fetchUserData(): void {
+  this.http.get(environment.baseURL + 'userdata').subscribe({
+    next: (res) => {
+      this.userDataSubject.next(res); // update the subject
+    },
+    error: (err) => {
+      console.error(err);
+    }
+  });
+}
+
+
+
+  updatePassword(passwordData : any){
+    return this.http.post(environment.baseURL + 'update-password', passwordData);
   }
 }

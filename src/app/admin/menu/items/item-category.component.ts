@@ -317,7 +317,7 @@ export class ItemCategoryComponent implements OnInit {
         default_tax: element.default_tax,
         modifierGroupList: this.modifierData,
         tax_percentage: element.tax_percentage,
-        modifier_group_ids: element.modifier_groups,
+        modifier_group_ids: element.modifier_group_ids,
       },
     });
 

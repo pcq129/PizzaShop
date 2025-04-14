@@ -26,6 +26,7 @@ export class ItemDialogComponent implements OnInit {
   ) {
     this.formatModifierGroups();
     this.getCurrentImage();
+    console.log(data);
   }
 
   currentImage: string | null = null;
@@ -36,7 +37,7 @@ export class ItemDialogComponent implements OnInit {
     this.currentImage = this.data.image;
   }
   formatModifierGroups() {
-    this.data.modifier_group_ids.forEach((modifierGroup: any) => {
+    this.data.modifierGroupList.forEach((modifierGroup: any) => {
       this.modifier_group_ids.push(modifierGroup.id);
     });
   }
