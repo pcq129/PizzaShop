@@ -14,7 +14,10 @@ export class waitingTokenDialog {
   constructor(
     public dialogRef: MatDialogRef<waitingTokenDialog>,
     @Inject(MAT_DIALOG_DATA) public data: any,private tableSectionService: TableSectionService
-  ) {}
+  ) {
+    console.log(this.data);
+
+  }
 
   onNoClick(): void {
     this.dialogRef.close();
@@ -57,18 +60,17 @@ export class waitingTokenDialog {
   // }
 
 
-
-   // {
-  //   "id": 7,
-  //   "mobile": "8988347384",
-  //   "email": "uer@user.com",
-  //   "name": "harmit`",
+  // {
+  //   "id": 6,
+  //   "mobile": "4356465434",
+  //   "email": "tet@rew.dfs",
+  //   "name": "vf",
   //   "status": null,
   //   "head_count": 0,
-  //   "created_at": "2025-04-08T10:08:08.000000Z",
-  //   "updated_at": "2025-04-08T10:08:08.000000Z",
+  //   "created_at": "2025-04-08T09:59:20.000000Z",
+  //   "updated_at": "2025-04-08T09:59:20.000000Z",
   //   "deleted_at": null,
-  //   "section_id": 1
+  //   "section_id": 2
   // }
 
 
@@ -91,7 +93,8 @@ export class waitingTokenDialog {
     ]),
     sectionId : new FormControl(this.data.waitingToken?.section_id, [
       Validators.required
-    ])
+    ]),
+    id : new FormControl(this.data.waitingToken?.id),
   });
 
   public whitespaceValidator(control: FormControl) {

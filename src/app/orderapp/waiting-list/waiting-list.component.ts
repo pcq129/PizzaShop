@@ -19,6 +19,8 @@ export class WaitingListComponent implements OnInit {
     private sectionService: TableSectionService
   ) {
     this.getWaitingTokenData();
+    console.log(this.waitingTokenData);
+
   }
 
   ngOnInit(): void {}
@@ -84,21 +86,25 @@ export class WaitingListComponent implements OnInit {
     });
   }
 
-  editWaitingToken(waitingTokenId : any) {
-    console.log(waitingTokenId);
+  editWaitingToken(waitingToken : any) {
+    console.log(waitingToken);
 
     const newTokenDialog = this.dialog.open(waitingTokenDialog, {
       width: '400px',
       data: {
-        // sectionList: this.waitingTokenData,
-        id : waitingTokenId
+        sectionList: this.waitingTokenData,
+        waitingToken : waitingToken
       },
     });
 
     newTokenDialog.afterClosed().subscribe((res: any) => {
+      console.log(res);
+
       if (res) {
         this.sectionService.updateWaitingToken(res).subscribe({
           next: (res: any) => {
+            console.log(res);
+
             if (res.status == 'false') {
               this.snackbarService.error(res.message);
               // this.router.navigateByUrl('order/menu');
@@ -122,14 +128,14 @@ export class WaitingListComponent implements OnInit {
     const newTokenDialog = this.dialog.open(DeleteDialogComponent, {
       width: '600px',
       data: {
-        sectionList: this.waitingTokenData,
+        // sectionList: this.waitingTokenData,
         waitingToken : waitingToken
       },
     });
 
     newTokenDialog.afterClosed().subscribe((res: any) => {
       let data = {
-        id: res,
+        id: res.waitingToken,
         delete: true
       }
       if (res) {
@@ -139,7 +145,7 @@ export class WaitingListComponent implements OnInit {
               this.snackbarService.error(res.message);
               // this.router.navigateByUrl('order/menu');
             } else {
-              this.snackbarService.success("Waiting token cancelled");
+              this.snackbarService.success(res.message);
               this.getWaitingTokenData();
               // this.router.navigateByUrl('order/menu');
             }

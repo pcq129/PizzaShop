@@ -18,13 +18,13 @@ export class OrderDetailsComponent implements OnInit {
   ) {
     this.orderService.currentOrderInvoice.subscribe({
       next: (res: any)=>{
-        this.data = res;
+        if(res){
+          this.data = res;
         this.orderData = JSON.parse(res.order_data);
         this.formatTax(this.orderData);
-
-        console.log(res);
-        console.log(this.orderData);
-
+        }else{
+          this.redirect('orders');
+        }
       }
     })
    }

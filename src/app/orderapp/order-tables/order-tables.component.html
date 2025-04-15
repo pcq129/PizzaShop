@@ -115,6 +115,7 @@
           [expanded]="currentSection == section.id"
           (opened)="setCurrentSection(section)"
           (closed)="clearSelection()"
+          *ngIf="section.tables.length>0"
         >
           <mat-expansion-panel-header>
             <mat-panel-title>
