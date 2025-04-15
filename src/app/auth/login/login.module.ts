@@ -1,9 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './login.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
-import { ChangePasswordComponent } from './changePassword/changePassword.component';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
@@ -13,6 +12,7 @@ import { LoginFormComponent } from './login-form/login-form.component';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { AuthService } from '../../_services/auth.service';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 
 // const routes: Routes = [
 //   {
@@ -33,12 +33,13 @@ import { AuthService } from '../../_services/auth.service';
   declarations: [
     LoginComponent,
     ForgotPasswordComponent,
-    ChangePasswordComponent,
+    ResetPasswordComponent,
     LoginFormComponent,
   ],
   imports: [
     CommonModule,
     ReactiveFormsModule,
+    FormsModule,
     MatInputModule,
     RouterModule,
     MatFormFieldModule,
