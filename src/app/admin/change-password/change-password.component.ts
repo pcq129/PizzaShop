@@ -82,7 +82,8 @@ export class ChangePasswordComponent implements OnInit {
           this.snackbarService.error(res.message);
         }else if(res.status == "true"){
           this.snackbarService.success(res.message);
-          this.authService.clear();
+          localStorage.setItem('access_token',res.data);
+          // this.authService.clear();
         }
       }
     })

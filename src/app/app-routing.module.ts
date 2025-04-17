@@ -24,6 +24,7 @@ import { WaitingListComponent } from './orderapp/waiting-list/waiting-list.compo
 import { MenuComponent } from './admin/menu/menu.component';
 import { ChangePasswordComponent } from './admin/change-password/change-password.component';
 import { ProfileComponent } from './admin/profile/profile.component';
+import { ResetPasswordComponent } from './auth/login/reset-password/reset-password.component';
 // import { DashboardComponent } from './app/dashboard/dashboard.component';
 const routes: Routes = [
   // {
@@ -101,11 +102,11 @@ const routes: Routes = [
     ],
   },
 
-  {
-    path: '',
-    pathMatch: 'full',
-    component: AppComponent,
-  },
+  // {
+  //   path: '',
+  //   pathMatch: 'full',
+  //   component: AppComponent,
+  // },
   {
     path: 'order',
     component: OrderappComponent,
@@ -154,7 +155,7 @@ const routes: Routes = [
       {
         path: 'change-password',
         canActivate: [AuthGuard],
-        component: LoginFormComponent,
+        component: ResetPasswordComponent,
         pathMatch: 'full',
       },
     ],

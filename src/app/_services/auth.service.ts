@@ -44,6 +44,17 @@ export class AuthService {
     return this.http.post(environment.baseURL + `login`, data);
   }
 
+  requestReset(data: any) {
+    console.log(data);
+
+    return this.http.post(environment.baseURL + 'forgot-password', data);
+  }
+
+  resetPassword(data: any) {
+    console.log(data);
+    return this.http.post(environment.baseURL + 'password/reset', data);
+  }
+
   setItem(key: any, value: any = false) {
     localStorage.setItem(key, value);
   }
@@ -54,11 +65,17 @@ export class AuthService {
   }
 
   checkLoggedIn(token: string) {
-    if (localStorage.getItem('access_token') && this.checkValidity(token)) {
-      // this.router.navigate(['customers']);
+    if (
+      this.router.url == 'login/change-password' ||
+      this.router.url == 'login/reset-password'
+    ) {
+      return false;
+    }
+    if (localStorage.getItem('access_token')) {
+      // this.router.navigate(['dashboard']);
       return true;
     } else {
-      this.router.navigate(['login']);
+      // this.router.navigate(['login']);
       return false;
     }
   }
@@ -78,20 +95,14 @@ export class AuthService {
     console.log(token);
 
     return this.http.get(environment.baseURL + `me`, { headers: httpHeaders });
-
-    // .subscribe((res)=>{
-    //   console.log(res);
-    //   console.log(validity);
-    //   if (data) {
-    //     console.log(data);
-    //     validity = true;
-    //   } else {
-    //     validity = false;
+    // .subscribe({
+    //   next: (res)=>{
+    //     return true;
+    //   }, error: (err)=>{
+    //     return false;
     //   }
-    //   console.log(validity);
-    //   debugger;
-
-    // });
+    // })
+    // return true
   }
 
   private userDataSubject = new BehaviorSubject<any>(null);
@@ -118,9 +129,7 @@ export class AuthService {
     );
   }
 
-  updateProfile(data: any){
-    return this.http.post(
-      environment.baseURL + 'update-profile', data
-    )
+  updateProfile(data: any) {
+    return this.http.post(environment.baseURL + 'update-profile', data);
   }
 }
