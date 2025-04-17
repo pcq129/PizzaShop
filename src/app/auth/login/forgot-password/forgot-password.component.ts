@@ -35,6 +35,7 @@ export class ForgotPasswordComponent implements OnInit {
 
 
   requestReset(forgotPassword : any){
+    this.snackbarService.info('Checking Email')
     this.authService.requestReset(forgotPassword).subscribe({
       next: (res: any)=>{
         if(res.status == "passwords.sent"){
@@ -42,11 +43,17 @@ export class ForgotPasswordComponent implements OnInit {
           this.router.navigate(['login']);
 
         }
-        else{
-          this.snackbarService.error("Error Occured");
-
+        else if(res.status == "passwords.user"){
+          this.snackbarService.error("User not found");
+          console.log(res);
         }
-        console.log(res);
+        else if(res.status == "passwords.throttled"){
+          this.snackbarService.info("Too many requests, Please try again later");
+          console.log(res);
+        }
+        else{
+          this.snackbarService.error("Error")
+        }
 
       },
       error: (err)=>{

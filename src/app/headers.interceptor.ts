@@ -25,7 +25,9 @@ export class HeadersInterceptor implements HttpInterceptor {
         this.snackbarservice.error('Invalid Credentials');
       }
       else{
-        this.snackbarservice.error(err.error.message);
+        // console.log(err);
+
+        this.snackbarservice.error(err.message);
       }
       this.authservice.clear();
       console.log(this.router.url);

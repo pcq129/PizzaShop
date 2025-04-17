@@ -24,11 +24,11 @@ export class AdminComponent implements OnInit {
       title: 'Dashboard',
       redirect: 'dashboard',
     },
-    // {
-    //   icon: `people_outline`,
-    //   title: 'Users',
-    //   redirect: '#',
-    // },
+    {
+      icon: `people_outline`,
+      title: 'Users',
+      redirect: 'users',
+    },
     // {
     //   icon: `settings_applications`,
     //   title: 'Roles and Permission',

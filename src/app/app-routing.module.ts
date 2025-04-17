@@ -25,6 +25,7 @@ import { MenuComponent } from './admin/menu/menu.component';
 import { ChangePasswordComponent } from './admin/change-password/change-password.component';
 import { ProfileComponent } from './admin/profile/profile.component';
 import { ResetPasswordComponent } from './auth/login/reset-password/reset-password.component';
+import { UsersComponent } from './admin/users/users.component';
 // import { DashboardComponent } from './app/dashboard/dashboard.component';
 const routes: Routes = [
   // {
@@ -58,7 +59,7 @@ const routes: Routes = [
       {
         path: 'dashboard',
         canActivate: [AuthGuard],
-        component: MenuComponent,
+        component: DashboardComponent,
         pathMatch: 'full',
       },
       {
@@ -97,6 +98,12 @@ const routes: Routes = [
         path: 'profile',
         canActivate: [AuthGuard],
         component: ProfileComponent,
+        pathMatch: 'full',
+      },
+      {
+        path: 'users',
+        canActivate: [AuthGuard],
+        component: UsersComponent,
         pathMatch: 'full',
       },
     ],

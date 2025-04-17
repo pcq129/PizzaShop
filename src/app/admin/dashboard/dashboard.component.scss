@@ -1,33 +1,104 @@
-.col {
+.titlebar {
   display: flex;
-  flex: row;
-  justify-content: center;
   align-items: center;
-  height: 30vh;
-  margin-top: 10px;
-  margin-bottom: 20px;
+  justify-content: space-between;
+  font-weight: 800;
+  font-size: 30px;
+  margin: 15px 15px 0px 0px;
 }
 
-.col2 {
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f3f4f6;
+}
+
+.dashboard {
+  padding: 0px 20px 20px 20px;
+}
+
+.header {
   display: flex;
-  flex: row;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
-  height: 30vh;
+  flex-wrap: wrap;
+}
+
+.header h1 {
+  color: #1e3a8a;
+  margin: 0;
+}
+
+.header select {
+  padding: 6px 12px;
+  font-size: 14px;
+}
+
+.grid {
+  display: grid;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.top-cards {
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+}
+
+.middle-section {
+  grid-template-columns: 2fr 1fr;
+}
+
+.bottom-cards {
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+
+.card {
+  padding: 20px;
+  height: 150px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+}
+
+.iconContainer{
+  display: flex;
+  justify-content: end;
+}
+.icon{
+  width: 60px;
+  height: 60px;
+}
+
+
+.card h3 {
+  font-size: 16px;
+  margin: 0 0 10px;
+}
+
+.card strong {
+  font-size: 18px;
+}
+
+.chart {
+  height: 160px;
+  background-color: #e5e7eb;
+  border-radius: 8px;
   margin-top: 10px;
-  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #666;
 }
 
-.col mat-card {
-  width: 25%;
-  display: inline;
-  height: 100%;
-  margin: 10px;
+.item {
+  margin: 6px 0;
 }
 
-.col2 mat-card {
-  width: 50%;
-  display: inline;
-  height: 100%;
-  margin: 10px;
+.graph{
+  height: 250px;
 }

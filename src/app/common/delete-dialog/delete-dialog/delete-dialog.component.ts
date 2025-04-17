@@ -12,6 +12,7 @@ export class DeleteDialogComponent {
   ) {}
 
   onCancel(): void {
+    this.id = 0;
     this.dialogRef.close();
     console.log(this.id);
   }

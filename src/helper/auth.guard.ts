@@ -31,60 +31,54 @@ export class AuthGuard implements CanActivate {
     | UrlTree {
     console.log('route : ', route.routeConfig?.path);
     console.log(this.authService.isLoggedIn);
-    if (this.authService.isLoggedIn) {
+    if (localStorage.getItem('isLoggedIn') == '1') {
       if (
         route.routeConfig?.path == 'login' ||
         route.routeConfig?.path == 'forgot-password' ||
         route.routeConfig?.path == 'change-password'
       ) {
-        console.log('loginFalse');
+        this.router.navigate(['dashboard']);
         return false;
       }
-      console.log('true');
-      // this.router.navigate(['dashboard']);
-
       return true;
     } else {
-      if (!this.authService.isLoggedIn) {
-        if (
-          route.routeConfig?.path == 'login' ||
-          route.routeConfig?.path == 'forgot-password' ||
-          route.routeConfig?.path == 'change-password'
-        ) {
-          console.log('loginTrue');
-          return true;
-        } else {
-          console.log('false');
-          this.router.navigate(['login']);
-          return false;
-        }
+      if (
+        route.routeConfig?.path == 'login' ||
+        route.routeConfig?.path == 'forgot-password' ||
+        route.routeConfig?.path == 'change-password'
+      ) {
+        console.log('loginTrue');
+        return true;
       }
-      return true;
+      console.log('false');
+      this.router.navigate(['login']);
+      return false;
     }
-
-    //   const isLoggedIn = this.authService.isLoggedIn;
-    //   const publicRoutes = ['login', 'forgot-password', 'change-password'];
-    //   const currentPath = route.routeConfig?.path ?? '';
-
-    //   if (isLoggedIn) {
-    //     // Prevent access to login/forgot/change-password pages if already logged in
-    //     if (publicRoutes.includes(currentPath)) {
-    //       console.log('User is already logged in. Access denied to auth pages.');
-    //       return false;
-    //     }
-    //     console.log('User is authenticated. Access granted.');
-    //     return true;
-    //   }
-
-    //   // Not logged in
-    //   if (publicRoutes.includes(currentPath)) {
-    //     console.log('User is not logged in. Access granted to auth pages.');
-    //     return true;
-    //   }
-
-    //   console.log('User is not logged in. Redirecting to login page.');
-    //   this.router.navigate(['login']);
-    //   return false;
-    // }
+    return true;
   }
+
+  //   const isLoggedIn = this.authService.isLoggedIn;
+  //   const publicRoutes = ['login', 'forgot-password', 'change-password'];
+  //   const currentPath = route.routeConfig?.path ?? '';
+
+  //   if (isLoggedIn) {
+  //     // Prevent access to login/forgot/change-password pages if already logged in
+  //     if (publicRoutes.includes(currentPath)) {
+  //       console.log('User is already logged in. Access denied to auth pages.');
+  //       return false;
+  //     }
+  //     console.log('User is authenticated. Access granted.');
+  //     return true;
+  //   }
+
+  //   // Not logged in
+  //   if (publicRoutes.includes(currentPath)) {
+  //     console.log('User is not logged in. Access granted to auth pages.');
+  //     return true;
+  //   }
+
+  //   console.log('User is not logged in. Redirecting to login page.');
+  //   this.router.navigate(['login']);
+  //   return false;
+  // }
 }

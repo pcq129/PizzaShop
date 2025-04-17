@@ -2,6 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ItemsService } from 'src/app/_services/items.service';
+import { ModifierService } from 'src/app/_services/modifier.service';
 import { SnackbarService } from 'src/app/_services/snackbar.service';
 
 @Component({
@@ -22,10 +23,12 @@ export class ItemDialogComponent implements OnInit {
     public dialogRef: MatDialogRef<ItemDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private itemService: ItemsService,
-    private snackbarSerice: SnackbarService
+    private snackbarSerice: SnackbarService,
+    private modifierService : ModifierService
   ) {
     this.formatModifierGroups();
     this.getCurrentImage();
+    this.getModifierGroupList();
     console.log(data);
   }
 
@@ -33,11 +36,20 @@ export class ItemDialogComponent implements OnInit {
   uploadedImage: string | null = null;
   modifier_group_ids: any[] = [];
 
+
+
+  getModifierGroupList() {
+    this.modifierService.getModifierGroupList().subscribe((res: any) => {
+      this.data.modifierGroupList = res;
+      console.log(res);
+    });
+  }
+
   getCurrentImage() {
     this.currentImage = this.data.image;
   }
   formatModifierGroups() {
-    this.data.modifierGroupList.forEach((modifierGroup: any) => {
+    this.data.modifier_group_ids.forEach((modifierGroup: any) => {
       this.modifier_group_ids.push(modifierGroup.id);
     });
   }

@@ -6,7 +6,6 @@
   font-size: 30px;
   margin: 15px 15px 15px 15px;
 }
-
 .actionHeader {
   width: 16%;
 }
@@ -14,3 +13,39 @@
 .actionButton {
   width: 10px !important;
 }
+
+
+.search {
+  height: 30px;
+  font-size: 16px;
+  width: 400px;
+  margin-right: 20px;
+}
+
+.userDetailInput {
+  margin-left: 5%;
+  margin-right: 5%;
+  width: 90%;
+}
+
+
+.form-row{
+  display: flex;
+
+  mat-form-field{
+    flex-grow: 1;
+    margin-left: 5px;
+    margin-right: 5px;
+  }
+}
+
+.form-actions{
+  display: flex;
+  justify-content: end;
+  margin: 10px;
+
+  button{
+    margin: 5px;
+  }
+}
+

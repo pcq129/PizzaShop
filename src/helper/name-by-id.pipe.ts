@@ -12,3 +12,15 @@ export class NameByIdPipe implements PipeTransform {
     return item ? item[key] : '';
   }
 }
+
+@Pipe({
+  name: 'specialPipe'
+})
+export class specialPipe implements PipeTransform {
+
+  transform(value: string): string {
+    let newVal = value.replace(/[^\w\s]/gi, '')
+    return newVal.charAt(1).toUpperCase() + newVal.slice(2);
+  }
+
+}

@@ -1,22 +1,69 @@
-<h3>
-    Dashboard
-</h3>
-<mat-card>
-    <div class="col">
 
-        <mat-card><simple-card [data]="cardOneData"></simple-card></mat-card>
-        <mat-card>Simple card</mat-card>
-        <mat-card>Simple card</mat-card>
-        <mat-card>Simple card</mat-card>
+
+<div class="dashboard">
+
+  <div class="titlebar">
+    <span>Dashboard</span>
+    <!-- <select>
+      <option>CurrentMonth</option>
+    </select> -->
+  </div>
+  <!-- Top Stats -->
+  <div class="grid top-cards">
+    <div class="card">
+      <div class="iconContainer">
+        <img src="assets/icons/waiting-time.svg" class="icon">
+      </div>
+      <div>
+        <h3>Total Sales</h3>
+      <strong>₹1630</strong>
+      </div>
     </div>
-    <div class="col2">
-        <mat-card>Simple card</mat-card>
-        <mat-card>Simple card</mat-card>
+    <div class="card">
+      <h3>Total Orders</h3>
+      <strong>1</strong>
     </div>
-    <div class="col">
-        <mat-card>Simple card</mat-card>
-        <mat-card>Simple card</mat-card>
-        <mat-card>Simple card</mat-card>
-        <mat-card>Simple card</mat-card>
+    <div class="card">
+      <h3>Avg. Order Value</h3>
+      <strong>₹1630</strong>
     </div>
-</mat-card>
+    <div class="card">
+      <h3>Avg. Waiting Time</h3>
+      <strong>6.96 mins</strong>
+    </div>
+  </div>
+
+  <!-- Revenue and Customer Growth -->
+  <div class="grid middle-section">
+    <div class="card">
+      <h3>Revenue</h3>
+      <div class="chart">[Revenue Graph]</div>
+    </div>
+    <div class="card">
+      <h3>Customer Growth</h3>
+      <div class="chart">[Customer Growth Graph]</div>
+    </div>
+  </div>
+
+  <!-- Bottom Section -->
+  <div class="grid bottom-cards">
+    <div class="card">
+      <h3>Top Selling Items</h3>
+      <div class="item">#1 Grilled Burger – 1 order</div>
+      <div class="item">#2 Margherita – 1 order</div>
+    </div>
+    <div class="card">
+      <h3>Least Selling Items</h3>
+      <div class="item">#1 Grilled Burger – 1 order</div>
+      <div class="item">#2 Margherita – 1 order</div>
+    </div>
+    <div class="card">
+      <h3>Waiting List Count</h3>
+      <strong>5</strong>
+    </div>
+    <div class="card">
+      <h3>New Customer Count</h3>
+      <strong>0</strong>
+    </div>
+  </div>
+</div>

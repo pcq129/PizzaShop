@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AuthService } from 'src/app/_services/auth.service';
 import { SnackbarService } from 'src/app/_services/snackbar.service';
 
@@ -12,7 +13,7 @@ export class ProfileComponent implements OnInit {
   userData: any = {};
   profileForm!: FormGroup;
 
-  constructor(private authService: AuthService, private snackbarService : SnackbarService) {
+  constructor(private authService: AuthService, private snackbarService : SnackbarService, private router : Router) {
 
   }
 
@@ -51,6 +52,8 @@ export class ProfileComponent implements OnInit {
       next: (res: any)=>{
         if(res.status == "true"){
           this.snackbarService.success(res.message);
+          localStorage.setItem('access_token', res.data);
+          this.router.navigate(['dashboard']);
         }
         else if(res.status == "false"){
           this.snackbarService.error(res.message);

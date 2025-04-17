@@ -9,9 +9,6 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['../modifier.component.scss']
 })
 export class modifierDialog {
-  clg(a: any) {
-    console.log(a);
-  }
   constructor(
     public dialogRef: MatDialogRef<modifierDialog>,
     @Inject(MAT_DIALOG_DATA) public data: any

@@ -25,14 +25,13 @@ export class AuthService {
   // }
 
   //test implementation
-  isLoggedIn: boolean = this.checkLoggedIn(this.access_token!);
+  isLoggedIn = localStorage.getItem('isLoggedIn');
+  // this.checkLoggedIn(this.access_token!);
 
   handleLogin(data: any) {
-    this.isLoggedIn = true;
+    this.isLoggedIn = '1';
     this.setItem('access_token', data.access_token);
-    // this.isLoggedIn.next(true);
-    // this.setItem('userId', email);
-    // this.setItem('isLoggedIn', 'true');
+    this.setItem('isLoggedIn', '1');
     this.router.navigate(['dashboard']);
   }
 
@@ -71,7 +70,7 @@ export class AuthService {
     ) {
       return false;
     }
-    if (localStorage.getItem('access_token')) {
+    if (localStorage.getItem('isLoggedIn') == '1') {
       // this.router.navigate(['dashboard']);
       return true;
     } else {
@@ -87,14 +86,14 @@ export class AuthService {
   //   return headers;
   // }
 
-  checkValidity(token: string) {
-    let httpHeaders = new HttpHeaders({
-      Authorization: `Bearer ${this.access_token}`,
-    });
-    console.log(httpHeaders);
-    console.log(token);
+  // checkValidity(token: string) {
+  //   let httpHeaders = new HttpHeaders({
+  //     Authorization: `Bearer ${this.access_token}`,
+  //   });
+  //   console.log(httpHeaders);
+  //   console.log(token);
 
-    return this.http.get(environment.baseURL + `me`, { headers: httpHeaders });
+  //   return this.http.get(environment.baseURL + `me`, { headers: httpHeaders });
     // .subscribe({
     //   next: (res)=>{
     //     return true;
@@ -103,7 +102,7 @@ export class AuthService {
     //   }
     // })
     // return true
-  }
+  // }
 
   private userDataSubject = new BehaviorSubject<any>(null);
   user$ = this.userDataSubject.asObservable();
@@ -130,6 +129,8 @@ export class AuthService {
   }
 
   updateProfile(data: any) {
+    console.log(data);
+
     return this.http.post(environment.baseURL + 'update-profile', data);
   }
 }
