@@ -13,9 +13,11 @@ import { UserDialogComponent } from './user-dialog/user-dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSelectModule } from '@angular/material/select';
 import { DeleteDialogModule } from 'src/app/common/delete-dialog/delete-dialog/delete-dialog.module';
+import { RoleLabelPipe } from '../../../helper/role.pipe';
+import {PhonePipe } from 'src/helper/phone.pipe';
 
 @NgModule({
-  declarations: [UsersComponent, UserDialogComponent],
+  declarations: [UsersComponent, UserDialogComponent,RoleLabelPipe, PhonePipe],
   imports: [
     CommonModule,
     MatCardModule,
@@ -32,5 +34,7 @@ import { DeleteDialogModule } from 'src/app/common/delete-dialog/delete-dialog/d
     MatSelectModule,
     DeleteDialogModule
   ],
+  providers: [],
+  exports: [RoleLabelPipe, PhonePipe]
 })
 export class UsersModule {}

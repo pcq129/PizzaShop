@@ -151,8 +151,6 @@ export class UsersComponent implements OnInit {
             throw err;
           },
         });
-      } else {
-        this.snackbarService.error('Failed');
       }
     });
   }

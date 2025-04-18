@@ -13,104 +13,7 @@ import { waitingTokenDialog } from './dialogs/waitingTokenDialog.component';
   styleUrls: ['./order-tables.component.scss'],
 })
 export class OrderTablesComponent implements OnInit {
-  data: any = {
-    code: '200',
-    status: 'true',
-    data: [
-      {
-        id: 1,
-        name: 'Ground Floor',
-        description: null,
-        tables: [
-          {
-            id: 1,
-            name: 'T1',
-            section_id: 1,
-            capacity: 3,
-            status: 'Available',
-          },
-          {
-            id: 2,
-            name: 'T2',
-            section_id: 1,
-            capacity: 3,
-            status: 'Available',
-          },
-          {
-            id: 3,
-            name: 'T3',
-            section_id: 1,
-            capacity: 3,
-            status: 'Available',
-          },
-        ],
-      },
-      {
-        id: 2,
-        name: 'First Floor',
-        description: null,
-        tables: [
-          {
-            id: 4,
-            name: 'T4',
-            section_id: 2,
-            capacity: 3,
-            status: 'Available',
-          },
-          {
-            id: 5,
-            name: 'T5',
-            section_id: 2,
-            capacity: 4,
-            status: 'Available',
-          },
-        ],
-      },
-      {
-        id: 3,
-        name: 'Third Floor',
-        description: null,
-        tables: [
-          {
-            id: 6,
-            name: 'T6',
-            section_id: 3,
-            capacity: 4,
-            status: 'Available',
-          },
-          {
-            id: 7,
-            name: 'T7',
-            section_id: 3,
-            capacity: 5,
-            status: 'Available',
-          },
-        ],
-      },
-      {
-        id: 4,
-        name: 'AC Hall',
-        description: null,
-        tables: [
-          {
-            id: 8,
-            name: 'T8',
-            section_id: 4,
-            capacity: 6,
-            status: 'Available',
-          },
-          {
-            id: 9,
-            name: 'Y9',
-            section_id: 4,
-            capacity: 5,
-            status: 'Available',
-          },
-        ],
-      },
-    ],
-    messge: 'Section data fetched successfully',
-  };
+  data: any = {};
   constructor(
     private sectionService: TableSectionService,
     private snackbarService: SnackbarService,
@@ -118,7 +21,7 @@ export class OrderTablesComponent implements OnInit {
     private tableSectionService: TableSectionService,
     private cdr: ChangeDetectorRef,
     private orderService: OrderService,
-    private dialog : MatDialog
+    private dialog: MatDialog
   ) {
     this.getSectionData();
   }
@@ -138,7 +41,7 @@ export class OrderTablesComponent implements OnInit {
     });
   }
 
-
+  capacityCount = 0;
   selectedTables: number[] = [];
   selectedTablesNames: string[] = [];
   currentSection: number = 0;
@@ -165,11 +68,15 @@ export class OrderTablesComponent implements OnInit {
         this.assignable = false;
       }
       this.selectedTables.push(table.id);
+      this.capacityCount += table.capacity;
+      console.log(this.capacityCount);
+
       this.selectedTablesNames.push(table.name);
     } else if (this.selectedTables.includes(table.id)) {
       let index = this.selectedTables.indexOf(table.id);
       let nameIndex = this.selectedTablesNames.indexOf(table.name);
       this.selectedTables.splice(index, 1);
+      this.capacityCount -= table.capacity;
       this.selectedTablesNames.splice(nameIndex, 1);
       if (table.status != 'Available') {
         this.runningTables -= 1;
@@ -199,13 +106,19 @@ export class OrderTablesComponent implements OnInit {
     headCount: new FormControl('', [
       Validators.required,
       Validators.min(1),
-      Validators.max(75),
+      Validators.max(this.capacityCount),
     ]),
     section: new FormControl(this.currentSectionName, [Validators.required]),
     section_id: new FormControl(``),
     table_ids: new FormControl(this.selectedTables),
     table_names: new FormControl(this.selectedTablesNames),
   });
+
+  setHeadCount(){
+    this.customerData.controls.headCount.setValidators(Validators.max(this.capacityCount));
+    this.customerData.controls.table_ids.setValue(this.selectedTables);
+    this.customerData.controls.table_names.setValue(this.selectedTablesNames);
+  }
 
   public whitespaceValidator(control: FormControl) {
     const isWhitespace = (control.value || '').trim().length === 0;
@@ -245,7 +158,7 @@ export class OrderTablesComponent implements OnInit {
       return 'Minimum 1 person required';
     }
     if (this.customerData.controls.headCount.hasError('max')) {
-      return 'People cannot exceed 75 in single seating';
+      return 'People cannot exceed '+this.capacityCount+' in single seating';
     }
     return;
   }
@@ -272,20 +185,19 @@ export class OrderTablesComponent implements OnInit {
     this.cdr.detectChanges();
   }
 
-  createWaitingToken(){
-    console.log("waitin token generatino");
+  createWaitingToken() {
+    console.log('waitin token generatino');
 
     const newTokenDialog = this.dialog.open(waitingTokenDialog, {
       width: '600px',
-      data:{
-        sectionList : this.sectionData,
-      }
-    })
+      data: {
+        sectionList: this.sectionData,
+      },
+    });
 
-    newTokenDialog.afterClosed().subscribe((res: any)=>{
+    newTokenDialog.afterClosed().subscribe((res: any) => {
       console.log(res);
-      if(res){
-
+      if (res) {
         this.sectionService.createWaitingToken(res).subscribe({
           next: (res: any) => {
             if (res.status == 'false') {
@@ -301,7 +213,14 @@ export class OrderTablesComponent implements OnInit {
           },
         });
       }
-    })
+    });
+  }
+
+  cancelAssign(){
+    this.customerData.reset();
+    this.currentSection = 0;
+    this.searchedCustomers = {};
+
   }
 
   assignTable(data: any) {
@@ -318,14 +237,12 @@ export class OrderTablesComponent implements OnInit {
     // }
     console.log(data);
 
-
     this.sectionService.assignTables(data).subscribe({
       next: (res: any) => {
         if (res.status == 'false') {
           this.snackbarService.error(res.message);
           this.router.navigateByUrl('order/menu');
           console.log(data);
-
         } else {
           console.log(data);
           this.snackbarService.success(res.message);
@@ -339,7 +256,6 @@ export class OrderTablesComponent implements OnInit {
     });
   }
 
-
   tableStatusCounter(data: any) {
     //accumulator
     const counts = data.reduce((acc: any, table: any) => {
@@ -351,40 +267,45 @@ export class OrderTablesComponent implements OnInit {
     return Object.entries(counts);
   }
 
-  searchedCustomers : any = {} ;
+  searchedCustomers: any = {};
 
-  test : string = '';
-  searchCustomer(email: string, sectionId : number) {
-    if(email.length<4){
+  test: string = '';
+  searchCustomer(email: string, sectionId: number) {
+    if (email.length < 4) {
       this.searchedCustomers = {};
       return;
     }
     let data = {
-      email : email,
-      sectionId : sectionId
-    }
+      email: email,
+      sectionId: sectionId,
+    };
     this.tableSectionService.searchCustomer(data).subscribe({
       next: (res: any) => {
-        if(res.status == "true"){
-          this.searchedCustomers = (res.data);
+        if (res.status == 'true') {
+          this.searchedCustomers = res.data;
           console.log(this.searchedCustomers);
-
-        }else{
-          return
+        } else {
+          return;
         }
-
       },
-      error: (err)=>{
+      error: (err) => {
         console.log(err);
-      }
+      },
     });
   }
 
-  loadCustomerData(customer : any){
-    this.customerData.controls.email.setValue(customer.email);
-    this.customerData.controls.mobile.setValue(customer.mobile);
-    this.customerData.controls.name.setValue(customer.name);
-    this.customerData.controls.headCount.setValue(customer.head_count);
-    return;
+  loadCustomerData(customer: any) {
+    if(this.capacityCount >=   customer.head_count){
+      this.customerData.controls.email.setValue(customer.email);
+      this.customerData.controls.mobile.setValue(customer.mobile);
+      this.customerData.controls.name.setValue(customer.name);
+      this.customerData.controls.headCount.setValue(customer.head_count);
+      this.customerData.controls['headCount'].updateValueAndValidity();
+      return;
+    }
+    else{
+      this.snackbarService.error("Please select more tables")
+    }
+
   }
 }

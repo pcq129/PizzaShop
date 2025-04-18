@@ -62,7 +62,7 @@
         >
           Assign
         </button>
-        <button mat-stroked-button type="button" (click)="drawer.toggle()">
+        <button mat-stroked-button type="button" (click)="drawer.toggle(); cancelAssign()">
           Cancel
         </button>
       </div>
@@ -78,7 +78,7 @@
           class="foundCustomer"
           *ngFor="let customer of searchedCustomers"
           [value]="customer"
-          (change)="loadCustomerData(customer)"
+          (click)="loadCustomerData(customer)"
         >
           <span>{{ customer.name }}</span>
           <span class="customerEmail">{{ customer.email }}</span>
@@ -162,7 +162,7 @@
           </div>
           <button
             class="assignButton"
-            (click)="drawer.toggle()"
+            (click)="drawer.toggle(); setHeadCount()"
             [disabled]="selectedTables.length == 0 || assignable == false"
             mat-raised-button
             color="accent"

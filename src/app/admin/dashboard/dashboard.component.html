@@ -1,36 +1,66 @@
-
-
 <div class="dashboard">
-
   <div class="titlebar">
     <span>Dashboard</span>
     <!-- <select>
       <option>CurrentMonth</option>
     </select> -->
   </div>
+<!--
+  {
+    "total_sales": 304,
+    "order_count": 4,
+    "waitinglist_count": 4,
+    "average_waiting_minutes": 273,
+    "new_customer_count": 8
+}, -->
+
+
   <!-- Top Stats -->
   <div class="grid top-cards">
-    <div class="card">
+    <mat-card>
       <div class="iconContainer">
-        <img src="assets/icons/waiting-time.svg" class="icon">
+        <div class="iconFrame">
+          <img src="assets/icons/total-sales.svg" class="icon" />
+        </div>
       </div>
       <div>
-        <h3>Total Sales</h3>
-      <strong>₹1630</strong>
+        <h3>₹{{dashboardData.total_sales}}</h3>
+        <strong>Total Sales</strong>
       </div>
-    </div>
-    <div class="card">
-      <h3>Total Orders</h3>
-      <strong>1</strong>
-    </div>
-    <div class="card">
-      <h3>Avg. Order Value</h3>
-      <strong>₹1630</strong>
-    </div>
-    <div class="card">
-      <h3>Avg. Waiting Time</h3>
-      <strong>6.96 mins</strong>
-    </div>
+    </mat-card>
+    <mat-card>
+      <div class="iconContainer">
+        <div class="iconFrame">
+          <img src="assets/icons/total-orders.svg" class="icon" />
+        </div>
+      </div>
+      <div>
+        <h3>{{dashboardData.order_count}}</h3>
+        <strong>Total Orders</strong>
+      </div>
+    </mat-card>
+    <mat-card>
+      <div class="iconContainer">
+        <div class="iconFrame">
+        <img src="assets/icons/order-value.svg" class="icon" />
+        </div>
+      </div>
+      <div>
+        <h3>₹{{dashboardData.total_sales/dashboardData.order_count}}</h3>
+        <strong>Average Order</strong>
+      </div>
+    </mat-card>
+    <mat-card>
+      <div class="iconContainer">
+        <div class="iconFrame">
+          <img src="assets/icons/waiting-time.svg" class="icon" />
+        </div>
+      </div>
+      <div>
+        <h3>{{waitingTimeHours}} Hours {{watitngTimeMinutes}} Minutes</h3>
+        <strong>Avg. Waiting Time</strong>
+      </div>
+    </mat-card>
   </div>
 
   <!-- Revenue and Customer Growth -->
@@ -47,23 +77,38 @@
 
   <!-- Bottom Section -->
   <div class="grid bottom-cards">
-    <div class="card">
+    <mat-card>
       <h3>Top Selling Items</h3>
       <div class="item">#1 Grilled Burger – 1 order</div>
       <div class="item">#2 Margherita – 1 order</div>
-    </div>
-    <div class="card">
+    </mat-card>
+    <mat-card>
       <h3>Least Selling Items</h3>
       <div class="item">#1 Grilled Burger – 1 order</div>
       <div class="item">#2 Margherita – 1 order</div>
-    </div>
-    <div class="card">
-      <h3>Waiting List Count</h3>
-      <strong>5</strong>
-    </div>
-    <div class="card">
-      <h3>New Customer Count</h3>
-      <strong>0</strong>
-    </div>
+    </mat-card>
+
+    <mat-card>
+      <div class="iconContainer">
+        <div class="iconFrame">
+          <img src="assets/icons/waiting-list.svg" class="icon" />
+        </div>
+      </div>
+      <div>
+        <h3>{{dashboardData.waitinglist_count}}</h3>
+        <strong>Waiting List Count</strong>
+      </div>
+    </mat-card>
+    <mat-card>
+      <div class="iconContainer">
+        <div class="iconFrame">
+          <img src="assets/icons/customer.svg" class="icon" />
+        </div>
+      </div>
+      <div>
+        <h3>{{dashboardData.new_customer_count}}</h3>
+        <strong>New Customer Count</strong>
+      </div>
+    </mat-card>
   </div>
 </div>

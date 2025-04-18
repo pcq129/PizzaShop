@@ -8,7 +8,7 @@ import {
 } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { modifierDialog } from 'src/app/orderapp/order-menu/modifier-dialog.component';
-import { specialPipe } from 'src/helper/name-by-id.pipe';
+
 
 @Component({
   selector: 'app-user-dialog',
@@ -41,7 +41,7 @@ export class UserDialogComponent implements OnInit {
           Validators.required,
           Validators.email,
         ]),
-        phone: new FormControl((this.data.userData?.phone), Validators.required),
+        phone: new FormControl((this.data.userData?.phone.replace(/\D/g, '')), Validators.required),
         country: new FormControl(this.data.userData?.country, [
           Validators.required,
           this.whitespaceValidator,
