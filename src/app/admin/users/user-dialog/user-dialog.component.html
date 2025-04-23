@@ -37,8 +37,8 @@
     <mat-form-field appearance="outline" class="userDetailInput">
       <mat-label>Role</mat-label>
       <mat-select formControlName="role">
-        <mat-option value="2">User</mat-option>
         <mat-option value="1">Admin</mat-option>
+        <mat-option value="2">User</mat-option>
       </mat-select>
       <mat-error class="error">{{getRoleError()}}</mat-error>
     </mat-form-field>
@@ -81,14 +81,16 @@
   <div class="form-row" [hidden]="!passwords">
     <mat-form-field appearance="outline" class="userDetailInput">
       <mat-label>Password</mat-label>
-      <input matInput formControlName="password" />
-      <mat-error>{{getPasswordError()}}</mat-error>
+      <input matInput formControlName="password" type="password" />
+
     </mat-form-field>
 
     <mat-form-field appearance="outline" class="userDetailInput">
       <mat-label>Confirm Password</mat-label>
-      <input matInput formControlName="confirmPassword" />
-      <mat-error>{{getPasswordError()}}</mat-error>
+      <input matInput formControlName="confirmPassword" type="password" />
+      <mat-error *ngIf="userForm.controls.confirmPassword.invalid">
+        {{ getConfirmPasswordError() }}
+      </mat-error>
     </mat-form-field>
   </div>
 
@@ -97,7 +99,7 @@
     <button
       mat-button
       type="submit"
-      [disabled]="false"
+      [disabled]="userForm.invalid"
       [mat-dialog-close]="userForm.value"
       cdkFocusInitial
     >

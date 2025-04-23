@@ -40,6 +40,7 @@ export class TaxFeesComponent implements OnInit {
   }
 
   taxList: any;
+  viewTaxList: any
   getTaxList(){
     this.taxfeeservice.getAllTaxFeesData().subscribe({
       next: (res: any)=>{
@@ -50,6 +51,7 @@ export class TaxFeesComponent implements OnInit {
           console.log(res);
 
           this.taxList = res.data;
+          this.viewTaxList = res.data;
         }
       },
       error: (error)=>{
@@ -61,6 +63,47 @@ export class TaxFeesComponent implements OnInit {
   }
 
   displayedColumns = ['name','amount', 'type', 'enabled', 'default', 'actions'];
+
+
+  nodata : boolean =false;
+ searchTax(taxName: string) {
+
+    if (taxName.length < 2) {
+      this.nodata = false;
+      setTimeout(() => {
+        this.viewTaxList = this.taxList;
+      }, 500);
+      return;
+    }else{
+      this.taxfeeservice.search(taxName).subscribe({
+        next: (res: any) => {
+          if (res.status == 'false') {
+            this.nodata = true;
+            this.viewTaxList = [];
+            return;
+          } else if (res.status == 'true') {
+            this.nodata = false;
+
+            this.viewTaxList = res.data;
+            return;
+          } else {
+            this.nodata = true;
+          }
+        },
+        error: (err: any) => {
+          this.nodata = true;
+          this.viewTaxList = [];
+        },
+      });
+    }
+  }
+
+  resetTableList(){
+    this.nodata=false;
+    setTimeout(() => {
+    this.viewTaxList=this.taxList;
+    }, 1000);
+  }
 
 
   addTax() {

@@ -241,13 +241,13 @@ export class OrderTablesComponent implements OnInit {
       next: (res: any) => {
         if (res.status == 'false') {
           this.snackbarService.error(res.message);
-          this.router.navigateByUrl('order/menu');
+          this.router.navigate(['orderapp/menu']);
           console.log(data);
         } else {
           console.log(data);
           this.snackbarService.success(res.message);
           this.orderService.assignTable(data, res.data);
-          this.router.navigateByUrl('order/menu');
+          this.router.navigate(['orderapp/menu']);
         }
       },
       error: (err) => {
@@ -300,6 +300,7 @@ export class OrderTablesComponent implements OnInit {
       this.customerData.controls.mobile.setValue(customer.mobile);
       this.customerData.controls.name.setValue(customer.name);
       this.customerData.controls.headCount.setValue(customer.head_count);
+      this.customerData.controls.headCount.addValidators([Validators.required, Validators.min(1), Validators.max(this.capacityCount) ])
       this.customerData.controls['headCount'].updateValueAndValidity();
       return;
     }

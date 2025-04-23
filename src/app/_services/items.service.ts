@@ -57,4 +57,9 @@ export class ItemsService {
     );
   }
   data: any;
+
+
+  search(item : string){
+    return this.http.get(environment.baseURL + `item/search/${item}`);
+  }
 }

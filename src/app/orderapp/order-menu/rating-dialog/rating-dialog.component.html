@@ -1,0 +1,28 @@
+<h1 mat-dialog-title>Customer Feedback</h1>
+<div mat-dialog-content>
+  <form [formGroup]="reviewForm">
+
+    <div class="star-rating" *ngFor="let section of sections">
+      <div class="small">{{section | titlecase}}</div>
+      <div>
+        <ng-container *ngFor="let star of ratings; let i = index">
+          <span
+            (click)="setRating(i + 1, section)"
+            [class.filled]="isFilled(i + 1, section)">
+            &#9733;
+          </span>
+        </ng-container>
+      </div>
+    </div>
+
+
+    <mat-form-field appearance="outline" class="ratingComment">
+      <mat-label>Comment</mat-label>
+      <textarea  formControlName="comment"   matInput></textarea>
+    </mat-form-field>
+  </form>
+</div>
+<div mat-dialog-actions class="right">
+  <button mat-button [mat-dialog-close]="reviewForm.value" cdkFocusInitial>Save</button>
+  <button mat-button (click)="onNoClick()">Cancel</button>
+</div>

@@ -1,10 +1,10 @@
 <div class="titlebar">
   <span class="title">Users</span>
   <div>
-    <mat-form-field class="search" appearance="outline">
+    <mat-form-field class="search" appearance="outline" (input)="searchUser(userSearch.value)">
       <mat-label>Search</mat-label>
-      <input class="" matInput [formControl]="search" placeholder="Search" />
-      <button *ngIf="" matSuffix mat-icon-button aria-label="Clear">
+      <input class="" matInput [formControl]="search" placeholder="Search" #userSearch/>
+      <button *ngIf="userSearch.value" (click)="userSearch.value = ''; viewUserData = userData" matSuffix mat-icon-button aria-label="Clear">
         <mat-icon>close</mat-icon>
       </button>
     </mat-form-field>
@@ -31,7 +31,10 @@
   </div>
 </div> -->
 <mat-card class="ms-4 me-4 h-75">
-  <table mat-table [dataSource]="userData" class="mat-elevation-z8 w-100">
+  <div *ngIf="nodata" class="noDataBanner">
+    <h4>No Data Found</h4>
+  </div>
+  <table *ngIf="!nodata" mat-table [dataSource]="viewUserData" class="mat-elevation-z8 w-100">
     <!-- Name Column -->
     <ng-container matColumnDef="name">
       <th mat-header-cell *matHeaderCellDef>Name</th>

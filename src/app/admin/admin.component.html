@@ -12,6 +12,7 @@
       >
         <button
           mat-button
+          [class.selected]="isSelected(item.redirect)"
           id="item.redirect"
           (click)="addClass()"
           class="navItem"

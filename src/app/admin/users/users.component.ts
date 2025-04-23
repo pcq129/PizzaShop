@@ -37,12 +37,14 @@ export class UsersComponent implements OnInit {
   ngOnInit(): void {}
 
   userData: any[] = [];
+  viewUserData: any[] = [];
 
   getUserData() {
     this.userService.getUserData().subscribe({
       next: (res: any) => {
         if (res.status == 'true') {
           this.userData = res.data;
+          this.viewUserData = res.data;
         } else {
           this.snackbarService.error('Error');
         }
@@ -130,13 +132,11 @@ export class UsersComponent implements OnInit {
     const deleteUserPopup = this.dialog.open(DeleteDialogComponent, {
       width: '400px',
       data: {
-        id: elementId
+        id: elementId,
       },
     });
 
-
     deleteUserPopup.afterClosed().subscribe((result) => {
-
       if (result) {
         this.userService.deleteUser(result.id).subscribe({
           next: (res: any) => {
@@ -151,6 +151,36 @@ export class UsersComponent implements OnInit {
             throw err;
           },
         });
+      }
+    });
+  }
+
+
+  nodata : boolean = false;
+  searchUser(search: string) {
+    if(search.length<4){
+      this.viewUserData = this.userData;
+      return
+    };
+    this.userService.searchUser(search).subscribe({
+      next: (res: any) => {
+        if ((res.status == "false")) {
+          this.nodata = true;
+          this.viewUserData = [];
+          return;
+        }
+        else if (res.status == "true"){
+          this.nodata = false;
+
+          this.viewUserData = res.data;
+          return;
+        }else{
+          this.nodata = true;
+          console.log(res);
+        }
+      },error: (err:any)=>{
+        this.nodata=true;
+        this.viewUserData=[];
       }
     });
   }

@@ -9,6 +9,7 @@ import { OrderTablesModule } from './order-tables/order-tables.module';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { WaitingListModule } from './waiting-list/waiting-list.module';
+import { KotModule } from './kot/kot.module';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import { WaitingListModule } from './waiting-list/waiting-list.module';
     OrderTablesModule,
     RouterModule,
     HttpClientModule,
-    WaitingListModule
+    WaitingListModule,
+    KotModule
   ],
 })
 export class OrderappModule { }

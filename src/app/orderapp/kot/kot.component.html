@@ -1,0 +1,62 @@
+<div class="body">
+  <div class="titlebar">
+    <span class="title">KOT</span>
+  </div>
+  <mat-tab-group class="matTab">
+    <mat-tab *ngFor="let category of kotData">
+      <ng-template mat-tab-label class="tab">
+        <span class="tabName">{{ category.name }}</span>
+      </ng-template>
+      <!-- <span class="title">{{ category.name }}</span> -->
+      <div class="kotContainer">
+        <!--
+        {
+    "id": 10,
+    "order_id": 92,
+    "item_category": 2,
+    "status": 0,
+    "item_data": {
+        "items": {
+            "item_id": 2,
+            "item_name": "Thin Crust",
+            "item_rate": 560.88,
+            "modifiers": [],
+            "multiplier": 1
+        },
+        "tables": [
+            "T1"
+        ],
+        "section": "Ground Floor"
+    },
+    "deleted_at": null,
+    "created_at": "2025-04-22T05:40:46.000000Z",
+    "updated_at": "2025-04-22T05:40:46.000000Z",
+} -->
+        <div class="orderCard" *ngFor="let kot of category.kots">
+          <div>
+            <div class="orderHeader">
+              <span class="orderNumber">#{{ kot.order_id }}</span>
+              <span class="orderTime">{{
+                getTimeDifference(kot.created_at)
+              }}</span>
+            </div>
+            <div class="orderLocation">
+              <span></span> ・{{ kot.item_data.tables }}
+              <span>{{ kot.item_data.section }}</span>
+            </div>
+          </div>
+          <div class="orderItems">
+            <div class="itemRow">
+              <span class="itemName">Margherita</span>
+              <span class="itemQty">2</span>
+            </div>
+            <ul class="modifiersList">
+              <li>test</li>
+            </ul>
+          </div>
+          <div class="orderFooter">ts</div>
+        </div>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+</div>

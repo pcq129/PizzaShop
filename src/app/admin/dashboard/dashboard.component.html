@@ -1,11 +1,21 @@
 <div class="dashboard">
   <div class="titlebar">
     <span>Dashboard</span>
-    <!-- <select>
-      <option>CurrentMonth</option>
-    </select> -->
+    <mat-form-field appearance="outline" class="filter">
+      <mat-label>Filter</mat-label>
+      <mat-select
+        [formControl]="selected"
+        (selectionChange)="getDashboardData(filter.value)"
+        #filter
+      >
+        <mat-option value="0">Today</mat-option>
+        <mat-option value="1">7 Days</mat-option>
+        <mat-option value="2">30 Days</mat-option>
+        <mat-option value="3">Current Month</mat-option>
+      </mat-select>
+    </mat-form-field>
   </div>
-<!--
+  <!--
   {
     "total_sales": 304,
     "order_count": 4,
@@ -13,7 +23,6 @@
     "average_waiting_minutes": 273,
     "new_customer_count": 8
 }, -->
-
 
   <!-- Top Stats -->
   <div class="grid top-cards">
@@ -24,7 +33,7 @@
         </div>
       </div>
       <div>
-        <h3>₹{{dashboardData.total_sales}}</h3>
+        <h3>₹{{ dashboardData.total_sales }}</h3>
         <strong>Total Sales</strong>
       </div>
     </mat-card>
@@ -35,18 +44,18 @@
         </div>
       </div>
       <div>
-        <h3>{{dashboardData.order_count}}</h3>
+        <h3>{{ dashboardData.order_count }}</h3>
         <strong>Total Orders</strong>
       </div>
     </mat-card>
     <mat-card>
       <div class="iconContainer">
         <div class="iconFrame">
-        <img src="assets/icons/order-value.svg" class="icon" />
+          <img src="assets/icons/order-value.svg" class="icon" />
         </div>
       </div>
       <div>
-        <h3>₹{{dashboardData.total_sales/dashboardData.order_count}}</h3>
+        <h3>₹{{ calculateAverageOrder() }}</h3>
         <strong>Average Order</strong>
       </div>
     </mat-card>
@@ -57,35 +66,46 @@
         </div>
       </div>
       <div>
-        <h3>{{waitingTimeHours}} Hours {{watitngTimeMinutes}} Minutes</h3>
+        <h3>{{ waitingTimeHours }} Hours {{ watitngTimeMinutes }} Minutes</h3>
         <strong>Avg. Waiting Time</strong>
       </div>
     </mat-card>
   </div>
 
   <!-- Revenue and Customer Growth -->
-  <div class="grid middle-section">
-    <div class="card">
-      <h3>Revenue</h3>
-      <div class="chart">[Revenue Graph]</div>
-    </div>
+  <!-- <mat-card class="grid middle-section">
+  <div>
+    <h3>Revenue</h3>
+    <canvas baseChart
+    [data]="revenueChart"
+    [type]="'line'">
+    </canvas>
+  </div>
     <div class="card">
       <h3>Customer Growth</h3>
       <div class="chart">[Customer Growth Graph]</div>
     </div>
-  </div>
+  </mat-card> -->
 
   <!-- Bottom Section -->
   <div class="grid bottom-cards">
     <mat-card>
       <h3>Top Selling Items</h3>
-      <div class="item">#1 Grilled Burger – 1 order</div>
-      <div class="item">#2 Margherita – 1 order</div>
+      <div
+        *ngFor="let item of dashboardData.top_selling; let i = index"
+        class="item"
+      >
+        #{{ i + 1 }} {{ item.name }} - {{ item.sell_count }} Orders
+      </div>
     </mat-card>
     <mat-card>
       <h3>Least Selling Items</h3>
-      <div class="item">#1 Grilled Burger – 1 order</div>
-      <div class="item">#2 Margherita – 1 order</div>
+      <div
+        *ngFor="let item of dashboardData.least_selling; let i = index"
+        class="item"
+      >
+        #{{ i + 1 }} {{ item.name }} - {{ item.sell_count }} Orders
+      </div>
     </mat-card>
 
     <mat-card>
@@ -95,7 +115,7 @@
         </div>
       </div>
       <div>
-        <h3>{{dashboardData.waitinglist_count}}</h3>
+        <h3>{{ dashboardData.waitinglist_count }}</h3>
         <strong>Waiting List Count</strong>
       </div>
     </mat-card>
@@ -106,7 +126,7 @@
         </div>
       </div>
       <div>
-        <h3>{{dashboardData.new_customer_count}}</h3>
+        <h3>{{ dashboardData.new_customer_count }}</h3>
         <strong>New Customer Count</strong>
       </div>
     </mat-card>

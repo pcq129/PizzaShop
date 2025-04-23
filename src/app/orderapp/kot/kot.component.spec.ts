@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CustomerComponent } from './customer.component';
+import { KotComponent } from './kot.component';
 
-describe('CustomerComponent', () => {
-  let component: CustomerComponent;
-  let fixture: ComponentFixture<CustomerComponent>;
+describe('KotComponent', () => {
+  let component: KotComponent;
+  let fixture: ComponentFixture<KotComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CustomerComponent ]
+      declarations: [ KotComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(CustomerComponent);
+    fixture = TestBed.createComponent(KotComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
@@ -20,7 +20,4 @@ describe('CustomerComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-
-
-  
 });

@@ -88,9 +88,10 @@ export class TableSectionComponent implements OnInit {
     )
   }
 
-  getTableDataBySection(id: number) {
+    getTableDataBySection(id: number) {
     if(id == 0){
       this.viewTables = this.tablesList
+      return;
     }
     return this.sectionTableService.getTableDataBySection(id).subscribe(
       {

@@ -7,7 +7,7 @@
   <mat-card class="summaryCard">
     <div class="summaryHeader">
       <div><strong>Invoice No.:</strong> {{data.id}}</div>
-      <mat-chip color="primary" selected>{{data.order_status}}</mat-chip>
+      <mat-chip class="{{data.order_status == 'Completed' ? 'orderStatus' : ''}}">{{data.order_status}}</mat-chip>
     </div>
     <div class="summaryDates">
       <span><strong>Paid on:</strong></span>

@@ -19,5 +19,20 @@
 
 .customerData{
   width: 100%;
+}
 
+
+.search {
+  font-size: 16px;
+  width: 400px;
+  margin-right: 20px;
+  padding-top: 15px;
+}
+
+.noDataBanner{
+  height: 70%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

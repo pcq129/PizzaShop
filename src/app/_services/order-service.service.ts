@@ -75,6 +75,10 @@ export class OrderService {
     return this.http.post(environment.baseURL + 'order', data);
   }
 
+  searchOrder(orderId : string){
+    return this.http.get(environment.baseURL +  `order/${orderId}`)
+  }
+
 
 
   getOrderData(){
@@ -87,13 +91,17 @@ export class OrderService {
     return this.http.post(environment.baseURL + `order/${id}`, null)
   }
 
+  customerFeedback(data: any){
+    return this.http.post(environment.baseURL + 'customer-feedback', data);
+  }
 
 
 
 
 
 
-  //methods and variables for order summery
+
+  //methods and variables for order summery/invoice generation/detail viewing
 
   private orderInvoice = new BehaviorSubject<any>(null);
   currentOrderInvoice = this.orderInvoice.asObservable();

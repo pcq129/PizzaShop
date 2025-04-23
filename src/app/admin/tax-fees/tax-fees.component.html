@@ -1,22 +1,26 @@
 <div class="titlebar">
   <span class="title">Taxes and fees</span>
   <div>
-    <!-- <mat-form-field class="search" appearance="outline">
+    <mat-form-field class="search" appearance="outline" (input)="searchTax(userSearch.value)">
       <mat-label>Search</mat-label>
-      <input class="" matInput placeholder="Search" />
-      <button *ngIf="" matSuffix mat-icon-button aria-label="Clear">
+      <input class="" matInput placeholder="Search" #userSearch/>
+      <button *ngIf="userSearch.value" (click)="userSearch.value = ''; resetTableList()" matSuffix mat-icon-button aria-label="Clear">
         <mat-icon>close</mat-icon>
       </button>
-    </mat-form-field> -->
+    </mat-form-field>
+
     <button mat-button class="border-2" (click)="addTax()">
       <mat-icon>add</mat-icon>
-      <span class="ms-2">New Table</span>
+      <span class="ms-2">New Tax</span>
     </button>
   </div>
 </div>
 
 <mat-card class="m-4 h-75">
-  <table mat-table [dataSource]="taxList" class="mat-elevation-z8 taxData">
+  <div *ngIf="nodata" class="noDataBanner">
+    <h4>No Data Found</h4>
+  </div>
+  <table *ngIf="!nodata" mat-table [dataSource]="taxList" class="mat-elevation-z8 taxData">
     <!--- Note that these columns can be defined in any order.
               The actual rendered columns are set as a property on the row definition" -->
 

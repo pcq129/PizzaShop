@@ -8,6 +8,11 @@ import { SnackbarService } from './snackbar.service';
 })
 export class ModifierService {
 
+
+  search(modifierName: any) {
+    return this.http.get(environment.baseURL + `modifier/search/${modifierName}`);
+  }
+
   //services for mappers
 
   // getMapper(){

@@ -2,11 +2,13 @@
   <div class="header">
     <h4 class="mt-2 ms-2">Tables</h4>
     <div class="header">
-      <!-- search tables -->
-      <!-- <input class="mt-3" mat-input placeholder="Search" />
-      <button mat-button class="border-2">
-        <mat-icon>delete</mat-icon>
-      </button> -->
+      <mat-form-field class="search" appearance="outline" (input)="searchTable(userSearch.value)">
+        <mat-label>Search</mat-label>
+        <input class="" matInput placeholder="Search" #userSearch/>
+        <button *ngIf="userSearch.value" (click)="userSearch.value = '';this.getTableList.emit(true); nodata = false" matSuffix mat-icon-button aria-label="Clear">
+          <mat-icon>close</mat-icon>
+        </button>
+      </mat-form-field>
       <button mat-button class="border-2" (click)="addTable()">
         <mat-icon>add</mat-icon>
         <span class="ms-2">New Table</span>
@@ -14,11 +16,11 @@
     </div>
   </div>
   <div class="tableBody">
-    <h5 *ngIf="tablesList.length == 0" class="noTableBanner">
-      {{ tablesList.length == 0 ? "No Tables" : "" }}
+    <h5 *ngIf="tablesList?.length == 0 || nodata" class="noDataBanner">
+      {{ tablesList?.length == 0 ? "No Tables" : "" }}
     </h5>
     <table
-      *ngIf="tablesList.length != 0"
+      *ngIf="tablesList?.length != 0 && !nodata"
       mat-table
       [dataSource]="tablesList"
       class="tablesTable"

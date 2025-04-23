@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CustomerComponent } from './customer.component';
+import { RatingDialogComponent } from './rating-dialog.component';
 
-describe('CustomerComponent', () => {
-  let component: CustomerComponent;
-  let fixture: ComponentFixture<CustomerComponent>;
+describe('RatingDialogComponent', () => {
+  let component: RatingDialogComponent;
+  let fixture: ComponentFixture<RatingDialogComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CustomerComponent ]
+      declarations: [ RatingDialogComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(CustomerComponent);
+    fixture = TestBed.createComponent(RatingDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
@@ -20,7 +20,4 @@ describe('CustomerComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-
-
-  
 });

@@ -26,22 +26,51 @@ export class TablesComponent implements OnInit {
     private tablesectionservice: TableSectionService,
     private snackbarservice: SnackbarService,
     public dialog: MatDialog
-  ) {
-  }
+  ) {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   @Input() tablesList: any;
+  @Input() viewTablesList: any;
   @Input() sectionsList: any;
   @Output() getTableList = new EventEmitter<boolean>();
-
   tablesColumns: string[] = ['name', 'capacity', 'status', 'actions'];
+
+  nodata: boolean = false;
+  searchTable(tableName: string) {
+    if (tableName.length >= 1) {
+      this.tablesectionservice.searchTable(tableName).subscribe({
+        next: (res: any) => {
+          if (res.status == 'false') {
+            this.nodata = true;
+            this.tablesList = [];
+            return;
+          } else if (res.status == 'true') {
+            this.nodata = false;
+
+            this.tablesList = res.data;
+            return;
+          } else {
+            this.nodata = true;
+          }
+        },
+        error: (err: any) => {
+          this.nodata = true;
+          setTimeout(() => {
+            this.tablesList = [];
+          }, 1000);
+        },
+      });
+    } else {
+      this.getTableList.emit(true);
+      this.nodata = false;
+      console.log(this.nodata);
+    }
+  }
 
   addTable() {
     console.log(this.sectionsList);
     console.log(this.tablesList);
-
 
     const addDialog = this.dialog.open(TableDialog, {
       width: '300px',
@@ -96,7 +125,7 @@ export class TablesComponent implements OnInit {
       if (result.id && result.name && result.status && result.capacity) {
         this.tablesectionservice.editTable(result).subscribe({
           next: (res: any) => {
-            if (res.status === "false") {
+            if (res.status === 'false') {
               this.snackbarservice.multipleErrors(res.message);
             } else {
               this.snackbarservice.success('Table updated successfully');
@@ -114,13 +143,12 @@ export class TablesComponent implements OnInit {
     });
   }
 
-
-  deleteTable(table : Table) {
+  deleteTable(table: Table) {
     {
       console.log(table);
 
-      if(table.status.toString() === "Occupied"  ){
-        this.snackbarservice.error("Table cannot be deleted when occupied");
+      if (table.status.toString() === 'Occupied') {
+        this.snackbarservice.error('Table cannot be deleted when occupied');
         return;
       }
 

@@ -62,12 +62,12 @@ export class UserDialogComponent implements OnInit {
           Validators.required,
           this.whitespaceValidator,
         ]),
-        role: new FormControl(this.data.userData?.role, [Validators.required]),
         password: new FormControl('', [
           Validators.required,
           this.whitespaceValidator,
         ]),
-        confirmPassword: new FormControl('', Validators.required),
+        confirmPassword: new FormControl('', [this.whitespaceValidator, Validators.required]),
+        role: new FormControl(`${this.data.userData?.role}`, [Validators.required]),
       },
       { validators: this.checkPasswords }
     );
@@ -80,8 +80,8 @@ export class UserDialogComponent implements OnInit {
   }
   ngOnInit(): void {}
 
-  userData: any = [];
 
+  userData: any = [];
   onNoClick(): void {
     this.userForm.reset();
     this.dialogRef.close();
@@ -102,10 +102,14 @@ export class UserDialogComponent implements OnInit {
     const confirmVal = confirmPassword.value;
 
     if (newVal !== confirmVal) {
+      console.log("setting passwordMismatch");
+
       confirmPassword.setErrors({ passwordMismatch: true });
+
     } else {
       // only clear if previously set by this validator
       if (confirmPassword.hasError('passwordMismatch')) {
+      console.log("unset");
         confirmPassword.setErrors(null);
       }
     }
@@ -217,18 +221,22 @@ export class UserDialogComponent implements OnInit {
     }
     return;
   }
-  getPasswordError() {
-    if (this.userForm.controls.password.hasError('required')) {
-      return 'You must enter a password';
+
+
+  getConfirmPasswordError() {
+    const confirmControl = this.userForm.controls.confirmPassword;
+    if (confirmControl.hasError('required')) {
+      return 'You must confirm your password';
     }
-    if (this.userForm.controls.city.hasError('whitespace')) {
+    if (confirmControl.hasError('whitespace')) {
       return 'Invalid input';
     }
-    if (this.userForm.hasError('passwordMismatch')) {
-      return "Passwords don't match, please try again   ";
+    if (confirmControl.hasError('passwordMismatch')) {
+      return "Passwords don't match";
     }
     return;
   }
+
 
   getRoleError() {
     if (this.userForm.controls.city.hasError('required')) {

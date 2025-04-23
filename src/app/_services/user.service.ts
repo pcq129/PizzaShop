@@ -22,8 +22,12 @@ export class UserService {
   }
 
   deleteUser(id:number){
-    console.log(id);
+
 
     return this.http.delete(environment.baseURL + `user/${id}`);
+  }
+
+  searchUser(search : string){
+    return this.http.get(environment.baseURL + `user/search/${search}`);
   }
 }

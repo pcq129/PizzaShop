@@ -44,7 +44,7 @@ export class ModifierComponent implements OnInit {
 
   extractAllModifiers(data: any) {
     let allModifiers = data.flatMap((data: any) => data.modifiers || []);
-    console.log(allModifiers);
+    this.allModifiers = allModifiers;
     this.viewModifiers = allModifiers;
     this.loadModifiers(this.currentModifierGroup);
   }
@@ -285,5 +285,38 @@ export class ModifierComponent implements OnInit {
         }
       );
     });
+  }
+
+  nodata: boolean = false;
+  searchModifier(modifierName: string) {
+    if (modifierName.length < 4) {
+      this.nodata = false;
+      setTimeout(() => {
+        this.viewModifiers = this.allModifiers;
+      }, 500);
+      return;
+    } else {
+      this.modifierService.search(modifierName).subscribe({
+        next: (res: any) => {
+          if (res.status == 'false') {
+            this.nodata = true;
+            this.viewModifiers = [];
+            return;
+          } else if (res.status == 'true') {
+            this.nodata = false;
+
+            this.viewModifiers = res.data;
+            return;
+          } else {
+            this.nodata = true;
+            console.log(res);
+          }
+        },
+        error: (err: any) => {
+          this.nodata = true;
+          this.viewModifiers = [];
+        },
+      });
+    }
   }
 }

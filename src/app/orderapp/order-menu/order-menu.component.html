@@ -91,7 +91,8 @@
         <mat-card *ngFor="let item of items" class="itemCard">
           <div class="itemHeader">
             <div class="itemName">
-              <mat-icon>expand_more</mat-icon> <strong>{{item.item_name}}</strong>
+              <!-- <mat-icon>expand_more</mat-icon> -->
+              <strong>{{item.item_name}}</strong>
             </div>
             <div class="quantityControl">
               <!-- <button mat-icon-button>-</button> -->
@@ -131,8 +132,8 @@
         </div> -->
 
         <div class="actionButtons">
-          <button mat-flat-button [color]="items.length == 0 ? '' : 'primary'" [disabled]="items.length == 0" (click)="generateOrder()">Save</button>
-          <button mat-stroked-button (click)="completeOrder()">Complete</button>
+          <button mat-flat-button [color]="items.length == 0 ? '' : 'primary'" [disabled]="items.length == 0 || orderData.id" (click)="generateOrder()">Save</button>
+          <button mat-stroked-button [disabled]="!orderData.id" (click)="completeOrder(orderData.id)">Complete</button>
           <!-- <button mat-stroked-button>Generate Invoice</button> -->
           <button mat-stroked-button color="warn" (click)="cancelOrder()">Cancel</button>
         </div>

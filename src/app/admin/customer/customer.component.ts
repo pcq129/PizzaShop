@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { customerDetailDialog } from './customer-detail-dialog.component';
+import { CustomerService } from 'src/app/_services/customer.service';
+import { SnackbarService } from 'src/app/_services/snackbar.service';
 
 @Component({
   selector: 'app-customer',
@@ -9,12 +11,17 @@ import { customerDetailDialog } from './customer-detail-dialog.component';
 })
 export class CustomerComponent implements OnInit {
   constructor(
-    public dialog: MatDialog
-  ) {}
+    public dialog: MatDialog,
+    private customerService : CustomerService,
+    private snackbarService : SnackbarService
+  ) {
+    this.getCustomerData();
+  }
 
   ngOnInit(): void {}
 
-  customerList = [
+  customerList: any;
+   viewCustomerList = [
     {
       id: 10,
       mobile: '9834937844',
@@ -76,6 +83,21 @@ export class CustomerComponent implements OnInit {
   displayedColumns = ['name', 'email', 'phone', 'date', 'totalOrders'];
   //  : any = [];
 
+  getCustomerData(){
+    this.customerService.getCustomerData().subscribe({
+      next: (res:any)=>{
+        if(res.status = "true"){
+          this.customerList = res.data;
+          this.viewCustomerList = res.data;
+        }else{
+          this.snackbarService.error(res.message);
+        }
+      },
+      error: (error)=>{
+        this.snackbarService.error(error.toString())
+      }
+    })
+  }
 
   customerDataPopup(customer : any){
     const dialog = this.dialog.open(customerDetailDialog ,{
@@ -88,6 +110,46 @@ export class CustomerComponent implements OnInit {
     })
   }
 
+  resetCustomerList(){
+    this.nodata = false;
+    this.viewCustomerList = this.customerList;
+  }
 
-  calculateAverage(){}
+
+  nodata : boolean =false;
+  searchCustomer(name: string) {
+
+     if (name.length < 4) {
+       this.nodata = false;
+       setTimeout(() => {
+         this.viewCustomerList = this.customerList;
+       }, 500);
+     }else{
+       this.customerService.searchCustomer(name).subscribe({
+         next: (res: any) => {
+           if (res.status == 'false') {
+             this.nodata = true;
+             console.log('test');
+
+             this.viewCustomerList = [];
+             return;
+           } else if (res.status == 'true') {
+             console.log('test1');
+             this.nodata = false;
+             this.viewCustomerList = res.data;
+             return;
+           } else {
+             console.log('te1st');
+             this.nodata = true;
+           }
+         },
+         error: (err: any) => {
+             console.log('tes1t');
+           this.nodata = true;
+           this.viewCustomerList = [];
+         },
+       });
+     }
+   }
+
 }

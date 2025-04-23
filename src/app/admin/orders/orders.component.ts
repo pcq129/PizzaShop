@@ -3,47 +3,55 @@ import { MatDialog } from '@angular/material/dialog';
 import { SnackbarService } from 'src/app/_services/snackbar.service';
 import { OrderService } from 'src/app/_services/order-service.service';
 import { Router } from '@angular/router';
+import { ConfirmationDialogComponent } from 'src/app/common/confirmation-dialog/confirmation-dialog.component';
 
 @Component({
   selector: 'app-orders',
   templateUrl: './orders.component.html',
-  styleUrls: ['./orders.component.scss']
+  styleUrls: ['./orders.component.scss'],
 })
 export class OrdersComponent implements OnInit {
-
   constructor(
-    private snackbarService : SnackbarService,
-    private orderService : OrderService,
-    private dialog : MatDialog,
+    private snackbarService: SnackbarService,
+    private orderService: OrderService,
+    private dialog: MatDialog,
     private router: Router
   ) {
     this.getOrderData();
-   }
+  }
 
   ngOnInit(): void {
-    this.orderService.clearOrderData();
   }
 
   orderData: any;
-  displayedColumns = ['order','date', 'customer', 'paymentStatus', 'payment_mode', 'rating', 'total_amount', 'orderStatus', 'actions'];
+  viewOrderData : any;
+  displayedColumns = [
+    'order',
+    'date',
+    'customer',
+    'paymentStatus',
+    'payment_mode',
+    'rating',
+    'total_amount',
+    'orderStatus',
+    'actions',
+  ];
 
-
-
-  getOrderData(){
+  getOrderData() {
     this.orderService.getOrderData().subscribe({
-      next: (res:any)=>{
-        if(res.status == "true"){
+      next: (res: any) => {
+        if (res.status == 'true') {
           this.orderData = res.data;
+          this.viewOrderData = res.data;
           console.log(res.data);
-
-        }else{
+        } else {
           this.snackbarService.error(res.message);
         }
       },
-      error: (err)=>{
-        this.snackbarService.error("Error fetching orders")
-      }
-    })
+      error: (err) => {
+        this.snackbarService.error('Error fetching orders');
+      },
+    });
   }
 
   convertDate(isoDate: any) {
@@ -54,29 +62,43 @@ export class OrdersComponent implements OnInit {
     return `${day} / ${month} / ${year}`;
   }
 
-  completeOrder(id: number){
-    this.orderService.completeOrder(id).subscribe({
-      next: (res: any)=>{
-        if(res.status == 'false'){
-          this.snackbarService.error(res.message);
-        }
-        else{
-          this.snackbarService.success("Order marked as completed")
-          this.getOrderData();
+  completeOrder(id: number) {
+    const confirmation = this.dialog.open(ConfirmationDialogComponent, {
+      width: '500px',
+      data: {
+        dialogTitle: 'Complete Order',
+        dialogMessage: 'Are you sure to complete the order?',
+        id: id,
+        confirmButton: 'Complete Order',
+        cancelButton: 'Cancel',
+      },
+    });
+
+    confirmation.afterClosed().subscribe({
+      next: (res: any) => {
+        if (res.id) {
+          this.orderService.completeOrder(id).subscribe({
+            next: (res: any) => {
+              if (res.status == 'false') {
+                this.snackbarService.error(res.message);
+              } else {
+                this.snackbarService.success('Order marked as completed');
+                this.getOrderData();
+              }
+            },
+            error: (err) => {
+              this.snackbarService.error(err);
+            },
+          });
         }
       },
-      error: (err)=>{
-        this.snackbarService.error(err);
-      }
-    })
+    });
   }
 
-  viewOrderDetail(order : any){
+  viewOrderDetail(order: any) {
     console.log(order);
     this.orderService.setOrderData(order);
-    this.router.navigateByUrl('orders/details')
-
-
+    this.router.navigateByUrl('orders/details');
 
     // const orderDetailDialog = this.dialog.open(OrderDetailDialogComponent, {
     //   data: order,
@@ -84,4 +106,40 @@ export class OrdersComponent implements OnInit {
     // });
   }
 
+  resetData(){
+    this.nodata=false;
+    this.viewOrderData = this.orderData;
+  }
+
+  nodata: boolean = false;
+  searchOrder(orderId: string) {
+
+    if (!orderId) {
+      this.nodata = false;
+      setTimeout(() => {
+        this.viewOrderData = this.orderData;
+      }, 500);
+    } else {
+      this.orderService.searchOrder(orderId).subscribe({
+        next: (res: any) => {
+          if (res.status == 'false') {
+            this.nodata = true;
+            this.viewOrderData = [];
+            return;
+          } else if (res.status == 'true') {
+            this.nodata = false;
+
+            this.viewOrderData = res.data;
+            return;
+          } else {
+            this.nodata = true;
+          }
+        },
+        error: (err: any) => {
+          this.nodata = true;
+          this.viewOrderData = [];
+        },
+      });
+    }
+  }
 }

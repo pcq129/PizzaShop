@@ -1,0 +1,27 @@
+.star-rating {
+  font-size: 2rem;
+  color: #ccc;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+}
+
+.star-rating .filled {
+  color: gold;
+}
+
+.small{
+  font-size: 22px;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.ratingComment{
+  width: 100%;
+  margin-top: 10px;
+}
+
+.right{
+  display: flex;
+  flex-direction: row-reverse;
+}

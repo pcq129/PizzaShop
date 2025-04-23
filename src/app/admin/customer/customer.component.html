@@ -1,10 +1,10 @@
 <div class="titlebar">
   <span class="title">Customers</span>
   <div>
-    <mat-form-field class="search" appearance="outline">
+    <mat-form-field class="search" appearance="outline" (input)="searchCustomer(userSearch.value)">
       <mat-label>Search</mat-label>
-      <input class="" matInput placeholder="Search" />
-      <button *ngIf="" matSuffix mat-icon-button aria-label="Clear">
+      <input class="" matInput placeholder="Search" #userSearch/>
+      <button *ngIf="userSearch.value" (click)="userSearch.value = '';resetCustomerList()" matSuffix mat-icon-button aria-label="Clear">
         <mat-icon>close</mat-icon>
       </button>
     </mat-form-field>
@@ -16,7 +16,10 @@
 </div>
 
 <mat-card class="m-4 h-75">
-  <table mat-table [dataSource]="customerList" class="mat-elevation-z8 customerData">
+  <div *ngIf="nodata" class="noDataBanner">
+    <h4>No Data Found</h4>
+  </div>
+  <table *ngIf="!nodata" mat-table [dataSource]="viewCustomerList" class="mat-elevation-z8 customerData">
     <!--- Note that these columns can be defined in any order.
               The actual rendered columns are set as a property on the row definition" -->
 

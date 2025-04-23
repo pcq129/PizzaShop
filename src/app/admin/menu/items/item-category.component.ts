@@ -54,6 +54,41 @@ export class ItemCategoryComponent implements OnInit {
   modifierData: any = [];
   selectedCategory: number = 0;
 
+  nodata: boolean = false;
+  searchItem(itemName: string) {
+
+    if (itemName.length < 4) {
+      console.log(this.viewItems);
+      this.nodata = false;
+      setTimeout(() => {
+        this.viewItems = this.allItems;
+      }, 500);
+      return;
+    }else{
+      this.itemService.search(itemName).subscribe({
+        next: (res: any) => {
+          if (res.status == 'false') {
+            this.nodata = true;
+            this.viewItems = [];
+            return;
+          } else if (res.status == 'true') {
+            this.nodata = false;
+
+            this.viewItems = res.data;
+            return;
+          } else {
+            this.nodata = true;
+            console.log(res);
+          }
+        },
+        error: (err: any) => {
+          this.nodata = true;
+          this.viewItems = [];
+        },
+      });
+    }
+  }
+
   @Input()
   allItems: any = [];
   @Input()

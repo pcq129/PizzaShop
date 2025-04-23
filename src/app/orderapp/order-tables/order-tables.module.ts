@@ -22,7 +22,7 @@ import { DeleteDialogModule } from 'src/app/common/delete-dialog/delete-dialog/d
 
 @NgModule({
   declarations: [
-    OrderTablesComponent, waitingTokenDialog
+    OrderTablesComponent, waitingTokenDialog,
   ],
   imports: [
     CommonModule,

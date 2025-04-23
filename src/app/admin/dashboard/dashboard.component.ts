@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { DashboardService } from 'src/app/_services/dashboard.service';
 
-
-export interface cardData{
-  imageSource : string,
-  mainData : string,
-  secondaryData : string
+export interface cardData {
+  imageSource: string;
+  mainData: string;
+  secondaryData: string;
 }
 @Component({
   selector: 'app-dashboard',
@@ -18,29 +18,58 @@ export class DashboardComponent implements OnInit {
     mainData: 'Rs 1630',
     secondaryData: 'Total Sales',
   };
-  constructor(private dashboardService : DashboardService) {
-    this.dashboardService.getDashboardData().subscribe({
-      next: (res: any)=>{
-        this.dashboardData = res.data;
-        this.waitingTimeHours =Math.floor(res.data.average_waiting_minutes/60);
-        this.watitngTimeMinutes = res.data.average_waiting_minutes%60;
-        console.log(res);
-
-      },error: (err)=>{
-        throw(err);
-      }
-    })
+  constructor(private dashboardService: DashboardService) {
+    this.getDashboardData(3);
   }
+
+  getDashboardData(filter?: number) {
+    console.log(filter);
+
+    this.dashboardService.getDashboardData(filter).subscribe({
+      next: (res: any) => {
+        this.dashboardData = res.data;
+        console.log(res.data);
+
+        this.waitingTimeHours = Math.floor(
+          res.data.average_waiting_minutes / 60
+        );
+        this.watitngTimeMinutes = res.data.average_waiting_minutes % 60;
+        this.revenueChart = {
+          labels: this.dashboardData.chart1.labels,
+          datasets: [
+            {
+              label: 'Sales',
+              data: this.dashboardData.chart1.data,
+              backgroundColor: 'rgba(75, 192, 192, 0.6)'
+            }
+          ]
+        };
+      },
+      error: (err) => {
+        throw err;
+      },
+    });
+  }
+  currentState: string = '3';
+  selected = new FormControl(this.currentState);
 
   ngOnInit(): void {}
 
-  dashboardData: any =  {
-    "total_sales": 0,
-    "order_count": 0,
-    "waitinglist_count": 0,
-    "average_waiting_minutes": 0,
-    "new_customer_count": 0
-};
-  waitingTimeHours : any;
-  watitngTimeMinutes:any;
+  calculateAverageOrder() {
+    return Math.floor(
+      this.dashboardData.total_sales / this.dashboardData.order_count
+    );
+  }
+
+  dashboardData: any = {
+    total_sales: 0,
+    order_count: 0,
+    waitinglist_count: 0,
+    average_waiting_minutes: 0,
+    new_customer_count: 0,
+  };
+  waitingTimeHours: any;
+  watitngTimeMinutes: any;
+
+  revenueChart : any;
 }

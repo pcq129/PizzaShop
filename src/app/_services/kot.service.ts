@@ -5,11 +5,15 @@ import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root'
 })
-export class DashboardService {
+export class KotService {
 
-  constructor(private http : HttpClient) { }
+  constructor(
+    private http : HttpClient,
+  ) { }
 
-  getDashboardData(filter?: number){
-    return this.http.get(environment.baseURL + `dashboard/${filter}`);
+
+  getKotData(){
+    return this.http.get(environment.baseURL  + 'kots');
   }
+
 }

@@ -1,10 +1,10 @@
 <div class="titlebar">
   <span class="title">Orders</span>
   <div>
-    <mat-form-field class="search" appearance="outline">
+    <mat-form-field class="search" appearance="outline" (input)="searchOrder(userSearch.value)">
       <mat-label>Search</mat-label>
-      <input class="" matInput placeholder="Search" />
-      <button *ngIf="" matSuffix mat-icon-button aria-label="Clear">
+      <input class="" matInput placeholder="Search" #userSearch type="number"/>
+      <button *ngIf="userSearch.value" (click)="userSearch.value = '';resetData()" matSuffix mat-icon-button aria-label="Clear">
         <mat-icon>close</mat-icon>
       </button>
     </mat-form-field>
@@ -12,7 +12,10 @@
 </div>
 
 <mat-card class="m-4 h-75">
-  <table mat-table [dataSource]="orderData" class="mat-elevation-z8 orderData">
+  <div *ngIf="nodata" class="noDataBanner">
+    <h4>No Data Found</h4>
+  </div>
+  <table *ngIf="!nodata" mat-table [dataSource]="viewOrderData" class="mat-elevation-z8 orderData">
     <!--- Note that these columns can be defined in any order.
               The actual rendered columns are set as a property on the row definition" -->
 
@@ -46,7 +49,7 @@
     <!-- Name Column -->
     <ng-container matColumnDef="order">
       <th mat-header-cell *matHeaderCellDef>Order</th>
-      <td mat-cell *matCellDef="let order">{{order.id}}</td>
+      <td mat-cell *matCellDef="let order">#  {{order.id}}</td>
     </ng-container>
 
      <!-- Type Column -->

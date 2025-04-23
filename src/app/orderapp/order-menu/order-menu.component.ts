@@ -9,6 +9,7 @@ import { OrderService } from '../../_services/order-service.service';
 import { TaxFeesService } from 'src/app/_services/tax-fees.service';
 import { Router } from '@angular/router';
 import { ConfirmationDialogComponent } from 'src/app/common/confirmation-dialog/confirmation-dialog.component';
+import { RatingDialogComponent } from './rating-dialog/rating-dialog.component';
 
 @Component({
   selector: 'app-order-menu',
@@ -28,12 +29,12 @@ export class OrderMenuComponent implements OnInit {
   ) {
     this.getCategoryData();
     this.orderService.currentData.subscribe((res: any) => {
-      if(!res){
-        this.router.navigateByUrl('order/tables')
+      if (!res) {
+        this.snackbarService.info("Please assign tables first")
+        this.router.navigate(['orderapp/tables']);
       }
       this.orderData = res;
       console.log(this.orderData);
-
     });
     this.getTaxData();
   }
@@ -69,10 +70,8 @@ export class OrderMenuComponent implements OnInit {
   //new order data (temp store)
   items: any[] = [];
   billAmount: number = 0;
-  taxBreakup: any = {
-
-  };
-  amount : number = 0;
+  taxBreakup: any = {};
+  amount: number = 0;
 
   getCategoryData() {
     this.categoryService.getCategoryData().subscribe({
@@ -152,7 +151,7 @@ export class OrderMenuComponent implements OnInit {
               item_rate:
                 res.data.rate + (res.data.rate * res.data.tax_percentage) / 100,
               modifiers: [],
-              multiplier: 1
+              multiplier: 1,
             });
             this.calculateSubTotal(this.items);
             // console.log(this.items);
@@ -162,9 +161,7 @@ export class OrderMenuComponent implements OnInit {
     });
   }
 
-  itemMultiplier(){
-
-  }
+  itemMultiplier() {}
 
   openPopup() {
     const addModifierDialog = this.dialog.open(modifierDialog, {
@@ -207,12 +204,12 @@ export class OrderMenuComponent implements OnInit {
 
     for (const item of orderData) {
       // Add item rate
-      let multiplier = item.multiplier
-      total += item.item_rate*multiplier;
+      let multiplier = item.multiplier;
+      total += item.item_rate * multiplier;
 
       // Add modifier rates (if any)
       for (const modifier of item.modifiers) {
-        total += modifier.modifier_rate*multiplier;
+        total += modifier.modifier_rate * multiplier;
       }
     }
 
@@ -294,37 +291,37 @@ export class OrderMenuComponent implements OnInit {
       order_data: JSON.stringify({
         table_ids: this.orderData.table_ids,
         table_names: this.orderData.table_names,
-        section_id : this.orderData.section_id,
-        section_name : this.orderData.section,
-        items : this.items,
-        number_of_persons : this.orderData.people,
-        taxes : this.taxBreakup,
-        subTotal : this.billAmount,
-        total : this.amount,
-
+        section_id: this.orderData.section_id,
+        section_name: this.orderData.section,
+        items: this.items,
+        number_of_persons: this.orderData.people,
+        taxes: this.taxBreakup,
+        subTotal: this.billAmount,
+        total: this.amount,
       }),
-      amount : this.amount
+      amount: this.amount,
     };
     console.log(order.order_data);
     this.orderService.placeOrder(order).subscribe({
-      next: (res:any)=>{
-        if(res.status == 'false'){
+      next: (res: any) => {
+        if (res.status == 'false') {
           this.snackbarService.error(res.message);
-        }
-        else{
-          this.snackbarService.success("Order placed successfully");
-          this.router.navigateByUrl('order/tables');
+        } else {
+          this.snackbarService.success('Order placed successfully');
+          this.orderData.id = res.data;
+          console.log(this.orderData.id);
+
+          // this.router.navigateByUrl('order/tables');
+
         }
       },
-      error: (err)=>{
-        this.snackbarService.error("Error occured");
-      }
+      error: (err) => {
+        this.snackbarService.error('Error occured');
+      },
     });
   }
 
   cancelOrder() {
-
-
     // {
     //   "email": "spaneliya@gmail.com",
     //   "name": "feewrer",
@@ -341,39 +338,108 @@ export class OrderMenuComponent implements OnInit {
     //   "customer_id": 10
     // }
     let orderData = this.orderData;
-    orderData.dialogTitle = "Confirm order cancellation";
-    orderData.dialogMessage = "Are you sure to cancel this order ?"
-    orderData.cancelButton = "No",
-    orderData.confirmButton = "Yes"
+    orderData.dialogTitle = 'Confirm order cancellation';
+    orderData.dialogMessage = 'Are you sure to cancel this order ?';
+    (orderData.cancelButton = 'No'), (orderData.confirmButton = 'Yes');
 
-    const confirmationDialog = this.dialog.open(ConfirmationDialogComponent,{
+    const confirmationDialog = this.dialog.open(ConfirmationDialogComponent, {
       width: '600px',
-      data: this.orderData
-    })
+      data: this.orderData,
+    });
 
-    confirmationDialog.afterClosed().subscribe((res)=>{
-      if(res){
+    confirmationDialog.afterClosed().subscribe((res) => {
+      if (res) {
         this.orderService.cancelOrder(res).subscribe({
-          next: (res:any)=>{
-            if(res.status == 'false'){
+          next: (res: any) => {
+            if (res.status == 'false') {
               this.snackbarService.error(res.message);
-            }
-            else{
-              this.snackbarService.success("Order cancelled");
+            } else {
+              this.snackbarService.success('Order cancelled');
               this.orderService.clearAssigned();
             }
           },
-          error: (err)=>{
-            this.snackbarService.error("Error occured");
-          }
-        })
+          error: (err) => {
+            this.snackbarService.error('Error occured');
+          },
+        });
       }
-    })
-
-
-
-
+    });
   }
 
-  completeOrder() {}
+  completeOrder(id: number) {
+    const confirmation = this.dialog.open(ConfirmationDialogComponent, {
+      width: '500px',
+      data: {
+        dialogTitle: 'Complete Order',
+        dialogMessage: 'Are you sure to complete the order?',
+        id: id,
+        confirmButton: 'Complete Order',
+        cancelButton: 'Cancel',
+      },
+    });
+
+    confirmation.afterClosed().subscribe({
+      next: (res: any) => {
+        if (res.id) {
+          this.orderService.completeOrder(id).subscribe({
+            next: (res: any) => {
+              if (res.status == 'false') {
+                this.snackbarService.error(res.message);
+              } else {
+                this.snackbarService.success('Order marked as completed');
+                this.openRatingDialog();
+                this.router.navigate(['orderapp/tables']);
+              }
+            },
+            error: (err) => {
+              this.snackbarService.error(err);
+            },
+          });
+        }
+      },
+    });
+  }
+
+  openRatingDialog(){
+    const ratingDialog = this.dialog.open(RatingDialogComponent, {
+      width: '500px',
+      data: {
+        orderId : this.orderData.id
+      }
+    });
+
+    ratingDialog.afterClosed().subscribe({
+      next: (res:any)=>{
+        let ratingData = {
+          'rating': JSON.stringify({
+            'food':res.food,
+            'ambience':res.ambience,
+            'service': res.service
+          }),
+          'comment':res.comment,
+          'orderId': res.orderId
+        }
+        this.orderService.customerFeedback(ratingData).subscribe({
+          next: (res: any)=>{
+            if(res.status == "true"){
+              this.snackbarService.success(res.message);
+            }
+            else{
+              this.snackbarService.error(res.message);
+            }
+          }
+        })
+      //   {
+      //     "food": 3,
+      //     "ambience": 3,
+      //     "service": 3,
+      //     "comment": "",
+      //     "orderId": 64
+      // }
+      },
+      error: (err)=>{
+        throw(err);
+      }
+    });
+  }
 }

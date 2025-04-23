@@ -7,55 +7,51 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-order-details',
   templateUrl: './order-details.component.html',
-  styleUrls: ['./order-details.component.scss']
+  styleUrls: ['./order-details.component.scss'],
 })
 export class OrderDetailsComponent implements OnInit {
-
   constructor(
-    private orderService : OrderService,
-    private snackbarService : SnackbarService,
-    private router : Router
+    private orderService: OrderService,
+    private snackbarService: SnackbarService,
+    private router: Router
   ) {
     this.orderService.currentOrderInvoice.subscribe({
-      next: (res: any)=>{
-        if(res){
+      next: (res: any) => {
+        if (res) {
           this.data = res;
-        this.orderData = JSON.parse(res.order_data);
-        this.formatTax(this.orderData);
-        }else{
+          this.orderData = JSON.parse(res.order_data);
+          this.formatTax(this.orderData);
+        } else {
           this.redirect('orders');
         }
-      }
-    })
-   }
-
-  ngOnInit(): void {
-
+      },
+    });
   }
+
+  ngOnInit(): void {}
 
   onCancel(): void {
     this.data = null;
   }
 
-  redirect(url: string){
+  redirect(url: string) {
     this.router.navigateByUrl(url);
   }
 
-  data : any;
-  orderData : any;
+  data: any;
+  orderData: any;
   taxData: any[] = [];
 
-  formatTax(data : any){
+  formatTax(data: any) {
     for (const [key, value] of Object.entries(data.taxes)) {
-      this.taxData.push([key, value])
+      this.taxData.push([key, value]);
     }
-    console.log(this.taxData);
-
+    console.log(this.orderData);
   }
   invoiceVisibility = false;
   count = 0;
-  counter(){
-    this.count+=1;
+  counter() {
+    this.count += 1;
     return this.count;
   }
 
@@ -67,8 +63,7 @@ export class OrderDetailsComponent implements OnInit {
     return `${day}/${month}/${year}`;
   }
 
-
-  calculateItemAmount(item: any){
+  calculateItemAmount(item: any) {
     // {
     //   "item_id": 4,
     //   "item_name": "Aloo Tikki Burger",
@@ -87,24 +82,21 @@ export class OrderDetailsComponent implements OnInit {
     //   ],
     //   "multiplier": 1
     // }
-    let totalAmount = item.item_rate*item.multiplier;
+    let totalAmount = item.item_rate * item.multiplier;
     return totalAmount;
   }
 
-  calculateModifierTotal(modifier: any, multiplier: number){
-    return modifier.modifier_rate*multiplier;
+  calculateModifierTotal(modifier: any, multiplier: number) {
+    return modifier.modifier_rate * multiplier;
   }
 
-  totalRoundOff(amount : number){
+  totalRoundOff(amount: number) {
     return Math.floor(amount);
   }
-
 
   // generateInvoice(): void {
   //   this.invoiceVisibility = !this.invoiceVisibility;
   //   const element = document.getElementById('invoicePdf');
-
-
 
   //   // const backButton = element?.querySelector('.backButton') as HTMLElement;
   //   // const exportButton = element?.querySelector('.exportBtn') as HTMLElement;
@@ -112,7 +104,6 @@ export class OrderDetailsComponent implements OnInit {
   //   // if (exportButton) exportButton.style.display = 'none';
 
   //   // element?.classList.add('pdf-dark');
-
 
   //   if (!element) {
   //     console.error('Invoice element not found!');
@@ -132,21 +123,22 @@ export class OrderDetailsComponent implements OnInit {
   //     setTimeout(() => {
   //   this.invoiceVisibility = !this.invoiceVisibility;
 
-
   //     }, 300);
   //   });
   // }
 
-  generateInvoice(): void{
-    const order = typeof this.orderData.order_data === 'string' ? JSON.parse(this.orderData.order_data) : this.orderData.order_data;
-
+  generateInvoice(): void {
+    const order =
+      typeof this.orderData.order_data === 'string'
+        ? JSON.parse(this.orderData.order_data)
+        : this.orderData.order_data;
 
     // Generate table rows
     let rows = '';
     let count = 1;
-    this.orderData.items.forEach((item : any) => {
+    this.orderData.items.forEach((item: any) => {
       rows += `
-        <tr>
+        <tr style="border-top: solid 2px #0070c0">
           <td>${count}</td>
           <td>${item.item_name}</td>
           <td>${item.multiplier}</td>
@@ -154,7 +146,7 @@ export class OrderDetailsComponent implements OnInit {
           <td>${(item.item_rate * item.multiplier).toFixed(2)}</td>
         </tr>
       `;
-      item.modifiers.forEach((mod : any) => {
+      item.modifiers.forEach((mod: any) => {
         rows += `
           <tr>
             <td></td>
@@ -167,6 +159,17 @@ export class OrderDetailsComponent implements OnInit {
       });
       count++;
     });
+
+    let taxes = '';
+    let taxCount = 1;
+    for (const [key, value] of Object.entries(this.orderData.taxes)) {
+      let numValue = value as number;
+      taxes += `
+    <p style="display: flex;
+  justify-content: space-between;
+  gap: 8px;"><strong>${key} :</strong><span>${numValue.toFixed(2)}</span></p>
+  `;
+  taxCount ++;  }
 
     const htmlContent = `
       <div id="invoicePdf" style=" font-family: Arial, sans-serif; padding: 20px; color: #000;">
@@ -185,15 +188,15 @@ export class OrderDetailsComponent implements OnInit {
     <div style="display: flex; justify-content: space-between; margin-bottom: 20px;">
       <div>
         <strong>Customer Details</strong><br />
-        Name: ${ this.data.customer.name }<br />
+        Name: ${this.data.customer.name}<br />
         Mob: ${this.data.customer.mobile}
       </div>
       <div>
         <strong>Order Details</strong><br />
-        Invoice Number: #${ this.data.id }<br />
-        Date: ${ this.convertDate(this.data.created_at) }<br />
-        Section: ${ this.orderData.section_name }<br />
-        Table: ${ this.orderData.table_names[0] }
+        Invoice Number: #${this.data.id}<br />
+        Date: ${this.convertDate(this.data.created_at)}<br />
+        Section: ${this.orderData.section_name}<br />
+        Table: ${this.orderData.table_names[0]}
       </div>
     </div>
 
@@ -209,14 +212,8 @@ export class OrderDetailsComponent implements OnInit {
       </thead>
 
         <tbody *ngFor="let item of orderData.items; let i = index">
-          <tr class="itemRow">
           ${rows}
-          </tr>
         </tbody>
-
-
-
-
     </table>
 
     <div style="text-align: right; margin-right: 10px;">
@@ -224,24 +221,20 @@ export class OrderDetailsComponent implements OnInit {
 
       <p style="display: flex;
   justify-content: space-between;
-  gap: 8px;"><strong>Sub Total :</strong><span> ${ this.orderData.subTotal.toFixed(2) }</span></p>
-      <p style="display: flex;
-  justify-content: space-between;
-  gap: 8px;"><strong>CGST :</strong><span>${ this.orderData.taxes.CGST.toFixed(2) }</span></p>
-      <p style="display: flex;
-  justify-content: space-between;
-  gap: 8px;"><strong>SGST :</strong><span>${ this.orderData.taxes.SGST.toFixed(2) }</span></p>
-      <p style="display: flex;
-  justify-content: space-between;
-  gap: 8px;"><strong>GST :</strong><span>${ this.orderData.taxes.GST.toFixed(2) }</span></p>
+  gap: 8px;"><strong>Sub Total :</strong><span> ${this.orderData.subTotal.toFixed(
+    2
+  )}</span></p>
+      ${taxes}
       <h4 style="display: flex;
   justify-content: space-between;
-  gap: 8px; color :#0070c0"><strong>Total Amount Due :</strong> ${ this.orderData.total.toFixed(2) }</h4>
+  gap: 8px; color :#0070c0"><strong>Total Amount Due :</strong> ${this.orderData.total.toFixed(
+    2
+  )}</h4>
     </div>
 
     <div style="margin-top: 30px;">
       <strong>Payment Information</strong><br />
-      Payment Method: ${ this.data.payment_mode }
+      Payment Method: ${this.data.payment_mode}
     </div>
 
     <div style="text-align: center; margin-top: 40px; font-weight: bold;">THANK YOU!</div>
@@ -259,26 +252,24 @@ export class OrderDetailsComponent implements OnInit {
       filename: `Invoice.pdf`,
       image: { type: 'jpeg', quality: 0.98 },
       html2canvas: { scale: 2 },
-      jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+      jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' },
     };
 
-    html2pdf().set(opt).from(container).save().then(() => {
-      document.body.removeChild(container); // Clean up after export
-    });
+    html2pdf()
+      .set(opt)
+      .from(container)
+      .save()
+      .then(() => {
+        document.body.removeChild(container); // Clean up after export
+      });
   }
-
-
-
 }
-
 
 // <td class="serial">${i+1}</td>
 // <td class="itemName"><strong>${item.item_name}</strong></td>
 // <td class="itemQuantity">${item.multiplier}</td>
 // <td class="itemPrice">${item.item_rate}</td>
 // <td class="itemAmount">${this.calculateItemAmount(item)}</td>-->
-
-
 
 // <td></td>
 // <td class="modifierName">• ${modifier.modifier_name}</td>
@@ -288,4 +279,4 @@ export class OrderDetailsComponent implements OnInit {
 
 // <p style="justify-content: space-between;" class="taxEntry"><strong>Subtotal:</strong> ₹{{orderData.subTotal}}</p>
 
-      // <p style="justify-content: space-between;"  class="taxEntry" *ngFor="let tax of  taxData"><strong class="floatLeft">{{tax[0]}} :</strong> ₹{{tax[1]}}</p>
+// <p style="justify-content: space-between;"  class="taxEntry" *ngFor="let tax of  taxData"><strong class="floatLeft">{{tax[0]}} :</strong> ₹{{tax[1]}}</p>

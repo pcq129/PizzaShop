@@ -26,6 +26,7 @@ import { ChangePasswordComponent } from './admin/change-password/change-password
 import { ProfileComponent } from './admin/profile/profile.component';
 import { ResetPasswordComponent } from './auth/login/reset-password/reset-password.component';
 import { UsersComponent } from './admin/users/users.component';
+import { KotComponent } from './orderapp/kot/kot.component';
 // import { DashboardComponent } from './app/dashboard/dashboard.component';
 const routes: Routes = [
   // {
@@ -115,7 +116,7 @@ const routes: Routes = [
   //   component: AppComponent,
   // },
   {
-    path: 'order',
+    path: 'orderapp',
     component: OrderappComponent,
     children: [
       {
@@ -137,6 +138,11 @@ const routes: Routes = [
         path: 'waiting-list',
         canActivate: [AuthGuard],
         component: WaitingListComponent,
+      },
+      {
+        path: 'kot',
+        canActivate: [AuthGuard],
+        component: KotComponent,
       },
     ],
   },

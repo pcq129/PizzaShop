@@ -38,4 +38,8 @@ export class TaxFeesService {
     return this.http.delete(environment.baseURL + `tax-fees/${id}`);
   }
 
+  search(taxName: string){
+    return this.http.get(environment.baseURL + `tax-fees/search/${taxName}`)
+  }
+
 }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../_services/auth.service';
-import { Router } from '@angular/router';
+import {  Router } from '@angular/router';
 
 interface sidebar {
   icon: any;
@@ -13,11 +13,18 @@ interface sidebar {
   styleUrls: ['./admin.component.scss'],
 })
 export class AdminComponent implements OnInit {
-  constructor(public authService: AuthService, private router: Router) {}
-  loadComponent(arg0: string) {
-    this.router.navigate([arg0]);
-    console.log(event);
+  constructor(public authService: AuthService, private router: Router) {
+    this.loadComponent(this.router.url)
   }
+  loadComponent(url: string) {
+    // this.currentContent = this.activeRoute.routeConfig?.path || 'dashboard';
+    // console.log(this.activeRoute.routeConfig?.path);
+    this.currentContent = this.router.url;
+    console.log(this.router.url);
+
+    this.router.navigate([url]);
+  }
+  currentContent : string = 'dashboard';
   sideBarItems: sidebar[] = [
     {
       icon: `dashboard`,
@@ -29,11 +36,6 @@ export class AdminComponent implements OnInit {
       title: 'Users',
       redirect: 'users',
     },
-    // {
-    //   icon: `settings_applications`,
-    //   title: 'Roles and Permission',
-    //   redirect: '#',
-    // },
     {
       icon: `restaurant_menu`,
       title: 'Menu',
@@ -59,22 +61,6 @@ export class AdminComponent implements OnInit {
       title: 'Customers',
       redirect: 'customers',
     },
-
-    // {
-    //   icon: `person_outline`,
-    //   title: 'Customers',
-    //   redirect: '',
-    // },
-    // {
-    //   icon: 'supervised_user_circle',
-    //   title: 'Roles and Permission',
-    //   redirect: '',
-    // },
-    // {
-    //   icon: 'border_all',
-    //   title: 'Tables and Sections ',
-    //   redirect: '',
-    // },
   ];
 
   ngOnInit(): void {}
@@ -89,7 +75,7 @@ export class AdminComponent implements OnInit {
   profile = '../../assets/pfp.png';
 
   openOrderApp() {
-    this.router.navigate(['order/tables']);
+    this.router.navigate(['orderapp/tables']);
   }
 
   redirect(url: string) {
@@ -102,6 +88,14 @@ export class AdminComponent implements OnInit {
 
     this.redirect('profile')
   }
+
+  isSelected(currentContent: string){
+    if(this.currentContent == '/'+currentContent){
+      return true;
+    }
+    return false;
+  }
+
 
 
 }

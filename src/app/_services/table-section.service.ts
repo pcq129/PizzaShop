@@ -42,7 +42,6 @@ export class TableSectionService {
 
   searchCustomer(data: any){
     console.log(data);
-
     return this.http.post(environment.baseURL + `customer/search`, data)
   }
 
@@ -52,6 +51,10 @@ export class TableSectionService {
 
   updateWaitingToken(data : any){
     return this.http.post(environment.baseURL + 'customer/update-waiting-token', data)
+  }
+
+  searchTable(tableName: string){
+    return this.http.get(environment.baseURL + `table/search/${tableName}`);
   }
 
 

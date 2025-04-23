@@ -1,0 +1,69 @@
+css
+
+
+.search {
+  font-size: 16px;
+  width: 400px;
+  margin-right: 20px;
+  padding-top: 15px;
+}
+
+.noDataBanner{
+  height: 70%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+html
+
+
+ <div *ngIf="nodata" class="noDataBanner">
+    <h4>No Data Found</h4>
+  </div>
+
+
+  <mat-form-field class="search" appearance="outline" (input)="searchUser(userSearch.value)">
+      <mat-label>Search</mat-label>
+      <input class="" matInput placeholder="Search" #userSearch/>
+      <button *ngIf="userSearch.value" (click)="userSearch.value = ''; viewUserData = userData" matSuffix mat-icon-button aria-label="Clear">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
+
+
+
+ts
+  nodata : boolean =false;
+ searchItem(itemName: string) {
+
+    if (itemName.length < 4) {
+      this.nodata = false;
+      setTimeout(() => {
+        this.viewItems = this.allItems;
+      }, 500);
+    }else{
+      this.itemService.search(itemName).subscribe({
+        next: (res: any) => {
+          if (res.status == 'false') {
+            this.nodata = true;
+            this.viewItems = [];
+            return;
+          } else if (res.status == 'true') {
+            this.nodata = false;
+
+            this.viewItems = res.data;
+            return;
+          } else {
+            this.nodata = true;
+          }
+        },
+        error: (err: any) => {
+          this.nodata = true;
+          this.viewItems = [];
+        },
+      });
+    }
+  }
