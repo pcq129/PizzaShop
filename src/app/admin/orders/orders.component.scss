@@ -14,22 +14,20 @@
   margin-right: 20px;
 }
 
-.orderData{
+.orderData {
   width: 100%;
 }
 
-.actionIconContainer{
+.actionIconContainer {
   display: flex;
   align-items: center;
   height: inherit;
   cursor: pointer;
 }
 
-.actionIcon{
+.actionIcon {
   margin-right: 20px;
 }
-
-
 
 // fixes for printing invoice
 
@@ -45,10 +43,21 @@
   padding-top: 15px;
 }
 
-.noDataBanner{
+.noDataBanner {
   height: 70%;
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-} 
+}
+
+.exportButton {
+  background-color: skyblue;
+  margin-right: 15px;
+  height: 40px;
+}
+
+// .filterContainer {
+//   display: flex;
+//   align-items: center;
+// }

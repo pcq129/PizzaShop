@@ -24,6 +24,7 @@ import { environment } from 'src/environments/environment';
 })
 export class OrderService {
 
+
   constructor(
     private http : HttpClient,
     private router : Router
@@ -93,6 +94,11 @@ export class OrderService {
 
   customerFeedback(data: any){
     return this.http.post(environment.baseURL + 'customer-feedback', data);
+  }
+
+
+  exportOrdersToExcel(filter: number) {
+    return this.http.get(environment.baseURL + `export-excel/${filter}`, { responseType: 'blob' });
   }
 
 

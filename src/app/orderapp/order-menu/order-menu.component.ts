@@ -213,7 +213,7 @@ export class OrderMenuComponent implements OnInit {
       }
     }
 
-    this.billAmount = Math.floor(total);
+    this.billAmount = Math.round(total);
     return;
   }
 
@@ -233,7 +233,7 @@ export class OrderMenuComponent implements OnInit {
       taxAmount = tax.amount;
     }
     this.taxBreakup[tax.name] = taxAmount;
-    return Math.floor(taxAmount);
+    return Math.round(taxAmount);
   }
 
   calculateTotal() {
@@ -245,11 +245,11 @@ export class OrderMenuComponent implements OnInit {
     }
     let totalAmount = totalTax + this.billAmount;
     this.amount = totalAmount;
-    return Math.floor(totalAmount);
+    return Math.round(totalAmount);
   }
 
   getItemAmount(item: any) {
-    return Math.floor(item.rate + (item.rate * item.tax_percentage) / 100);
+    return Math.round(item.rate + (item.rate * item.tax_percentage) / 100);
   }
 
   generateOrder() {

@@ -34,7 +34,7 @@ export class HeadersInterceptor implements HttpInterceptor {
       this.router.navigateByUrl(`/login`);
 
       // if you've caught / handled the error, you don't want to rethrow it unless you also want downstream consumers to have to handle it as well.
-      return of(err.message); // or EMPTY may be appropriate here
+      // return of(err.message); // or EMPTY may be appropriate here
   }
   return throwError(err);
   }

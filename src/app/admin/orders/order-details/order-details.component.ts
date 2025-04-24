@@ -262,7 +262,7 @@ export class OrderDetailsComponent implements OnInit {
       .then(() => {
         document.body.removeChild(container); // Clean up after export
       });
-  }
+  } 
 }
 
 // <td class="serial">${i+1}</td>

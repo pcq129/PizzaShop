@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
-
 @Injectable({
   providedIn: 'root'
 })
 export class SnackbarService {
 
   constructor(
-    private _snackBar: MatSnackBar) {
+    private _snackBar: MatSnackBar,
+  ) {
   }
 
   horizontalPosition: MatSnackBarHorizontalPosition = 'end';
@@ -16,23 +16,38 @@ export class SnackbarService {
 
 
 
-  error(message: string) {
+  toTitleCase(message : string) {
+    return message
+      .toLowerCase()
+      .split(' ')
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(' ');
+  }
+
+  error(rawMessage: string) {
+    let message = this.toTitleCase(rawMessage);
     return this._snackBar.open(message, 'close', {panelClass: ['snackbar-error','snackbar'],horizontalPosition: this.horizontalPosition,
       verticalPosition: this.verticalPosition,duration: this.durationInSeconds * 1000});
   }
 
-  success(message: string) {
+  success(rawMessage: string) {
+    let message = this.toTitleCase(rawMessage);
+
     return this._snackBar.open(message, 'close', {panelClass: ['snackbar-success','snackbar'],horizontalPosition: this.horizontalPosition,
       verticalPosition: this.verticalPosition,duration: this.durationInSeconds * 1000});
   }
 
-  info(message: string) {
+  info(rawMessage: string) {
+    let message = this.toTitleCase(rawMessage);
+
     return this._snackBar.open(message, 'close', {panelClass: ['snackbar-info','snackbar'],horizontalPosition: this.horizontalPosition,
       verticalPosition: this.verticalPosition,duration: this.durationInSeconds * 1000});
   }
 
 
-  multipleErrors(message: any){
+  multipleErrors(rawMessage: any){
+
+    let message = this.toTitleCase(rawMessage);
 
     // message.forEach(element => {
     //   this.error(`${element}`)

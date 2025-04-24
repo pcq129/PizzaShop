@@ -4,6 +4,7 @@ import { SnackbarService } from 'src/app/_services/snackbar.service';
 import { OrderService } from 'src/app/_services/order-service.service';
 import { Router } from '@angular/router';
 import { ConfirmationDialogComponent } from 'src/app/common/confirmation-dialog/confirmation-dialog.component';
+import { saveAs } from 'file-saver';
 
 @Component({
   selector: 'app-orders',
@@ -20,11 +21,10 @@ export class OrdersComponent implements OnInit {
     this.getOrderData();
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   orderData: any;
-  viewOrderData : any;
+  viewOrderData: any;
   displayedColumns = [
     'order',
     'date',
@@ -106,14 +106,13 @@ export class OrdersComponent implements OnInit {
     // });
   }
 
-  resetData(){
-    this.nodata=false;
+  resetData() {
+    this.nodata = false;
     this.viewOrderData = this.orderData;
   }
 
   nodata: boolean = false;
   searchOrder(orderId: string) {
-
     if (!orderId) {
       this.nodata = false;
       setTimeout(() => {
@@ -141,5 +140,37 @@ export class OrdersComponent implements OnInit {
         },
       });
     }
+  }
+
+  exportOrders(filter : number) {
+    this.orderService.exportOrdersToExcel(filter).subscribe({
+
+      // for proper response formatting
+
+      // next: (res: any) => {
+      //   if (res.status == 'false') {
+      //     console.log('failed');
+      //   } else {
+      //     let data: any;
+      //     if (res.data) {
+      //       data = res.data;
+      //       (data: Blob) => {
+      //         saveAs(data, 'fileName');
+      //       };
+      //     }
+      //   }
+      // },
+
+      next: (res:Blob)=>{
+              saveAs(res, 'All Orders');
+      },
+      error: (err: any) => {
+        console.log('failed');
+      },
+    });
+  }
+  getRating(rating : any){
+      let compoundRating = JSON.parse(rating);
+      return compoundRating.food;
   }
 }

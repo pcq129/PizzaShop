@@ -90,7 +90,7 @@ export class AdminComponent implements OnInit {
   }
 
   isSelected(currentContent: string){
-    if(this.currentContent == '/'+currentContent){
+    if(this.currentContent.endsWith(currentContent)){
       return true;
     }
     return false;
