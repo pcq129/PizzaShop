@@ -81,7 +81,7 @@ export class UsersComponent implements OnInit {
               this.snackbarService.success(res.message);
               this.getUserData();
             } else {
-              this.snackbarService.multipleErrors(res.message);
+              this.snackbarService.error(res.message);
             }
           },
           error: (err: any) => {
@@ -115,7 +115,7 @@ export class UsersComponent implements OnInit {
               this.snackbarService.success(res.message);
               this.getUserData();
             } else {
-              this.snackbarService.multipleErrors(res.message);
+              this.snackbarService.error(res.message);
             }
           },
           error: (err: any) => {

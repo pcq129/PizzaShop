@@ -26,6 +26,8 @@ export class modifierDialog {
     console.log(data);
   }
 
+  currentMG : number = 0;
+
   onNoClick(): void {
     this.dialogRef.close();
   }

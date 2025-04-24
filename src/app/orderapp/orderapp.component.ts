@@ -29,7 +29,7 @@ export class OrderappComponent implements OnInit {
     this.tableSectionService.getAllSectionData().subscribe({
       next: (res: any) => {
         if (res.status == false) {
-          this.snackbarService.multipleErrors(res.message);
+          this.snackbarService.error(res.message);
         } else {
           this.sectionData = res.data;
         }

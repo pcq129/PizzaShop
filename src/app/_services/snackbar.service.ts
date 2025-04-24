@@ -25,6 +25,8 @@ export class SnackbarService {
   }
 
   error(rawMessage: string) {
+    console.log(rawMessage);
+
     let message = this.toTitleCase(rawMessage);
     return this._snackBar.open(message, 'close', {panelClass: ['snackbar-error','snackbar'],horizontalPosition: this.horizontalPosition,
       verticalPosition: this.verticalPosition,duration: this.durationInSeconds * 1000});

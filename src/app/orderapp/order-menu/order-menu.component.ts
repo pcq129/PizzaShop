@@ -30,7 +30,7 @@ export class OrderMenuComponent implements OnInit {
     this.getCategoryData();
     this.orderService.currentData.subscribe((res: any) => {
       if (!res) {
-        this.snackbarService.info("Please assign tables first")
+        this.snackbarService.info('Please assign tables first');
         this.router.navigate(['orderapp/tables']);
       }
       this.orderData = res;
@@ -312,7 +312,6 @@ export class OrderMenuComponent implements OnInit {
           console.log(this.orderData.id);
 
           // this.router.navigateByUrl('order/tables');
-
         }
       },
       error: (err) => {
@@ -338,6 +337,8 @@ export class OrderMenuComponent implements OnInit {
     //   "customer_id": 10
     // }
     let orderData = this.orderData;
+    console.log(this.orderData);
+
     orderData.dialogTitle = 'Confirm order cancellation';
     orderData.dialogMessage = 'Are you sure to cancel this order ?';
     (orderData.cancelButton = 'No'), (orderData.confirmButton = 'Yes');
@@ -348,20 +349,25 @@ export class OrderMenuComponent implements OnInit {
     });
 
     confirmationDialog.afterClosed().subscribe((res) => {
-      if (res) {
+      if (res.id) {
         this.orderService.cancelOrder(res).subscribe({
           next: (res: any) => {
             if (res.status == 'false') {
               this.snackbarService.error(res.message);
             } else {
-              this.snackbarService.success('Order cancelled');
-              this.orderService.clearAssigned();
+              this.snackbarService.success(res.message);
+              setTimeout(() => {
+                this.orderService.clearAssigned();
+              }, 1000);
             }
           },
-          error: (err) => {
-            this.snackbarService.error('Error occured');
+          error: (error) => {
+            this.snackbarService.error(error.message);
           },
         });
+      } else {
+        this.orderService.clearOrderData();
+        this.router.navigate(['orderapp/tables']);
       }
     });
   }
@@ -400,46 +406,45 @@ export class OrderMenuComponent implements OnInit {
     });
   }
 
-  openRatingDialog(){
+  openRatingDialog() {
     const ratingDialog = this.dialog.open(RatingDialogComponent, {
       width: '500px',
       data: {
-        orderId : this.orderData.id
-      }
+        orderId: this.orderData.id,
+      },
     });
 
     ratingDialog.afterClosed().subscribe({
-      next: (res:any)=>{
+      next: (res: any) => {
         let ratingData = {
-          'rating': JSON.stringify({
-            'food':res.food,
-            'ambience':res.ambience,
-            'service': res.service
+          rating: JSON.stringify({
+            food: res.food,
+            ambience: res.ambience,
+            service: res.service,
           }),
-          'comment':res.comment,
-          'orderId': res.orderId
-        }
+          comment: res.comment,
+          orderId: res.orderId,
+        };
         this.orderService.customerFeedback(ratingData).subscribe({
-          next: (res: any)=>{
-            if(res.status == "true"){
+          next: (res: any) => {
+            if (res.status == 'true') {
               this.snackbarService.success(res.message);
-            }
-            else{
+            } else {
               this.snackbarService.error(res.message);
             }
-          }
-        })
-      //   {
-      //     "food": 3,
-      //     "ambience": 3,
-      //     "service": 3,
-      //     "comment": "",
-      //     "orderId": 64
-      // }
+          },
+        });
+        //   {
+        //     "food": 3,
+        //     "ambience": 3,
+        //     "service": 3,
+        //     "comment": "",
+        //     "orderId": 64
+        // }
       },
-      error: (err)=>{
-        throw(err);
-      }
+      error: (err) => {
+        throw err;
+      },
     });
   }
 }

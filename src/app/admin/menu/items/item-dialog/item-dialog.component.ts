@@ -188,8 +188,11 @@ export class ItemDialogComponent implements OnInit {
     }
   }
 
+  disableForm : boolean = false;
   onUpload() {
     if (!this.selectedFile) return;
+    this.disableForm = true;
+    this.snackbarSerice.info("Uploading Image...");
     if (this.currentImage) {
       this.deleteUploadedImage(this.currentImage);
     }
@@ -203,8 +206,13 @@ export class ItemDialogComponent implements OnInit {
           this.uploadedImage = res.path;
           this.dataForm.controls.image.setValue(res.path);
           this.snackbarSerice.success(res.message);
+          this.disableForm = false;
         },
-        (error: any) => this.snackbarSerice.error(error)
+        (error: any) => {
+          this.snackbarSerice.error(error)
+          this.disableForm = false;
+
+        }
       );
     } else {
       this.snackbarSerice.error('Image must be jpg or png');

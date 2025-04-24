@@ -56,14 +56,18 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {}
 
   calculateAverageOrder() {
-    return Math.floor(
+    let average_order = Math.floor(
       this.dashboardData.total_sales / this.dashboardData.order_count
     );
+    console.log(average_order);
+
+    return isNaN(average_order) ? 0 : average_order;
   }
 
   dashboardData: any = {
     total_sales: 0,
     order_count: 0,
+    averate_order: 0,
     waitinglist_count: 0,
     average_waiting_minutes: 0,
     new_customer_count: 0,

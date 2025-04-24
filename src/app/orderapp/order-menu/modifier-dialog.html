@@ -1,25 +1,37 @@
 <h6 mat-dialog-title>Add Modifiers for {{data.name}}</h6>
 <div mat-dialog-content>
-  <mat-accordion class="example-headers-align" *ngFor="let modifierGroup of data.modifier_groups">
-    <mat-expansion-panel *ngIf="modifierGroup.modifiers.length != 0" >
+  <mat-accordion
+    class="example-headers-align"
+    *ngFor="let modifierGroup of data.modifier_groups"
+  >
+    <mat-expansion-panel
+      *ngIf="modifierGroup.modifiers.length != 0"
+      [expanded]="currentMG == modifierGroup.id"
+      (opened)="currentMG = modifierGroup.id"
+    >
       <mat-expansion-panel-header>
         <mat-panel-title>{{modifierGroup.name}}</mat-panel-title>
         <mat-panel-description>
           {{modifierGroup.description}}
         </mat-panel-description>
       </mat-expansion-panel-header>
-     <div class="modifierContainer">
-      {{modifierGroup.modifiers.length == 0 ? "No modifiers available" : ""}}
-      <mat-card *ngFor="let modifier of modifierGroup.modifiers" class="modifier  {{modifier_ids.includes(modifier.id) ? 'selected' : ''}}" id="modifier.id" (click)="selectModifier(modifier)">
-        <div class="productName">{{modifier.name}}</div>
-        <div class="productPrice">₹{{modifier.rate}}</div>
-      </mat-card>
-     </div>
+      <div class="modifierContainer">
+        {{modifierGroup.modifiers.length == 0 ? "No modifiers available" : ""}}
+        <mat-card
+          *ngFor="let modifier of modifierGroup.modifiers"
+          class="modifier  {{modifier_ids.includes(modifier.id) ? 'selected' : ''}}"
+          id="modifier.id"
+          (click)="selectModifier(modifier)"
+        >
+          <div class="productName">{{modifier.name}}</div>
+          <div class="productPrice">₹{{modifier.rate}}</div>
+        </mat-card>
+      </div>
     </mat-expansion-panel>
   </mat-accordion>
 </div>
 <div mat-dialog-actions class="bottom">
-  <button mat-button [mat-dialog-close]="selectedModifiers" >Add</button>
+  <button mat-button [mat-dialog-close]="selectedModifiers">Add</button>
   <button mat-button (click)="onNoClick()">Close</button>
 </div>
 

@@ -11,26 +11,197 @@
       <div class="kotContainer">
         <!--
         {
-    "id": 10,
-    "order_id": 92,
-    "item_category": 2,
-    "status": 0,
-    "item_data": {
-        "items": {
-            "item_id": 2,
-            "item_name": "Thin Crust",
-            "item_rate": 560.88,
-            "modifiers": [],
-            "multiplier": 1
+    "id": 1,
+    "name": "Pizza",
+    "description": "Italian Delight",
+    "kots": [
+        {
+            "id": 1,
+            "order_id": 1,
+            "item_category": 1,
+            "status": 0,
+            "item_data": {
+                "items": {
+                    "item_id": 3,
+                    "item_name": "Cheeze Blast Pizza",
+                    "item_rate": 1309.44,
+                    "modifiers": [
+                        {
+                            "modifier_id": 1,
+                            "modifier_name": "Mozzerella Cheeze",
+                            "modifier_rate": 200
+                        },
+                        {
+                            "modifier_id": 4,
+                            "modifier_name": "Small Serve",
+                            "modifier_rate": 150
+                        },
+                        {
+                            "modifier_id": 7,
+                            "modifier_name": "Thin Crust",
+                            "modifier_rate": 350
+                        },
+                        {
+                            "modifier_id": 9,
+                            "modifier_name": "Schezwan Sauce",
+                            "modifier_rate": 140
+                        }
+                    ],
+                    "multiplier": 1
+                },
+                "tables": [
+                    "L2"
+                ],
+                "section": "Lawn"
+            },
+            "deleted_at": null,
+            "created_at": "2025-04-24T07:18:56.000000Z",
+            "updated_at": "2025-04-24T07:18:56.000000Z",
+            "order": {
+                "id": 1,
+                "customer_id": 1,
+                "order_status": "Completed",
+                "order_data": "{\"table_ids\":[6],\"table_names\":[\"L2\"],\"section_id\":2,\"section_name\":\"Lawn\",\"items\":[{\"item_id\":3,\"item_name\":\"Cheeze Blast Pizza\",\"item_rate\":1309.44,\"modifiers\":[{\"modifier_id\":1,\"modifier_name\":\"Mozzerella Cheeze\",\"modifier_rate\":200},{\"modifier_id\":4,\"modifier_name\":\"Small Serve\",\"modifier_rate\":150},{\"modifier_id\":7,\"modifier_name\":\"Thin Crust\",\"modifier_rate\":350},{\"modifier_id\":9,\"modifier_name\":\"Schezwan Sauce\",\"modifier_rate\":140}],\"multiplier\":1}],\"taxes\":{\"GST\":386.82,\"SGST\":0,\"Service Charge\":140},\"subTotal\":2149,\"total\":2675.8199999999997}",
+                "payment_mode": "Cash",
+                "payment_status": "Completed",
+                "bill_amount": 2676,
+                "rating": "{\"food\":4,\"ambience\":4,\"service\":4}",
+                "comment": "Good food",
+                "deleted_at": null,
+                "created_at": "2025-04-24T07:18:56.000000Z",
+                "updated_at": "2025-04-24T07:19:14.000000Z"
+            }
         },
-        "tables": [
-            "T1"
-        ],
-        "section": "Ground Floor"
-    },
-    "deleted_at": null,
-    "created_at": "2025-04-22T05:40:46.000000Z",
-    "updated_at": "2025-04-22T05:40:46.000000Z",
+        {
+            "id": 2,
+            "order_id": 2,
+            "item_category": 1,
+            "status": 0,
+            "item_data": {
+                "items": {
+                    "item_id": 3,
+                    "item_name": "Cheeze Blast Pizza",
+                    "item_rate": 1309.44,
+                    "modifiers": [
+                        {
+                            "modifier_id": 4,
+                            "modifier_name": "Small Serve",
+                            "modifier_rate": 150
+                        },
+                        {
+                            "modifier_id": 5,
+                            "modifier_name": "Medium Serve",
+                            "modifier_rate": 250
+                        },
+                        {
+                            "modifier_id": 6,
+                            "modifier_name": "Large Serve",
+                            "modifier_rate": 350
+                        },
+                        {
+                            "modifier_id": 9,
+                            "modifier_name": "Schezwan Sauce",
+                            "modifier_rate": 140
+                        },
+                        {
+                            "modifier_id": 10,
+                            "modifier_name": "Tomato Sauce",
+                            "modifier_rate": 200
+                        }
+                    ],
+                    "multiplier": 1
+                },
+                "tables": [
+                    "L3"
+                ],
+                "section": "Lawn"
+            },
+            "deleted_at": null,
+            "created_at": "2025-04-24T08:24:28.000000Z",
+            "updated_at": "2025-04-24T08:24:28.000000Z",
+            "order": {
+                "id": 2,
+                "customer_id": 6,
+                "order_status": "Ordered",
+                "order_data": "{\"table_ids\":[7],\"table_names\":[\"L3\"],\"section_id\":2,\"section_name\":\"Lawn\",\"items\":[{\"item_id\":3,\"item_name\":\"Cheeze Blast Pizza\",\"item_rate\":1309.44,\"modifiers\":[{\"modifier_id\":4,\"modifier_name\":\"Small Serve\",\"modifier_rate\":150},{\"modifier_id\":5,\"modifier_name\":\"Medium Serve\",\"modifier_rate\":250},{\"modifier_id\":6,\"modifier_name\":\"Large Serve\",\"modifier_rate\":350},{\"modifier_id\":9,\"modifier_name\":\"Schezwan Sauce\",\"modifier_rate\":140},{\"modifier_id\":10,\"modifier_name\":\"Tomato Sauce\",\"modifier_rate\":200}],\"multiplier\":1},{\"item_id\":2,\"item_name\":\"Aloo Tikki Burger\",\"item_rate\":462,\"modifiers\":[{\"modifier_id\":1,\"modifier_name\":\"Mozzerella Cheeze\",\"modifier_rate\":200},{\"modifier_id\":2,\"modifier_name\":\"Cheddar Cheeze\",\"modifier_rate\":300},{\"modifier_id\":3,\"modifier_name\":\"Regular Cheeze (Extra)\",\"modifier_rate\":100},{\"modifier_id\":9,\"modifier_name\":\"Schezwan Sauce\",\"modifier_rate\":140},{\"modifier_id\":10,\"modifier_name\":\"Tomato Sauce\",\"modifier_rate\":200}],\"multiplier\":1},{\"item_id\":5,\"item_name\":\"Schezwan Sizzling Burger\",\"item_rate\":554.4,\"modifiers\":[{\"modifier_id\":4,\"modifier_name\":\"Small Serve\",\"modifier_rate\":150},{\"modifier_id\":5,\"modifier_name\":\"Medium Serve\",\"modifier_rate\":250}],\"multiplier\":1}],\"taxes\":{\"GST\":856.08,\"SGST\":0,\"Service Charge\":140},\"subTotal\":4756,\"total\":5752.08}",
+                "payment_mode": "Card",
+                "payment_status": "Completed",
+                "bill_amount": 5752,
+                "rating": "4",
+                "comment": null,
+                "deleted_at": null,
+                "created_at": "2025-04-24T08:24:28.000000Z",
+                "updated_at": "2025-04-24T08:24:28.000000Z"
+            }
+        },
+        {
+            "id": 5,
+            "order_id": 3,
+            "item_category": 1,
+            "status": 0,
+            "item_data": {
+                "items": {
+                    "item_id": 3,
+                    "item_name": "Cheeze Blast Pizza",
+                    "item_rate": 1309.44,
+                    "modifiers": [
+                        {
+                            "modifier_id": 1,
+                            "modifier_name": "Mozzerella Cheeze",
+                            "modifier_rate": 200
+                        },
+                        {
+                            "modifier_id": 2,
+                            "modifier_name": "Cheddar Cheeze",
+                            "modifier_rate": 300
+                        },
+                        {
+                            "modifier_id": 4,
+                            "modifier_name": "Small Serve",
+                            "modifier_rate": 150
+                        },
+                        {
+                            "modifier_id": 5,
+                            "modifier_name": "Medium Serve",
+                            "modifier_rate": 250
+                        },
+                        {
+                            "modifier_id": 9,
+                            "modifier_name": "Schezwan Sauce",
+                            "modifier_rate": 140
+                        },
+                        {
+                            "modifier_id": 10,
+                            "modifier_name": "Tomato Sauce",
+                            "modifier_rate": 200
+                        }
+                    ],
+                    "multiplier": 1
+                },
+                "tables": [
+                    "L3"
+                ],
+                "section": "Lawn"
+            },
+            "deleted_at": null,
+            "created_at": "2025-04-24T08:33:00.000000Z",
+            "updated_at": "2025-04-24T08:33:00.000000Z",
+            "order": {
+                "id": 3,
+                "customer_id": 6,
+                "order_status": "Ordered",
+                "order_data": "{\"table_ids\":[7],\"table_names\":[\"L3\"],\"section_id\":2,\"section_name\":\"Lawn\",\"items\":[{\"item_id\":3,\"item_name\":\"Cheeze Blast Pizza\",\"item_rate\":1309.44,\"modifiers\":[{\"modifier_id\":1,\"modifier_name\":\"Mozzerella Cheeze\",\"modifier_rate\":200},{\"modifier_id\":2,\"modifier_name\":\"Cheddar Cheeze\",\"modifier_rate\":300},{\"modifier_id\":4,\"modifier_name\":\"Small Serve\",\"modifier_rate\":150},{\"modifier_id\":5,\"modifier_name\":\"Medium Serve\",\"modifier_rate\":250},{\"modifier_id\":9,\"modifier_name\":\"Schezwan Sauce\",\"modifier_rate\":140},{\"modifier_id\":10,\"modifier_name\":\"Tomato Sauce\",\"modifier_rate\":200}],\"multiplier\":1}],\"taxes\":{\"GST\":458.82,\"SGST\":0,\"Service Charge\":140},\"subTotal\":2549,\"total\":3147.8199999999997}",
+                "payment_mode": "Card",
+                "payment_status": "Completed",
+                "bill_amount": 3148,
+                "rating": "4",
+                "comment": null,
+                "deleted_at": null,
+                "created_at": "2025-04-24T08:33:00.000000Z",
+                "updated_at": "2025-04-24T08:33:00.000000Z"
+            }
+        }
+    ]
 } -->
         <div class="orderCard" *ngFor="let kot of category.kots">
           <div>
@@ -47,14 +218,14 @@
           </div>
           <div class="orderItems">
             <div class="itemRow">
-              <span class="itemName">Margherita</span>
-              <span class="itemQty">2</span>
+              <span class="itemName">{{kot.item_data.items.item_name}}</span>
+              <span class="itemQty">{{kot.item_data.items.multiplier}}</span>
             </div>
             <ul class="modifiersList">
-              <li>test</li>
+              <li *ngFor="let modifier of kot.item_data.items.modifiers">{{modifier.modifier_name}}</li>
             </ul>
           </div>
-          <div class="orderFooter">ts</div>
+          <div class="orderFooter"></div>
         </div>
       </div>
     </mat-tab>

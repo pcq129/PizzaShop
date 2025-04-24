@@ -45,7 +45,7 @@ export class TaxFeesComponent implements OnInit {
     this.taxfeeservice.getAllTaxFeesData().subscribe({
       next: (res: any)=>{
         if(res.status == "false"){
-          this.snackbarservice.multipleErrors(res.message);
+          this.snackbarservice.error(res.message);
         }
         else{
           console.log(res);
@@ -55,7 +55,7 @@ export class TaxFeesComponent implements OnInit {
         }
       },
       error: (error)=>{
-        this.snackbarservice.error("Error");
+        this.snackbarservice.error(error.message);
         console.log(error);
 
       }
@@ -122,14 +122,14 @@ export class TaxFeesComponent implements OnInit {
         this.taxfeeservice.addTaxFees(result).subscribe({
           next: (res: any) => {
             if (res.status === 'false') {
-              this.snackbarservice.multipleErrors(res.message);
+              this.snackbarservice.error(res.message);
             } else {
-              this.snackbarservice.success('Tax added successfully');
+              this.snackbarservice.success(res.message);
               this.getTaxList();
             }
           },
           error: (error) => {
-            this.snackbarservice.success('Error adding Tax');
+            this.snackbarservice.success(error.message);
           },
         });
       } else {
@@ -162,14 +162,14 @@ export class TaxFeesComponent implements OnInit {
         this.taxfeeservice.editTaxFees(result).subscribe({
           next: (res: any) => {
             if (res.status === 'false') {
-              this.snackbarservice.multipleErrors(res.message);
+              this.snackbarservice.error(res.message);
             } else {
-              this.snackbarservice.success('Tax edited successfully');
+              this.snackbarservice.success(res.message);
               this.getTaxList();
             }
           },
           error: (error) => {
-            this.snackbarservice.success('Error while editing Tax');
+            this.snackbarservice.success(error.message);
           },
         });
       } else {
@@ -196,14 +196,14 @@ export class TaxFeesComponent implements OnInit {
           this.taxfeeservice.deleteTaxFees(result).subscribe({
             next: (res: any) => {
               if (res.status === 'false') {
-                this.snackbarservice.multipleErrors(res.message);
+                this.snackbarservice.error(res.message);
               } else {
                 this.snackbarservice.success('Table deleted successfully');
                 this.getTaxList();
               }
             },
             error: (error) => {
-              this.snackbarservice.success('Error deleting Table');
+              this.snackbarservice.success(error.message);
             },
           });
         } else {

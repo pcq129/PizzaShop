@@ -69,6 +69,7 @@ export class OrderService {
     let data: any = {};
     data.table_ids = orderData.table_ids;
     data.customer_id = orderData.customer_id;
+    data.order_id = orderData.id;
     return this.http.put(environment.baseURL + 'order', data)
   }
 

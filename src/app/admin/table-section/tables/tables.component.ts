@@ -84,8 +84,8 @@ export class TablesComponent implements OnInit {
       if (result.name && result.status && result.capacity) {
         this.tablesectionservice.addTable(result).subscribe({
           next: (res: any) => {
-            if (res.status === 'false') {
-              this.snackbarservice.multipleErrors(res.message);
+            if (res.status == 'false') {
+              this.snackbarservice.error(res.message);
             } else {
               this.snackbarservice.success('Table added successfully');
               this.getTableList.emit(true);
@@ -126,7 +126,7 @@ export class TablesComponent implements OnInit {
         this.tablesectionservice.editTable(result).subscribe({
           next: (res: any) => {
             if (res.status === 'false') {
-              this.snackbarservice.multipleErrors(res.message);
+              this.snackbarservice.error(res.message);
             } else {
               this.snackbarservice.success('Table updated successfully');
               this.getTableList.emit(true);
@@ -166,7 +166,7 @@ export class TablesComponent implements OnInit {
           this.tablesectionservice.deleteTable(result).subscribe({
             next: (res: any) => {
               if (res.status === 'false') {
-                this.snackbarservice.multipleErrors(res.message);
+                this.snackbarservice.error(res.message);
               } else {
                 this.snackbarservice.success('Table deleted successfully');
                 this.getTableList.emit(true);

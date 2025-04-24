@@ -74,7 +74,7 @@ export class UserDialogComponent implements OnInit {
     if (this.data.passwords == false) {
       this.passwords = false;
       this.userForm.controls.password.clearValidators();
-      this.userForm.controls.confirmPassword. Validators;
+      this.userForm.controls.confirmPassword.clearValidators();
       this.userForm.setValidators(null);
     }
   }
@@ -244,4 +244,9 @@ export class UserDialogComponent implements OnInit {
     }
     return;
   }
+
+  // printdata(){
+  //   console.log(this.userForm);
+
+  // }
 }

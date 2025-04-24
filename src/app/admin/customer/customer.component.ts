@@ -94,7 +94,9 @@ export class CustomerComponent implements OnInit {
         }
       },
       error: (error)=>{
-        this.snackbarService.error(error.toString())
+        console.log(error);
+
+        this.snackbarService.error(error.message)
       }
     })
   }

@@ -10,7 +10,7 @@
 }
 
 .hiddenIcon {
-  // visibility: hidden;
+  visibility: hidden;
 
 }
 
@@ -29,4 +29,10 @@
 
 .editSectionDialogInput {
   width: 100%;
+}
+
+.right{
+  display: flex;
+  flex-direction: row-reverse;
+
 }

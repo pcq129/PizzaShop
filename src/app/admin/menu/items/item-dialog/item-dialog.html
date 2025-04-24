@@ -146,16 +146,17 @@
 
     <img *ngIf="data.image" class="itemImage" [src]="imageUrl" />
   </div>
-  <div mat-dialog-actions>
-    <button mat-button type="button" (click)="onNoClick()">Cancel</button>
-    <!-- <button mat-button type="button" (click)="printData()">print</button> -->
+  <div mat-dialog-actions class="right">
+
     <button
       mat-button
       [mat-dialog-close]="dataForm.value"
-      [disabled]="!dataForm.valid"
+      [disabled]="!dataForm.valid || disableForm"
       cdkFocusInitial
     >
       Save
     </button>
+    <button mat-button type="button" (click)="onNoClick()">Cancel</button>
+    <!-- <button mat-button type="button" (click)="printData()">print</button> -->
   </div>
 </form>

@@ -61,7 +61,7 @@ export class SectionComponent implements OnInit, OnChanges {
         this.tablesectionservice.editSection(result).subscribe({
           next: (res: any) => {
             if (res.status === 'false') {
-              this.snackbarservice.multipleErrors(res.message);
+              this.snackbarservice.error(res.message);
             } else {
               this.snackbarservice.success('Section updated successfully');
               this.getSectionList.emit(true);
@@ -92,7 +92,7 @@ export class SectionComponent implements OnInit, OnChanges {
         this.tablesectionservice.addSection(result).subscribe({
           next: (res: any) => {
             if (res.status === 'false') {
-              this.snackbarservice.multipleErrors(res.message);
+              this.snackbarservice.error(res.message);
             } else {
               this.snackbarservice.success('Section added successfully');
               this.getSectionList.emit(true);
@@ -126,7 +126,7 @@ export class SectionComponent implements OnInit, OnChanges {
         this.tablesectionservice.deleteSection(result).subscribe({
           next: (res: any) => {
             if (res.status === 'false') {
-              this.snackbarservice.multipleErrors(res.message);
+              this.snackbarservice.error(res.message);
             } else {
               this.snackbarservice.success('Section deleted successfully');
               this.getSectionList.emit(true);

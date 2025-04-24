@@ -45,7 +45,7 @@ export class TableSectionComponent implements OnInit {
       {
         next: (res : any)=>{
           if(res.status === "false"){
-            this.snackbarservice.multipleErrors(res);
+            this.snackbarservice.error(res.message);
           }
           else{
             this.sectionsList = res.data;
@@ -70,7 +70,7 @@ export class TableSectionComponent implements OnInit {
       {
         next: (res : any)=>{
           if(res.status === "false"){
-            this.snackbarservice.multipleErrors(res);
+            this.snackbarservice.error(res);
           }
           else{
             this.tablesList = res.data;
@@ -97,7 +97,7 @@ export class TableSectionComponent implements OnInit {
       {
         next: (res : any)=>{
           if(res.status === "false"){
-            this.snackbarservice.multipleErrors(res);
+            this.snackbarservice.error(res);
           }
           else{
             this.viewTables = res.data.tables;
