@@ -10,7 +10,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AuthService } from './_services/auth.service';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { CategoryModule } from './admin/category/category.module';
-import { LoggingInterceptor } from './logging.interceptor';
+import { LoggingInterceptor } from '../helper/logging.interceptor';
 
 // import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
@@ -18,7 +18,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { CommonDialogModule } from './admin/category/common-dialog/common-dialog.module';
 import { SharedModule } from './common/common-module.module';
 import { MatSelectModule } from '@angular/material/select';
-import { HeadersInterceptor } from './headers.interceptor';
+import { HeadersInterceptor } from '../helper/headers.interceptor';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { OrderappModule } from './orderapp/orderapp.module';
 import { PageNotFoundModule } from './common/page-not-found/page-not-found.module';

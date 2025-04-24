@@ -17,13 +17,13 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
 // const routes: Routes = [
 //   {
 //     path: 'forgot-password',
-//     canActivate: [AuthGuard],
+//     canActivate: [LoginGuard],
 //     component: ForgotPasswordComponent,
 //     pathMatch: 'full',
 //   },
 //   {
 //     path: '',
-//     canActivate: [AuthGuard],
+//     canActivate: [LoginGuard],
 //     component: LoginFormComponent,
 //     pathMatch: 'full',
 //   },

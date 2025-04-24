@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { ChartConfiguration } from 'chart.js';
 import { DashboardService } from 'src/app/_services/dashboard.service';
 
 export interface cardData {
@@ -22,6 +23,11 @@ export class DashboardComponent implements OnInit {
     this.getDashboardData(3);
   }
 
+  public chartOptions: ChartConfiguration['options'] = {
+    responsive: true,
+    maintainAspectRatio: false, // allows height to be controlled via CSS
+  };
+
   getDashboardData(filter?: number) {
     console.log(filter);
 
@@ -35,11 +41,21 @@ export class DashboardComponent implements OnInit {
         );
         this.watitngTimeMinutes = res.data.average_waiting_minutes % 60;
         this.revenueChart = {
-          labels: this.dashboardData.chart1.labels,
+          labels: this.dashboardData.revenue.labels,
           datasets: [
             {
               label: 'Sales',
-              data: this.dashboardData.chart1.data,
+              data: this.dashboardData.revenue.data,
+              backgroundColor: 'rgba(75, 192, 192, 0.6)'
+            }
+          ]
+        };
+        this.customerGrowthChart = {
+          labels: this.dashboardData.customer_growth.labels,
+          datasets: [
+            {
+              label: 'Growth',
+              data: this.dashboardData.customer_growth.data,
               backgroundColor: 'rgba(75, 192, 192, 0.6)'
             }
           ]
@@ -74,6 +90,6 @@ export class DashboardComponent implements OnInit {
   };
   waitingTimeHours: any;
   watitngTimeMinutes: any;
-
   revenueChart : any;
+  customerGrowthChart : any;
 }

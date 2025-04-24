@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CategoryComponent } from './admin/category/category.component';
-import { AuthGuard } from 'src/helper/auth.guard';
+import { LoginGuard } from 'src/helper/login.guard';
 // import { LayoutComponent } from './admin/app.component';
 // import { AppComponent } from './app.component';
 import { LoginComponent } from './auth/login/login.component';
@@ -37,73 +37,73 @@ const routes: Routes = [
   // },
   {
     path: '',
-    canActivate: [AuthGuard],
+    canActivate: [LoginGuard],
     component: AdminComponent,
     // pathMatch: 'prefix',
     children: [
       {
         path: 'category',
-        canActivate: [AuthGuard],
+        canActivate: [LoginGuard],
         component: CategoryComponent,
       },
       {
         path: 'menu',
-        canActivate: [AuthGuard],
+        canActivate: [LoginGuard],
         component: MenuComponent,
       },
       {
         path: '',
-        canActivate: [AuthGuard],
+        canActivate: [LoginGuard],
         component: DashboardComponent,
         pathMatch: 'full',
       },
       {
         path: 'dashboard',
-        canActivate: [AuthGuard],
+        canActivate: [LoginGuard],
         component: DashboardComponent,
         pathMatch: 'full',
       },
       {
         path: 'sections',
-        canActivate: [AuthGuard],
+        canActivate: [LoginGuard],
         component: TableSectionComponent,
         pathMatch: 'full',
       },
       {
         path: 'taxes-fees',
-        canActivate: [AuthGuard],
+        canActivate: [LoginGuard],
         component: TaxFeesComponent,
       },
       {
         path: 'orders',
-        canActivate: [AuthGuard],
+        canActivate: [LoginGuard],
         component: OrdersComponent,
       },
       {
         path: 'orders/details',
-        canActivate: [AuthGuard],
+        canActivate: [LoginGuard],
         component: OrderDetailsComponent,
       },
       {
         path: 'customers',
-        canActivate: [AuthGuard],
+        canActivate: [LoginGuard],
         component: CustomerComponent,
       },
       {
         path: 'profile-password',
-        canActivate: [AuthGuard],
+        canActivate: [LoginGuard],
         component: ChangePasswordComponent,
         pathMatch: 'full',
       },
       {
         path: 'profile',
-        canActivate: [AuthGuard],
+        canActivate: [LoginGuard],
         component: ProfileComponent,
         pathMatch: 'full',
       },
       {
         path: 'users',
-        canActivate: [AuthGuard],
+        canActivate: [LoginGuard],
         component: UsersComponent,
         pathMatch: 'full',
       },
@@ -121,53 +121,53 @@ const routes: Routes = [
     children: [
       {
         path: 'menu',
-        canActivate: [AuthGuard],
+        canActivate: [LoginGuard],
         component: OrderMenuComponent,
       },
       {
         path: 'tables',
-        canActivate: [AuthGuard],
+        canActivate: [LoginGuard],
         component: OrderTablesComponent,
       },
       {
         path: 'running',
-        canActivate: [AuthGuard],
+        canActivate: [LoginGuard],
         component: OrderTablesComponent,
       },
       {
         path: 'waiting-list',
-        canActivate: [AuthGuard],
+        canActivate: [LoginGuard],
         component: WaitingListComponent,
       },
       {
         path: 'kot',
-        canActivate: [AuthGuard],
+        canActivate: [LoginGuard],
         component: KotComponent,
       },
     ],
   },
   {
     path: 'login',
-    canActivate: [AuthGuard],
+    canActivate: [LoginGuard],
     component: LoginComponent,
     children: [
       {
         path: 'forgot-password',
-        canActivate: [AuthGuard],
+        canActivate: [LoginGuard],
         component: ForgotPasswordComponent,
         pathMatch: 'full',
       },
 
       {
         path: '',
-        // canActivate: [AuthGuard],
+        // canActivate: [LoginGuard],
         component: LoginFormComponent,
         pathMatch: 'full',
       },
 
       {
         path: 'change-password',
-        canActivate: [AuthGuard],
+        canActivate: [LoginGuard],
         component: ResetPasswordComponent,
         pathMatch: 'full',
       },
@@ -175,18 +175,18 @@ const routes: Routes = [
   },
   {
     path: '**',
-    canActivate: [AuthGuard],
+    canActivate: [LoginGuard],
     component: PageNotFoundComponent,
     children: [
       // {
       //   path: 'dashboard',
-      //   canActivate: [AuthGuard],
+      //   canActivate: [LoginGuard],
       //   component: MenuComponent,
       //   pathMatch: 'full',
       // },
       {
         path: 'login',
-        canActivate: [AuthGuard],
+        canActivate: [LoginGuard],
         component: DashboardComponent,
         pathMatch: 'full',
       },

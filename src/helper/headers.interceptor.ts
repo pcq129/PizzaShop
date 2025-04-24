@@ -9,8 +9,8 @@ import {
 } from '@angular/common/http';
 import { catchError, Observable, of, throwError } from 'rxjs';
 import { Router } from '@angular/router';
-import { AuthService } from './_services/auth.service';
-import { SnackbarService } from './_services/snackbar.service';
+import { AuthService} from 'src/app/_services/auth.service';
+import { SnackbarService } from 'src/app/_services/snackbar.service';
 
 @Injectable()
 export class HeadersInterceptor implements HttpInterceptor {
