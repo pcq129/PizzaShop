@@ -31,7 +31,10 @@ export class customerDetailDialog implements OnInit {
       order.order_data.total>this.maxAmt ? this.maxAmt = order.order_data.total: null ;
     });
 
-    return Math.floor(average/this.visits);
+    average = Math.floor(average/this.visits);
+    return isNaN(average) ? 0 : average;
+
+
   }
 
   displayedColumns = ['orderDate', 'orderType', 'payment', 'items', 'amount'];

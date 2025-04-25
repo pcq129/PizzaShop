@@ -19,6 +19,7 @@ import { MenuModule } from './menu/menu.module';
 import { ChangePasswordModule } from './change-password/change-password.module';
 import { ProfileModule } from './profile/profile.module';
 import { UsersModule } from './users/users.module';
+import { RolePermissionModule } from './role-permission/role-permission.module';
 
 @NgModule({
   declarations: [AdminComponent],
@@ -42,7 +43,8 @@ import { UsersModule } from './users/users.module';
     MenuModule,
     ChangePasswordModule,
     ProfileModule,
-    UsersModule
+    UsersModule,
+    RolePermissionModule
   ],
   exports: [AdminComponent],
 })

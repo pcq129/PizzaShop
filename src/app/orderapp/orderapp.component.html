@@ -4,11 +4,12 @@
   <span class="brandName">PizzaShop</span>
   </div>
   <div class="chipsAndProfile ">
-    <mat-chip-list aria-label="Fish selection" class="chips">
-      <mat-chip (click)="navigate('orderapp/kot')" class="clickable"><mat-icon>assignment</mat-icon>KOT</mat-chip>
-      <mat-chip (click)="navigate('orderapp/waiting-list')" class="clickable"><mat-icon>access_time</mat-icon>Waiting List</mat-chip>
-      <mat-chip (click)="navigate('orderapp/tables')" class="clickable"><mat-icon>crop_square</mat-icon>Tables</mat-chip>
-      <mat-chip (click)="navigate('orderapp/menu')" class="clickable"><mat-icon>restaurant_menu</mat-icon>Menu</mat-chip>
+    <mat-chip-list class="chips">
+      <!--  -->
+      <mat-chip selected="{{selected('kot')}}"  (click)="navigate('orderapp/kot')" class="clickable" ><mat-icon>assignment</mat-icon>KOT</mat-chip>
+      <mat-chip selected="{{selected('waiting-list')}}"  (click)="navigate('orderapp/waiting-list')" class="clickable" ><mat-icon>access_time</mat-icon>Waiting List</mat-chip>
+      <mat-chip selected="{{selected('tables')}}"  (click)="navigate('orderapp/tables')" class="clickable" ><mat-icon>crop_square</mat-icon>Tables</mat-chip>
+      <mat-chip selected="{{selected('menu')}}"  (click)="navigate('orderapp/menu')" class="clickable" ><mat-icon>restaurant_menu</mat-icon>Menu</mat-chip>
       <!-- <mat-chip (click)="navigate('orderapp/running')" class="clickable"><mat-icon>timer</mat-icon>Running Orders </mat-chip> -->
 
     </mat-chip-list>

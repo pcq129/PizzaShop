@@ -30,4 +30,8 @@ export class UserService {
   searchUser(search : string){
     return this.http.get(environment.baseURL + `user/search/${search}`);
   }
+
+  getRoles(){
+    return this.http.get(environment.baseURL + `roles`)
+  }
 }

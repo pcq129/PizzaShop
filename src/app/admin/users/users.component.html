@@ -45,7 +45,7 @@
     <ng-container matColumnDef="role">
       <th mat-header-cell *matHeaderCellDef>Role</th>
       <td mat-cell *matCellDef="let element">
-        {{element.role | roleLabel}}</td>
+        {{element.roles[0].name | titlecase}}</td>
     </ng-container>
 
     <!-- Symbol Column -->

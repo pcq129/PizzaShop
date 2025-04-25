@@ -50,17 +50,17 @@
               <checkbox  *ngFor="let modifier of data.containedModifierList" value="item1">Item 1</checkbox>
           </checkbox-group> -->
   </div>
-  <div mat-dialog-actions>
-    <button mat-button type="button" (click)="onNoClick()">Cancel</button>
+  <div mat-dialog-actions class="right">
     <button
-      mat-button
-      type="submit"
-      [disabled]="!modifierGroupForm.valid"
-      [mat-dialog-close]="modifierGroupForm.value"
-      cdkFocusInitial
+    mat-button
+    type="submit"
+    [disabled]="!modifierGroupForm.valid"
+    [mat-dialog-close]="modifierGroupForm.value"
+    cdkFocusInitial
     >
-      Submit
-    </button>
+    Submit
+  </button>
+  <button mat-button type="button" (click)="onNoClick()">Cancel</button>
     <!-- <button (click)="printdata()"></button> -->
   </div>
 </form>

@@ -37,6 +37,11 @@ export class AdminComponent implements OnInit {
       redirect: 'users',
     },
     {
+      icon: `settings`,
+      title: 'Roles and Permissions',
+      redirect: 'role-permissions',
+    },
+    {
       icon: `restaurant_menu`,
       title: 'Menu',
       redirect: 'menu',

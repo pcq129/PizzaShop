@@ -27,6 +27,7 @@ import { ProfileComponent } from './admin/profile/profile.component';
 import { ResetPasswordComponent } from './auth/login/reset-password/reset-password.component';
 import { UsersComponent } from './admin/users/users.component';
 import { KotComponent } from './orderapp/kot/kot.component';
+import { RolePermissionComponent } from './admin/role-permission/role-permission.component';
 // import { DashboardComponent } from './app/dashboard/dashboard.component';
 const routes: Routes = [
   // {
@@ -78,6 +79,11 @@ const routes: Routes = [
         path: 'orders',
         canActivate: [LoginGuard],
         component: OrdersComponent,
+      },
+      {
+        path: 'role-permissions',
+        canActivate: [LoginGuard],
+        component: RolePermissionComponent  ,
       },
       {
         path: 'orders/details',

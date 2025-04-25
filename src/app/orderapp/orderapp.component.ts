@@ -20,10 +20,18 @@ export class OrderappComponent implements OnInit {
   logout() {
     this.authService.clear();
   }
+  currentPage : string = '';
   navigate(link: string){
+    this.currentPage = link;
     this.router.navigateByUrl(link);
   }
 
+  selected(page : string){
+    if(this.router.url.endsWith(page)){
+      return true;
+    }
+    return false;
+  }
   sectionData: any;
   getSectionData() {
     this.tableSectionService.getAllSectionData().subscribe({

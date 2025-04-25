@@ -1,0 +1,11 @@
+<div class="body">
+  <div class="titlebar">
+    <span class="title">Roles and Permissions</span>
+  </div>
+  <div class="rolesList">
+    <mat-chip-list aria-label="Fish selection" >
+      <!-- <mat-chip color="primary" selected>Primary fish</mat-chip> -->
+      <mat-chip (click)="fetchPermissions(role.id)" *ngFor="let role of rolesData" color="{{currentRole == role.id? 'primary':'accent'}}" selected>{{snakeToTitleCase(role.name)}}</mat-chip>
+    </mat-chip-list>
+  </div>
+</div>

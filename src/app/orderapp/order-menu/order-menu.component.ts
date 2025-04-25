@@ -30,7 +30,7 @@ export class OrderMenuComponent implements OnInit {
     this.getCategoryData();
     this.orderService.currentData.subscribe((res: any) => {
       if (!res) {
-        this.snackbarService.info('Please assign tables first');
+        // this.snackbarService.info('Please assign tables first');
         this.router.navigate(['orderapp/tables']);
       }
       this.orderData = res;

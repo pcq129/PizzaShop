@@ -8,6 +8,7 @@
       *ngIf="modifierGroup.modifiers.length != 0"
       [expanded]="currentMG == modifierGroup.id"
       (opened)="currentMG = modifierGroup.id"
+      class="modifierDialog"
     >
       <mat-expansion-panel-header>
         <mat-panel-title>{{modifierGroup.name}}</mat-panel-title>
@@ -31,8 +32,8 @@
   </mat-accordion>
 </div>
 <div mat-dialog-actions class="bottom">
-  <button mat-button [mat-dialog-close]="selectedModifiers">Add</button>
   <button mat-button (click)="onNoClick()">Close</button>
+  <button mat-button [mat-dialog-close]="selectedModifiers">Add</button>
 </div>
 
 <!-- {
