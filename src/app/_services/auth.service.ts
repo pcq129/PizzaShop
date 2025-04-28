@@ -10,13 +10,19 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root',
 })
 export class AuthService {
+
   constructor(private router: Router, private http: HttpClient) {}
 
   getToken() {
     return localStorage.getItem('access_token');
   }
 
+  getRole(){
+    return localStorage.getItem('role');
+  }
+
   access_token: string | null = this.getToken();
+  role: string|null = this.getRole();
 
   // solution of login session ending on refresh by senior
   // isLoggedIn = new BehaviorSubject<boolean>(this.hasToken());
@@ -26,13 +32,19 @@ export class AuthService {
 
   //test implementation
   isLoggedIn = localStorage.getItem('isLoggedIn');
+  // role = localStorage.getItem('role');
   // this.checkLoggedIn(this.access_token!);
 
   handleLogin(data: any) {
     this.isLoggedIn = '1';
     this.setItem('access_token', data.access_token);
     this.setItem('isLoggedIn', '1');
-    this.router.navigate(['dashboard']);
+    this.setItem('role', data.role[0].name);
+    if(data.role[0].name=='chef'){
+      this.router.navigate(['orderapp/kot']);
+    }else{
+      this.router.navigate(['dashboard']);
+    }
   }
 
   checkCredentials(email: string, password: string) {

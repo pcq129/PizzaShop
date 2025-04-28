@@ -21,3 +21,25 @@
 .title{
   margin-left: 10px;
 }
+.permissionTable{
+  width: 100%;
+}
+
+.tableContainer{
+  margin: 20px;
+  height: 450px;
+}
+
+.right{
+  display: flex;
+  flex-direction: row-reverse;
+  margin-top: 20px;
+}
+
+.noDataBanner{
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

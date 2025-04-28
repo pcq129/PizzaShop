@@ -4,6 +4,10 @@ import { RolePermissionComponent } from './role-permission.component';
 import { MatChipsModule } from '@angular/material/chips';
 import { UserService } from 'src/app/_services/user.service';
 import { SnackbarService } from 'src/app/_services/snackbar.service';
+import { MatCardModule } from '@angular/material/card';
+import { MatTableModule } from '@angular/material/table';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatButtonModule } from '@angular/material/button';
 
 
 
@@ -13,7 +17,11 @@ import { SnackbarService } from 'src/app/_services/snackbar.service';
   ],
   imports: [
     CommonModule,
-    MatChipsModule
+    MatChipsModule,
+    MatCardModule,
+    MatTableModule,
+    MatSlideToggleModule,
+    MatButtonModule
   ],
   providers: [
     UserService, SnackbarService

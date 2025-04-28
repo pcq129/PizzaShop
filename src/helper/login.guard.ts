@@ -31,7 +31,12 @@ export class LoginGuard implements CanActivate {
         route.routeConfig?.path == 'forgot-password' ||
         route.routeConfig?.path == 'change-password'
       ) {
-        this.router.navigate(['dashboard']);
+        if(this.authService.role!='chef'){
+          this.router.navigate(['dashboard']);
+        }
+        else{
+          this.router.navigate(['orderapp/kot'])
+        }
         return false;
       }
       return true;

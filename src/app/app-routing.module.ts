@@ -28,6 +28,8 @@ import { ResetPasswordComponent } from './auth/login/reset-password/reset-passwo
 import { UsersComponent } from './admin/users/users.component';
 import { KotComponent } from './orderapp/kot/kot.component';
 import { RolePermissionComponent } from './admin/role-permission/role-permission.component';
+import { Role } from './common/interfaces/role';
+import { AuthGuard } from 'src/helper/auth.guard';
 // import { DashboardComponent } from './app/dashboard/dashboard.component';
 const routes: Routes = [
   // {
@@ -38,80 +40,102 @@ const routes: Routes = [
   // },
   {
     path: '',
-    canActivate: [LoginGuard],
+    canActivate: [AuthGuard, LoginGuard],
     component: AdminComponent,
-    // pathMatch: 'prefix',
+    data: { roles: [Role.Super_Admin, Role.Account_Manager] },
+
     children: [
       {
         path: 'category',
-        canActivate: [LoginGuard],
+        canActivate: [AuthGuard, LoginGuard],
+
         component: CategoryComponent,
+        data: { roles: [Role.Super_Admin, Role.Account_Manager] }
       },
       {
         path: 'menu',
-        canActivate: [LoginGuard],
+        canActivate: [AuthGuard, LoginGuard],
+
         component: MenuComponent,
+        data: { roles: [Role.Super_Admin, Role.Account_Manager] }
+
       },
       {
         path: '',
-        canActivate: [LoginGuard],
+        canActivate: [AuthGuard, LoginGuard],
         component: DashboardComponent,
         pathMatch: 'full',
+        data: { roles: [Role.Super_Admin, Role.Account_Manager] }
+
       },
       {
         path: 'dashboard',
-        canActivate: [LoginGuard],
+        canActivate: [AuthGuard, LoginGuard],
         component: DashboardComponent,
         pathMatch: 'full',
+        data: { roles: [Role.Super_Admin, Role.Account_Manager] }
+
       },
       {
         path: 'sections',
-        canActivate: [LoginGuard],
+        canActivate: [AuthGuard, LoginGuard],
         component: TableSectionComponent,
         pathMatch: 'full',
+        data: { roles: [Role.Super_Admin, Role.Account_Manager] }
       },
       {
         path: 'taxes-fees',
-        canActivate: [LoginGuard],
+        canActivate: [AuthGuard, LoginGuard],
         component: TaxFeesComponent,
+        data: { roles: [Role.Super_Admin, Role.Account_Manager] }
+
       },
       {
         path: 'orders',
-        canActivate: [LoginGuard],
+        canActivate: [AuthGuard, LoginGuard],
         component: OrdersComponent,
+        data: { roles: [Role.Super_Admin, Role.Account_Manager] }
+
       },
       {
         path: 'role-permissions',
-        canActivate: [LoginGuard],
-        component: RolePermissionComponent  ,
+        canActivate: [AuthGuard],
+        component: RolePermissionComponent,
+        data: { roles: [Role.Super_Admin] }
       },
       {
         path: 'orders/details',
-        canActivate: [LoginGuard],
+        canActivate: [AuthGuard, LoginGuard],
         component: OrderDetailsComponent,
+        data: { roles: [Role.Super_Admin, Role.Account_Manager] }
+
       },
       {
         path: 'customers',
-        canActivate: [LoginGuard],
+        canActivate: [AuthGuard, LoginGuard],
         component: CustomerComponent,
+        data: { roles: [Role.Super_Admin, Role.Account_Manager] }
       },
       {
         path: 'profile-password',
-        canActivate: [LoginGuard],
+        canActivate: [AuthGuard, LoginGuard],
         component: ChangePasswordComponent,
         pathMatch: 'full',
+        data: { roles: [Role.Super_Admin, Role.Account_Manager, Role.Chef] }
       },
       {
         path: 'profile',
-        canActivate: [LoginGuard],
+        canActivate: [AuthGuard, LoginGuard],
         component: ProfileComponent,
         pathMatch: 'full',
+        data: { roles: [Role.Super_Admin, Role.Account_Manager, Role.Chef] }
       },
       {
         path: 'users',
-        canActivate: [LoginGuard],
+        canActivate: [AuthGuard, LoginGuard],
         component: UsersComponent,
         pathMatch: 'full',
+        data: { roles: [Role.Super_Admin] }
       },
     ],
   },
@@ -127,28 +151,38 @@ const routes: Routes = [
     children: [
       {
         path: 'menu',
-        canActivate: [LoginGuard],
+        canActivate: [AuthGuard, LoginGuard],
         component: OrderMenuComponent,
+        data: { roles: [Role.Super_Admin, Role.Account_Manager] }
+
       },
       {
         path: 'tables',
-        canActivate: [LoginGuard],
+        canActivate: [AuthGuard, LoginGuard],
         component: OrderTablesComponent,
+        data: { roles: [Role.Super_Admin, Role.Account_Manager] }
+
       },
       {
         path: 'running',
-        canActivate: [LoginGuard],
+        canActivate: [AuthGuard, LoginGuard],
         component: OrderTablesComponent,
+        data: { roles: [Role.Super_Admin, Role.Account_Manager] }
+
       },
       {
         path: 'waiting-list',
-        canActivate: [LoginGuard],
+        canActivate: [AuthGuard, LoginGuard],
         component: WaitingListComponent,
+        data: { roles: [Role.Super_Admin, Role.Account_Manager] }
+
       },
       {
         path: 'kot',
-        canActivate: [LoginGuard],
+        canActivate: [AuthGuard, LoginGuard],
         component: KotComponent,
+        data: { roles: [Role.Super_Admin, Role.Account_Manager, Role.Chef] }
+
       },
     ],
   },

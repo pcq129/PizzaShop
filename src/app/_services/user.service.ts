@@ -34,4 +34,11 @@ export class UserService {
   getRoles(){
     return this.http.get(environment.baseURL + `roles`)
   }
+
+  updateRoles(id: number, permissions: string[]){
+    let data = {
+      permissions : permissions
+    }
+    return this.http.post(environment.baseURL + `update-role/${id}`, data)
+  }
 }

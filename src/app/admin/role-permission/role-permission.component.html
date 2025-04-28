@@ -3,9 +3,76 @@
     <span class="title">Roles and Permissions</span>
   </div>
   <div class="rolesList">
-    <mat-chip-list aria-label="Fish selection" >
+    <mat-chip-list aria-label="Fish selection">
       <!-- <mat-chip color="primary" selected>Primary fish</mat-chip> -->
-      <mat-chip (click)="fetchPermissions(role.id)" *ngFor="let role of rolesData" color="{{currentRole == role.id? 'primary':'accent'}}" selected>{{snakeToTitleCase(role.name)}}</mat-chip>
+      <mat-chip
+        (click)="fetchPermissions(role)"
+        *ngFor="let role of rolesData"
+        color="{{ currentRole == role.id ? 'primary' : 'accent' }}"
+        selected
+        >{{ snakeToTitleCase(role.name) }}</mat-chip
+      >
     </mat-chip-list>
   </div>
+  <mat-card class="tableContainer">
+    <div class="noDataBanner" *ngIf="currentRole == 0">
+      <span> No Role selected </span>
+    </div>
+    <table
+      *ngIf="currentRole != 0"
+      mat-table
+      [dataSource]="permissionData"
+      class="permissionTable mat-elevation-z8"
+    >
+      <!-- Name Column -->
+      <ng-container matColumnDef="permission">
+        <th mat-header-cell *matHeaderCellDef>Role</th>
+        <td mat-cell *matCellDef="let element">{{ element.module }}</td>
+      </ng-container>
+
+      <!-- Actions Column -->
+      <ng-container matColumnDef="can_view">
+        <th mat-header-cell *matHeaderCellDef>Can View</th>
+        <td mat-cell *matCellDef="let element">
+          <mat-slide-toggle
+            class="example-margin"
+            [checked]="checked(element.can_view)"
+            (toggleChange)="changePermissions(element.can_view)"
+          >
+          </mat-slide-toggle>
+        </td>
+      </ng-container>
+      <!-- Actions Column -->
+      <ng-container matColumnDef="can_add_edit">
+        <th mat-header-cell *matHeaderCellDef>Can Add/Edit</th>
+        <td mat-cell *matCellDef="let element">
+          <mat-slide-toggle
+            class="example-margin"
+            [checked]="checked(element.can_add_edit)"
+            (toggleChange)="changePermissions(element.can_add_edit)"
+            >
+          </mat-slide-toggle>
+        </td>
+      </ng-container>
+      <!-- Actions Column -->
+      <ng-container matColumnDef="can_delete">
+        <th mat-header-cell *matHeaderCellDef>Can Delete</th>
+        <td mat-cell *matCellDef="let element">
+          <mat-slide-toggle
+            class="example-margin"
+            [checked]="checked(element.can_delete)"
+            (toggleChange)="changePermissions(element.can_delete)"
+          >
+          </mat-slide-toggle>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+    <div class="right" *ngIf="currentRole != 0">
+      <button mat-button (click)="resetPermissions()">Cancel</button>
+      <button mat-raised-button (click)="updatePermissions()" [disabled]="disableSaveBtn" color="primary" cdkFocusInitial>Save</button>
+    </div>
+  </mat-card>
 </div>

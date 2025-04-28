@@ -10,8 +10,7 @@
       <input matInput formControlName="description" />
     </mat-form-field>
   </div>
-  <div mat-dialog-actions>
-    <button mat-button type="submit" (click)="onNoClick()">Cancel</button>
+  <div mat-dialog-actions class="right">
     <button
       mat-button
       type="button"
@@ -21,5 +20,6 @@
     >
       Save
     </button>
+    <button mat-button type="submit" (click)="onNoClick()">Cancel</button>
   </div>
 </form>

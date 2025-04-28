@@ -14,8 +14,11 @@ export class OrderappComponent implements OnInit {
               private router: Router,
               private tableSectionService: TableSectionService,
               private snackbarService : SnackbarService
-            ) {}
+            ) {
+              this.forbidden = this.authService.role=='super_admin' || this.authService.role=='account_manager';
+            }
 
+            forbidden : boolean = false;
   ngOnInit(): void {}
   logout() {
     this.authService.clear();

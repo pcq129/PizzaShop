@@ -185,7 +185,7 @@ export class ModifierComponent implements OnInit {
   addModifierPopup() {
     let modifier_group_ids = [];
     const dialogRef = this.dialog.open(modifierDialog, {
-      width: '350px',
+      width: '550px',
       data: {
         modifierGroupList: this.modifierGroupData,
         name: '',
@@ -226,7 +226,7 @@ export class ModifierComponent implements OnInit {
     let modifier_ids = modifier.id;
 
     const dialogRef = this.dialog.open(modifierDialog, {
-      width: '350px',
+      width: '550px',
       data: {
         modifierGroupList: this.modifierGroupData,
         name: modifier.name,
