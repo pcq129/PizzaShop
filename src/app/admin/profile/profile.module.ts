@@ -26,6 +26,7 @@ import { AuthService } from 'src/app/_services/auth.service';
     MatInputModule,
     MatButtonModule
   ],
-  providers: [AuthService]
+  providers: [AuthService],
+  exports: [ProfileComponent]
 })
 export class ProfileModule {}

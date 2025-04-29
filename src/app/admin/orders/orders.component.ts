@@ -98,7 +98,7 @@ export class OrdersComponent implements OnInit {
   viewOrderDetail(order: any) {
     console.log(order);
     this.orderService.setOrderData(order);
-    this.router.navigateByUrl('orders/details');
+    this.router.navigate(['pizzashop/orders/details']);
 
     // const orderDetailDialog = this.dialog.open(OrderDetailDialogComponent, {
     //   data: order,

@@ -16,5 +16,6 @@ import { MatButtonModule } from '@angular/material/button';
     ReactiveFormsModule,
     MatButtonModule,
   ],
+  exports: [ChangePasswordComponent]
 })
 export class ChangePasswordModule {}

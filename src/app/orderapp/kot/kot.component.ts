@@ -21,6 +21,8 @@ export class KotComponent implements OnInit {
 
   }
 
+  orderData:any;
+
 
   kotData:any;
 

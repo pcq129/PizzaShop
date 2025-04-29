@@ -22,7 +22,8 @@ export class AuthService {
   }
 
   access_token: string | null = this.getToken();
-  role: string|null = this.getRole();
+  role = new BehaviorSubject<string|null>(localStorage.getItem('role'));
+  role$ = this.role.asObservable();
 
   // solution of login session ending on refresh by senior
   // isLoggedIn = new BehaviorSubject<boolean>(this.hasToken());
@@ -40,10 +41,11 @@ export class AuthService {
     this.setItem('access_token', data.access_token);
     this.setItem('isLoggedIn', '1');
     this.setItem('role', data.role[0].name);
+    this.role.next(data.role[0].name);
     if(data.role[0].name=='chef'){
       this.router.navigate(['orderapp/kot']);
     }else{
-      this.router.navigate(['dashboard']);
+      this.router.navigate(['pizzashop/dashboard']);
     }
   }
 
@@ -83,7 +85,7 @@ export class AuthService {
       return false;
     }
     if (localStorage.getItem('isLoggedIn') == '1') {
-      // this.router.navigate(['dashboard']);
+      // this.router.navigate(['app/dashboard']);
       return true;
     } else {
       // this.router.navigate(['login']);

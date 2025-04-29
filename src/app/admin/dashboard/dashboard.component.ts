@@ -46,7 +46,8 @@ export class DashboardComponent implements OnInit {
             {
               label: 'Sales',
               data: this.dashboardData.revenue.data,
-              backgroundColor: 'rgba(75, 192, 192, 0.6)'
+              backgroundColor: 'rgba(75, 192, 192, 0.6)',
+              tension: 0.5
             }
           ]
         };
@@ -56,7 +57,9 @@ export class DashboardComponent implements OnInit {
             {
               label: 'Growth',
               data: this.dashboardData.customer_growth.data,
-              backgroundColor: 'rgba(75, 192, 192, 0.6)'
+              backgroundColor: 'rgba(75, 192, 192, 0.6)',
+              tension: 0.5
+
             }
           ]
         };

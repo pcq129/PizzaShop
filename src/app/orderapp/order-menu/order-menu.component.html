@@ -50,15 +50,18 @@
         >
           <div class="ribbon-corner {{ item.item_type }}"></div>
           <img
-
             class="itemImage"
-            src="{{item.image ? 'http://127.0.0.1:8000/storage/uploads/' + item.image : '../../../assets/dining-menu.png'}}"
+            src="{{
+              item.image
+                ? 'http://127.0.0.1:8000/storage/uploads/' + item.image
+                : '../../../assets/dining-menu.png'
+            }}"
           />
           <div class="food-details">
             <h6>
               {{ item.name }}
             </h6>
-            <p class="price">₹{{getItemAmount(item)}}</p>
+            <p class="price">₹{{ getItemAmount(item) }}</p>
           </div>
           <mat-icon mat-icon-button (click)="addFavourite()" class="wishlist"
             >favorite_border</mat-icon
@@ -73,7 +76,7 @@
         <div>
           <strong
             >Table:<span *ngFor="let table_name of orderData.table_names"
-              >{{table_name}}
+              >{{ table_name }}
             </span>
           </strong>
         </div>
@@ -92,7 +95,7 @@
           <div class="itemHeader">
             <div class="itemName">
               <!-- <mat-icon>expand_more</mat-icon> -->
-              <strong>{{item.item_name}}</strong>
+              <strong>{{ item.item_name }}</strong>
             </div>
             <div class="quantityControl">
               <!-- <button mat-icon-button>-</button> -->
@@ -100,26 +103,36 @@
               <!-- <button mat-icon-button>+</button> -->
             </div>
             <!-- <mat-icon class="deleteIcon">delete</mat-icon> -->
-            <div class="itemAmount">₹{{item.item_rate}}</div>
+            <div class="itemAmount">₹{{ item.item_rate }}</div>
           </div>
 
-          <div class="itemExtras"><ul>
-            <li *ngFor="let modifier of item.modifiers" class="modifierInBill">
-              <span>{{modifier.modifier_name}}</span>
-              <span class="modifierPrice">{{modifier.modifier_rate}}</span></li>
-          </ul></div>
+          <div class="itemExtras">
+            <ul>
+              <li
+                *ngFor="let modifier of item.modifiers"
+                class="modifierInBill"
+              >
+                <span>{{ modifier.modifier_name }}</span>
+                <span class="modifierPrice">{{ modifier.modifier_rate }}</span>
+              </li>
+            </ul>
+          </div>
         </mat-card>
       </div>
       <!-- Summary -->
       <div class="summarySection">
-        <div class="summaryRow"><span>SubTotal</span><span>₹{{billAmount}}</span></div>
-        <div *ngFor="let tax of taxData" class="summaryRow"><span>{{tax.name}}</span><span>₹{{calculateTax(tax, billAmount)}}</span></div>
-
+        <div class="summaryRow">
+          <span>SubTotal</span><span>₹{{ billAmount }}</span>
+        </div>
+        <div *ngFor="let tax of taxData" class="summaryRow">
+          <span>{{ tax.name }}</span
+          ><span>₹{{ calculateTax(tax, billAmount) }}</span>
+        </div>
 
         <!-- <mat-checkbox class="summaryCheckbox">SGST</mat-checkbox> -->
 
         <div class="totalRow">
-          <strong>Total</strong><strong>₹{{calculateTotal()}}</strong>
+          <strong>Total</strong><strong>₹{{ calculateTotal() }}</strong>
         </div>
 
         <!-- <div class="paymentMethod">
@@ -132,10 +145,25 @@
         </div> -->
 
         <div class="actionButtons">
-          <button mat-flat-button [color]="items.length == 0 ? '' : 'primary'" [disabled]="items.length == 0 || orderData.id" (click)="generateOrder()">Save</button>
-          <button mat-stroked-button [disabled]="!orderData.id" (click)="completeOrder(orderData.id)">Complete</button>
+          <button
+            mat-flat-button
+            [color]="items.length == 0 ? '' : 'primary'"
+            [disabled]="items.length == 0 || orderData.id"
+            (click)="generateOrder()"
+          >
+            Save
+          </button>
+          <button
+            mat-stroked-button
+            [disabled]="!orderData.id"
+            (click)="completeOrder(orderData.id)"
+          >
+            Complete
+          </button>
           <!-- <button mat-stroked-button>Generate Invoice</button> -->
-          <button mat-stroked-button color="warn" (click)="cancelOrder()">Cancel</button>
+          <button mat-stroked-button color="warn" (click)="cancelOrder()">
+            Cancel
+          </button>
         </div>
       </div>
     </mat-card>

@@ -125,7 +125,6 @@ checkChange() {
 
   resetPermissions(){
     this.currentRolePermission = [...this.currentRoleData.allPermission];
-    // this.router.navigate(['dashboard']);
     this.disableSaveBtn = true;
   }
   updatePermissions(){

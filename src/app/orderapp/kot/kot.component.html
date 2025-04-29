@@ -2,7 +2,10 @@
   <div class="titlebar">
     <span class="title">KOT</span>
   </div>
-  <mat-tab-group class="matTab">
+  <div *ngIf="!kotData.length" class="noDataBanner">
+    <span>No Pending KOT</span>
+  </div>
+  <mat-tab-group *ngIf="kotData.length" class="matTab">
     <mat-tab *ngFor="let category of kotData">
       <ng-template mat-tab-label class="tab">
         <span class="tabName">{{ category.name }}</span>

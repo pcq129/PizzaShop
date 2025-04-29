@@ -22,7 +22,7 @@ export class OrderDetailsComponent implements OnInit {
           this.orderData = JSON.parse(res.order_data);
           this.formatTax(this.orderData);
         } else {
-          this.redirect('orders');
+          this.redirect('pizzashop/orders');
         }
       },
     });
@@ -262,7 +262,7 @@ export class OrderDetailsComponent implements OnInit {
       .then(() => {
         document.body.removeChild(container); // Clean up after export
       });
-  } 
+  }
 }
 
 // <td class="serial">${i+1}</td>

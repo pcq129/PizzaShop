@@ -1,3 +1,4 @@
+import { TitleCasePipe } from '@angular/common';
 import { Component, Inject, OnInit } from '@angular/core';
 import {
   FormGroup,
@@ -67,7 +68,7 @@ export class UserDialogComponent implements OnInit {
           this.whitespaceValidator,
         ]),
         confirmPassword: new FormControl('', [this.whitespaceValidator, Validators.required]),
-        role: new FormControl(`${this.data.userData?.role}`, [Validators.required]),
+        role: new FormControl(`${this.data.userData?.roles[0].name}`, [Validators.required]),
       },
       { validators: this.checkPasswords }
     );

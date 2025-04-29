@@ -17,7 +17,15 @@ export class AdminComponent implements OnInit {
   constructor(public authService: AuthService, private router: Router) {
     this.loadComponent(this.router.url);
     this.currentContent = this.router.url;
-    this.role = this.authService.role || '';
+    this.authService.role$.subscribe({
+      next: (res: string | null)=>{
+        if(res){
+          this.role = res;
+          console.log(res);
+
+        }
+      }
+     });
 
   }
   role: string = '';
@@ -32,55 +40,55 @@ export class AdminComponent implements OnInit {
     {
       icon: `dashboard`,
       title: 'Dashboard',
-      redirect: 'dashboard',
+      redirect: 'pizzashop/dashboard',
       role: ['super_admin','account_manager']
     },
     {
       icon: `people_outline`,
       title: 'Users',
-      redirect: 'users',
+      redirect: 'pizzashop/users',
       role: ['super_admin']
 
     },
     {
       icon: `settings`,
       title: 'Roles and Permissions',
-      redirect: 'role-permissions',
+      redirect: 'pizzashop/role-permissions',
       role: ['super_admin']
 
     },
     {
       icon: `restaurant_menu`,
       title: 'Menu',
-      redirect: 'menu',
+      redirect: 'pizzashop/menu',
       role: ['super_admin','account_manager']
 
     },
     {
       icon: `table_chart`,
       title: 'Table and Sections',
-      redirect: 'sections',
+      redirect: 'pizzashop/sections',
       role: ['super_admin','account_manager']
 
     },
     {
       icon: ` money`,
       title: 'Taxes and Fees',
-      redirect: 'taxes-fees',
+      redirect: 'pizzashop/taxes-fees',
       role: ['super_admin','account_manager']
 
     },
     {
       icon: `assignment_turned_in`,
       title: 'Orders',
-      redirect: 'orders',
+      redirect: 'pizzashop/orders',
       role: ['super_admin','account_manager']
 
     },
     {
       icon: `supervised_user_circle`,
       title: 'Customers',
-      redirect: 'customers',
+      redirect: 'pizzashop/customers',
       role: ['super_admin','account_manager']
 
     },
@@ -109,7 +117,7 @@ export class AdminComponent implements OnInit {
     // this.authService.fetchUserData();
     console.log(this.authService.user$);
 
-    this.redirect('profile')
+    this.redirect('pizzashop/profile')
   }
 
   isSelected(currentContent: string){

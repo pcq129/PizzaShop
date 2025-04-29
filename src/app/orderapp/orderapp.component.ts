@@ -15,7 +15,18 @@ export class OrderappComponent implements OnInit {
               private tableSectionService: TableSectionService,
               private snackbarService : SnackbarService
             ) {
-              this.forbidden = this.authService.role=='super_admin' || this.authService.role=='account_manager';
+              this.authService.role$.subscribe({
+                next: (res: string | null)=>{
+                  if(res && res!='super_admin' && res!='account_manager'){
+                    console.log(res);
+
+                    this.forbidden=false;
+                  }
+                  else{
+                    this.forbidden = true;
+                  }
+                }
+               });
             }
 
             forbidden : boolean = false;
@@ -56,6 +67,13 @@ export class OrderappComponent implements OnInit {
     // this.authService.fetchUserData();
     console.log(this.authService.user$);
 
-    this.redirect('profile')
+    this.redirect('pizzashop/profile')
   }
+
+  // loadChefData(){
+  //   // this.authService.fetchUserData();
+  //   console.log(this.authService.user$);
+
+  //   this.redirect('orderapp/profile')
+  // }
 }

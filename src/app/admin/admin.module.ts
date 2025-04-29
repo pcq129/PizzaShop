@@ -20,6 +20,8 @@ import { ChangePasswordModule } from './change-password/change-password.module';
 import { ProfileModule } from './profile/profile.module';
 import { UsersModule } from './users/users.module';
 import { RolePermissionModule } from './role-permission/role-permission.module';
+import { ProfileComponent } from './profile/profile.component';
+import { ChangePasswordComponent } from './change-password/change-password.component';
 
 @NgModule({
   declarations: [AdminComponent],

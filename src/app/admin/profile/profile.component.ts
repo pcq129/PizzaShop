@@ -14,7 +14,13 @@ export class ProfileComponent implements OnInit {
   profileForm!: FormGroup;
 
   constructor(private authService: AuthService, private snackbarService : SnackbarService, private router : Router) {
-
+    this.authService.role$.subscribe({
+      next: (res:string|null)=>{
+        if(res){
+          this.role =res;
+        }
+      }
+    });
   }
 
   ngOnInit(): void {
@@ -45,8 +51,9 @@ export class ProfileComponent implements OnInit {
   }
 
   cancel(){
-    this.router.navigate(['dashboard']);
+    this.router.navigate(['pizzashop/dashboard']);
   }
+  role:string = '';
 
   updateProfile(){
 
@@ -57,7 +64,7 @@ export class ProfileComponent implements OnInit {
         if(res.status == "true"){
           this.snackbarService.success(res.message);
           localStorage.setItem('access_token', res.data);
-          this.router.navigate(['dashboard']);
+          this.router.navigate(['pizzashop/dashboard']);
         }
         else if(res.status == "false"){
           this.snackbarService.error(res.message);

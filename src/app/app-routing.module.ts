@@ -32,14 +32,13 @@ import { Role } from './common/interfaces/role';
 import { AuthGuard } from 'src/helper/auth.guard';
 // import { DashboardComponent } from './app/dashboard/dashboard.component';
 const routes: Routes = [
-  // {
-  //   path: 'dashboard',
-  //   title: 'Welcome | E-com',
-  //   loadChildren: () =>
-  //     import('./admin/layout.module').then((m) => m.LayoutModule)
-  // },
   {
     path: '',
+    pathMatch: 'full',
+    redirectTo: 'login'
+  },
+  {
+    path: 'pizzashop',
     canActivate: [AuthGuard, LoginGuard],
     component: AdminComponent,
     data: { roles: [Role.Super_Admin, Role.Account_Manager] },
@@ -121,14 +120,14 @@ const routes: Routes = [
         canActivate: [AuthGuard, LoginGuard],
         component: ChangePasswordComponent,
         pathMatch: 'full',
-        data: { roles: [Role.Super_Admin, Role.Account_Manager, Role.Chef] }
+        data: { roles: [Role.Super_Admin, Role.Account_Manager] }
       },
       {
         path: 'profile',
         canActivate: [AuthGuard, LoginGuard],
         component: ProfileComponent,
         pathMatch: 'full',
-        data: { roles: [Role.Super_Admin, Role.Account_Manager, Role.Chef] }
+        data: { roles: [Role.Super_Admin, Role.Account_Manager] }
       },
       {
         path: 'users',
@@ -140,11 +139,7 @@ const routes: Routes = [
     ],
   },
 
-  // {
-  //   path: '',
-  //   pathMatch: 'full',
-  //   component: AppComponent,
-  // },
+
   {
     path: 'orderapp',
     component: OrderappComponent,
@@ -184,6 +179,20 @@ const routes: Routes = [
         data: { roles: [Role.Super_Admin, Role.Account_Manager, Role.Chef] }
 
       },
+      {
+        path: 'profile-password',
+        canActivate: [AuthGuard, LoginGuard],
+        component: ChangePasswordComponent,
+        pathMatch: 'full',
+        data: { roles: [Role.Chef] }
+      },
+      {
+        path: 'profile',
+        canActivate: [AuthGuard, LoginGuard],
+        component: ProfileComponent,
+        pathMatch: 'full',
+        data: { roles: [Role.Chef] }
+      },
     ],
   },
   {
@@ -217,20 +226,7 @@ const routes: Routes = [
     path: '**',
     canActivate: [LoginGuard],
     component: PageNotFoundComponent,
-    children: [
-      // {
-      //   path: 'dashboard',
-      //   canActivate: [LoginGuard],
-      //   component: MenuComponent,
-      //   pathMatch: 'full',
-      // },
-      {
-        path: 'login',
-        canActivate: [LoginGuard],
-        component: DashboardComponent,
-        pathMatch: 'full',
-      },
-    ],
+
   },
 ];
 
