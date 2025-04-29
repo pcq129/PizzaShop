@@ -1,6 +1,7 @@
 import { Time } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { KotService } from 'src/app/_services/kot.service';
+import { OrderService } from 'src/app/_services/order-service.service';
 import { SnackbarService } from 'src/app/_services/snackbar.service';
 
 @Component({
@@ -12,7 +13,8 @@ export class KotComponent implements OnInit {
 
   constructor(
     private kotService: KotService,
-    private snackbarService: SnackbarService
+    private snackbarService: SnackbarService,
+    private orderService : OrderService
   ) {
     this.getKotData();
   }
@@ -41,6 +43,7 @@ export class KotComponent implements OnInit {
     })
   }
 
+
   formatData(){
     this.kotData.forEach((category: any) => {
       category.kots.forEach((kot: any) => {
@@ -52,6 +55,9 @@ export class KotComponent implements OnInit {
     });
     console.log(this.kotData);
   }
+
+
+
 
   getTimeDifference(time: string){
     const kotTime = new Date(time);
