@@ -1,11 +1,63 @@
 <div class="body">
   <div class="titlebar">
     <span class="title">KOT</span>
+    <div>
+      <button mat-raised-button color="{{viewItems==1 ? 'primary':'accent'}}" class="kotStateBtn" (click)="refreshData(1)">Prepared</button>
+      <button mat-raised-button color="{{viewItems==0 ? 'primary':'accent'}}" class="kotStateBtn" (click)="refreshData(0)">In Progress</button>
+    </div>
   </div>
   <div *ngIf="!kotData.length" class="noDataBanner">
     <span>No Pending KOT</span>
   </div>
-  <mat-tab-group *ngIf="kotData.length" class="matTab">
+  <mat-tab-group class="matTab">
+    <mat-tab>
+      <ng-template mat-tab-label class="tab">
+        <span class="tabName">All</span>
+      </ng-template>
+      <div class="kotContainer">
+        <ng-container *ngFor="let order of orderKotData">
+        <div
+          class="orderCard"
+          *ngIf="checkOrderKots(order.id)"
+          (click)="orderKotDialog(order)"
+        >
+          <div>
+            <div class="orderHeader">
+              <span class="orderNumber"># {{ order.id }}</span>
+              <span class="orderTime"
+                >{{ getTimeDifference(order.created_at) }}
+              </span>
+            </div>
+            <div class="orderLocation">
+              <span>{{ order.order_data.section_name }}</span>
+              <span> ・ {{ order.order_data.table_names }} </span>
+            </div>
+          </div>
+          <div class="orderItems">
+            <ng-container *ngFor="let kot of order.kots">
+              <div *ngIf="kot.status==viewItems">
+                <div class="itemRow">
+                  <span class="itemName"
+                    >{{ kot.item_data.items.item_name }}
+                  </span>
+                  <span class="itemQty">
+                    {{ kot.item_data.items.multiplier }}
+                  </span>
+                </div>
+                <ul class="modifiersList">
+                  <li *ngFor="let modifier of kot.item_data.items.modifiers">
+                    {{ modifier.modifier_name }}
+                  </li>
+                </ul>
+              </div>
+            </ng-container>
+          </div>
+          <div class="orderFooter"></div>
+        </div>
+      </ng-container>
+      </div>
+    </mat-tab>
+
     <mat-tab *ngFor="let category of kotData">
       <ng-template mat-tab-label class="tab">
         <span class="tabName">{{ category.name }}</span>
@@ -206,30 +258,42 @@
         }
     ]
 } -->
-        <div class="orderCard" *ngFor="let kot of category.kots">
-          <div>
-            <div class="orderHeader">
-              <span class="orderNumber">#{{ kot.order_id }}</span>
-              <span class="orderTime">{{
-                getTimeDifference(kot.created_at)
-              }}</span>
+        <ng-container *ngFor="let kot of category.kots">
+          <div
+            class="orderCard"
+            *ngIf="kot.status==viewItems"
+            (click)="kotDialog(kot)"
+          >
+            <div>
+              <div class="orderHeader">
+                <span class="orderNumber">#{{ kot.order_id }}</span>
+                <span class="orderTime">{{
+                  getTimeDifference(kot.created_at)
+                }}</span>
+              </div>
+              <div class="orderLocation">
+                <span>{{ kot.item_data.section }}</span>
+                <span> ・{{ kot.item_data.tables }}</span>
+              </div>
             </div>
-            <div class="orderLocation">
-              <span></span> ・{{ kot.item_data.tables }}
-              <span>{{ kot.item_data.section }}</span>
+            <div class="orderItems">
+              <div class="itemRow">
+                <span class="itemName">{{
+                  kot.item_data.items.item_name
+                }}</span>
+                <span class="itemQty">{{
+                  kot.item_data.items.multiplier
+                }}</span>
+              </div>
+              <ul class="modifiersList">
+                <li *ngFor="let modifier of kot.item_data.items.modifiers">
+                  {{ modifier.modifier_name }}
+                </li>
+              </ul>
             </div>
+            <div class="orderFooter"></div>
           </div>
-          <div class="orderItems">
-            <div class="itemRow">
-              <span class="itemName">{{kot.item_data.items.item_name}}</span>
-              <span class="itemQty">{{kot.item_data.items.multiplier}}</span>
-            </div>
-            <ul class="modifiersList">
-              <li *ngFor="let modifier of kot.item_data.items.modifiers">{{modifier.modifier_name}}</li>
-            </ul>
-          </div>
-          <div class="orderFooter"></div>
-        </div>
+        </ng-container>
       </div>
     </mat-tab>
   </mat-tab-group>

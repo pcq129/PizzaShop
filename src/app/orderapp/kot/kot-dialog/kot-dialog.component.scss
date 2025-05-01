@@ -1,0 +1,20 @@
+.right{
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: right;
+}
+
+.itemsHeader, .item{
+  display: flex;
+  justify-content: space-between;
+}
+
+.item{
+  border-top: 2px solid white;
+}
+
+.itemData{
+  display: flex;
+  flex-direction: column;
+}
+
