@@ -24,7 +24,7 @@ export class ItemDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
     private itemService: ItemsService,
     private snackbarSerice: SnackbarService,
-    private modifierService : ModifierService
+    private modifierService: ModifierService
   ) {
     this.formatModifierGroups();
     this.getCurrentImage();
@@ -35,8 +35,6 @@ export class ItemDialogComponent implements OnInit {
   currentImage: string | null = null;
   uploadedImage: string | null = null;
   modifier_group_ids: any[] = [];
-
-
 
   getModifierGroupList() {
     this.modifierService.getModifierGroupList().subscribe((res: any) => {
@@ -64,9 +62,9 @@ export class ItemDialogComponent implements OnInit {
     });
   }
 
-  printData() {
-    console.log(this.dataForm);
-  }
+  // printData() {
+  //   console.log(this.dataForm);
+  // }
 
   dataForm = new FormGroup({
     name: new FormControl(this.data.name, [
@@ -102,7 +100,9 @@ export class ItemDialogComponent implements OnInit {
   }
 
   onNoClick(): void {
-    this.deleteUploadedImage(this.uploadedImage);
+    if (this.uploadedImage) {
+      this.deleteUploadedImage(this.uploadedImage);
+    }
     this.dialogRef.close();
   }
 
@@ -180,22 +180,32 @@ export class ItemDialogComponent implements OnInit {
   // }
 
   selectedFile: File | null = null;
+  disableUpload: boolean = true;
 
   onFileSelected(event: Event) {
     const input = event.target as HTMLInputElement;
     if (input.files?.length) {
       this.selectedFile = input.files[0];
+      this.disableUpload = false;
+      this.disableForm = true;
+    } else {
+      this.snackbarSerice.error('Invalid Selection');
     }
   }
 
-  disableForm : boolean = false;
+  // onSave(){
+  //   if (this.currentImage && this.uploadedImage) {
+  //     this.deleteUploadedImage(this.currentImage);
+  //   }
+  // }
+
+  disableForm: boolean = false;
   onUpload() {
     if (!this.selectedFile) return;
     this.disableForm = true;
-    this.snackbarSerice.info("Uploading Image...");
-    if (this.currentImage) {
-      this.deleteUploadedImage(this.currentImage);
-    }
+    this.disableUpload = true;
+
+    this.snackbarSerice.info('Uploading Image...');
 
     if (this.selectedFile.type != 'jpg' && this.selectedFile.type != 'png') {
       const formData = new FormData();
@@ -209,13 +219,13 @@ export class ItemDialogComponent implements OnInit {
           this.disableForm = false;
         },
         (error: any) => {
-          this.snackbarSerice.error(error)
+          this.snackbarSerice.error(error.message);
           this.disableForm = false;
-
         }
       );
     } else {
       this.snackbarSerice.error('Image must be jpg or png');
+      this.disableForm = false;
     }
   }
 }

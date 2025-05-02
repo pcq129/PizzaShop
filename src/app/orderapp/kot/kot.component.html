@@ -15,7 +15,7 @@
         <span class="tabName">All</span>
       </ng-template>
       <div class="kotContainer">
-        <ng-container *ngFor="let order of orderKotData">
+        <ng-container *ngFor="let order of orderKotData; let count=count">
         <div
           class="orderCard"
           *ngIf="checkOrderKots(order.id)"

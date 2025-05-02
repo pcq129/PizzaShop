@@ -13,6 +13,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatTableModule } from '@angular/material/table';
 import { customerDetailDialog } from './customer-detail-dialog.component';
+import { SharedModule } from 'src/app/common/common-module.module';
 
 
 
@@ -38,7 +39,8 @@ import { customerDetailDialog } from './customer-detail-dialog.component';
     ReactiveFormsModule,
     MatFormFieldModule,
     MatOptionModule,
-    MatSelectModule
+    MatSelectModule,
+    SharedModule
   ]
 })
 export class CustomerModule { }

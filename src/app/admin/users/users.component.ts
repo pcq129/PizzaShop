@@ -39,12 +39,22 @@ export class UsersComponent implements OnInit {
   userData: any[] = [];
   viewUserData: any[] = [];
 
-  getUserData() {
-    this.userService.getUserData().subscribe({
+
+  pageChange(event: Event){
+    console.log(event);
+    this.getUserData(event);
+  }
+
+
+  pageSize = 0;
+  dataLength = 0;
+  getUserData(event?: any) {
+    this.userService.getUserData(event).subscribe({
       next: (res: any) => {
         if (res.status == 'true') {
-          this.userData = res.data;
-          this.viewUserData = res.data;
+          this.userData = res.data.data;
+          this.viewUserData = res.data.data;
+          this.dataLength = res.data.total;
         } else {
           this.snackbarService.error('Error');
         }

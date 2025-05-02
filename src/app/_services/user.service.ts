@@ -9,7 +9,11 @@ export class UserService {
 
   constructor(private http: HttpClient) { }
 
-  getUserData(){
+  getUserData(event: any){
+    const params = {
+      page: event?.pageIndex+1 || 1,
+      perPage : event?.pageSize || 5
+    }
     return this.http.get(environment.baseURL + `user`);
   }
 

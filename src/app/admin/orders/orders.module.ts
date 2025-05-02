@@ -10,6 +10,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { OrderDetailsModule } from './order-details/order-details.module';
+import {MatPaginatorModule} from '@angular/material/paginator';
+import { PaginatorComponent } from 'src/app/common/paginator/paginator.component';
+import { SharedModule } from 'src/app/common/common-module.module';
 
 
 
@@ -18,7 +21,6 @@ import { OrderDetailsModule } from './order-details/order-details.module';
     OrdersComponent
   ],
   imports: [
-    CommonModule,
     MatCardModule,
     MatSlideToggleModule,
     MatIconModule,
@@ -28,7 +30,10 @@ import { OrderDetailsModule } from './order-details/order-details.module';
     ReactiveFormsModule,
     MatButtonModule,
     MatInputModule,
-    OrderDetailsModule
+    OrderDetailsModule,
+    MatPaginatorModule,
+    CommonModule,
+    SharedModule
   ]
 })
 export class OrdersModule { }

@@ -11,8 +11,12 @@ export class CustomerService {
     private http : HttpClient
   ) { }
 
-  getCustomerData(){
-    return this.http.get(environment.baseURL + 'customers');
+  getCustomerData(pageEvent? : any){
+    const params = {
+      page : pageEvent?.pageIndex+1 || 1,
+      perPage : pageEvent?.pageSize || 5
+    }
+    return this.http.get(environment.baseURL + 'customers', {params: params});
   }
 
   searchCustomer(name : string){

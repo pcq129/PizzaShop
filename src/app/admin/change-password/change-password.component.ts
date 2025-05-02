@@ -18,9 +18,10 @@ import { SnackbarService } from 'src/app/_services/snackbar.service';
 export class ChangePasswordComponent implements OnInit {
   email: any;
 
-  constructor(private router: Router,
+  constructor(
+    private router: Router,
     private snackbarService: SnackbarService,
-    private authService :AuthService
+    private authService: AuthService
   ) {}
   ngOnInit(): void {
     this.passwordData = new FormGroup(
@@ -42,9 +43,7 @@ export class ChangePasswordComponent implements OnInit {
     });
   }
 
-  passwordData! : FormGroup;
-
-
+  passwordData!: FormGroup;
 
   redirect(url: string) {
     this.router.navigate([url]);
@@ -74,19 +73,17 @@ export class ChangePasswordComponent implements OnInit {
     return null;
   }
 
-
-  changePassword(passwordData: any){
+  changePassword(passwordData: any) {
     this.authService.updatePassword(passwordData).subscribe({
-      next: (res: any)=>{
-        if(res.status == "false"){
+      next: (res: any) => {
+        if (res.status == 'false') {
           this.snackbarService.error(res.message);
-        }else if(res.status == "true"){
+        } else if (res.status == 'true') {
           this.snackbarService.success(res.message);
-          localStorage.setItem('access_token',res.data);
+          localStorage.setItem('access_token', res.data);
           // this.authService.clear();
         }
-      }
-    })
+      },
+    });
   }
-
 }

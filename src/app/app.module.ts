@@ -23,6 +23,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { OrderappModule } from './orderapp/orderapp.module';
 import { PageNotFoundModule } from './common/page-not-found/page-not-found.module';
 import { RouterModule } from '@angular/router';
+import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 
 @NgModule({
   declarations: [AppComponent],
@@ -56,6 +57,10 @@ import { RouterModule } from '@angular/router';
       provide: HTTP_INTERCEPTORS,
       useClass: HeadersInterceptor,
       multi: true,
+    },
+    {
+      provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
+      useValue: { appearance: 'outline' },
     },
   ],
   bootstrap: [AppComponent],

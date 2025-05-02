@@ -106,7 +106,9 @@ export class KotComponent implements OnInit {
       next: (res: any) => {
         if (res.status == 'true') {
           this.kotData = res.data;
-          this.formatData();
+          setTimeout(() => {
+            this.formatData();
+          }, 500);
         } else {
           this.snackbarService.error('Error fetching KOTs');
         }
@@ -119,7 +121,9 @@ export class KotComponent implements OnInit {
       next: (res: any) => {
         if (res.status == 'true') {
           this.orderKotData = res.data;
-          this.formatOrderKotData();
+          setTimeout(() => {
+            this.formatOrderKotData(this.orderKotData);
+          }, 500);
         } else {
           this.snackbarService.error('Error fetching All KOTS');
         }
@@ -128,23 +132,24 @@ export class KotComponent implements OnInit {
   }
 
   checkOrderKots(orderId: number) {
-    // console.log(this.readyOrders);
-
-    if (this.readyOrders.includes(orderId)) {
+    if (this.viewItems == 0 && this.readyOrders.includes(orderId)) {
+      return false;
+    } else if (this.viewItems == 1 && this.emptyOrders.includes(orderId)) {
       return false;
     } else {
       return true;
     }
   }
 
-  refreshData(viewState: number){
+  refreshData(viewState: number) {
     this.viewItems = viewState;
     this.getOrderKotData();
     this.getKotData();
   }
   readyOrders: number[] = [];
-  formatOrderKotData() {
-    this.orderKotData.forEach((order: any) => {
+  emptyOrders: number[] = [];
+  formatOrderKotData(res: any) {
+    res.forEach((order: any) => {
       let orderKot = order.kots.length;
       let kotCount = 0;
       order.kots.forEach((kot: any) => {
@@ -154,6 +159,8 @@ export class KotComponent implements OnInit {
       order.order_data = JSON.parse(order.order_data);
       if (kotCount == orderKot) {
         this.readyOrders.push(order.id);
+      } else if (kotCount == 0) {
+        this.emptyOrders.push(order.id);
       }
     });
     console.log(this.orderKotData);

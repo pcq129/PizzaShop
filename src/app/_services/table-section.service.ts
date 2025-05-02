@@ -12,12 +12,20 @@ export class TableSectionService {
 
 
   //services for tables
-  getAllTableData(){
-    return this.http.get(environment.baseURL + `table`);
+  getAllTableData(pageChange? : any){
+    // const params = {
+    //   page : pageChange?.pageIndex+1 || 1,
+    //   perPage : pageChange?.pageSize || 5
+    // }{params: params}
+    return this.http.get(environment.baseURL + `table`,);
   }
 
-  getTableDataBySection(id : number){
-    return  this.http.get(environment.baseURL + `sectionstable/${id}`);
+  getTableDataBySection(id : number, pageChange? : any){
+    const params = {
+      page : pageChange?.pageIndex+1 || 1,
+      perPage : pageChange?.pageSize || 5
+    }
+    return  this.http.get(environment.baseURL + `sectionstable/${id}`, {params: params});
   }
 
   addTable(data : any){

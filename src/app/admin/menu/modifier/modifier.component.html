@@ -14,14 +14,14 @@
       </div>
     </div>
 
-    <button
+    <!-- <button
       mat-flat-button
       class="modifierGroupButton"
       [color]="0 == currentModifierGroup ? 'accent' : ''"
       (click)="loadModifiers(0)"
     >
       All Items
-    </button>
+    </button> -->
     <button
       mat-flat-button
       *ngFor="let modifierGroup of modifierGroupData"

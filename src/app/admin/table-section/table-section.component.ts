@@ -89,10 +89,13 @@ export class TableSectionComponent implements OnInit {
   }
 
     getTableDataBySection(id: number) {
+      
     if(id == 0){
       this.viewTables = this.tablesList
       return;
     }
+
+    // this is where the first table data entry is fetched
     return this.sectionTableService.getTableDataBySection(id).subscribe(
       {
         next: (res : any)=>{
@@ -100,7 +103,7 @@ export class TableSectionComponent implements OnInit {
             this.snackbarservice.error(res);
           }
           else{
-            this.viewTables = res.data.tables;
+            this.viewTables = res.data.data;
           }
 
         },

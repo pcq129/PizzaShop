@@ -5,6 +5,7 @@ import { OrderService } from 'src/app/_services/order-service.service';
 import { Router } from '@angular/router';
 import { ConfirmationDialogComponent } from 'src/app/common/confirmation-dialog/confirmation-dialog.component';
 import { saveAs } from 'file-saver';
+import { PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-orders',
@@ -22,7 +23,8 @@ export class OrdersComponent implements OnInit {
   }
 
   ngOnInit(): void {}
-
+  resultsLength: number = 100;
+  pagesize: number = 5;
   orderData: any;
   viewOrderData: any;
   displayedColumns = [
@@ -37,21 +39,36 @@ export class OrdersComponent implements OnInit {
     'actions',
   ];
 
-  getOrderData() {
-    this.orderService.getOrderData().subscribe({
+  getOrderData(event? : any) {
+    this.orderService.getOrderData(event).subscribe({
       next: (res: any) => {
         if (res.status == 'true') {
-          this.orderData = res.data;
-          this.viewOrderData = res.data;
+          this.orderData = res.data.data;
+          this.viewOrderData = res.data.data;
+          this.resultsLength = res.data.total;
           console.log(res.data);
         } else {
           this.snackbarService.error(res.message);
         }
       },
-      error: (err) => {
+      error: (error) => {
         this.snackbarService.error('Error fetching orders');
       },
     });
+  }
+
+  onPageChange(event : Event) {
+    console.log(event);
+    //   {
+    //     "previousPageIndex": 0,
+    //     "pageIndex": 1,
+    //     "pageSize": 5,
+    //     "length": 14
+    // }
+    this.getOrderData(event);
+
+
+
   }
 
   convertDate(isoDate: any) {
@@ -142,9 +159,8 @@ export class OrdersComponent implements OnInit {
     }
   }
 
-  exportOrders(filter : number) {
+  exportOrders(filter: number) {
     this.orderService.exportOrdersToExcel(filter).subscribe({
-
       // for proper response formatting
 
       // next: (res: any) => {
@@ -161,16 +177,21 @@ export class OrdersComponent implements OnInit {
       //   }
       // },
 
-      next: (res:Blob)=>{
-              saveAs(res, 'All Orders');
+      next: (res: Blob) => {
+        saveAs(res, 'All Orders');
       },
       error: (err: any) => {
         console.log('failed');
       },
     });
   }
-  getRating(rating : any){
-      let compoundRating = JSON.parse(rating);
-      return compoundRating.food;
+  getRating(rating: any) {
+    let compoundRating = JSON.parse(rating);
+    return compoundRating.food;
+  }
+  Ratings=[1,2,3,4,5];
+  getOrderRating(rating: string){
+    let parsedRating = JSON.parse(rating);
+    return parsedRating.food;
   }
 }

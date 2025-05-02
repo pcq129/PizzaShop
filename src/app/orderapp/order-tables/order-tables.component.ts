@@ -175,6 +175,7 @@ export class OrderTablesComponent implements OnInit {
     this.customerData.controls.section.patchValue(`${section.name}`);
     console.log(section.name);
     this.customerData.controls.section_id.setValue(section.id);
+    this.capacityCount=0;
   }
 
   clearSelection() {
@@ -218,6 +219,7 @@ export class OrderTablesComponent implements OnInit {
 
   cancelAssign(){
     this.customerData.reset();
+    this.capacityCount=0;
     this.currentSection = 0;
     this.searchedCustomers = {};
 

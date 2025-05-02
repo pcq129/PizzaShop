@@ -56,7 +56,6 @@ export class ItemCategoryComponent implements OnInit {
 
   nodata: boolean = false;
   searchItem(itemName: string) {
-
     if (itemName.length < 4) {
       console.log(this.viewItems);
       this.nodata = false;
@@ -64,7 +63,7 @@ export class ItemCategoryComponent implements OnInit {
         this.viewItems = this.allItems;
       }, 500);
       return;
-    }else{
+    } else {
       this.itemService.search(itemName).subscribe({
         next: (res: any) => {
           if (res.status == 'false') {
@@ -358,7 +357,7 @@ export class ItemCategoryComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       console.log(result);
-      if (element.image != result.image) {
+      if (result.image && element.image != result.image) {
         this.deleteElementImage(element.image);
       }
       result.id = id;
@@ -370,8 +369,8 @@ export class ItemCategoryComponent implements OnInit {
   }
 
   editItems(Item: any) {
-    this.itemService.editItem(Item).subscribe(
-      (res: any) => {
+    this.itemService.editItem(Item).subscribe({
+      next: (res: any) => {
         if (res.status === 'false') {
           for (const [key, value] of Object.entries(res.message)) {
             this.snackbarService.error(`${value}`);
@@ -383,10 +382,10 @@ export class ItemCategoryComponent implements OnInit {
           this.extractAllItems(this.categoryData);
         }
       },
-      (err) => {
+      error: (err) => {
         this.snackbarService.error('Error edititng Item');
-      }
-    );
+      },
+    });
   }
 
   deleteElementImage(imageName: any) {

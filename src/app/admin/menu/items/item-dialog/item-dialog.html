@@ -137,7 +137,7 @@
           type="button"
           color="primary"
           (click)="onUpload()"
-          [disabled]="!selectedFile"
+          [disabled]="disableUpload"
         >
           Upload
         </button>
@@ -153,6 +153,7 @@
       [mat-dialog-close]="dataForm.value"
       [disabled]="!dataForm.valid || disableForm"
       cdkFocusInitial
+
     >
       Save
     </button>

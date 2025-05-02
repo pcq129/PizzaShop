@@ -9,7 +9,7 @@
       </div>
     </div>
 
-    <button
+    <!-- <button
       mat-flat-button
       class="categoryButton"
       [color]="0 == currentCategory ? 'accent' : ''"
@@ -17,7 +17,7 @@
     >
       All Items
       <div class="actionButtonContainer">
-        <!-- <mat-icon
+        <mat-icon
           mat-icon-button
           class="{{ 0 != currentCategory ? 'hidden' : '' }} actionButton"
           >edit</mat-icon
@@ -26,9 +26,9 @@
           mat-icon-button
           class="{{ 0 != currentCategory ? 'hidden' : '' }} actionButton"
           >delete</mat-icon
-        > -->
+        >
       </div>
-    </button>
+    </button> -->
     <button
       mat-flat-button
       *ngFor="let category of categoryData"
@@ -159,5 +159,6 @@
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
     </table>
+    
   </mat-drawer-content>
 </mat-drawer-container>

@@ -15,6 +15,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { DeleteDialogModule } from 'src/app/common/delete-dialog/delete-dialog/delete-dialog.module';
 import { RoleLabelPipe } from '../../../helper/role.pipe';
 import {PhonePipe } from 'src/helper/phone.pipe';
+import { SharedModule } from 'src/app/common/common-module.module';
 
 @NgModule({
   declarations: [UsersComponent, UserDialogComponent,RoleLabelPipe, PhonePipe],
@@ -32,7 +33,8 @@ import {PhonePipe } from 'src/helper/phone.pipe';
     ReactiveFormsModule,
     MatDialogModule,
     MatSelectModule,
-    DeleteDialogModule
+    DeleteDialogModule,
+    SharedModule
   ],
   providers: [],
   exports: [RoleLabelPipe, PhonePipe]

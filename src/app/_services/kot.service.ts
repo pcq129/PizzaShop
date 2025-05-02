@@ -16,4 +16,13 @@ export class KotService {
     return this.http.get(environment.baseURL  + 'kots');
   }
 
+  getAllKotData(){
+    return this.http.get(environment.baseURL  + 'allkots');
+  }
+
+  completeKot(kotId : {}){
+
+    return this.http.post(environment.baseURL + 'complete-kots', kotId)
+  }
+
 }

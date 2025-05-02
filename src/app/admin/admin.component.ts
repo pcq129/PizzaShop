@@ -122,7 +122,6 @@ export class AdminComponent implements OnInit {
 
   isSelected(currentContent: string){
     if(this.currentContent.endsWith(currentContent)){
-      console.log(currentContent);
       return true;
     }
     return false;

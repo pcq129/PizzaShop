@@ -28,21 +28,21 @@ export class SnackbarService {
     console.log(rawMessage);
 
     let message = this.toTitleCase(rawMessage);
-    return this._snackBar.open(message, 'close', {panelClass: ['snackbar-error','snackbar'],horizontalPosition: this.horizontalPosition,
+    return this._snackBar.open(rawMessage, 'close', {panelClass: ['snackbar-error','snackbar'],horizontalPosition: this.horizontalPosition,
       verticalPosition: this.verticalPosition,duration: this.durationInSeconds * 1000});
   }
 
   success(rawMessage: string) {
     let message = this.toTitleCase(rawMessage);
 
-    return this._snackBar.open(message, 'close', {panelClass: ['snackbar-success','snackbar'],horizontalPosition: this.horizontalPosition,
+    return this._snackBar.open(rawMessage, 'close', {panelClass: ['snackbar-success','snackbar'],horizontalPosition: this.horizontalPosition,
       verticalPosition: this.verticalPosition,duration: this.durationInSeconds * 1000});
   }
 
   info(rawMessage: string) {
     let message = this.toTitleCase(rawMessage);
 
-    return this._snackBar.open(message, 'close', {panelClass: ['snackbar-info','snackbar'],horizontalPosition: this.horizontalPosition,
+    return this._snackBar.open(rawMessage, 'close', {panelClass: ['snackbar-info','snackbar'],horizontalPosition: this.horizontalPosition,
       verticalPosition: this.verticalPosition,duration: this.durationInSeconds * 1000});
   }
 
@@ -58,7 +58,7 @@ export class SnackbarService {
     //   this.error('message');
     // }
     // else{
-      for(const[key,value] of Object.entries(message)){
+      for(const[key,value] of Object.entries(rawMessage)){
         this.error(`${value}`);
       }
     // }

@@ -31,10 +31,10 @@ export class OrderMenuComponent implements OnInit {
     this.orderService.currentData.subscribe((res: any) => {
       if (!res) {
         // this.snackbarService.info('Please assign tables first');
-        this.router.navigate(['orderapp/tables']);
+        // this.router.navigate(['orderapp/tables']);
       }
       this.orderData = res;
-      console.log(this.orderData);
+      console.log(res);
     });
     this.getTaxData();
   }

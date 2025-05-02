@@ -1,3 +1,4 @@
+import { ListKeyManager } from '@angular/cdk/a11y';
 import { HttpBackend, HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
@@ -83,8 +84,15 @@ export class OrderService {
 
 
 
-  getOrderData(){
-    return this.http.get(environment.baseURL + `order`);
+  getOrderData(page?: any){
+    const params = {
+        page: page?.pageIndex+1 || 1,
+        perPage: page?.pageSize || 5,
+      }
+      console.log(params);
+
+
+    return this.http.get(environment.baseURL + `order`, {params: params});
   }
 
 
