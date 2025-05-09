@@ -117,7 +117,7 @@ export class CategoryComponent implements OnInit, OnChanges {
     };
     if (data.name.length > 0) {
       this.categoryList.addCategory(data).subscribe((res:any) => {
-        if(res.status === 'false'){
+        if(!res.status){
           for(const[key,value] of Object.entries(res.message)){
             this.snackbar.error(`${value}`);
           }
@@ -161,7 +161,7 @@ export class CategoryComponent implements OnInit, OnChanges {
   //api interaction
   editCategory(element: object) {
     this.categoryList.editCategory(element).subscribe((res: any) => {
-      if(res.status === 'false'){
+      if(!res.status){
         for(const[key,value] of Object.entries(res.message)){
           this.snackbar.error(`${value}`);
         }

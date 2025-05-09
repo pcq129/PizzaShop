@@ -16,9 +16,9 @@ export class modifierDialog {
     console.log(data);
 
     console.log(data.modifier_group_id);
-    data.modifier_group_id.forEach((element:any) => {
-      this.modifierGroupId.push(element.pivot.modifier_group_id);
-    });
+    // data.modifier_group_id.forEach((element:any) => {
+    //   this.modifierGroupId.push(element.pivot.modifier_group_id);
+    // });
 
     console.log(this.modifierGroupId);
 
@@ -37,7 +37,7 @@ export class modifierDialog {
       this.whitespaceValidator,
     ]),
     rate: new FormControl(this.data.rate, Validators.required),
-    modifier_group_id: new FormControl(this.modifierGroupId),
+    modifier_group_id: new FormControl(this.data.modifier_group_id),
     quantity: new FormControl(this.data.quantity, Validators.required),
     unit: new FormControl(this.data.unit, Validators.required),
     description: new FormControl(this.data.description, [

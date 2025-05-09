@@ -14,7 +14,7 @@ export class UserService {
       page: event?.pageIndex+1 || 1,
       perPage : event?.pageSize || 5
     }
-    return this.http.get(environment.baseURL + `user`);
+    return this.http.get(environment.baseURL + `user`, {params : params});
   }
 
   addUser(data : any){
@@ -31,8 +31,12 @@ export class UserService {
     return this.http.delete(environment.baseURL + `user/${id}`);
   }
 
-  searchUser(search : string){
-    return this.http.get(environment.baseURL + `user/search/${search}`);
+  searchUser(search : string, pageChange? : any){
+    const params = {
+      page : pageChange?.pageIndex+1 || 1,
+      perPage : pageChange?.pageSize || 5
+    }
+    return this.http.get(environment.baseURL + `user/search/${search}`, {params});
   }
 
   getRoles(){

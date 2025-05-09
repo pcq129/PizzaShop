@@ -7,10 +7,15 @@ import { SnackbarService } from './snackbar.service';
   providedIn: 'root',
 })
 export class ModifierService {
+  search(modifierName: any, pageChange? : any) {
 
-
-  search(modifierName: any) {
-    return this.http.get(environment.baseURL + `modifier/search/${modifierName}`);
+    const params = {
+      'page': pageChange?.pageIndex + 1 || 1,
+      'perPage' : pageChange?.pageSize || 5,
+    }
+    return this.http.get(
+      environment.baseURL + `modifier/search/${modifierName}`, {params}
+    );
   }
 
   //services for mappers
@@ -21,22 +26,16 @@ export class ModifierService {
 
   //services for modifiers
 
-
   addModifier(result: any) {
     return this.http.post(environment.baseURL + `modifier`, result);
   }
   deleteModifier(modifierId: any) {
-    return this.http.delete(
-      environment.baseURL + `modifier/${modifierId}`
-    );
+    return this.http.delete(environment.baseURL + `modifier/${modifierId}`);
   }
   constructor(private http: HttpClient) {}
 
   editModifier(data: any) {
-    return this.http.put(
-      environment.baseURL + `modifier/${data.id}`,
-      data
-    );
+    return this.http.put(environment.baseURL + `modifier/${data.id}`, data);
   }
 
   getModifierData() {
@@ -49,7 +48,7 @@ export class ModifierService {
     return this.http.get(environment.baseURL + `modifier-group`);
   }
 
-  getModifierGroupList(){
+  getModifierGroupList() {
     return this.http.get(environment.baseURL + `modifier-group-list`);
   }
 
@@ -66,6 +65,22 @@ export class ModifierService {
 
   deleteModifierGroup(modifierId: any) {
     return this.http.delete(
-      environment.baseURL + `modifier-group`+ '/' + modifierId);
+      environment.baseURL + `modifier-group` + '/' + modifierId
+    );
+  }
+
+  modifierByModifierGroup(groupId: number, pageChange?: any) {
+    let params = {};
+    params = {
+      page: pageChange?.pageIndex + 1 || 1,
+      perPage: pageChange?.pageSize || 5,
+    };
+
+    console.log(params);
+
+    return this.http.get(
+      environment.baseURL + `modifiergroup-modifiers/${groupId}`,
+      { params: params }
+    );
   }
 }

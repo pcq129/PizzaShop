@@ -16,6 +16,8 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { DeleteDialogModule } from 'src/app/common/delete-dialog/delete-dialog/delete-dialog.module';
 import { ItemDialogComponent } from './item-dialog/item-dialog.component';
 import { categoryDialogComponent } from './category-dialog/category-dialog.component';
+import { SharedModule } from 'src/app/common/common-module.module';
+import { MatPaginatorModule } from '@angular/material/paginator';
 @NgModule({
   declarations: [
     ItemCategoryComponent,
@@ -40,6 +42,8 @@ import { categoryDialogComponent } from './category-dialog/category-dialog.compo
     MatSlideToggleModule,
     MatDialogModule,
     DeleteDialogModule,
+    SharedModule,
+    MatPaginatorModule
   ],
   exports: [ItemCategoryComponent],
 })

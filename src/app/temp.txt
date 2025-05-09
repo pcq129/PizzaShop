@@ -47,11 +47,11 @@ ts
     }else{
       this.itemService.search(itemName).subscribe({
         next: (res: any) => {
-          if (res.status == 'false') {
+          if (!res.status) {
             this.nodata = true;
             this.viewItems = [];
             return;
-          } else if (res.status == 'true') {
+          } else if (res.status) {
             this.nodata = false;
 
             this.viewItems = res.data;

@@ -61,12 +61,12 @@ export class ProfileComponent implements OnInit {
     console.log(data);
     this.authService.updateProfile(data).subscribe({
       next: (res: any)=>{
-        if(res.status == "true"){
+        if(res.status){
           this.snackbarService.success(res.message);
           localStorage.setItem('access_token', res.data);
           this.router.navigate(['pizzashop/dashboard']);
         }
-        else if(res.status == "false"){
+        else if(!res.status){
           this.snackbarService.error(res.message);
         }
       }

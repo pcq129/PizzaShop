@@ -11,13 +11,15 @@ import { catchError, Observable, of, throwError } from 'rxjs';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/_services/auth.service';
 import { SnackbarService } from 'src/app/_services/snackbar.service';
+import { MatDialog } from '@angular/material/dialog';
 
 @Injectable()
 export class HeadersInterceptor implements HttpInterceptor {
   constructor(
     private router: Router,
     private snackbarservice: SnackbarService,
-    private authservice: AuthService
+    private authservice: AuthService,
+    private matDialog: MatDialog
   ) {}
 
   handleAuthError(err: HttpErrorResponse): Observable<any> {
@@ -32,6 +34,7 @@ export class HeadersInterceptor implements HttpInterceptor {
 
         this.snackbarservice.error(err.message);
       }
+      this.matDialog.closeAll();
       this.authservice.clear();
       console.log(this.router.url);
       this.router.navigateByUrl(`/login`);

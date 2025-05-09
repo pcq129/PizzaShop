@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
@@ -6,6 +6,8 @@ import { SnackbarService } from 'src/app/_services/snackbar.service';
 import { UserService } from 'src/app/_services/user.service';
 import { UserDialogComponent } from './user-dialog/user-dialog.component';
 import { DeleteDialogComponent } from 'src/app/common/delete-dialog/delete-dialog/delete-dialog.component';
+import { MatPaginator } from '@angular/material/paginator';
+import { PaginatorComponent } from 'src/app/common/paginator/paginator.component';
 
 // const ELEMENT_DATA = [
 //   { role: 1, name: 'Hydrogen', email: 1.0079, status: 'H' },
@@ -34,32 +36,45 @@ export class UsersComponent implements OnInit {
   ) {
     this.getUserData();
   }
+
   ngOnInit(): void {}
 
   userData: any[] = [];
   viewUserData: any[] = [];
 
+  pageChange(event: Event) {
+    if (this.searchData) {
+      this.searchUser(this.searchQuery, event);
+      console.log('searcin');
 
-  pageChange(event: Event){
-    console.log(event);
-    this.getUserData(event);
+      return;
+    } else {
+      this.getUserData(event);
+      return;
+    }
   }
-
 
   pageSize = 0;
   dataLength = 0;
   getUserData(event?: any) {
     this.userService.getUserData(event).subscribe({
       next: (res: any) => {
-        if (res.status == 'true') {
+        if (res.status && res.code!=204) {
           this.userData = res.data.data;
           this.viewUserData = res.data.data;
           this.dataLength = res.data.total;
+          this.searchData = false;
         } else {
           this.snackbarService.error('Error');
         }
       },
     });
+  }
+
+  resetSearch(){
+    this.viewUserData = this.userData;
+    this.searchData = false;
+    this.nodata = false;
   }
 
   displayedColumns: string[] = [
@@ -87,7 +102,7 @@ export class UsersComponent implements OnInit {
       if (result && result.password) {
         this.userService.addUser(result).subscribe({
           next: (res: any) => {
-            if (res.status == 'true') {
+            if (res.status) {
               this.snackbarService.success(res.message);
               this.getUserData();
             } else {
@@ -121,7 +136,7 @@ export class UsersComponent implements OnInit {
       if (result) {
         this.userService.editUser(result, id).subscribe({
           next: (res: any) => {
-            if (res.status == 'true') {
+            if (res.status) {
               this.snackbarService.success(res.message);
               this.getUserData();
             } else {
@@ -150,7 +165,7 @@ export class UsersComponent implements OnInit {
       if (result) {
         this.userService.deleteUser(result.id).subscribe({
           next: (res: any) => {
-            if (res.status == 'true') {
+            if (res.status) {
               this.snackbarService.success(res.message);
               this.getUserData();
             } else {
@@ -165,33 +180,39 @@ export class UsersComponent implements OnInit {
     });
   }
 
-
-  nodata : boolean = false;
-  searchUser(search: string) {
-    if(search.length<4){
+  nodata: boolean = false;
+  searchData: boolean = false;
+  searchQuery: string = '';
+  @ViewChild('paginator') paginator!: PaginatorComponent;
+  searchUser(search: string, pageChange?: any) {
+    if (search.length < 4) {
       this.viewUserData = this.userData;
-      return
-    };
-    this.userService.searchUser(search).subscribe({
+      return;
+    }
+    this.userService.searchUser(search, pageChange).subscribe({
       next: (res: any) => {
-        if ((res.status == "false")) {
+        if (!res.status) {
           this.nodata = true;
           this.viewUserData = [];
           return;
-        }
-        else if (res.status == "true"){
+        } else if (res.status) {
           this.nodata = false;
-
-          this.viewUserData = res.data;
+          this.searchData = true;
+          this.viewUserData = res.data.data;
+          this.searchQuery = search;
+          if(!pageChange){
+            this.paginator.resetToFirstPage();
+          }
           return;
-        }else{
+        } else {
           this.nodata = true;
           console.log(res);
         }
-      },error: (err:any)=>{
-        this.nodata=true;
-        this.viewUserData=[];
-      }
+      },
+      error: (err: any) => {
+        this.nodata = true;
+        this.viewUserData = [];
+      },
     });
   }
 }

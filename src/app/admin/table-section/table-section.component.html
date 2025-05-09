@@ -3,21 +3,123 @@
   <!-- <button class="addCategory" mat-button (click)="openDialog()">Add Category</button> -->
 </div>
 
-<mat-card class="m-4 h-75">
+<mat-card class="m-4 matCardBody">
   <mat-drawer-container class="w-100 h-100" autosize>
     <mat-drawer class="w-25" mode="side" opened>
-      <app-section
-        (sectionId)="getTableDataBySection($event)"
-        (getSectionList)="refreshSectionList($event)"
-        [sectionsList]="sectionsList"
-      ></app-section>
+      <div class="header">
+        <h4 class="mt-2 ms-2">Sections</h4>
+        <button mat-button class="border-2 me-4" (click)="addSection()">
+          <mat-icon>add</mat-icon>
+        </button>
+      </div>
+      <div class="sectionList">
+        <ul>
+          <!-- <button class="sectionButton" mat-button (click)="getTables(0)">
+            <mat-icon>drag_indicator</mat-icon>
+            All Tables
+          </button> -->
+          <button
+            class="sectionButton"
+            mat-raised-button
+            [color]="isSelected(section.id)? 'accent': ''"
+            *ngFor="let section of sectionsList"
+            (click)="getTableDataBySection(section.id)"
+          >
+            <mat-icon>drag_indicator</mat-icon>
+            {{ section.name }}
+
+            <mat-icon class="hiddenIcon editIcon" (click)="editSection(section)"
+              >edit</mat-icon
+            >
+            <mat-icon class="hiddenIcon deleteIcon" (click)="deleteSection(section)"
+              >delete</mat-icon
+            >
+          </button>
+        </ul>
+      </div>
+
     </mat-drawer>
     <mat-drawer-content>
-      <app-tables
-        (getTableList)="refreshTableList($event)"
-        [sectionsList]="sectionsList"
-        [tablesList]="viewTables"
-      ></app-tables>
+      <div class="body">
+        <div class="header">
+          <h4 class="mt-2 ms-2">Tables</h4>
+          <div class="header">
+            <mat-form-field class="search" appearance="outline" (input)="searchTable(tableSearch.value)">
+              <mat-label>Search</mat-label>
+              <input class="" matInput placeholder="Search" #tableSearch/>
+              <button *ngIf="tableSearch.value" (click)="resetSearch(); tableSearch.value =''" matSuffix mat-icon-button aria-label="Clear">
+                <mat-icon>close</mat-icon>
+              </button>
+            </mat-form-field>
+            <button mat-button class="border-2" (click)="addTable()">
+              <mat-icon>add</mat-icon>
+              <span class="ms-2">New Table</span>
+            </button>
+          </div>
+        </div>
+        <div class="tableBody">
+          <h5 *ngIf="tablesList?.length == 0 || nodata" class="noDataBanner">
+            {{ tablesList?.length == 0 || !tablesList ? "No Tables" : "" }}
+          </h5>
+          <table
+            *ngIf="tablesList && tablesList?.length != 0"
+            mat-table
+            [dataSource]="tablesList"
+            class="tablesTable"
+          >
+  <!-- Checkbox Column -->
+          <ng-container matColumnDef="select">
+            <th mat-header-cell *matHeaderCellDef>
+              <mat-checkbox (change)="$event ? toggleAllRows() : null"
+                            [checked]="selection.length>0 && isAllSelected()"
+                            [indeterminate]="selection.length>0 && !isAllSelected()"
+                            >
+              </mat-checkbox>
+            </th>
+            <td mat-cell *matCellDef="let row">
+              <mat-checkbox (click)="$event.stopPropagation()"
+                            (change)="selectTable(row.id)"
+                            [checked]="selection.includes(row.id)">
+              </mat-checkbox>
+            </td>
+          </ng-container>
+
+            <!-- Name Column -->
+            <ng-container matColumnDef="name">
+              <th mat-header-cell *matHeaderCellDef>Name</th>
+              <td mat-cell *matCellDef="let table">{{ table.name }}</td>
+            </ng-container>
+
+            <!-- Capacity Column -->
+            <ng-container matColumnDef="capacity">
+              <th mat-header-cell *matHeaderCellDef>Capacity</th>
+              <td mat-cell *matCellDef="let table">{{ table.capacity }}</td>
+            </ng-container>
+
+            <!-- Status Column -->
+            <ng-container matColumnDef="status">
+              <th mat-header-cell *matHeaderCellDef>Status</th>
+              <td mat-cell *matCellDef="let table">{{ table.status }}</td>
+            </ng-container>
+
+            <!-- Actions Column -->
+            <ng-container matColumnDef="actions">
+              <th mat-header-cell *matHeaderCellDef>Actions</th>
+              <td mat-cell *matCellDef="let table">
+                <mat-icon (click)="editTable(table)">edit</mat-icon>
+                <mat-icon (click)="deleteTable(table)">delete</mat-icon>
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="tablesColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: tablesColumns"></tr>
+          </table>
+          <app-paginator
+          [hidden]="!tablesList || tablesList?.length == 0" [pageSize]="perPage" [length]="resultsLength" (pageChange)="pageChange($event)" #paginator>
+          </app-paginator>
+        </div>
+      </div>
+
     </mat-drawer-content>
   </mat-drawer-container>
 </mat-card>

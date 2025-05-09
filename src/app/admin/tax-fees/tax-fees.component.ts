@@ -44,7 +44,7 @@ export class TaxFeesComponent implements OnInit {
   getTaxList(){
     this.taxfeeservice.getAllTaxFeesData().subscribe({
       next: (res: any)=>{
-        if(res.status == "false"){
+        if(!res.status){
           this.snackbarservice.error(res.message);
         }
         else{
@@ -77,11 +77,11 @@ export class TaxFeesComponent implements OnInit {
     }else{
       this.taxfeeservice.search(taxName).subscribe({
         next: (res: any) => {
-          if (res.status == 'false') {
+          if (!res.status) {
             this.nodata = true;
             this.viewTaxList = [];
             return;
-          } else if (res.status == 'true') {
+          } else if (res.status) {
             this.nodata = false;
 
             this.viewTaxList = res.data;
@@ -121,7 +121,7 @@ export class TaxFeesComponent implements OnInit {
       if (result.name && result.amount && result.type) {
         this.taxfeeservice.addTaxFees(result).subscribe({
           next: (res: any) => {
-            if (res.status === 'false') {
+            if (!res.status) {
               this.snackbarservice.error(res.message);
             } else {
               this.snackbarservice.success(res.message);
@@ -161,7 +161,7 @@ export class TaxFeesComponent implements OnInit {
       if (result.id && result.name && result.amount && result.type) {
         this.taxfeeservice.editTaxFees(result).subscribe({
           next: (res: any) => {
-            if (res.status === 'false') {
+            if (!res.status) {
               this.snackbarservice.error(res.message);
             } else {
               this.snackbarservice.success(res.message);
@@ -195,7 +195,7 @@ export class TaxFeesComponent implements OnInit {
         if (result) {
           this.taxfeeservice.deleteTaxFees(result).subscribe({
             next: (res: any) => {
-              if (res.status === 'false') {
+              if (!res.status) {
                 this.snackbarservice.error(res.message);
               } else {
                 this.snackbarservice.success('Table deleted successfully');

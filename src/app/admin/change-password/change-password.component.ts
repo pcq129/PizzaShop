@@ -76,11 +76,11 @@ export class ChangePasswordComponent implements OnInit {
   changePassword(passwordData: any) {
     this.authService.updatePassword(passwordData).subscribe({
       next: (res: any) => {
-        if (res.status == 'false') {
+        if (!res.status) {
           this.snackbarService.error(res.message);
-        } else if (res.status == 'true') {
+        } else if (res.status) {
           this.snackbarService.success(res.message);
-          localStorage.setItem('access_token', res.data);
+          localStorage.setItem('access_token', res.access_token);
           // this.authService.clear();
         }
       },

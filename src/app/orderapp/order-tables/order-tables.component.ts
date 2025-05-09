@@ -3,7 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { SnackbarService } from 'src/app/_services/snackbar.service';
 import { TableSectionService } from 'src/app/_services/table-section.service';
-import { OrderService } from '../../_services/order-service.service';
+import { OrderService } from '../../_services/order.service';
 import { MatDialog } from '@angular/material/dialog';
 import { waitingTokenDialog } from './dialogs/waitingTokenDialog.component';
 
@@ -201,7 +201,7 @@ export class OrderTablesComponent implements OnInit {
       if (res) {
         this.sectionService.createWaitingToken(res).subscribe({
           next: (res: any) => {
-            if (res.status == 'false') {
+            if (!res.status) {
               this.snackbarService.error(res.message);
               // this.router.navigateByUrl('order/menu');
             } else {
@@ -241,7 +241,7 @@ export class OrderTablesComponent implements OnInit {
 
     this.sectionService.assignTables(data).subscribe({
       next: (res: any) => {
-        if (res.status == 'false') {
+        if (!res.status) {
           this.snackbarService.error(res.message);
           this.router.navigate(['orderapp/menu']);
           console.log(data);
@@ -283,7 +283,7 @@ export class OrderTablesComponent implements OnInit {
     };
     this.tableSectionService.searchCustomer(data).subscribe({
       next: (res: any) => {
-        if (res.status == 'true') {
+        if (res.status) {
           this.searchedCustomers = res.data;
           console.log(this.searchedCustomers);
         } else {

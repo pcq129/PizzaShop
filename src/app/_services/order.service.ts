@@ -1,10 +1,12 @@
 import { ListKeyManager } from '@angular/cdk/a11y';
+import { DatePipe } from '@angular/common';
 import { HttpBackend, HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { environment } from 'src/environments/environment';
+import { LoginFormComponent } from '../auth/login/login-form/login-form.component';
 
 
 // export interface orderData{
@@ -28,7 +30,8 @@ export class OrderService {
 
   constructor(
     private http : HttpClient,
-    private router : Router
+    private router : Router,
+    private datepipe : DatePipe
   ){};
 
 
@@ -78,10 +81,42 @@ export class OrderService {
     return this.http.post(environment.baseURL + 'order', data);
   }
 
-  searchOrder(orderId : string){
-    return this.http.get(environment.baseURL +  `order/${orderId}`)
-  }
+  // searchOrder(orderId : string, searchData: any , pageChange?: any){
+  //   console.log(searchData);
 
+  //   let start_date = this.datepipe.transform(searchData.startDate, 'dd-MM-yyyy');
+  //   let end_date = this.datepipe.transform(searchData.endDate, 'dd-MM-yyyy');
+
+  //   const params = {
+  //     page : pageChange?.pageIndex+1 || 1,
+  //     perPage : pageChange?.pageSize || 5,
+  //     status : searchData.status,
+  //     start_date : start_date,
+  //     end_date : end_date
+  //   }
+  //   return this.http.get(environment.baseURL +  `order/search/${orderId}`, {params: params})
+  // }
+
+
+  searchOrder(searchData?: any, pageChange?: any) {
+
+    let start_date = this.datepipe.transform(searchData.startDate, 'dd/MM/yyyy');
+    let end_date = this.datepipe.transform(searchData.endDate, 'dd/MM/yyyy');
+
+    console.log(start_date, end_date);
+
+
+    const params: any = {
+      page: pageChange?.pageIndex + 1 || 1,
+      perPage: pageChange?.pageSize || 5,
+      status: searchData.status || 0,
+      start_date: start_date,
+      end_date: end_date,
+      order_id: searchData.search || 0
+    };
+
+    return this.http.get(`${environment.baseURL}orders/search`, {params:params});
+  }
 
 
   getOrderData(page?: any){
@@ -106,8 +141,24 @@ export class OrderService {
   }
 
 
-  exportOrdersToExcel(filter: number) {
-    return this.http.get(environment.baseURL + `export-excel/${filter}`, { responseType: 'blob' });
+  exportOrdersToExcel(filterData: any) {
+
+
+    let start_date = this.datepipe.transform(filterData.startDate, 'dd/MM/yyyy');
+    let end_date = this.datepipe.transform(filterData.endDate, 'dd/MM/yyyy');
+
+    console.log(start_date, end_date);
+
+
+    const params: any = {
+      status: filterData.status || 0,
+      start_date: start_date,
+      end_date: end_date,
+      order_id: filterData.search || 0
+    };
+
+
+    return this.http.get(environment.baseURL + `export-excel`, { params:params, responseType: 'blob' });
   }
 
 

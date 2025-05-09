@@ -11,8 +11,6 @@
       </ng-template>
       <app-item-category
         [categoryData]="categoryData"
-        [allItems]="allItems"
-        [viewItems]="allItems"
         (refreshCategoryData)="refreshCategoryData($event)"
       ></app-item-category>
     </mat-tab>
@@ -24,8 +22,6 @@
       </ng-template>
       <app-modifier
         [modifierGroupData]="modifierGroupData"
-        [allModifiers]="allModifiers"
-        [viewModifiers]="allModifiers"
       ></app-modifier>
     </mat-tab>
   </mat-tab-group>

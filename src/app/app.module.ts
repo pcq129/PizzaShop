@@ -24,6 +24,8 @@ import { OrderappModule } from './orderapp/orderapp.module';
 import { PageNotFoundModule } from './common/page-not-found/page-not-found.module';
 import { RouterModule } from '@angular/router';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
+import {MatNativeDateModule} from '@angular/material/core';
+
 
 @NgModule({
   declarations: [AppComponent],
@@ -45,6 +47,7 @@ import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
     MatIconModule,
     OrderappModule,
     PageNotFoundModule,
+    MatNativeDateModule
   ],
   providers: [
     AuthService,

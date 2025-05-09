@@ -8,6 +8,17 @@
       <li class="itemCategoryContainer">
         <button
           mat-raised-button
+          (click)="loadItems(-1)"
+          class="itemCategory"
+          [color]="-1 == currentCategory ? 'accent' : 'none'"
+          id='-1'
+        >
+          Favourites
+        </button>
+      </li>
+      <li class="itemCategoryContainer">
+        <button
+          mat-raised-button
           (click)="loadItems(0)"
           class="itemCategory"
           [color]="0 == currentCategory ? 'accent' : 'none'"
@@ -33,6 +44,16 @@
     <div class="menu">
       <div class="itemsHeader">
         <h3 class="itemsTitle">Items</h3>
+        <mat-form-field class="searchItem">
+          <mat-label>Search Item</mat-label>
+          <input matInput #searchItem >
+          <button *ngIf="searchItem.value" matSuffix mat-icon-button aria-label="Clear" (click)="resetSearch(); searchItem.value=''">
+            <mat-icon>close</mat-icon>
+          </button>
+          <button matSuffix mat-icon-button aria-label="Clear" (click)="searchOrderItem(searchItem.value, $event)">
+            <mat-icon>search</mat-icon>
+          </button>
+        </mat-form-field>
         <ul class="noBullets horizontal">
           <li><span class="green dot"></span>Vegetarian</li>
           <li><span class="red dot"></span>Non-Vegetarian</li>
@@ -63,14 +84,15 @@
             </h6>
             <p class="price">₹{{ getItemAmount(item) }}</p>
           </div>
-          <mat-icon mat-icon-button (click)="addFavourite()" class="wishlist"
-            >favorite_border</mat-icon
-          >
+          <mat-icon *ngIf="!item.is_favourite" mat-icon-button (click)="addFavourite(item.id, $event)" class="wishlist"
+            >favorite_border</mat-icon>
+          <mat-icon *ngIf="item.is_favourite" mat-icon-button (click)="addFavourite(item.id, $event)" class="wishlist"
+            >favorite</mat-icon>
         </mat-card>
       </div>
     </div>
 
-    <mat-card class="billingContainer">
+    <mat-card class="billingContainer" *ngIf="placingOrder">
       <div class="tableDetails">
         <strong>{{ orderData.section }}</strong>
         <div>

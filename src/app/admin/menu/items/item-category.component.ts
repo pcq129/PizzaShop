@@ -5,6 +5,8 @@ import {
   Input,
   OnInit,
   Output,
+  ViewChild,
+  AfterViewInit,
 } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import {
@@ -19,6 +21,8 @@ import { SnackbarService } from 'src/app/_services/snackbar.service';
 import { DeleteDialogComponent } from 'src/app/common/delete-dialog/delete-dialog/delete-dialog.component';
 import { ItemDialogComponent } from './item-dialog/item-dialog.component';
 import { categoryDialogComponent } from './category-dialog/category-dialog.component';
+import { MatPaginator } from '@angular/material/paginator';
+import { PaginatorComponent } from 'src/app/common/paginator/paginator.component';
 export interface DialogData {
   id: number;
   name: string;
@@ -48,14 +52,18 @@ export class ItemCategoryComponent implements OnInit {
   @Input()
   categoryData: any = [];
 
+  @Input()
+  itemData: any = [];
+
   @Output()
   refreshCategoryData = new EventEmitter<boolean>();
 
   modifierData: any = [];
-  selectedCategory: number = 0;
 
-  nodata: boolean = false;
-  searchItem(itemName: string) {
+  nodata: boolean = true;
+  searchData: boolean = false;
+  searchQuery: string = '';
+  searchItem(itemName: string, pageChange?: any) {
     if (itemName.length < 4) {
       console.log(this.viewItems);
       this.nodata = false;
@@ -64,16 +72,18 @@ export class ItemCategoryComponent implements OnInit {
       }, 500);
       return;
     } else {
-      this.itemService.search(itemName).subscribe({
+      this.itemService.search(itemName, pageChange).subscribe({
         next: (res: any) => {
-          if (res.status == 'false') {
+          if (!res.status) {
             this.nodata = true;
             this.viewItems = [];
             return;
-          } else if (res.status == 'true') {
+          } else if (res.status) {
             this.nodata = false;
-
-            this.viewItems = res.data;
+            this.resultsLength = res.data.total;
+            this.viewItems = res.data.data;
+            this.searchData = true;
+            this.searchQuery = itemName;
             return;
           } else {
             this.nodata = true;
@@ -88,10 +98,9 @@ export class ItemCategoryComponent implements OnInit {
     }
   }
 
-  @Input()
   allItems: any = [];
-  @Input()
   viewItems: any = [];
+  // this.viewItems.paginator = this.paginator
   currentCategory: number = 0;
   displayedColumns: string[] = [
     'item',
@@ -118,16 +127,53 @@ export class ItemCategoryComponent implements OnInit {
     this.viewItems = allItems;
   }
 
-  loadItems(categoryId: number) {
-    this.currentCategory = categoryId;
-    if (categoryId == 0) {
-      this.viewItems = this.allItems;
-    } else {
-      let categoryItems = this.categoryData.find(
-        (category: any) => category.id === categoryId
-      ).items;
-      this.viewItems = categoryItems;
+  resultsLength: number = 0;
+  pageSize: number = 5;
+
+  @ViewChild('itemPaginator') itemPaginator!: PaginatorComponent;
+
+  resetSearch(){
+    this.viewItems = this.allItems;
+    this.nodata = false;
+    this.searchData = false;
+    this.searchQuery = '';
+    this.loadItems(this.currentCategory);
+  }
+
+  loadItems(categoryId: number, params?: any) {
+    if (!params) {
+      this.itemPaginator.resetToFirstPage();
     }
+    this.currentCategory = categoryId;
+    // let categoryItems = this.categoryData.find(
+    //   (category: any) => category.id === categoryId
+    // ).items;
+    // this.viewItems = categoryItems;
+
+    // implement api call here directly (not a good practice but for now will do)
+
+    this.itemService.getItemByCategory(categoryId, params).subscribe({
+      next: (res: any) => {
+        this.resultsLength = res.data.total;
+        console.log(res);
+        this.itemData = res.data.data;
+        this.viewItems = res.data.data;
+        this.nodata = false;
+        this.currentCategory = categoryId;
+      },
+      error: (error) => {
+        this.snackbarService.error(error.message);
+      },
+    });
+  }
+
+  onPageChange(event: any) {
+    if (this.searchData) {
+      this.searchItem(this.searchQuery, event);
+      return;
+    }
+    this.loadItems(this.currentCategory, event);
+    return;
   }
 
   // api call post actions for refreshing the data
@@ -135,7 +181,7 @@ export class ItemCategoryComponent implements OnInit {
   getCategoryData() {
     this.categoryService.getCategoryData().subscribe({
       next: (res: any) => {
-        if (res.status == 'true') {
+        if (res.status) {
           this.categoryData = res.data;
           this.extractAllItems(res.data);
           this.loadItems(this.currentCategory);
@@ -168,7 +214,7 @@ export class ItemCategoryComponent implements OnInit {
   deleteCategory(id: number) {
     this.categoryService.removeCategory(id).subscribe((res) => {
       this.snackbarService.success('Category deleted successfully');
-      this.refreshCategoryData.emit(true);
+      // this.refreshCategoryData.emit(true);
       this.loadItems(this.currentCategory);
     });
   }
@@ -208,13 +254,13 @@ export class ItemCategoryComponent implements OnInit {
     };
     if (data.name.length > 0) {
       this.categoryService.addCategory(data).subscribe((res: any) => {
-        if (res.status === 'false') {
+        if (!res.status) {
           for (const [key, value] of Object.entries(res.message)) {
             this.snackbarService.error(`${value}`);
           }
         } else {
           this.snackbarService.success('Category added successfully');
-          this.refreshCategoryData.emit(true);
+          // this.refreshCategoryData.emit(true);
           this.loadItems(this.currentCategory);
         }
       });
@@ -252,13 +298,13 @@ export class ItemCategoryComponent implements OnInit {
   //api interaction
   editCategory(element: object) {
     this.categoryService.editCategory(element).subscribe((res: any) => {
-      if (res.status === 'false') {
+      if (!res.status) {
         for (const [key, value] of Object.entries(res.message)) {
           this.snackbarService.error(`${value}`);
         }
       } else {
         this.snackbarService.success('Category updated successfully');
-        this.refreshCategoryData.emit(true);
+        // this.refreshCategoryData.emit(true);
         this.loadItems(this.currentCategory);
       }
     });
@@ -290,14 +336,14 @@ export class ItemCategoryComponent implements OnInit {
   addItem(Item: any) {
     console.log(Item);
     this.itemService.addItem(Item).subscribe((res) => {
-      if (res.status === 'false') {
+      if (!res.status) {
         for (const [key, value] of Object.entries(res.message)) {
           this.snackbarService.error(`${value}`);
         }
       } else {
         this.snackbarService.success(`Item added successfully`);
-        this.refreshCategoryData.emit(true);
-        this.loadItems(this.selectedCategory);
+        // this.refreshCategoryData.emit(true);
+        this.loadItems(this.currentCategory);
         this.extractAllItems(this.categoryData);
       }
     });
@@ -320,8 +366,8 @@ export class ItemCategoryComponent implements OnInit {
     this.itemService.removeItem(id).subscribe(
       (res) => {
         this.snackbarService.success('Item deleted successfully');
-        this.refreshCategoryData.emit(true);
-        this.loadItems(this.selectedCategory);
+        // this.refreshCategoryData.emit(true);
+        this.loadItems(this.currentCategory);
         this.extractAllItems(this.categoryData);
       },
       (error) => {
@@ -351,7 +397,7 @@ export class ItemCategoryComponent implements OnInit {
         default_tax: element.default_tax,
         modifierGroupList: this.modifierData,
         tax_percentage: element.tax_percentage,
-        modifier_group_ids: element.modifier_groups,
+        modifier_group_ids: element.modifier_group_ids,
       },
     });
 
@@ -371,15 +417,15 @@ export class ItemCategoryComponent implements OnInit {
   editItems(Item: any) {
     this.itemService.editItem(Item).subscribe({
       next: (res: any) => {
-        if (res.status === 'false') {
+        if (!res.status) {
           for (const [key, value] of Object.entries(res.message)) {
             this.snackbarService.error(`${value}`);
           }
         } else {
           this.snackbarService.success(`Item updated successfully`);
-          this.refreshCategoryData.emit(true);
-          this.loadItems(this.selectedCategory);
-          this.extractAllItems(this.categoryData);
+          // this.refreshCategoryData.emit(true);
+          this.loadItems(this.currentCategory);
+          // this.extractAllItems(this.categoryData);
         }
       },
       error: (err) => {

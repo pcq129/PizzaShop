@@ -2,7 +2,7 @@ import { Time } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { KotService } from 'src/app/_services/kot.service';
-import { OrderService } from 'src/app/_services/order-service.service';
+import { OrderService } from 'src/app/_services/order.service';
 import { SnackbarService } from 'src/app/_services/snackbar.service';
 import { KotDialogComponent } from './kot-dialog/kot-dialog.component';
 
@@ -78,7 +78,7 @@ export class KotComponent implements OnInit {
     };
     this.kotService.completeKot(data).subscribe({
       next: (res: any) => {
-        if (res.status == true) {
+        if (res.status) {
           this.snackbarService.success(res.message);
           this.getOrderKotData();
           this.getKotData();
@@ -104,7 +104,7 @@ export class KotComponent implements OnInit {
   getKotData() {
     this.kotService.getKotData().subscribe({
       next: (res: any) => {
-        if (res.status == 'true') {
+        if (res.status) {
           this.kotData = res.data;
           setTimeout(() => {
             this.formatData();
@@ -119,7 +119,7 @@ export class KotComponent implements OnInit {
   getOrderKotData() {
     this.kotService.getAllKotData().subscribe({
       next: (res: any) => {
-        if (res.status == 'true') {
+        if (res.status) {
           this.orderKotData = res.data;
           setTimeout(() => {
             this.formatOrderKotData(this.orderKotData);

@@ -11,7 +11,6 @@ import { AdminComponent } from './admin/admin.component';
 import { LoginFormComponent } from './auth/login/login-form/login-form.component';
 import { AppComponent } from './app.component';
 import { TableSectionComponent } from './admin/table-section/table-section.component';
-import { SectionComponent } from './admin/table-section/section/section.component';
 import { TaxFeesComponent } from './admin/tax-fees/tax-fees.component';
 import { OrderappComponent } from './orderapp/orderapp.component';
 import { OrderTablesComponent } from './orderapp/order-tables/order-tables.component';

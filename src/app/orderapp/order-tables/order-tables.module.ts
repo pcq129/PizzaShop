@@ -14,7 +14,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { OrderMenuModule } from '../order-menu/order-menu.module';
-import { OrderService } from '../../_services/order-service.service';
+import { OrderService } from '../../_services/order.service';
 import { MatRadioModule } from '@angular/material/radio';
 import { waitingTokenDialog } from './dialogs/waitingTokenDialog.component';
 import { MatDialogModule } from '@angular/material/dialog';

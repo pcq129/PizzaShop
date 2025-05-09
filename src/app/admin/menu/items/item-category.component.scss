@@ -29,11 +29,16 @@
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  height: 60px;
-  margin: 12px;
+  height: 40px;
+  margin: 6px;
   margin-left: auto;
   margin-right: auto;
 }
+
+.subHeading{
+  margin: 15px;
+}
+
 
 .drawer {
   display: flex;
@@ -48,7 +53,7 @@
 .actionButtonContainer {
   position: absolute;
   right: 12px;
-  top: 18px;
+  top: 8px;
 }
 
 .right{

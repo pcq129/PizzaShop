@@ -13,11 +13,11 @@ export class TableSectionService {
 
   //services for tables
   getAllTableData(pageChange? : any){
-    // const params = {
-    //   page : pageChange?.pageIndex+1 || 1,
-    //   perPage : pageChange?.pageSize || 5
-    // }{params: params}
-    return this.http.get(environment.baseURL + `table`,);
+    const params = {
+      page : pageChange?.pageIndex+1 || 1,
+      perPage : pageChange?.pageSize || 5
+    }
+    return this.http.get(environment.baseURL + `table`, {params: params});
   }
 
   getTableDataBySection(id : number, pageChange? : any){
@@ -61,8 +61,13 @@ export class TableSectionService {
     return this.http.post(environment.baseURL + 'customer/update-waiting-token', data)
   }
 
-  searchTable(tableName: string){
-    return this.http.get(environment.baseURL + `table/search/${tableName}`);
+  searchTable(tableName: string, pageChange? : any){
+
+    const params = {
+      page : pageChange?.pageIndex+1 || 1,
+      perPage : pageChange?.pageSize || 5
+    }
+    return this.http.get(environment.baseURL + `table/search/${tableName}`, {params: params});
   }
 
 

@@ -1,7 +1,7 @@
 <mat-drawer-container class="w-100 h-100" autosize>
   <mat-drawer class="drawer" mode="side" [opened]="true">
     <div class="header">
-      <h4 class="mt-2 ms-2">Modifier Groups</h4>
+      <h4 class="subHeading">Modifier Groups</h4>
       <div class="header">
         <!-- search tables -->
         <!-- <input class="mt-3" mat-input placeholder="Search" />
@@ -53,12 +53,12 @@
   </mat-drawer>
   <mat-drawer-content>
     <div class="header">
-      <h4 class="mt-2 ms-2">Modifier Groups/Modifiers</h4>
+      <h4 class="subHeading">Modifiers</h4>
       <div class="header">
         <mat-form-field class="search" appearance="outline" (input)="searchModifier(userSearch.value)">
           <mat-label>Search</mat-label>
           <input class="" matInput placeholder="Search" #userSearch/>
-          <button *ngIf="userSearch.value" (click)="userSearch.value = ''; viewModifiers = allModifiers" matSuffix mat-icon-button aria-label="Clear">
+          <button *ngIf="userSearch.value" (click)="userSearch.value = ''" matSuffix mat-icon-button aria-label="Clear">
             <mat-icon>close</mat-icon>
           </button>
         </mat-form-field>
@@ -144,5 +144,6 @@
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
     </table>
+    <app-paginator #modifierPaginator class="paginator" [hidden]="nodata"  [length]="resultsLength" (pageChange)="onPageChange($event)" [pageSize]="pageSize"></app-paginator>
   </mat-drawer-content>
 </mat-drawer-container>

@@ -5,7 +5,7 @@ import { ItemsService } from 'src/app/_services/items.service';
 import { ModifierService } from 'src/app/_services/modifier.service';
 import { SnackbarService } from 'src/app/_services/snackbar.service';
 import { modifierDialog } from './modifier-dialog.component';
-import { OrderService } from '../../_services/order-service.service';
+import { OrderService } from '../../_services/order.service';
 import { TaxFeesService } from 'src/app/_services/tax-fees.service';
 import { Router } from '@angular/router';
 import { ConfirmationDialogComponent } from 'src/app/common/confirmation-dialog/confirmation-dialog.component';
@@ -33,8 +33,11 @@ export class OrderMenuComponent implements OnInit {
         // this.snackbarService.info('Please assign tables first');
         // this.router.navigate(['orderapp/tables']);
       }
-      this.orderData = res;
+      else{
+        this.orderData = res;
+      this.placingOrder = true;
       console.log(res);
+      }
     });
     this.getTaxData();
   }
@@ -60,12 +63,14 @@ export class OrderMenuComponent implements OnInit {
   // imageUrl: any= (this.data.image) ? ("http://127.0.0.1:8000/storage/uploads/"+ this.data.image) : ("http://127.0.0.1:8000/storage/uploads/default.png");
   currentCategory: number = 0;
   categoryData: any[] = [];
+  allItems: any;
   viewItemData: any;
   modifierData: any[] = [];
   singleItemData: any;
   selectedModifiers: number[] = [];
   orderData: any;
   taxData: any = {};
+  placingOrder : boolean = false;
 
   //new order data (temp store)
   items: any[] = [];
@@ -73,15 +78,56 @@ export class OrderMenuComponent implements OnInit {
   taxBreakup: any = {};
   amount: number = 0;
 
+  favouriteItems : any = [];
+  getFavouriteItems(){
+    this.itemService.getFavouriteItems().subscribe({
+      next: (res: any) => {
+        if (!res.status) {
+          this.snackbarService.error(res.message);
+        } else {
+          this.favouriteItems = res.data;
+          this.viewItemData = res.data;
+        }
+      }
+    });
+  }
+
+  resetSearch(){
+    this.currentCategory = 0;
+    this.loadItems(0);
+  }
+  searchOrderItem(item : string, event: Event){
+    if(!item){
+      return;
+    }
+    event.stopPropagation();
+    this.itemService.searchItem(item, this.currentCategory).subscribe({
+      next: (res:any)=>{
+        if(res.status){
+          this.viewItemData = res.data;
+        }else{
+          this.snackbarService.error(res.message);
+          this.viewItemData = [];
+        }
+      },
+      error: (error)=>{
+        this.snackbarService.error(error.message);
+      }
+    })
+  }
+
   getCategoryData() {
     this.categoryService.getCategoryData().subscribe({
       next: (res: any) => {
-        if (res.status == 'false') {
+        if (!res.status) {
           this.snackbarService.error(res.message);
         } else {
           this.categoryData = res.data;
           let data = res.data.flatMap((category: any) => category.items);
-          this.viewItemData = data;
+          // this.viewItemData = data;
+          this.allItems = data;
+          this.loadItems(this.currentCategory);
+          // this.allItemData = data;
         }
       },
     });
@@ -90,7 +136,7 @@ export class OrderMenuComponent implements OnInit {
   getTaxData() {
     this.taxService.getAllTaxFeesData().subscribe({
       next: (res: any) => {
-        if (res.status == 'false') {
+        if (!res.status) {
           this.snackbarService.error(res.message);
         } else {
           this.taxData = res.data;
@@ -116,6 +162,10 @@ export class OrderMenuComponent implements OnInit {
   // }
 
   addModifierPopup(item_id: number) {
+
+    if(!this.placingOrder){
+      return;
+    }
     this.itemService.getSingleItem(item_id).subscribe({
       next: (res: any) => {
         if (res.status == false) {
@@ -183,7 +233,12 @@ export class OrderMenuComponent implements OnInit {
       this.viewItemData = data;
 
       // return entries.flatMap(entry => entry.items);
-    } else {
+    }
+    else if(id == -1){
+      // this.viewItemData=this.favouriteItems;
+      this.getFavouriteItems();
+    }
+    else {
       let items = this.categoryData.find(
         (category) => category.id === id
       ).items;
@@ -195,8 +250,24 @@ export class OrderMenuComponent implements OnInit {
     return category.items;
   }
 
-  addFavourite() {
-    alert('Item added to favs (just kidding, implementation pending)');
+  addFavourite(item_id: number, event : Event) {
+    event.stopPropagation();
+    this.itemService.addFavourite(item_id).subscribe(
+      {
+        next: (res:any)=>{
+          if(res.status==true){
+            this.snackbarService.success(res.message);
+            this.getCategoryData();
+          }else{
+            this.snackbarService.error(res.message);
+          }
+        },
+        error: (error)=>{
+          this.snackbarService.error(error.message)
+          throw new Error(error);
+        }
+      }
+    )
   }
 
   calculateSubTotal(orderData: any) {
@@ -304,7 +375,7 @@ export class OrderMenuComponent implements OnInit {
     console.log(order.order_data);
     this.orderService.placeOrder(order).subscribe({
       next: (res: any) => {
-        if (res.status == 'false') {
+        if (!res.status) {
           this.snackbarService.error(res.message);
         } else {
           this.snackbarService.success('Order placed successfully');
@@ -352,7 +423,7 @@ export class OrderMenuComponent implements OnInit {
       if (res.id) {
         this.orderService.cancelOrder(res).subscribe({
           next: (res: any) => {
-            if (res.status == 'false') {
+            if (!res.status) {
               this.snackbarService.error(res.message);
             } else {
               this.snackbarService.success(res.message);
@@ -389,7 +460,7 @@ export class OrderMenuComponent implements OnInit {
         if (res.id) {
           this.orderService.completeOrder(id).subscribe({
             next: (res: any) => {
-              if (res.status == 'false') {
+              if (!res.status) {
                 this.snackbarService.error(res.message);
               } else {
                 this.snackbarService.success('Order marked as completed');
@@ -427,7 +498,7 @@ export class OrderMenuComponent implements OnInit {
         };
         this.orderService.customerFeedback(ratingData).subscribe({
           next: (res: any) => {
-            if (res.status == 'true') {
+            if (res.status) {
               this.snackbarService.success(res.message);
             } else {
               this.snackbarService.error(res.message);

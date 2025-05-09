@@ -22,7 +22,6 @@ export class AdminComponent implements OnInit {
         if(res){
           this.role = res;
           console.log(res);
-
         }
       }
      });
@@ -48,7 +47,6 @@ export class AdminComponent implements OnInit {
       title: 'Users',
       redirect: 'pizzashop/users',
       role: ['super_admin']
-
     },
     {
       icon: `settings`,
@@ -76,7 +74,6 @@ export class AdminComponent implements OnInit {
       title: 'Taxes and Fees',
       redirect: 'pizzashop/taxes-fees',
       role: ['super_admin','account_manager']
-
     },
     {
       icon: `assignment_turned_in`,
@@ -116,6 +113,7 @@ export class AdminComponent implements OnInit {
   loadUserData(){
     // this.authService.fetchUserData();
     console.log(this.authService.user$);
+    this.currentContent = 'pizzashop/profile';
 
     this.redirect('pizzashop/profile')
   }

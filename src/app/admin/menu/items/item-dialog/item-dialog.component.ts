@@ -26,7 +26,7 @@ export class ItemDialogComponent implements OnInit {
     private snackbarSerice: SnackbarService,
     private modifierService: ModifierService
   ) {
-    this.formatModifierGroups();
+    // this.formatModifierGroups();
     this.getCurrentImage();
     this.getModifierGroupList();
     console.log(data);
@@ -34,7 +34,7 @@ export class ItemDialogComponent implements OnInit {
 
   currentImage: string | null = null;
   uploadedImage: string | null = null;
-  modifier_group_ids: any[] = [];
+  // modifier_group_ids: any[] = [];
 
   getModifierGroupList() {
     this.modifierService.getModifierGroupList().subscribe((res: any) => {
@@ -46,11 +46,11 @@ export class ItemDialogComponent implements OnInit {
   getCurrentImage() {
     this.currentImage = this.data.image;
   }
-  formatModifierGroups() {
-    this.data.modifier_group_ids.forEach((modifierGroup: any) => {
-      this.modifier_group_ids.push(modifierGroup.id);
-    });
-  }
+  // formatModifierGroups() {
+  //   this.data.modifier_group_ids.forEach((modifierGroup: any) => {
+      // this.modifier_group_ids.push(modifierGroup.id);
+  //   });
+  // }
   deleteUploadedImage(imageName: any) {
     this.itemService.removeImage(imageName).subscribe({
       next: (res) => {
@@ -89,7 +89,7 @@ export class ItemDialogComponent implements OnInit {
       [Validators.required]
     ),
     category_id: new FormControl(this.data.category_id, [Validators.required]),
-    modifier_groups_id: new FormControl(this.modifier_group_ids, []),
+    modifier_groups_id: new FormControl(this.data.modifier_group_ids, []),
     image: new FormControl(),
   });
 

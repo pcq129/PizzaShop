@@ -44,7 +44,7 @@ export class waitingTokenDialog {
   //   }
   //   this.tableSectionService.searchCustomer(email).subscribe({
   //     next: (res: any) => {
-  //       if(res.status == "true"){
+  //       if(res.status){
   //         this.searchedCustomers = (res.data);
   //         console.log(this.searchedCustomers);
 

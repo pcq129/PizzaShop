@@ -39,7 +39,7 @@ checkChange() {
   getRoles() {
     this.userService.getRoles().subscribe({
       next: (res: any) => {
-        if (res.status == 'true') {
+        if (res.status) {
           this.rolesData = res.data;
           this.rolesData.forEach((role: any) => {
             role.allPermission = [];

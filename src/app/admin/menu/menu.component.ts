@@ -28,16 +28,14 @@ export class MenuComponent implements OnInit {
   getCategoryData() {
     this.categoryService.getCategoryData().subscribe({
       next: (res: any) => {
-        if (res.status == 'true') {
+        if (res.status) {
           this.categoryData = res.data;
-          this.extractAllItems(res.data);
-          console.log(res.data);
         } else {
           this.snackbarService.error(res.message);
         }
       },
-      error: (err) => {
-        this.snackbarService.error(err);
+      error: (error) => {
+        this.snackbarService.error(error.message);
       },
     });
   }
@@ -45,7 +43,7 @@ export class MenuComponent implements OnInit {
   getModifierGroupData() {
     this.modifierService.getModifierGroupsData().subscribe({
       next: (res: any) => {
-        if (res.status == 'true') {
+        if (res.status) {
           this.modifierGroupData = res.data;
           console.log(this.modifierGroupData);
           this.extractAllModifiers(res.data);
@@ -59,10 +57,10 @@ export class MenuComponent implements OnInit {
     });
   }
 
-  extractAllItems(data: any) {
-    let allItems = data.flatMap((data: any) => data.items || []);
-    this.allItems = allItems;
-  }
+  // extractAllItems(data: any) {
+  //   let allItems = data.flatMap((data: any) => data.items || []);
+  //   this.allItems = allItems;
+  // }
 
   extractAllModifiers(data: any) {
     let allModifiers = data.flatMap((data: any) => data.modifiers || []);

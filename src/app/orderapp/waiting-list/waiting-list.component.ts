@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { OrderService } from '../../_services/order-service.service';
+import { OrderService } from '../../_services/order.service';
 import { MatDialog } from '@angular/material/dialog';
 import { waitingTokenDialog } from '../order-tables/dialogs/waitingTokenDialog.component';
 import { SnackbarService } from 'src/app/_services/snackbar.service';
@@ -41,7 +41,7 @@ export class WaitingListComponent implements OnInit {
   getWaitingTokenData() {
     this.orderService.getWaitingTokenData().subscribe({
       next: (res: any) => {
-        if (res.status == 'true') {
+        if (res.status) {
           this.waitingTokenData = res.data;
           console.log(this.waitingTokenData);
         } else {
@@ -69,7 +69,7 @@ export class WaitingListComponent implements OnInit {
       if (res) {
         this.sectionService.createWaitingToken(res).subscribe({
           next: (res: any) => {
-            if (res.status == 'false') {
+            if (!res.status) {
               this.snackbarService.error(res.message);
               // this.router.navigateByUrl('order/menu');
             } else {
@@ -105,7 +105,7 @@ export class WaitingListComponent implements OnInit {
           next: (res: any) => {
             console.log(res);
 
-            if (res.status == 'false') {
+            if (!res.status) {
               this.snackbarService.error(res.message);
               // this.router.navigateByUrl('order/menu');
             } else {
@@ -141,7 +141,7 @@ export class WaitingListComponent implements OnInit {
       if (res) {
         this.sectionService.updateWaitingToken(data).subscribe({
           next: (res: any) => {
-            if (res.status == 'false') {
+            if (!res.status) {
               this.snackbarService.error(res.message);
               // this.router.navigateByUrl('order/menu');
             } else {

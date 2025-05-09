@@ -16,6 +16,7 @@ import { MatTableModule } from '@angular/material/table';
 import { DeleteDialogModule } from 'src/app/common/delete-dialog/delete-dialog/delete-dialog.module';
 import { ModifierGroupDialogComponent } from './modifier-group-dialog/modifier-group-dialog.component';
 import { modifierDialog } from './modifier-dialog/modifier-dialog.component';
+import { SharedModule } from "../../../common/common-module.module";
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { modifierDialog } from './modifier-dialog/modifier-dialog.component';
     MatSlideToggleModule,
     MatDialogModule,
     DeleteDialogModule,
-  ],
+    SharedModule
+],
   exports: [ModifierComponent],
 })
 export class ModifierModule {}

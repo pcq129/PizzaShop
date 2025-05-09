@@ -8,15 +8,18 @@ import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { SectionDialog, SectionComponent, SectionDeleteDialog } from './section/section.component';
-import { TableDeleteDialog, TableDialog, TablesComponent } from './tables/tables.component';
+import { SectionDialog, SectionDeleteDialog } from './table-section.component';
+import { TableDeleteDialog, TableDialog } from './table-section.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatOptionModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
+import { PaginatorComponent } from 'src/app/common/paginator/paginator.component';
+import { SharedModule } from 'src/app/common/common-module.module';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @NgModule({
-  declarations: [TableSectionComponent, SectionComponent, TablesComponent, SectionDialog, SectionDeleteDialog, TableDialog, TableDeleteDialog],
+  declarations: [TableSectionComponent, SectionDialog, SectionDeleteDialog, TableDialog, TableDeleteDialog],
   imports: [
     CommonModule,
     MatSidenavModule,
@@ -31,7 +34,9 @@ import { MatSelectModule } from '@angular/material/select';
     ReactiveFormsModule,
     MatFormFieldModule,
     MatOptionModule,
-    MatSelectModule
+    MatSelectModule,
+    SharedModule,
+    MatCheckboxModule
   ],
 })
 export class TableSectionModule {}

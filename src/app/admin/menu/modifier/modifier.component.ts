@@ -1,10 +1,11 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ModifierService } from 'src/app/_services/modifier.service';
 import { SnackbarService } from 'src/app/_services/snackbar.service';
 import { ModifierGroupDialogComponent } from './modifier-group-dialog/modifier-group-dialog.component';
 import { modifierDialog } from './modifier-dialog/modifier-dialog.component';
 import { DeleteDialogComponent } from 'src/app/common/delete-dialog/delete-dialog/delete-dialog.component';
+import { PaginatorComponent } from 'src/app/common/paginator/paginator.component';
 
 @Component({
   selector: 'app-modifier',
@@ -17,17 +18,18 @@ export class ModifierComponent implements OnInit {
     private dialog: MatDialog,
     private modifierService: ModifierService
   ) {
-    this.extractAllModifiers(this.modifierGroupData);
+    // this.extractAllModifiers(this.modifierGroupData);
   }
 
   ngOnInit(): void {}
 
   @Input()
   modifierGroupData: any[] = [];
-  @Input()
+  // @Input()
   viewModifiers: any;
-  @Input()
-  allModifiers: any;
+  // @Input()
+  // allModifiers: any;
+  @ViewChild('modifierPaginator') paginator!: PaginatorComponent;
 
   displayedColumns: string[] = [
     'item',
@@ -41,36 +43,64 @@ export class ModifierComponent implements OnInit {
   ];
   currentModifierGroup = 0;
   currentCategory: any;
+  resultsLength: number = 0;
+  pageSize: number = 5;
 
-  extractAllModifiers(data: any) {
-    let allModifiers = data.flatMap((data: any) => data.modifiers || []);
-    this.allModifiers = allModifiers;
-    this.viewModifiers = allModifiers;
-    this.loadModifiers(this.currentModifierGroup);
+  onPageChange(event: any) {
+    if (this.searchData) {
+      this.searchModifier(this.searchQuery, event);
+      return;
+    } else {
+      this.loadModifiers(this.currentModifierGroup, event);
+      return;
+    }
   }
 
-  loadModifiers(mdifierGroupId: number) {
-    this.currentModifierGroup = mdifierGroupId;
-    if (mdifierGroupId == 0) {
-      this.viewModifiers = this.allModifiers;
-    } else {
-      let modifierItems = this.modifierGroupData.find(
-        (modifierGroup: any) => modifierGroup.id === mdifierGroupId
-      ).modifiers;
-      console.log(modifierItems);
+  // extractAllModifiers(data: any) {
+  //   let allModifiers = data.flatMap((data: any) => data.modifiers || []);
+  //   this.allModifiers = allModifiers;
+  //   this.viewModifiers = allModifiers;
+  //   this.loadModifiers(this.currentModifierGroup);
+  // }
 
-      this.viewModifiers = modifierItems;
-    }
+  loadModifiers(modifierGroupId: number, pageChange?: any) {
+
+    this.currentModifierGroup = modifierGroupId;
+    // if (mdifierGroupId == 0) {
+    //   this.viewModifiers = this.allModifiers;
+    // } else {
+    // let modifierItems = this.modifierGroupData.find(
+    //   (modifierGroup: any) => modifierGroup.id === mdifierGroupId
+    // ).modifiers;
+    // console.log(modifierItems);
+
+    // this.viewModifiers = modifierItems;
+    // }
+
+    this.modifierService
+      .modifierByModifierGroup(modifierGroupId, pageChange)
+      .subscribe({
+        next: (res: any) => {
+          this.viewModifiers = res.data.data;
+          this.resultsLength = res.data.total;
+          if (!pageChange) {
+            this.paginator.resetToFirstPage();
+          } 
+        },
+        error: (error) => {
+          this.snackbarService.error(error.message);
+        },
+      });
   }
 
   //api call for refreshing data post actions
   getModifierGroupData() {
     this.modifierService.getModifierGroupsData().subscribe({
       next: (res: any) => {
-        if (res.status == 'true') {
+        if (res.status) {
           this.modifierGroupData = res.data;
           console.log(this.modifierGroupData);
-          this.extractAllModifiers(res.data);
+          // this.extractAllModifiers(res.data);
         } else {
           this.snackbarService.error(res.message + 'test');
         }
@@ -87,7 +117,7 @@ export class ModifierComponent implements OnInit {
     const dialogRef = this.dialog.open(ModifierGroupDialogComponent, {
       width: '350px',
       data: {
-        modifierList: this.allModifiers,
+        // modifierList: this.allModifiers,
         name: '',
         description: '',
         modifiers: [],
@@ -98,13 +128,15 @@ export class ModifierComponent implements OnInit {
       if (result.name) {
         this.modifierService.addModifierGroup(result).subscribe(
           (res: any) => {
-            if (res.status === 'false') {
+            if (!res.status) {
               for (const [key, value] of Object.entries(res.message)) {
                 this.snackbarService.error(`${value}`);
               }
             } else {
               this.snackbarService.success('Modifier Group added successfully');
-              this.getModifierGroupData();
+              this.loadModifiers(this.currentModifierGroup);
+
+              // this.getModifierGroupData();
             }
           },
           (err) => {
@@ -127,13 +159,15 @@ export class ModifierComponent implements OnInit {
       console.log(result);
       this.modifierService.deleteModifierGroup(result.id).subscribe(
         (res: any) => {
-          if (res.status === 'false') {
+          if (!res.status) {
             for (const [key, value] of Object.entries(res.message)) {
               this.snackbarService.error(`${value}`);
             }
           } else {
             this.snackbarService.success('Modifier group deleted successfully');
-            this.getModifierGroupData();
+            this.loadModifiers(this.currentModifierGroup);
+
+            // this.getModifierGroupData();
           }
         },
         (err) => {
@@ -154,7 +188,7 @@ export class ModifierComponent implements OnInit {
     const dialogRef = this.dialog.open(ModifierGroupDialogComponent, {
       width: '350px',
       data: {
-        modifierList: this.allModifiers,
+        // modifierList: this.allModifiers,
         // modifiers: modifierGroup.modifiers,
         name: modifierGroup.name,
         description: modifierGroup.description,
@@ -168,13 +202,15 @@ export class ModifierComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {
       result.id = id;
       this.modifierService.editModifierGroup(result).subscribe((res: any) => {
-        if (res.status === 'false') {
+        if (!res.status) {
           for (const [key, value] of Object.entries(res.message)) {
             this.snackbarService.error(`${value}`);
           }
         } else {
           this.snackbarService.success('Modifier Group updated successfully');
-          this.getModifierGroupData();
+          this.loadModifiers(this.currentModifierGroup);
+
+          // this.getModifierGroupData();
         }
       });
     });
@@ -190,10 +226,10 @@ export class ModifierComponent implements OnInit {
         modifierGroupList: this.modifierGroupData,
         name: '',
         modifier_group_id: [],
-        quantity: 0,
-        unit: 0,
+        // quantity: 0,
+        // unit: 0,
         description: '',
-        rate: 0,
+        // rate: 0,
       },
     });
 
@@ -204,13 +240,15 @@ export class ModifierComponent implements OnInit {
         console.log('adding');
         this.modifierService.addModifier(result).subscribe(
           (res: any) => {
-            if (res.status === 'false') {
+            if (!res.status) {
               for (const [key, value] of Object.entries(res.message)) {
                 this.snackbarService.error(`${value}`);
               }
             } else {
               this.snackbarService.success(`Modifier added successfully`);
-              this.getModifierGroupData();
+              this.loadModifiers(this.currentModifierGroup);
+
+              // this.getModifierGroupData();
             }
           },
           (err) => {
@@ -243,13 +281,15 @@ export class ModifierComponent implements OnInit {
 
       this.modifierService.editModifier(result).subscribe(
         (res: any) => {
-          if (res.status === 'false') {
+          if (!res.status) {
             for (const [key, value] of Object.entries(res.message)) {
               this.snackbarService.error(`${value}`);
             }
           } else {
             this.snackbarService.success(`Modifier updated successfully`);
-            this.getModifierGroupData();
+            this.loadModifiers(this.currentModifierGroup);
+
+            // this.getModifierGroupData();
           }
         },
         (err) => {
@@ -271,13 +311,15 @@ export class ModifierComponent implements OnInit {
       console.log(result);
       this.modifierService.deleteModifier(result.modifier_group_id).subscribe(
         (res: any) => {
-          if (res.status === 'false') {
+          if (!res.status) {
             for (const [key, value] of Object.entries(res.message)) {
               this.snackbarService.error(`${value}`);
             }
           } else {
             this.snackbarService.success(`Modifier deleted successfully`);
-            this.getModifierGroupData();
+            this.loadModifiers(this.currentModifierGroup);
+
+            // this.getModifierGroupData();
           }
         },
         (err) => {
@@ -288,24 +330,32 @@ export class ModifierComponent implements OnInit {
   }
 
   nodata: boolean = false;
-  searchModifier(modifierName: string) {
+  searchData: boolean = false;
+  searchQuery: string = '';
+  searchModifier(modifierName: string, pageChange?: any) {
     if (modifierName.length < 4) {
       this.nodata = false;
       setTimeout(() => {
-        this.viewModifiers = this.allModifiers;
+        // this.viewModifiers = this.allModifiers;
       }, 500);
       return;
     } else {
-      this.modifierService.search(modifierName).subscribe({
+      this.modifierService.search(modifierName, pageChange).subscribe({
         next: (res: any) => {
-          if (res.status == 'false') {
+          if (!res.status) {
             this.nodata = true;
             this.viewModifiers = [];
             return;
-          } else if (res.status == 'true') {
+          } else if (res.status) {
             this.nodata = false;
+            this.searchData = true;
+            this.searchQuery = modifierName;
+            this.viewModifiers = res.data.data;
+            this.resultsLength = res.data.total;
 
-            this.viewModifiers = res.data;
+            if (!pageChange) {
+              this.paginator.resetToFirstPage();
+            }
             return;
           } else {
             this.nodata = true;

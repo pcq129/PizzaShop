@@ -1,8 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { customerDetailDialog } from './customer-detail-dialog.component';
 import { CustomerService } from 'src/app/_services/customer.service';
 import { SnackbarService } from 'src/app/_services/snackbar.service';
+import { PaginatorComponent } from 'src/app/common/paginator/paginator.component';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import * as saveAs from 'file-saver';
 
 @Component({
   selector: 'app-customer',
@@ -16,26 +19,55 @@ export class CustomerComponent implements OnInit {
     private snackbarService: SnackbarService
   ) {
     this.getCustomerData();
+    this.minDate = new Date(2025, 0, 1);
+    this.maxDate = new Date();
   }
 
   ngOnInit(): void {}
 
   customerList: any;
   viewCustomerList = [];
+  resultLength: number = 0;
+  minDate: Date | undefined;
+  maxDate: Date | undefined;
 
   displayedColumns = ['name', 'email', 'phone', 'date', 'totalOrders'];
   pageSize = 5;
-  dataLength = 0;
-  pageChange(event: any){
-    this.getCustomerData(event);
+
+  searchForm = new FormGroup({
+    search: new FormControl(),
+    // status: new FormControl('0', Validators.required),
+    endDate: new FormControl(null, Validators.required),
+    startDate: new FormControl(null, Validators.required),
+  });
+
+  exportCustomers(query: any) {
+    this.customerService.exportCustomers(query).subscribe({
+      next: (res: Blob) => {
+        saveAs(res, 'Customers');
+      },
+      error: (err: any) => {
+        console.log('failed');
+      },
+    })
   }
-  getCustomerData(pageEvent? : any) {
+  pageChange(event: any) {
+   if(this.searchData){
+    this.searchCustomer(this.searchQuery, event)
+   }else{
+    this.getCustomerData(event);
+   }
+  }
+  getCustomerData(pageEvent?: any) {
     this.customerService.getCustomerData(pageEvent).subscribe({
       next: (res: any) => {
-        if ((res.status = 'true')) {
+        if (res.status) {
           this.customerList = res.data.data;
           this.viewCustomerList = res.data.data;
-          this.dataLength = res.data.total;
+          this.resultLength = res.data.total;
+          if (!pageEvent) {
+            this.paginator.resetToFirstPage();
+          }
         } else {
           this.snackbarService.error(res.message);
         }
@@ -59,44 +91,48 @@ export class CustomerComponent implements OnInit {
     });
   }
 
-  resetCustomerList() {
+  resetSearch() {
     this.nodata = false;
-    this.viewCustomerList = this.customerList;
+    this.searchData = false;
+    this.searchQuery = '';
+    this.getCustomerData();
   }
 
+  @ViewChild('paginator') paginator!: PaginatorComponent;
 
   nodata: boolean = false;
-  searchCustomer(name: string) {
-    if (name.length < 4) {
-      this.nodata = false;
-      setTimeout(() => {
-        this.viewCustomerList = this.customerList;
-      }, 500);
-    } else {
-      this.customerService.searchCustomer(name).subscribe({
-        next: (res: any) => {
-          if (res.status == 'false') {
-            this.nodata = true;
-            console.log('test');
+  searchData: boolean = false;
+  searchQuery: any = '';
+  searchCustomer(searchQuery: any, pageChange?: any) {
+    console.log(searchQuery);
 
-            this.viewCustomerList = [];
-            return;
-          } else if (res.status == 'true') {
-            console.log('test1');
-            this.nodata = false;
-            this.viewCustomerList = res.data;
-            return;
-          } else {
-            console.log('te1st');
-            this.nodata = true;
-          }
-        },
-        error: (err: any) => {
-          console.log('tes1t');
+    this.customerService.searchCustomer(searchQuery, pageChange).subscribe({
+      next: (res: any) => {
+        if (!res.status) {
           this.nodata = true;
+          console.log('test');
           this.viewCustomerList = [];
-        },
-      });
-    }
+          return;
+        } else if (res.status) {
+          console.log('test1');
+          this.nodata = false;
+          this.viewCustomerList = res.data.data;
+          this.searchData = true;
+          this.searchQuery = searchQuery;
+          this.resultLength = res.data.total || 0;
+          if (!pageChange) {
+            this.paginator.resetToFirstPage();
+          }
+          return;
+        } else {
+          this.nodata = true;
+        }
+      },
+      error: (err: any) => {
+        console.log('tes1t');
+        this.nodata = true;
+        this.viewCustomerList = [];
+      },
+    });
   }
 }

@@ -24,7 +24,7 @@ export class CategoryListService {
   });
 
   getCategoryData() {
-    return this.http.get(environment.baseURL + `category`,{ headers : this.httpHeaders});
+    return this.http.get(environment.baseURL + `category`);
   }
 
   getCategoryList(){

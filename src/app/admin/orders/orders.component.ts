@@ -1,11 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { SnackbarService } from 'src/app/_services/snackbar.service';
-import { OrderService } from 'src/app/_services/order-service.service';
+import { OrderService } from 'src/app/_services/order.service';
 import { Router } from '@angular/router';
 import { ConfirmationDialogComponent } from 'src/app/common/confirmation-dialog/confirmation-dialog.component';
 import { saveAs } from 'file-saver';
 import { PageEvent } from '@angular/material/paginator';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { PaginatorComponent } from 'src/app/common/paginator/paginator.component';
 
 @Component({
   selector: 'app-orders',
@@ -20,6 +22,8 @@ export class OrdersComponent implements OnInit {
     private router: Router
   ) {
     this.getOrderData();
+    this.minDate = new Date(2025, 0, 1);
+    this.maxDate = new Date();
   }
 
   ngOnInit(): void {}
@@ -39,25 +43,59 @@ export class OrdersComponent implements OnInit {
     'actions',
   ];
 
-  getOrderData(event? : any) {
-    this.orderService.getOrderData(event).subscribe({
-      next: (res: any) => {
-        if (res.status == 'true') {
-          this.orderData = res.data.data;
-          this.viewOrderData = res.data.data;
-          this.resultsLength = res.data.total;
-          console.log(res.data);
-        } else {
-          this.snackbarService.error(res.message);
-        }
-      },
-      error: (error) => {
-        this.snackbarService.error('Error fetching orders');
-      },
-    });
+  status = ['Ordered', 'Completed'];
+  minDate: Date;
+  maxDate: Date;
+  isSearchedData : boolean = false;
+
+  @ViewChild('paginator') paginator! : PaginatorComponent;
+
+  getOrderData(event?: any){
+    if(this.isSearchedData){
+
+      let orderId = this.searchData.controls.search.value;
+      this.orderService.searchOrder(this.searchData.value ,event).subscribe({
+        next: (res: any) => {
+          if (!res.status) {
+            this.nodata = true;
+            this.viewOrderData = [];
+            return;
+          } else if (res.status) {
+            this.nodata = false;
+            this.viewOrderData = res.data.data;
+            this.resultsLength = res.data.total;
+            this.isSearchedData = true;
+            return;
+          } else {
+            this.nodata = true;
+          }
+        },
+        error: (err: any) => {
+          this.nodata = true;
+          this.viewOrderData = [];
+        },
+      });
+    }else{
+      this.orderService.getOrderData(event).subscribe({
+        next: (res: any) => {
+          if (res.status) {
+            this.orderData = res.data.data;
+            this.viewOrderData = res.data.data;
+            this.resultsLength = res.data.total;
+            console.log(res.data);
+          } else {
+            this.snackbarService.error(res.message);
+          }
+        },
+        error: (error) => {
+          this.snackbarService.error('Error fetching orders');
+        },
+      });
+    }
   }
 
-  onPageChange(event : Event) {
+
+  onPageChange(event: Event) {
     console.log(event);
     //   {
     //     "previousPageIndex": 0,
@@ -66,9 +104,6 @@ export class OrdersComponent implements OnInit {
     //     "length": 14
     // }
     this.getOrderData(event);
-
-
-
   }
 
   convertDate(isoDate: any) {
@@ -96,7 +131,7 @@ export class OrdersComponent implements OnInit {
         if (res.id) {
           this.orderService.completeOrder(id).subscribe({
             next: (res: any) => {
-              if (res.status == 'false') {
+              if (!res.status) {
                 this.snackbarService.error(res.message);
               } else {
                 this.snackbarService.success('Order marked as completed');
@@ -129,23 +164,29 @@ export class OrdersComponent implements OnInit {
   }
 
   nodata: boolean = false;
-  searchOrder(orderId: string) {
-    if (!orderId) {
-      this.nodata = false;
-      setTimeout(() => {
-        this.viewOrderData = this.orderData;
-      }, 500);
-    } else {
-      this.orderService.searchOrder(orderId).subscribe({
+  filterOrders(orderId: string) {
+    // if (!orderId) {
+    //   this.nodata = false;
+    //   setTimeout(() => {
+    //     this.viewOrderData = this.orderData;
+    //   }, 500);
+    // } else {
+this.paginator.resetToFirstPage();
+
+      this.orderService.searchOrder(this.searchData.value).subscribe({
         next: (res: any) => {
-          if (res.status == 'false') {
+          console.log(res);
+
+
+          if (res.code == 204 || !res.status) {
             this.nodata = true;
             this.viewOrderData = [];
             return;
-          } else if (res.status == 'true') {
+          } else if (res.status) {
             this.nodata = false;
-
-            this.viewOrderData = res.data;
+            this.viewOrderData = res.data.data;
+            this.resultsLength = res.data.total;
+            this.isSearchedData = true;
             return;
           } else {
             this.nodata = true;
@@ -156,15 +197,33 @@ export class OrdersComponent implements OnInit {
           this.viewOrderData = [];
         },
       });
-    }
+    // }
   }
 
-  exportOrders(filter: number) {
+  searchData = new FormGroup({
+    search: new FormControl(),
+    status: new FormControl('0', Validators.required),
+    endDate: new FormControl('',Validators.required),
+    startDate: new FormControl('',Validators.required),
+  });
+  exportOrders(filter: any) {
+    console.log(filter);
+
     this.orderService.exportOrdersToExcel(filter).subscribe({
+      next: (res: Blob) => {
+        saveAs(res, 'All Orders');
+      },
+      error: (err: any) => {
+        console.log('failed');
+      },
+    });
+
+
+
       // for proper response formatting
 
       // next: (res: any) => {
-      //   if (res.status == 'false') {
+      //   if (!res.status) {
       //     console.log('failed');
       //   } else {
       //     let data: any;
@@ -177,20 +236,14 @@ export class OrdersComponent implements OnInit {
       //   }
       // },
 
-      next: (res: Blob) => {
-        saveAs(res, 'All Orders');
-      },
-      error: (err: any) => {
-        console.log('failed');
-      },
-    });
+
   }
   getRating(rating: any) {
     let compoundRating = JSON.parse(rating);
     return compoundRating.food;
   }
-  Ratings=[1,2,3,4,5];
-  getOrderRating(rating: string){
+  Ratings = [1, 2, 3, 4, 5];
+  getOrderRating(rating: string) {
     let parsedRating = JSON.parse(rating);
     return parsedRating.food;
   }

@@ -3,8 +3,8 @@
   <div>
     <mat-form-field class="search" appearance="outline" (input)="searchUser(userSearch.value)">
       <mat-label>Search</mat-label>
-      <input class="" matInput [formControl]="search" placeholder="Search" #userSearch/>
-      <button *ngIf="userSearch.value" (click)="userSearch.value = ''; viewUserData = userData" matSuffix mat-icon-button aria-label="Clear">
+      <input class="" matInput [formControl]="search" placeholder="Search" #userSearch [disabled]="dataLength==0"/>
+      <button *ngIf="userSearch.value" (click)="userSearch.value = '';resetSearch()" matSuffix mat-icon-button aria-label="Clear">
         <mat-icon>close</mat-icon>
       </button>
     </mat-form-field>
@@ -30,7 +30,7 @@
     </button>
   </div>
 </div> -->
-<mat-card class="ms-4 me-4 h-75">
+<mat-card class="ms-4 me-4 matCardBody">
   <div *ngIf="nodata" class="noDataBanner">
     <h4>No Data Found</h4>
   </div>
@@ -87,5 +87,5 @@
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
   </table>
-  <app-paginator [length]="dataLength" [pageSize]="pageSize" (pageChange)="pageChange($event)"></app-paginator>
+  <app-paginator [length]="dataLength" #paginator [pageSize]="pageSize" (pageChange)="pageChange($event)"></app-paginator>
 </mat-card>

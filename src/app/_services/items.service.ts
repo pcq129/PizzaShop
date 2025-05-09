@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Items } from '../common/interfaces/items-interface.data';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { Observable } from 'rxjs';
+import { catchError, Observable } from 'rxjs';
 import { AuthService } from './auth.service';
 
 @Injectable({
@@ -18,6 +18,22 @@ export class ItemsService {
     Authorization: `Bearer ${this.access_token}`,
   });
 
+  addFavourite(itemId : number){
+    return this.http.get(environment.baseURL + `item/add-favourite/${itemId}`);
+  }
+
+  searchItem(item : string, category: number){
+
+    const params = {
+      categoryId : category,
+      item : item
+    }
+    return this.http.get(environment.baseURL + `items/orderapp/search`, {params})
+  }
+
+  getFavouriteItems(){
+    return this.http.get(environment.baseURL + `items/favourites`);
+  }
   uploadImage(formData: any){
     return this.http.post(environment.baseURL + `upload-image`, formData, { headers : this.httpHeaders});
   }
@@ -59,7 +75,28 @@ export class ItemsService {
   data: any;
 
 
-  search(item : string){
-    return this.http.get(environment.baseURL + `item/search/${item}`);
+  getItemByCategory(categoryId: number, params? :any){
+
+    if(!params){
+      params = {
+        page : 1,
+        perPage: 5
+      }
+    }
+    return this.http.get(
+      environment.baseURL + `category-items/${categoryId}`, {
+        params: params
+      }
+    );
+  }
+
+
+  search(item : string, pageChange?: any){
+
+    const params = {
+      'page': pageChange?.pageIndex+1 || 1,
+      'perPage' : pageChange?.pageSize || 5
+    }
+    return this.http.get(environment.baseURL + `item/search/${item}`, {params});
   }
 }

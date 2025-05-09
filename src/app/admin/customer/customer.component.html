@@ -1,27 +1,85 @@
 <div class="titlebar">
   <span class="title">Customers</span>
   <div>
-    <mat-form-field
-      class="search"
-      appearance="outline"
-      (input)="searchCustomer(userSearch.value)"
-    >
-      <mat-label>Search</mat-label>
-      <input class="" matInput placeholder="Search" #userSearch />
-      <button
-        *ngIf="userSearch.value"
-        (click)="userSearch.value = ''; resetCustomerList()"
-        matSuffix
-        mat-icon-button
-        aria-label="Clear"
+    <form [formGroup]="searchForm">
+      <mat-form-field class="search" appearance="outline">
+        <mat-label>Filter by Date</mat-label>
+        <mat-date-range-input [rangePicker]="filterDate">
+          <input
+            matStartDate
+            [min]="minDate"
+            [max]="maxDate"
+            placeholder="Start date"
+            formControlName="startDate"
+          />
+          <input
+            matEndDate
+            [max]="maxDate"
+            placeholder="End date"
+            formControlName="endDate"
+          />
+        </mat-date-range-input>
+        <!-- <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint> -->
+        <mat-datepicker-toggle
+          matSuffix
+          [for]="filterDate"
+        ></mat-datepicker-toggle>
+        <mat-date-range-picker #filterDate></mat-date-range-picker>
+      </mat-form-field>
+      <mat-form-field
+        class="search"
+        appearance="outline"
       >
-        <mat-icon>close</mat-icon>
+        <mat-label>Search</mat-label>
+        <input class="" formControlName="search" matInput placeholder="Search" #userSearch />
+
+        <button
+          *ngIf="userSearch.value"
+          (click)="userSearch.value = ''; resetSearch()"
+          matSuffix
+          mat-icon-button
+          aria-label="Clear"
+          type="button"
+        >
+          <mat-icon>close</mat-icon>
+        </button>
+<!--
+        <button
+          (click)="searchCustomer(userSearch.value)"
+          matSuffix
+          mat-icon-button
+          type="button"
+
+          aria-label="Search"
+        >
+          <mat-icon>search</mat-icon>
+        </button> -->
+      </mat-form-field>
+
+
+      <button
+        mat-raised-button
+        class="exportButton"
+        (click)="searchCustomer(searchForm.value)"
+        type="button"
+      >
+        Filter
       </button>
-    </mat-form-field>
+
+      <button
+        mat-raised-button
+        class="exportButton"
+        (click)="exportCustomers(searchForm.value)"
+        type="button"
+        [disabled]="nodata"
+      >
+        Export
+      </button>
+    </form>
   </div>
 </div>
 
-<mat-card class="m-4 h-75">
+<mat-card class="m-4 matCardBody">
   <div *ngIf="nodata" class="noDataBanner">
     <h4>No Data Found</h4>
   </div>
@@ -65,5 +123,12 @@
       (click)="customerDataPopup(customer)"
     ></tr>
   </table>
-  <app-paginator class="paginator" [length]="dataLength" [pageSize]="pageSize" (pageChange)="pageChange($event)"></app-paginator>
+  <app-paginator
+    #paginator
+    class="paginator"
+    [length]="resultLength"
+    [pageSize]="pageSize"
+    (pageChange)="pageChange($event)"
+    [hidden]="nodata"
+  ></app-paginator>
 </mat-card>
