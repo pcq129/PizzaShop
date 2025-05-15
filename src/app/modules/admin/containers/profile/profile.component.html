@@ -1,0 +1,94 @@
+<div class="body">
+  <div class="titlebar">
+    <span class="title">My Profile</span>
+  </div>
+  <div>
+    <mat-card class="profile-card"  *ngIf="profileForm">
+      <div class="profile-header">
+        <!-- <div class="avatar-container">
+          <img
+            src="https://via.placeholder.com/80"
+            class="avatar"
+            alt="User Avatar"
+          />
+          <button mat-icon-button class="camera-icon">
+            <mat-icon>photo_camera</mat-icon>
+          </button>
+        </div> -->
+      <div class="user-info">
+        <h3>{{userData.first_name}} {{userData.last_name}}</h3>
+        <p>Role : {{role}}</p>
+        <span class="email readonly">{{userData.email}}</span>
+      </div>
+      </div>
+
+      <form class="profile-form" [formGroup]="profileForm">
+
+        <div class="form-row">
+          <mat-form-field appearance="outline">
+            <mat-label>First Name</mat-label>
+            <input matInput formControlName="firstName" />
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Last Name</mat-label>
+            <input matInput formControlName="lastName" />
+          </mat-form-field>
+        </div>
+
+        <div class="form-row">
+          <mat-form-field appearance="outline">
+            <mat-label>User Name</mat-label>
+            <input matInput formControlName="username" />
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" >
+            <mat-label>Phone</mat-label>
+            <input matInput formControlName="phone" type="number"/>
+          </mat-form-field>
+        </div>
+
+        <div class="form-row">
+
+        <mat-form-field appearance="outline">
+          <mat-label>Country</mat-label>
+          <mat-select #country formControlName="country" (selectionChange)="getStates(country.value)">
+            <mat-option *ngFor="let country of countries" [value]="country.id">{{country.name}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>State</mat-label>
+          <mat-select #state formControlName="state" (selectionChange)="getCities(state.value)">
+            <mat-option *ngFor="let state of states" [value]="state.id">{{state.name}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>City</mat-label>
+          <mat-select #city formControlName="city">
+            <mat-option *ngFor="let city of cities" [value]="city.id">{{city.name}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+        <div class="form-row">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Address</mat-label>
+            <input matInput formControlName="address"/>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Zipcode</mat-label>
+            <input matInput formControlName="zipcode" type="number" />
+          </mat-form-field>
+        </div>
+
+        <div class="form-actions">
+          <button mat-stroked-button type="button" (click)="cancel()">Cancel</button>
+          <button mat-flat-button color="accent" (click)="updateProfile()">Update</button>
+        </div>
+      </form>
+    </mat-card>
+  </div>
+</div>
