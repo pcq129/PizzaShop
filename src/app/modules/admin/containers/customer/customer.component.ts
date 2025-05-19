@@ -8,6 +8,9 @@ import { PaginatorComponent } from 'src/app/shared/components/paginator/paginato
 
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import * as saveAs from 'file-saver';
+import { ICustomer, IFilter } from './model/customer';
+import { PageEvent } from '@angular/material/paginator';
+import { ApiResponse } from 'src/app/core/model/api-response';
 
 @Component({
   selector: 'app-customer',
@@ -27,42 +30,47 @@ export class CustomerComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  customerList: any;
-  viewCustomerList = [];
+  @ViewChild('paginator') paginator!: PaginatorComponent;
+  customerList: ICustomer[]|undefined;
+  viewCustomerList: ICustomer[]|undefined;
   resultLength: number = 0;
   minDate: Date | undefined;
   maxDate: Date | undefined;
+  nodata: boolean = false;
+  searchData: boolean = false;
+  searchQuery: IFilter|undefined;
 
   displayedColumns = ['name', 'email', 'phone', 'date', 'totalOrders'];
   pageSize = 5;
 
   searchForm = new FormGroup({
-    search: new FormControl(),
+    search: new FormControl(''),
     // status: new FormControl('0', Validators.required),
-    endDate: new FormControl(null, Validators.required),
-    startDate: new FormControl(null, Validators.required),
+    endDate: new FormControl( undefined, Validators.required),
+    startDate: new FormControl(undefined,  Validators.required),
   });
 
-  exportCustomers(query: any) {
+  exportCustomers(query: IFilter): void {
     this.customerService.exportCustomers(query).subscribe({
       next: (res: Blob) => {
         saveAs(res, 'Customers');
       },
-      error: (err: any) => {
-        console.log('failed');
+      error: (error : Error) => {
+        this.snackbarService.error("Error occured, pleaset try again later.");
+        console.error(error);
       },
     });
   }
-  pageChange(event: any) {
+  pageChange(event: PageEvent):void {
     if (this.searchData) {
-      this.searchCustomer(this.searchQuery, event);
+      this.searchCustomer(this.searchQuery!, event);
     } else {
       this.getCustomerData(event);
     }
   }
-  getCustomerData(pageEvent?: any) {
+  getCustomerData(pageEvent?: PageEvent):void {
     this.customerService.getCustomerData(pageEvent).subscribe({
-      next: (res: any) => {
+      next: (res: ApiResponse) => {
         if (res.status) {
           this.customerList = res.data.data;
           this.viewCustomerList = res.data.data;
@@ -82,34 +90,25 @@ export class CustomerComponent implements OnInit {
     });
   }
 
-  customerDataPopup(customer: any) {
+  customerDataPopup(customer: ICustomer):void {
     const dialog = this.dialog.open(customerDetailDialog, {
       width: '1000px',
       data: customer,
     });
-
-    dialog.afterClosed().subscribe((res: any) => {
-      //nothing to do
-    });
   }
 
-  resetSearch() {
+  resetSearch(): void {
     this.nodata = false;
     this.searchData = false;
-    this.searchQuery = '';
+    this.searchQuery = undefined ;
     this.getCustomerData();
   }
 
-  @ViewChild('paginator') paginator!: PaginatorComponent;
 
-  nodata: boolean = false;
-  searchData: boolean = false;
-  searchQuery: any = '';
-  searchCustomer(searchQuery: any, pageChange?: any) {
-    console.log(searchQuery);
 
+  searchCustomer(searchQuery: IFilter, pageChange?: PageEvent):void {
     this.customerService.searchCustomer(searchQuery, pageChange).subscribe({
-      next: (res: any) => {
+      next: (res: ApiResponse) => {
         if (!res.status) {
           this.nodata = true;
           console.log('test');
@@ -130,10 +129,10 @@ export class CustomerComponent implements OnInit {
           this.nodata = true;
         }
       },
-      error: (err: any) => {
-        console.log('tes1t');
+      error: (error : Error) => {
         this.nodata = true;
         this.viewCustomerList = [];
+        console.error(error.message);
       },
     });
   }

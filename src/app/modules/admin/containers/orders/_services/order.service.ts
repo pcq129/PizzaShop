@@ -7,19 +7,10 @@ import { Observable } from 'rxjs';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { environment } from 'src/environments/environment';
 import { LoginFormComponent } from 'src/app/modules/auth/login/login-form/login-form.component';
-
-
-// export interface orderData{
-//   customer_id: number,
-//   table_id : number[],
-//   table_name : string[],
-//   section_id : number,
-//   section_name : string,
-//   item_id: number[],
-//   modifiers : any[],
-//   amount: number,
-//   people: number
-// }
+import { EOrderStatus, EPaymentMode, EPaymentStatus, IFeedback, IOngoingOrder, IOrder } from '../Model/order';
+import { IFilter } from '../../customer/model/customer';
+import { PageEvent } from '@angular/material/paginator';
+import { ApiResponse } from 'src/app/core/model/api-response';
 
 @Injectable({
   providedIn: 'root',
@@ -33,19 +24,20 @@ export class OrderService {
 
   //methods and variables for order creation
 
-  private orderData = new BehaviorSubject<any>(null);
+  private orderData = new BehaviorSubject<IOrder|undefined>(undefined);
   currentData = this.orderData.asObservable();
 
   assignTable(data: any, id: number) {
+    console.log(data);
     data.customer_id = id;
     this.orderData.next(data);
   }
 
   clearAssigned() {
-    this.orderData.next(null);
+    this.orderData.next(undefined);
   }
 
-  cancelOrder(orderData: any) {
+  cancelOrder(orderData: IOngoingOrder):Observable<ApiResponse> {
     // {
     //   "email": "spaneliya@gmail.com",
     //   "name": "feewrer",
@@ -61,76 +53,73 @@ export class OrderService {
     //   ],
     //   "customer_id": 10
     // }
-    let data: any = {};
-    data.table_ids = orderData.table_ids;
-    data.customer_id = orderData.customer_id;
-    data.order_id = orderData.id;
-    return this.http.put(environment.baseURL + 'order', data);
+    let data: IOngoingOrder={
+      table_ids : orderData.table_ids,
+      customer_id : orderData.customer_id,
+      order_id : orderData.id,
+      id: 0,
+      order_status: EOrderStatus.Completed,
+      payment_mode: EPaymentMode.Online,
+      payment_status: EPaymentStatus.Completed,
+      bill_amount: 0,
+      rating: '',
+      comment: '',
+      order_data: undefined,
+      created_at: undefined,
+      deleted_at: null,
+      updated_at: undefined
+    }
+
+    return this.http.put<ApiResponse>(environment.baseURL + 'order', data);
   }
 
-  placeOrder(data: any) {
-    return this.http.post(environment.baseURL + 'order', data);
+  placeOrder(data: IOngoingOrder):Observable<ApiResponse> {
+    return this.http.post<ApiResponse>(environment.baseURL + 'order', data);
   }
 
-  // searchOrder(orderId : string, searchData: any , pageChange?: any){
-  //   console.log(searchData);
-
-  //   let start_date = this.datepipe.transform(searchData.startDate, 'dd-MM-yyyy');
-  //   let end_date = this.datepipe.transform(searchData.endDate, 'dd-MM-yyyy');
-
-  //   const params = {
-  //     page : pageChange?.pageIndex+1 || 1,
-  //     perPage : pageChange?.pageSize || 5,
-  //     status : searchData.status,
-  //     start_date : start_date,
-  //     end_date : end_date
-  //   }
-  //   return this.http.get(environment.baseURL +  `order/search/${orderId}`, {params: params})
-  // }
-
-  searchOrder(searchData?: any, pageChange?: any) {
+  searchOrder(searchData?: IFilter, pageChange?: PageEvent):Observable<ApiResponse> {
     let start_date = this.datepipe.transform(
-      searchData.startDate,
+      searchData!.startDate,
       'dd/MM/yyyy'
     );
-    let end_date = this.datepipe.transform(searchData.endDate, 'dd/MM/yyyy');
+    let end_date = this.datepipe.transform(searchData!.endDate, 'dd/MM/yyyy');
 
     console.log(start_date, end_date);
 
-    const params: any = {
-      page: pageChange?.pageIndex + 1 || 1,
+    const params = {
+      page: pageChange?.pageIndex! + 1 || 1,
       perPage: pageChange?.pageSize || 5,
-      status: searchData.status || 0,
-      start_date: start_date,
-      end_date: end_date,
-      order_id: searchData.search || 0,
+      status: searchData!.status || 0,
+      start_date: start_date||0,
+      end_date: end_date||0,
+      order_id: searchData!.search || 0,
     };
 
-    return this.http.get(`${environment.baseURL}orders/search`, {
+    return this.http.get<ApiResponse>(`${environment.baseURL}orders/search`, {
       params: params,
     });
   }
 
-  getOrderData(page?: any) {
+  getOrderData(page?: PageEvent):Observable<ApiResponse> {
     const params = {
-      page: page?.pageIndex + 1 || 1,
+      page: page?.pageIndex! + 1 || 1,
       perPage: page?.pageSize || 5,
     };
     console.log(params);
 
-    return this.http.get(environment.baseURL + `order`, { params: params });
+    return this.http.get<ApiResponse>(environment.baseURL + `order`, { params: params });
   }
 
-  completeOrder(id: number) {
+  completeOrder(id: number):Observable<ApiResponse> {
     //using get method to update the order status because no data is to be transferred
-    return this.http.post(environment.baseURL + `order/${id}`, null);
+    return this.http.post<ApiResponse>(environment.baseURL + `order/${id}`, null);
   }
 
-  customerFeedback(data: any) {
-    return this.http.post(environment.baseURL + 'customer-feedback', data);
+  customerFeedback(data: IFeedback):Observable<ApiResponse> {
+    return this.http.post<ApiResponse>(environment.baseURL + 'customer-feedback', data);
   }
 
-  exportOrdersToExcel(filterData: any) {
+  exportOrdersToExcel(filterData: IFilter){
     let start_date = this.datepipe.transform(
       filterData.startDate,
       'dd/MM/yyyy'
@@ -139,10 +128,10 @@ export class OrderService {
 
     console.log(start_date, end_date);
 
-    const params: any = {
+    const params = {
       status: filterData.status || 0,
-      start_date: start_date,
-      end_date: end_date,
+      start_date: start_date||0,
+      end_date: end_date||0,
       order_id: filterData.search || 0,
     };
 
@@ -157,17 +146,17 @@ export class OrderService {
   private orderInvoice = new BehaviorSubject<any>(null);
   currentOrderInvoice = this.orderInvoice.asObservable();
 
-  setOrderData(data: any) {
+  setOrderData(data: IOngoingOrder) {
     this.orderInvoice.next(data);
   }
 
   clearOrderData() {
-    this.orderData.next(null);
+    this.orderData.next(undefined);
   }
 
   //methods for waiting lists
 
-  getWaitingTokenData() {
-    return this.http.get(environment.baseURL + 'waiting-tokens');
+  getWaitingTokenData():Observable<ApiResponse> {
+    return this.http.get<ApiResponse>(environment.baseURL + 'waiting-tokens');
   }
 }

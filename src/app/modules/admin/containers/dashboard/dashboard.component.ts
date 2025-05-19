@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { ChartConfiguration } from 'chart.js';
 import { DashboardService } from './_services/dashboard.service';
+import { ApiResponse } from 'src/app/core/model/api-response';
+import { IDashboardData, IGraph } from './model/dashboard';
 
 export interface cardData {
   imageSource: string;
@@ -32,11 +34,11 @@ export class DashboardComponent implements OnInit {
     console.log(filter);
 
     this.dashboardService.getDashboardData(filter).subscribe({
-      next: (res: any) => {
+      next: (res: ApiResponse) => {
         this.dashboardData = res.data;
         console.log(res.data);
 
-        if(isNaN(res.average_waiting_minutes)){
+        if(isNaN(res.data.average_waiting_minutes)){
           this.waitingTimeHours = 0;
           this.watitngTimeMinutes = 0;
         }else{
@@ -89,16 +91,26 @@ export class DashboardComponent implements OnInit {
     return isNaN(average_order) ? 0 : average_order;
   }
 
-  dashboardData: any = {
+  dashboardData: IDashboardData = {
     total_sales: 0,
     order_count: 0,
     averate_order: 0,
     waitinglist_count: 0,
     average_waiting_minutes: 0,
     new_customer_count: 0,
+    revenue: 0,
+    customer_growth: 0,
+    top_selling: [{
+      name : '',
+      sell_count : 0
+    }],
+    least_selling: [{
+      name : '',
+      sell_count : 0
+    }]
   };
-  waitingTimeHours: any;
-  watitngTimeMinutes: any;
-  revenueChart: any;
-  customerGrowthChart: any;
+  waitingTimeHours: number = 0;
+  watitngTimeMinutes: number = 0;
+  revenueChart: IGraph | undefined;
+  customerGrowthChart: IGraph|undefined;
 }

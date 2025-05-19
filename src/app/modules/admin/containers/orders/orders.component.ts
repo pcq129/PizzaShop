@@ -9,6 +9,8 @@ import { saveAs } from 'file-saver';
 import { PageEvent } from '@angular/material/paginator';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { PaginatorComponent } from 'src/app/shared/components/paginator/paginator.component';
+import { IOngoingOrder } from './Model/order';
+import { ApiResponse } from 'src/app/core/model/api-response';
 
 @Component({
   selector: 'app-orders',
@@ -20,7 +22,7 @@ export class OrdersComponent implements OnInit {
     private snackbarService: SnackbarService,
     private orderService: OrderService,
     private dialog: MatDialog,
-    private router: Router
+    private router: Router,
   ) {
     this.getOrderData();
     this.minDate = new Date(2025, 0, 1);
@@ -30,8 +32,8 @@ export class OrdersComponent implements OnInit {
   ngOnInit(): void {}
   resultsLength: number = 100;
   pagesize: number = 5;
-  orderData: any;
-  viewOrderData: any;
+  orderData: IOngoingOrder[]=[];
+  viewOrderData: IOngoingOrder[]=[];
   displayedColumns = [
     'order',
     'date',
@@ -47,16 +49,15 @@ export class OrdersComponent implements OnInit {
   status = ['Ordered', 'Completed'];
   minDate: Date;
   maxDate: Date;
-  isSearchedData : boolean = false;
+  isSearchedData: boolean = false;
 
-  @ViewChild('paginator') paginator! : PaginatorComponent;
+  @ViewChild('paginator') paginator!: PaginatorComponent;
 
-  getOrderData(event?: any){
-    if(this.isSearchedData){
-
+  getOrderData(event?: PageEvent): void {
+    if (this.isSearchedData) {
       let orderId = this.searchData.controls.search.value;
-      this.orderService.searchOrder(this.searchData.value ,event).subscribe({
-        next: (res: any) => {
+      this.orderService.searchOrder(this.searchData.value, event).subscribe({
+        next: (res: ApiResponse) => {
           if (!res.status) {
             this.nodata = true;
             this.viewOrderData = [];
@@ -71,14 +72,14 @@ export class OrdersComponent implements OnInit {
             this.nodata = true;
           }
         },
-        error: (err: any) => {
+        error: (error: Error) => {
           this.nodata = true;
           this.viewOrderData = [];
         },
       });
-    }else{
+    } else {
       this.orderService.getOrderData(event).subscribe({
-        next: (res: any) => {
+        next: (res: ApiResponse) => {
           if (res.status) {
             this.orderData = res.data.data;
             this.viewOrderData = res.data.data;
@@ -95,8 +96,7 @@ export class OrdersComponent implements OnInit {
     }
   }
 
-
-  onPageChange(event: Event) {
+  onPageChange(event: PageEvent): void {
     console.log(event);
     //   {
     //     "previousPageIndex": 0,
@@ -107,7 +107,7 @@ export class OrdersComponent implements OnInit {
     this.getOrderData(event);
   }
 
-  convertDate(isoDate: any) {
+  convertDate(isoDate: any): string {
     const date = new Date(isoDate);
     const day = String(date.getUTCDate()).padStart(2, '0');
     const month = String(date.getUTCMonth() + 1).padStart(2, '0'); // Months are zero-indexed
@@ -115,7 +115,7 @@ export class OrdersComponent implements OnInit {
     return `${day} / ${month} / ${year}`;
   }
 
-  completeOrder(id: number) {
+  completeOrder(id: number): void {
     const confirmation = this.dialog.open(ConfirmationDialogComponent, {
       width: '500px',
       data: {
@@ -148,7 +148,7 @@ export class OrdersComponent implements OnInit {
     });
   }
 
-  viewOrderDetail(order: any) {
+  viewOrderDetail(order: any): void {
     console.log(order);
     this.orderService.setOrderData(order);
     this.router.navigate(['pizzashop/orders/details']);
@@ -159,55 +159,54 @@ export class OrdersComponent implements OnInit {
     // });
   }
 
-  resetData() {
+  resetData(): void {
     this.nodata = false;
     this.viewOrderData = this.orderData;
   }
 
   nodata: boolean = false;
-  filterOrders(orderId: string) {
+  filterOrders(orderId: string): void  {
     // if (!orderId) {
     //   this.nodata = false;
     //   setTimeout(() => {
     //     this.viewOrderData = this.orderData;
     //   }, 500);
     // } else {
-this.paginator.resetToFirstPage();
+    this.paginator.resetToFirstPage();
 
-      this.orderService.searchOrder(this.searchData.value).subscribe({
-        next: (res: any) => {
-          console.log(res);
+    this.orderService.searchOrder(this.searchData.value).subscribe({
+      next: (res: any) => {
+        console.log(res);
 
-
-          if (res.code == 204 || !res.status) {
-            this.nodata = true;
-            this.viewOrderData = [];
-            return;
-          } else if (res.status) {
-            this.nodata = false;
-            this.viewOrderData = res.data.data;
-            this.resultsLength = res.data.total;
-            this.isSearchedData = true;
-            return;
-          } else {
-            this.nodata = true;
-          }
-        },
-        error: (err: any) => {
+        if (res.code == 204 || !res.status) {
           this.nodata = true;
           this.viewOrderData = [];
-        },
-      });
+          return;
+        } else if (res.status) {
+          this.nodata = false;
+          this.viewOrderData = res.data.data;
+          this.resultsLength = res.data.total;
+          this.isSearchedData = true;
+          return;
+        } else {
+          this.nodata = true;
+        }
+      },
+      error: (err: any) => {
+        this.nodata = true;
+        this.viewOrderData = [];
+      },
+    });
     // }
   }
 
   searchData = new FormGroup({
     search: new FormControl(),
     status: new FormControl('0', Validators.required),
-    endDate: new FormControl('',Validators.required),
-    startDate: new FormControl('',Validators.required),
+    endDate: new FormControl(new Date(), Validators.required),
+    startDate: new FormControl(new Date(), Validators.required),
   });
-  exportOrders(filter: any) {
+  exportOrders(filter: any): void  {
     console.log(filter);
 
     this.orderService.exportOrdersToExcel(filter).subscribe({
@@ -219,32 +218,28 @@ this.paginator.resetToFirstPage();
       },
     });
 
+    // for proper response formatting
 
-
-      // for proper response formatting
-
-      // next: (res: any) => {
-      //   if (!res.status) {
-      //     console.log('failed');
-      //   } else {
-      //     let data: any;
-      //     if (res.data) {
-      //       data = res.data;
-      //       (data: Blob) => {
-      //         saveAs(data, 'fileName');
-      //       };
-      //     }
-      //   }
-      // },
-
-
+    // next: (res: any) => {
+    //   if (!res.status) {
+    //     console.log('failed');
+    //   } else {
+    //     let data: any;
+    //     if (res.data) {
+    //       data = res.data;
+    //       (data: Blob) => {
+    //         saveAs(data, 'fileName');
+    //       };
+    //     }
+    //   }
+    // },
   }
-  getRating(rating: any) {
+  getRating(rating: any) : JSON {
     let compoundRating = JSON.parse(rating);
     return compoundRating.food;
   }
   Ratings = [1, 2, 3, 4, 5];
-  getOrderRating(rating: string) {
+  getOrderRating(rating: string):number {
     let parsedRating = JSON.parse(rating);
     return parsedRating.food;
   }

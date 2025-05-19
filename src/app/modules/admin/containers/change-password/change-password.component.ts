@@ -10,6 +10,8 @@ import { Router } from '@angular/router';
 
 import { AuthService } from 'src/app/modules/auth/_services/auth.service';
 import { SnackbarService } from 'src/app/shared/_services/snackbar.service';
+import { IPasswordChange } from './model/password';
+import { Observable } from 'rxjs';
 
 
 @Component({
@@ -18,7 +20,7 @@ import { SnackbarService } from 'src/app/shared/_services/snackbar.service';
   styleUrls: ['./change-password.component.scss'],
 })
 export class ChangePasswordComponent implements OnInit {
-  email: any;
+  email: string|undefined;
 
   constructor(
     private router: Router,
@@ -51,7 +53,7 @@ export class ChangePasswordComponent implements OnInit {
 
   passwordData!: FormGroup;
 
-  redirect(url: string) {
+  redirect(url: string): void {
     this.router.navigate([url]);
   }
 
@@ -84,7 +86,7 @@ export class ChangePasswordComponent implements OnInit {
     return null;
   }
 
-  changePassword(passwordData: any) {
+  changePassword(passwordData: IPasswordChange):void {
     this.authService.updatePassword(passwordData).subscribe({
       next: (res: any) => {
         if (!res.status) {
@@ -99,9 +101,6 @@ export class ChangePasswordComponent implements OnInit {
             this.authService.clear();
           }
           this.router.navigate(['pizzashop/dashboard']);
-
-
-          // this.authService.clear();
         }
       },
     });

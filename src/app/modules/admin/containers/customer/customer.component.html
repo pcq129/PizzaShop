@@ -77,7 +77,7 @@
   <table
     *ngIf="!nodata"
     mat-table
-    [dataSource]="viewCustomerList"
+    [dataSource]="viewCustomerList!"
     class="mat-elevation-z8 customerData"
   >
     <ng-container matColumnDef="name">
