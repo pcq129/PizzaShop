@@ -3,7 +3,8 @@ import { CommonModule } from '@angular/common';
 import { RolePermissionComponent } from './role-permission.component';
 import { MatChipsModule } from '@angular/material/chips';
 import { UserService } from '../users/_services/user.service';
-import { SnackbarService } from 'src/app/common/_services/snackbar.service';
+import { SnackbarService } from 'src/app/shared/_services/snackbar.service';
+
 import { MatCardModule } from '@angular/material/card';
 import { MatTableModule } from '@angular/material/table';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';

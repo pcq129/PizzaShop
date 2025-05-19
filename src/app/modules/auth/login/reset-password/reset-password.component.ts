@@ -8,7 +8,7 @@ import {
 } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../../_services/auth.service';
-import { SnackbarService } from 'src/app/common/_services/snackbar.service';
+import { SnackbarService } from 'src/app/shared/_services/snackbar.service';
 
 @Component({
   selector: 'app-reset-password',

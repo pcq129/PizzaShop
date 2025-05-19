@@ -7,7 +7,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { ItemCategoryModule } from './items/item-category.module';
 import { ModifierModule } from './modifier/modifier.module';
-import { SharedModule } from 'src/app/common/common-module.module';
+import { SharedModule } from 'src/app/shared/shared-module.module';
+
 
 @NgModule({
   declarations: [MenuComponent],

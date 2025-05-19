@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CategoryListService } from '../category/_services/category-list.service';
 import { ModifierService } from './modifier/_services/modifier.service';
-import { SnackbarService } from 'src/app/common/_services/snackbar.service';
+import { SnackbarService } from 'src/app/shared/_services/snackbar.service';
+
 
 @Component({
   selector: 'app-menu',

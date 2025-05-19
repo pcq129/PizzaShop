@@ -14,8 +14,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatOptionModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
-import { PaginatorComponent } from 'src/app/common/components/paginator/paginator.component';
-import { SharedModule } from 'src/app/common/common-module.module';
+import { SharedModule } from 'src/app/shared/shared-module.module';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @NgModule({

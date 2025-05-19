@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth/_services/auth.service';
 import { TableSectionService } from '../admin/containers/table-section/_services/table-section.service';
-import { SnackbarService } from 'src/app/common/_services/snackbar.service';
+import { SnackbarService } from 'src/app/shared/_services/snackbar.service';
+
 
 @Component({
   selector: 'app-orderapp',

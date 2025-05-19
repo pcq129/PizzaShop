@@ -12,11 +12,11 @@ import {
   MatDialogRef,
 } from '@angular/material/dialog';
 import { DialogComponent } from './dialogs/common-dialog.component';
-import { DeleteDialogComponent } from 'src/app/common/components/dialogs/delete-dialog/delete-dialog.component';
+import { DeleteDialogComponent } from 'src/app/shared/components/dialogs/delete-dialog/delete-dialog.component';
 // import { MatIcon } from '@angular/material/icon';
 // import { ItemsService } from 'src/app/_services/items.service';
 // import { clippingParents } from '@popperjs/core';
-import { SnackbarService } from 'src/app/common/_services/snackbar.service';
+import { SnackbarService } from 'src/app/shared/_services/snackbar.service';
 
 export interface DialogData {
   id: number;

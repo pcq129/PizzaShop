@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Items } from 'src/app/common/interfaces/items-interface.data';
+import { Items } from 'src/app/shared/interfaces/items-interface.data';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { catchError, Observable } from 'rxjs';

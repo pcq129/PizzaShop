@@ -9,7 +9,8 @@ import {
 import { Router } from '@angular/router';
 
 import { AuthService } from 'src/app/modules/auth/_services/auth.service';
-import { SnackbarService } from 'src/app/common/_services/snackbar.service';
+import { SnackbarService } from 'src/app/shared/_services/snackbar.service';
+
 
 @Component({
   selector: 'app-change-password',

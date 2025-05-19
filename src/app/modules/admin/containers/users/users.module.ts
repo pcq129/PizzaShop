@@ -12,10 +12,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UserDialogComponent } from './user-dialog/user-dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSelectModule } from '@angular/material/select';
-import { DeleteDialogModule } from 'src/app/common/components/dialogs/delete-dialog/delete-dialog.module';
-import { RoleLabelPipe } from 'src/app/common/pipes/role.pipe';
-import { PhonePipe } from 'src/app/common/pipes/phone.pipe';
-import { SharedModule } from 'src/app/common/common-module.module';
+import { DeleteDialogModule } from 'src/app/shared/components/dialogs/delete-dialog/delete-dialog.module';
+import { RoleLabelPipe } from 'src/app/shared/pipes/role.pipe';
+import { PhonePipe } from 'src/app/shared/pipes/phone.pipe';
+import { SharedModule } from 'src/app/shared/shared-module.module';
 
 @NgModule({
   declarations: [UsersComponent, UserDialogComponent,RoleLabelPipe, PhonePipe],

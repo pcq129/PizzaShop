@@ -6,7 +6,7 @@ import { whitespaceValidator } from 'src/app/shared/validators/validators';
 @Component({
   selector: 'app-modifier-group-dialog',
   templateUrl: './modifier-group-dialog.component.html',
-  styleUrls: ['../modifier.component.scss'],
+  styleUrls: ['../../modifier.component.scss'],
 })
 export class ModifierGroupDialogComponent implements OnInit {
   isChecked(modifierId: any) {

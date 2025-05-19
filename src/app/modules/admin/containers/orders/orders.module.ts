@@ -11,8 +11,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { OrderDetailsModule } from './order-details/order-details.module';
 import {MatPaginatorModule} from '@angular/material/paginator';
-import { PaginatorComponent } from 'src/app/common/components/paginator/paginator.component';
-import { SharedModule } from 'src/app/common/common-module.module';
+import { PaginatorComponent } from 'src/app/shared/components/paginator/paginator.component';
+import { SharedModule } from 'src/app/shared/shared-module.module';
+
 import { MatSelectModule } from '@angular/material/select';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';

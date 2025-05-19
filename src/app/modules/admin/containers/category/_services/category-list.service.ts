@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CategoryInterface } from 'src/app/common/interfaces/category-interface.data';
+import { CategoryInterface } from 'src/app/shared/interfaces/category-interface.data';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { AuthService } from 'src/app/modules/auth/_services/auth.service';

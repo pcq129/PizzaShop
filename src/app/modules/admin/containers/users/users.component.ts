@@ -2,12 +2,13 @@ import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { SnackbarService } from 'src/app/common/_services/snackbar.service';
+import { SnackbarService } from 'src/app/shared/_services/snackbar.service';
 import { UserService } from './_services/user.service';
 import { UserDialogComponent } from './user-dialog/user-dialog.component';
-import { DeleteDialogComponent } from 'src/app/common/components/dialogs/delete-dialog/delete-dialog.component';
+import { DeleteDialogComponent } from 'src/app/shared/components/dialogs/delete-dialog/delete-dialog.component';
 import { MatPaginator } from '@angular/material/paginator';
-import { PaginatorComponent } from 'src/app/common/components/paginator/paginator.component';
+import { PaginatorComponent } from 'src/app/shared/components/paginator/paginator.component';
+
 
 // const ELEMENT_DATA = [
 //   { role: 1, name: 'Hydrogen', email: 1.0079, status: 'H' },

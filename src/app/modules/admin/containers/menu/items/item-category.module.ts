@@ -13,10 +13,11 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { DeleteDialogModule } from 'src/app/common/components/dialogs/delete-dialog/delete-dialog.module';
+import { DeleteDialogModule } from 'src/app/shared/components/dialogs/delete-dialog/delete-dialog.module';
 import { ItemDialogComponent } from './dialog/item-dialog/item-dialog.component';
 import { categoryDialogComponent } from './dialog/category-dialog/category-dialog.component';
-import { SharedModule } from 'src/app/common/common-module.module';
+import { SharedModule } from 'src/app/shared/shared-module.module';
+
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 

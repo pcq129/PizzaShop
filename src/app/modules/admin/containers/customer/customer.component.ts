@@ -2,8 +2,10 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { customerDetailDialog } from './dialogs/customer-detail-dialog.component';
 import { CustomerService } from './_services/customer.service';
-import { SnackbarService } from 'src/app/common/_services/snackbar.service';
-import { PaginatorComponent } from 'src/app/common/components/paginator/paginator.component';
+import { SnackbarService } from 'src/app/shared/_services/snackbar.service';
+
+import { PaginatorComponent } from 'src/app/shared/components/paginator/paginator.component';
+
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import * as saveAs from 'file-saver';
 

@@ -6,12 +6,13 @@ import {
   MatDialog,
 } from '@angular/material/dialog';
 import { LogarithmicScale } from 'chart.js';
-import { SnackbarService } from 'src/app/common/_services/snackbar.service';
+import { SnackbarService } from 'src/app/shared/_services/snackbar.service';
+
 import { TableSectionService } from './_services/table-section.service';
 import { Section, Table } from './table-section';
-import { PaginatorComponent } from 'src/app/common/components/paginator/paginator.component';
+import { PaginatorComponent } from 'src/app/shared/components/paginator/paginator.component';
 import { MatInput } from '@angular/material/input';
-import { DeleteDialogComponent } from 'src/app/common/components/dialogs/delete-dialog/delete-dialog.component';
+import { DeleteDialogComponent } from 'src/app/shared/components/dialogs/delete-dialog/delete-dialog.component';
 import { whitespaceValidator } from 'src/app/shared/validators/validators';
 
 @Component({

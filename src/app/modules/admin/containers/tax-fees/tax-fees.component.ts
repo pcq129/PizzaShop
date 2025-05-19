@@ -1,7 +1,8 @@
 import { Component, Inject , OnInit} from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
-import { SnackbarService } from 'src/app/common/_services/snackbar.service';
+import { SnackbarService } from 'src/app/shared/_services/snackbar.service';
+
 import { TaxFeesService } from './_services/tax-fees.service';
 import { TaxFees } from './tax-fees';
 import { whitespaceValidator } from 'src/app/shared/validators/validators';

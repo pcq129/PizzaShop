@@ -7,7 +7,8 @@ import {
   HttpEventType,
 } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
-import { SnackbarService } from 'src/app/common/_services/snackbar.service';
+import { SnackbarService } from 'src/app/shared/_services/snackbar.service';
+
 import { Router } from '@angular/router';
 
 @Injectable()

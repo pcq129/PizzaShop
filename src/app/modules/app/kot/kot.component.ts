@@ -3,7 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { KotService } from './_services/kot.service';
 import { OrderService } from '../../admin/containers/orders/_services/order.service';
-import { SnackbarService } from 'src/app/common/_services/snackbar.service';
+import { SnackbarService } from 'src/app/shared/_services/snackbar.service';
+
 import { KotDialogComponent } from './kot-dialog/kot-dialog.component';
 
 @Component({

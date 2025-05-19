@@ -13,7 +13,8 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
 import { MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
-import { DeleteDialogModule } from 'src/app/common/components/dialogs/delete-dialog/delete-dialog.module';
+import { DeleteDialogModule } from 'src/app/shared/components/dialogs/delete-dialog/delete-dialog.module';
+
 import { CommonDialogModule } from './dialogs/common-dialog.module';
 
 @NgModule({

@@ -14,7 +14,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDividerModule } from '@angular/material/divider';
 import {MatRadioModule} from '@angular/material/radio';
-import { ConfirmationDialogModule } from 'src/app/common/components/dialogs/confirmation-dialog/confirmation-dialog.module';
+import { ConfirmationDialogModule } from 'src/app/shared/components/dialogs/confirmation-dialog/confirmation-dialog.module';
 import { RatingDialogComponent } from './rating-dialog/rating-dialog.component';
 
 

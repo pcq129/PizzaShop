@@ -18,7 +18,7 @@ import { OrderMenuComponent } from './modules/app/order-menu/order-menu.componen
 import { OrdersComponent } from './modules/admin/containers/orders/orders.component';
 import { OrderDetailsComponent } from './modules/admin/containers/orders/order-details/order-details.component';
 import { CustomerComponent } from './modules/admin/containers/customer/customer.component';
-import { PageNotFoundComponent } from './common/components/page-not-found/page-not-found.component';
+import { PageNotFoundComponent } from './shared/components/page-not-found/page-not-found.component';
 import { WaitingListComponent } from './modules/app/waiting-list/waiting-list.component';
 import { MenuComponent } from './modules/admin/containers/menu/menu.component';
 import { ChangePasswordComponent } from './modules/admin/containers/change-password/change-password.component';
@@ -27,7 +27,7 @@ import { ResetPasswordComponent } from './modules/auth/login/reset-password/rese
 import { UsersComponent } from './modules/admin/containers/users/users.component';
 import { KotComponent } from './modules/app/kot/kot.component';
 import { RolePermissionComponent } from './modules/admin/containers/role-permission/role-permission.component';
-import { Role } from './common/interfaces/role';
+import { Role } from './shared/interfaces/role';
 import { AuthGuard } from './modules/auth/helper/auth.guard';
 // import { DashboardComponent } from './app/dashboard/dashboard.component';
 const routes: Routes = [

@@ -18,7 +18,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatTableModule } from '@angular/material/table';
 import { customerDetailDialog } from './dialogs/customer-detail-dialog.component';
-import { SharedModule } from 'src/app/common/common-module.module';
+import { SharedModule } from 'src/app/shared/shared-module.module';
+
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import {
   MatMomentDateModule,

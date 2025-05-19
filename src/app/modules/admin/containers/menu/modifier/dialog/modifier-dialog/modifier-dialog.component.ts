@@ -1,13 +1,13 @@
 import { Component, Inject, Input } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatFormField } from '@angular/material/form-field';
-import { Modifier } from 'src/app/common/interfaces/modifier';
+import { Modifier } from 'src/app/shared/interfaces/modifier';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { whitespaceValidator } from 'src/app/shared/validators/validators';
 @Component({
   selector: 'modifier-dialog',
   templateUrl: 'modifier-dialog.component.html',
-  styleUrls: ['../modifier.component.scss']
+  styleUrls: ['../../modifier.component.scss']
 })
 export class modifierDialog {
   constructor(

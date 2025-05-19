@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import { Modifier, ModifierGroup} from 'src/app/common/interfaces/modifier';
+import { Modifier, ModifierGroup } from 'src/app/shared/interfaces/modifier';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { SnackbarService } from 'src/app/common/_services/snackbar.service';
+import { SnackbarService } from 'src/app/shared/_services/snackbar.service';
+
 @Injectable({
   providedIn: 'root',
 })

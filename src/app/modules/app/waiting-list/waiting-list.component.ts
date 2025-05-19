@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { OrderService } from '../../admin/containers/orders/_services/order.service';
 import { MatDialog } from '@angular/material/dialog';
 import { waitingTokenDialog } from '../order-tables/dialogs/waitingTokenDialog.component';
-import { SnackbarService } from 'src/app/common/_services/snackbar.service';
+import { SnackbarService } from 'src/app/shared/_services/snackbar.service';
 import { TableSectionService } from '../../admin/containers/table-section/_services/table-section.service';
-import { DeleteDialogComponent } from 'src/app/common/components/dialogs/delete-dialog/delete-dialog.component';
+import { DeleteDialogComponent } from 'src/app/shared/components/dialogs/delete-dialog/delete-dialog.component';
 
 @Component({
   selector: 'app-waiting-list',

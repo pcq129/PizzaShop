@@ -13,10 +13,12 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatTableModule } from '@angular/material/table';
-import { DeleteDialogModule } from 'src/app/common/components/dialogs/delete-dialog/delete-dialog.module';
+import { DeleteDialogModule } from 'src/app/shared/components/dialogs/delete-dialog/delete-dialog.module';
+
 import { ModifierGroupDialogComponent } from './dialog/modifier-group-dialog/modifier-group-dialog.component';
 import { modifierDialog } from './dialog/modifier-dialog/modifier-dialog.component';
-import { SharedModule } from 'src/app/common/common-module.module';
+import { SharedModule } from 'src/app/shared/shared-module.module';
+
 import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @NgModule({

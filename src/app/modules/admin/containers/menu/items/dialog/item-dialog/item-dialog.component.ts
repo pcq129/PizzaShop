@@ -3,7 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ItemsService } from '../../_services/items.service';
 import { ModifierService } from '../../../modifier/_services/modifier.service';
-import { SnackbarService } from 'src/app/common/_services/snackbar.service';
+import { SnackbarService } from 'src/app/shared/_services/snackbar.service';
 import { whitespaceValidator } from 'src/app/shared/validators/validators';
 
 @Component({

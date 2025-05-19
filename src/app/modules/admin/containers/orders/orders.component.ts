@@ -1,13 +1,14 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { OrderService } from './_services/order.service';
-import { ConfirmationDialogComponent } from 'src/app/common/components/dialogs/confirmation-dialog/confirmation-dialog.component';
-import { SnackbarService } from 'src/app/common/_services/snackbar.service';
+import { ConfirmationDialogComponent } from 'src/app/shared/components/dialogs/confirmation-dialog/confirmation-dialog.component';
+import { SnackbarService } from 'src/app/shared/_services/snackbar.service';
+
 import { Router } from '@angular/router';
 import { saveAs } from 'file-saver';
 import { PageEvent } from '@angular/material/paginator';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { PaginatorComponent } from 'src/app/common/components/paginator/paginator.component';
+import { PaginatorComponent } from 'src/app/shared/components/paginator/paginator.component';
 
 @Component({
   selector: 'app-orders',
