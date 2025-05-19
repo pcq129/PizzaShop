@@ -4,6 +4,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ItemsService } from '../../_services/items.service';
 import { ModifierService } from '../../../modifier/_services/modifier.service';
 import { SnackbarService } from 'src/app/common/_services/snackbar.service';
+import { whitespaceValidator } from 'src/app/shared/validators/validators';
 
 @Component({
   selector: 'app-item-dialog',
@@ -69,8 +70,7 @@ export class ItemDialogComponent implements OnInit {
   dataForm = new FormGroup({
     name: new FormControl(this.data.name, [
       Validators.required,
-      this.whitespaceValidator,
-    ]),
+whitespaceValidator    ]),
     description: new FormControl(this.data.description),
     item_type: new FormControl(this.data.item_type, [Validators.required]),
     tax_percentage: new FormControl(this.data.tax_percentage, [
@@ -93,11 +93,7 @@ export class ItemDialogComponent implements OnInit {
     image: new FormControl(),
   });
 
-  public whitespaceValidator(control: FormControl) {
-    const isWhitespace = (control.value || '').trim().length === 0;
-    const isValid = !isWhitespace;
-    return isValid ? null : { whitespace: true };
-  }
+
 
   onNoClick(): void {
     if (this.uploadedImage) {

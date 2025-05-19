@@ -1,12 +1,13 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { SnackbarService } from 'src/app/common/_services/snackbar.service';
+import { SnackbarService } from 'src/app/shared/_services/snackbar.service';
 import { TableSectionService } from '../../admin/containers/table-section/_services/table-section.service';
 import { OrderService } from '../../admin/containers/orders/_services/order.service';
 
 import { MatDialog } from '@angular/material/dialog';
 import { waitingTokenDialog } from './dialogs/waitingTokenDialog.component';
+import { whitespaceValidator } from 'src/app/shared/validators/validators';
 
 @Component({
   selector: 'app-order-tables',
@@ -97,9 +98,9 @@ export class OrderTablesComponent implements OnInit {
     email: new FormControl('', [
       Validators.required,
       Validators.email,
-      this.whitespaceValidator,
+      whitespaceValidator
     ]),
-    name: new FormControl('', [Validators.required, this.whitespaceValidator]),
+    name: new FormControl('', [Validators.required, whitespaceValidator]),
     mobile: new FormControl('', [
       Validators.required,
       Validators.pattern(this.mobilePattern),
@@ -121,11 +122,7 @@ export class OrderTablesComponent implements OnInit {
     this.customerData.controls.table_names.setValue(this.selectedTablesNames);
   }
 
-  public whitespaceValidator(control: FormControl) {
-    const isWhitespace = (control.value || '').trim().length === 0;
-    const isValid = !isWhitespace;
-    return isValid ? null : { whitespace: true };
-  }
+
 
   getEmailError() {
     if (this.customerData.controls.email.hasError('email')) {

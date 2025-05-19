@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { SnackbarService } from 'src/app/common/_services/snackbar.service';
+import { SnackbarService } from 'src/app/shared/_services/snackbar.service';
 import { OrderService } from '../_services/order.service';
 import html2pdf from 'html2pdf.js';
 import { Router } from '@angular/router';

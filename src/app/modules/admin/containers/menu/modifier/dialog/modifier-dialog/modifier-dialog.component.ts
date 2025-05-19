@@ -3,6 +3,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatFormField } from '@angular/material/form-field';
 import { Modifier } from 'src/app/common/interfaces/modifier';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { whitespaceValidator } from 'src/app/shared/validators/validators';
 @Component({
   selector: 'modifier-dialog',
   templateUrl: 'modifier-dialog.component.html',
@@ -34,7 +35,7 @@ export class modifierDialog {
   modifierForm = new FormGroup({
     name: new FormControl(this.data.name, [
       Validators.required,
-      this.whitespaceValidator,
+      whitespaceValidator
     ]),
     rate: new FormControl(this.data.rate, Validators.required),
     modifier_group_id: new FormControl(this.data.modifier_group_id),
@@ -51,9 +52,5 @@ export class modifierDialog {
   // description = this.modifierForm.controls.description;
   // groupId = this.modifierForm.controls.groupId;
 
-  public whitespaceValidator(control: FormControl) {
-    const isWhitespace = (control.value || '').trim().length === 0;
-    const isValid = !isWhitespace;
-    return isValid ? null : { whitespace: true };
-  }
+
 }

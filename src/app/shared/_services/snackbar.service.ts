@@ -55,20 +55,4 @@ export class SnackbarService {
       duration: this.durationInSeconds * 1000,
     });
   }
-
-  multipleErrors(rawMessage: any) {
-    let message = this.toTitleCase(rawMessage);
-
-    // message.forEach(element => {
-    //   this.error(`${element}`)
-    // });
-    // if(Object.keys(message).length == 1){
-    //   this.error('message');
-    // }
-    // else{
-    for (const [key, value] of Object.entries(rawMessage)) {
-      this.error(`${value}`);
-    }
-    // }
-  }
 }

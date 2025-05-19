@@ -1,11 +1,11 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ModifierService } from './_services/modifier.service';
-import { SnackbarService } from 'src/app/common/_services/snackbar.service';
+import { SnackbarService } from 'src/app/shared/_services/snackbar.service';
 import { ModifierGroupDialogComponent } from './dialog/modifier-group-dialog/modifier-group-dialog.component';
 import { modifierDialog } from './dialog/modifier-dialog/modifier-dialog.component';
-import { DeleteDialogComponent } from 'src/app/common/components/dialogs/delete-dialog/delete-dialog.component';
-import { PaginatorComponent } from 'src/app/common/components/paginator/paginator.component';
+import { DeleteDialogComponent } from 'src/app/shared/components/dialogs/delete-dialog/delete-dialog.component';
+import { PaginatorComponent } from 'src/app/shared/components/paginator/paginator.component';
 
 @Component({
   selector: 'app-modifier',
@@ -175,9 +175,8 @@ export class ModifierComponent implements OnInit {
         this.modifierService.addModifierGroup(result).subscribe(
           (res: any) => {
             if (!res.status) {
-              for (const [key, value] of Object.entries(res.message)) {
-                this.snackbarService.error(`${value}`);
-              }
+              this.snackbarService.error(res.message);
+
             } else {
               this.snackbarService.success('Modifier Group added successfully');
               this.loadModifiers(this.currentModifierGroup);
@@ -206,9 +205,8 @@ export class ModifierComponent implements OnInit {
       this.modifierService.deleteModifierGroup(result.id).subscribe(
         (res: any) => {
           if (!res.status) {
-            for (const [key, value] of Object.entries(res.message)) {
-              this.snackbarService.error(`${value}`);
-            }
+            this.snackbarService.error(res.message);
+
           } else {
             this.snackbarService.success('Modifier group deleted successfully');
             this.loadModifiers(this.currentModifierGroup);
@@ -249,9 +247,8 @@ export class ModifierComponent implements OnInit {
       result.id = id;
       this.modifierService.editModifierGroup(result).subscribe((res: any) => {
         if (!res.status) {
-          for (const [key, value] of Object.entries(res.message)) {
-            this.snackbarService.error(`${value}`);
-          }
+          this.snackbarService.error(res.message);
+
         } else {
           this.snackbarService.success('Modifier Group updated successfully');
           this.loadModifiers(this.currentModifierGroup);
@@ -287,9 +284,8 @@ export class ModifierComponent implements OnInit {
         this.modifierService.addModifier(result).subscribe(
           (res: any) => {
             if (!res.status) {
-              for (const [key, value] of Object.entries(res.message)) {
-                this.snackbarService.error(`${value}`);
-              }
+              this.snackbarService.error(res.message);
+
             } else {
               this.snackbarService.success(`Modifier added successfully`);
               this.loadModifiers(this.currentModifierGroup);
@@ -328,9 +324,8 @@ export class ModifierComponent implements OnInit {
       this.modifierService.editModifier(result).subscribe(
         (res: any) => {
           if (!res.status) {
-            for (const [key, value] of Object.entries(res.message)) {
-              this.snackbarService.error(`${value}`);
-            }
+            this.snackbarService.error(res.message);
+
           } else {
             this.snackbarService.success(`Modifier updated successfully`);
             this.loadModifiers(this.currentModifierGroup);
@@ -358,9 +353,8 @@ export class ModifierComponent implements OnInit {
       this.modifierService.deleteModifier(result.modifier_group_id).subscribe(
         (res: any) => {
           if (!res.status) {
-            for (const [key, value] of Object.entries(res.message)) {
-              this.snackbarService.error(`${value}`);
-            }
+            this.snackbarService.error(res.message);
+
           } else {
             this.snackbarService.success(`Modifier deleted successfully`);
             this.loadModifiers(this.currentModifierGroup);

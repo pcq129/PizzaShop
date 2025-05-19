@@ -4,6 +4,7 @@ import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dial
 import { SnackbarService } from 'src/app/common/_services/snackbar.service';
 import { TaxFeesService } from './_services/tax-fees.service';
 import { TaxFees } from './tax-fees';
+import { whitespaceValidator } from 'src/app/shared/validators/validators';
 
 @Component({
   selector: 'app-tax-fees',
@@ -240,7 +241,7 @@ export class TaxFeeDialog {
   taxFeesData = new FormGroup({
     name: new FormControl(this.data.name, [
       Validators.required,
-      this.whitespaceValidator,
+      whitespaceValidator
     ]),
     type : new FormControl(this.data.type, Validators.required),
     amount: new FormControl(this.data.amount, [Validators.required]),
@@ -265,11 +266,7 @@ export class TaxFeeDialog {
     return;
   }
 
-  public whitespaceValidator(control: FormControl) {
-    const isWhitespace = (control.value || '').trim().length === 0;
-    const isValid = !isWhitespace;
-    return isValid ? null : { whitespace: true };
-  }
+
 
   public taxValidator(control: FormControl){
     const taxPercentage = (control.value);

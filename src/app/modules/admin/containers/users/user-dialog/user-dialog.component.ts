@@ -9,6 +9,7 @@ import {
 } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { modifierDialog } from 'src/app/modules/app/order-menu/modifier-dialog.component';
+import { whitespaceValidator } from 'src/app/shared/validators/validators';
 
 
 @Component({
@@ -28,15 +29,15 @@ export class UserDialogComponent implements OnInit {
       {
         first_name: new FormControl(this.data.userData?.first_name, [
           Validators.required,
-          this.whitespaceValidator,
+          whitespaceValidator
         ]),
         last_name: new FormControl(this.data.userData?.last_name, [
           Validators.required,
-          this.whitespaceValidator,
+          whitespaceValidator
         ]),
         username: new FormControl(this.data.userData?.user_name, [
           Validators.required,
-          this.whitespaceValidator,
+          whitespaceValidator
         ]),
         email: new FormControl(this.data.userData?.email, [
           Validators.required,
@@ -45,29 +46,29 @@ export class UserDialogComponent implements OnInit {
         phone: new FormControl((this.data.userData?.phone.replace(/\D/g, '')), Validators.required),
         country: new FormControl(this.data.userData?.country, [
           Validators.required,
-          this.whitespaceValidator,
+          whitespaceValidator
         ]),
         state: new FormControl(this.data.userData?.state, [
           Validators.required,
-          this.whitespaceValidator,
+          whitespaceValidator
         ]),
         city: new FormControl(this.data.userData?.city, [
           Validators.required,
-          this.whitespaceValidator,
+          whitespaceValidator
         ]),
         address: new FormControl(this.data.userData?.address, [
           Validators.required,
-          this.whitespaceValidator,
+          whitespaceValidator
         ]),
         zipcode: new FormControl(this.data.userData?.zipcode, [
           Validators.required,
-          this.whitespaceValidator,
+          whitespaceValidator
         ]),
         password: new FormControl('', [
           Validators.required,
-          this.whitespaceValidator,
+          whitespaceValidator
         ]),
-        confirmPassword: new FormControl('', [this.whitespaceValidator, Validators.required]),
+        confirmPassword: new FormControl('', [whitespaceValidator, Validators.required]),
         role: new FormControl(`${this.data.userData?.roles[0].name}`, [Validators.required]),
       },
       { validators: this.checkPasswords }

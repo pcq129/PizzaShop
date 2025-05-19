@@ -2,6 +2,7 @@ import { Component, Inject } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { TableSectionService } from "src/app/modules/admin/containers/table-section/_services/table-section.service";
+import { whitespaceValidator } from "src/app/shared/validators/validators";
 
 @Component({
   selector: 'waitingTokenDialog',
@@ -79,9 +80,9 @@ export class waitingTokenDialog {
     email: new FormControl(this.data.waitingToken?.email, [
       Validators.required,
       Validators.email,
-      this.whitespaceValidator,
+      whitespaceValidator
     ]),
-    name: new FormControl(this.data.waitingToken?.name, [Validators.required, this.whitespaceValidator]),
+    name: new FormControl(this.data.waitingToken?.name, [Validators.required,whitespaceValidator]),
     mobile: new FormControl(this.data.waitingToken?.mobile, [
       Validators.required,
       Validators.pattern(this.mobilePattern),
@@ -97,11 +98,7 @@ export class waitingTokenDialog {
     id : new FormControl(this.data.waitingToken?.id),
   });
 
-  public whitespaceValidator(control: FormControl) {
-    const isWhitespace = (control.value || '').trim().length === 0;
-    const isValid = !isWhitespace;
-    return isValid ? null : { whitespace: true };
-  }
+
 
   getEmailError() {
     if (this.customerData.controls.email.hasError('email')) {

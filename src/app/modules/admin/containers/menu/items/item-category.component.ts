@@ -17,12 +17,12 @@ import {
 import { CategoryListService } from '../../category/_services/category-list.service';
 import { ItemsService } from './_services/items.service';
 import { ModifierService} from '../modifier/_services/modifier.service';
-import { SnackbarService } from 'src/app/common/_services/snackbar.service';
-import { DeleteDialogComponent } from 'src/app/common/components/dialogs/delete-dialog/delete-dialog.component';
+import { SnackbarService } from 'src/app/shared/_services/snackbar.service';
+import { DeleteDialogComponent } from 'src/app/shared/components/dialogs/delete-dialog/delete-dialog.component';
 import { ItemDialogComponent } from './dialog/item-dialog/item-dialog.component';
 import { categoryDialogComponent } from './dialog/category-dialog/category-dialog.component';
 import { MatPaginator } from '@angular/material/paginator';
-import { PaginatorComponent } from 'src/app/common/components/paginator/paginator.component';
+import { PaginatorComponent } from 'src/app/shared/components/paginator/paginator.component';
 import { environment } from 'src/environments/environment';
 
 export interface DialogData {
@@ -328,9 +328,7 @@ export class ItemCategoryComponent implements OnInit {
     if (data.name.length > 0) {
       this.categoryService.addCategory(data).subscribe((res: any) => {
         if (!res.status) {
-          for (const [key, value] of Object.entries(res.message)) {
-            this.snackbarService.error(`${value}`);
-          }
+          this.snackbarService.error(res.message);
         } else {
           this.snackbarService.success('Category added successfully');
           // this.refreshCategoryData.emit(true);
@@ -372,9 +370,7 @@ export class ItemCategoryComponent implements OnInit {
   editCategory(element: object) {
     this.categoryService.editCategory(element).subscribe((res: any) => {
       if (!res.status) {
-        for (const [key, value] of Object.entries(res.message)) {
-          this.snackbarService.error(`${value}`);
-        }
+        this.snackbarService.error(res.message);
       } else {
         this.snackbarService.success('Category updated successfully');
         // this.refreshCategoryData.emit(true);
@@ -410,9 +406,7 @@ export class ItemCategoryComponent implements OnInit {
     console.log(Item);
     this.itemService.addItem(Item).subscribe((res) => {
       if (!res.status) {
-        for (const [key, value] of Object.entries(res.message)) {
-          this.snackbarService.error(`${value}`);
-        }
+        this.snackbarService.error(res.message);
       } else {
         this.snackbarService.success(`Item added successfully`);
         // this.refreshCategoryData.emit(true);
@@ -491,9 +485,8 @@ export class ItemCategoryComponent implements OnInit {
     this.itemService.editItem(Item).subscribe({
       next: (res: any) => {
         if (!res.status) {
-          for (const [key, value] of Object.entries(res.message)) {
-            this.snackbarService.error(`${value}`);
-          }
+          this.snackbarService.error(res.message);
+
         } else {
           this.snackbarService.success(`Item updated successfully`);
           // this.refreshCategoryData.emit(true);

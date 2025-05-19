@@ -12,6 +12,7 @@ import { Section, Table } from './table-section';
 import { PaginatorComponent } from 'src/app/common/components/paginator/paginator.component';
 import { MatInput } from '@angular/material/input';
 import { DeleteDialogComponent } from 'src/app/common/components/dialogs/delete-dialog/delete-dialog.component';
+import { whitespaceValidator } from 'src/app/shared/validators/validators';
 
 @Component({
   selector: 'app-table-section',
@@ -468,7 +469,7 @@ export class TableDialog {
   tableData = new FormGroup({
     name: new FormControl(this.data.name, [
       Validators.required,
-      this.whitespaceValidator,
+      whitespaceValidator
     ]),
     status: new FormControl(this.data.status, [Validators.required]),
     capacity: new FormControl(this.data.capacity, [
@@ -478,11 +479,7 @@ export class TableDialog {
     section_id: new FormControl(this.data.section_id),
   });
 
-  public whitespaceValidator(control: FormControl) {
-    const isWhitespace = (control.value || '').trim().length === 0;
-    const isValid = !isWhitespace;
-    return isValid ? null : { whitespace: true };
-  }
+
 
   getNameError() {
     if (this.tableData.controls.name.hasError('required')) {
@@ -539,16 +536,12 @@ export class SectionDialog {
   sectionData = new FormGroup({
     name: new FormControl(this.data.name, [
       Validators.required,
-      this.whitespaceValidator,
+      whitespaceValidator
     ]),
     description: new FormControl(this.data.description),
   });
 
-  public whitespaceValidator(control: FormControl) {
-    const isWhitespace = (control.value || '').trim().length === 0;
-    const isValid = !isWhitespace;
-    return isValid ? null : { whitespace: true };
-  }
+
 
   getNameError() {
     if (this.sectionData.controls.name.hasError('required')) {

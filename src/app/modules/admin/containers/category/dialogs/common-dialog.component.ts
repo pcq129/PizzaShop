@@ -2,6 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DialogData } from '../category.component';
+import { whitespaceValidator } from 'src/app/shared/validators/validators';
 @Component({
   selector: 'dialog-overview-example-dialog',
   templateUrl: 'common-dialog.component.html',
@@ -22,14 +23,10 @@ export class DialogComponent {
   dataForm = new FormGroup({
     name: new FormControl(this.data.name, [
       Validators.required,
-      this.whitespaceValidator,
+      whitespaceValidator
     ]),
     description: new FormControl(this.data.description, []),
   });
 
-  public whitespaceValidator(control: FormControl) {
-    const isWhitespace = (control.value || '').trim().length === 0;
-    const isValid = !isWhitespace;
-    return isValid ? null : { whitespace: true };
-  }
+
 }

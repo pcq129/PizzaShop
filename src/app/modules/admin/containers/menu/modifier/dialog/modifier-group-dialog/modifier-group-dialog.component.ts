@@ -1,6 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { whitespaceValidator } from 'src/app/shared/validators/validators';
 
 @Component({
   selector: 'app-modifier-group-dialog',
@@ -48,16 +49,12 @@ export class ModifierGroupDialogComponent implements OnInit {
     modifiers: new FormControl(this.modifiers),
     name: new FormControl(this.data.name, [
       Validators.required,
-      this.whitespaceValidator,
+      whitespaceValidator
     ]),
     description: new FormControl(this.data.description, []),
   });
 
-  public whitespaceValidator(control: FormControl) {
-    const isWhitespace = (control.value || '').trim().length === 0;
-    const isValid = !isWhitespace;
-    return isValid ? null : { whitespace: true };
-  }
+
 
   getNameError() {
     if (this.modifierGroupForm.controls.name.hasError('required')) {

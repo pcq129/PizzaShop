@@ -1,12 +1,13 @@
 import { Component, Inject } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DialogData } from '../../item-category.component';
+import { whitespaceValidator } from 'src/app/shared/validators/validators';
 
 @Component({
   selector: 'dialog-category',
   templateUrl: 'category-dialog.html',
-  styleUrls: ['../item-category.component.scss'],
+  styleUrls: ['../../item-category.component.scss'],
 })
 export class categoryDialogComponent {
   categoryName: string = '';
@@ -14,7 +15,7 @@ export class categoryDialogComponent {
 
   constructor(
     public dialogRef: MatDialogRef<categoryDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData
+    @Inject(MAT_DIALOG_DATA) public data: DialogData,
   ) {}
 
   onNoClick(): void {
@@ -24,14 +25,8 @@ export class categoryDialogComponent {
   dataForm = new FormGroup({
     name: new FormControl(this.data.name, [
       Validators.required,
-      this.whitespaceValidator,
+      whitespaceValidator,
     ]),
     description: new FormControl(this.data.description, []),
   });
-
-  public whitespaceValidator(control: FormControl) {
-    const isWhitespace = (control.value || '').trim().length === 0;
-    const isValid = !isWhitespace;
-    return isValid ? null : { whitespace: true };
-  }
 }

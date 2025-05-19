@@ -117,9 +117,7 @@ export class CategoryComponent implements OnInit, OnChanges {
     if (data.name.length > 0) {
       this.categoryList.addCategory(data).subscribe((res: any) => {
         if (!res.status) {
-          for (const [key, value] of Object.entries(res.message)) {
-            this.snackbar.error(`${value}`);
-          }
+          this.snackbar.error(res.message);
         } else {
           this.snackbar.success('Category added successfully');
           this.getCatList();
@@ -160,9 +158,7 @@ export class CategoryComponent implements OnInit, OnChanges {
   editCategory(element: object) {
     this.categoryList.editCategory(element).subscribe((res: any) => {
       if (!res.status) {
-        for (const [key, value] of Object.entries(res.message)) {
-          this.snackbar.error(`${value}`);
-        }
+        this.snackbar.error(res.message);
       } else {
         this.snackbar.success('Category updated successfully');
         this.getCatList();

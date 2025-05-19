@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CommonModuleComponent } from './common-module.component';
+import { Shared } from './shared-module.component';
 
-describe('CommonModuleComponent', () => {
-  let component: CommonModuleComponent;
-  let fixture: ComponentFixture<CommonModuleComponent>;
+describe('Shared', () => {
+  let component: Shared;
+  let fixture: ComponentFixture<Shared>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CommonModuleComponent ]
+      declarations: [ Shared ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(CommonModuleComponent);
+    fixture = TestBed.createComponent(Shared);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
