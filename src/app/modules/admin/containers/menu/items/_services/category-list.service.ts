@@ -19,10 +19,6 @@ export class CategoryListService {
 
   access_token = this.authservice.getToken();
 
-  httpHeaders = new HttpHeaders({
-    Authorization: `Bearer ${this.access_token}`,
-  });
-
   getCategoryData() {
     return this.http.get(environment.baseURL + `category`);
   }
@@ -32,29 +28,21 @@ export class CategoryListService {
   }
 
   addCategory(data: any) {
-    return this.http.post(environment.baseURL + `category`, data, {
-      headers: this.httpHeaders,
-    });
+    return this.http.post(environment.baseURL + `category`, data);
   }
 
   removeCategory(id: number) {
-    return this.http.delete(environment.baseURL + `category` + '/' + id, {
-      headers: this.httpHeaders,
-    });
+    return this.http.delete(environment.baseURL + `category` + '/' + id);
   }
 
   getSingleCategory(id: number) {
-    return this.http.get(environment.baseURL + `category` + '/' + id, {
-      headers: this.httpHeaders,
-    });
+    return this.http.get(environment.baseURL + `category` + '/' + id);
   }
 
   editCategory(element: any) {
     return this.http.put(
       environment.baseURL + `category` + '/' + element.id,
-      element,
-      { headers: this.httpHeaders }
-    );
+      element);
     // .map((response: Response) => response.json());
   }
 }

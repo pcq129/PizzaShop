@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CategoryListService } from '../category/_services/category-list.service';
+import { CategoryListService } from './items/_services/category-list.service';
 import { ModifierService } from './modifier/_services/modifier.service';
 import { SnackbarService } from 'src/app/shared/_services/snackbar.service';
 
@@ -35,7 +35,7 @@ export class MenuComponent implements OnInit {
           this.snackbarService.error(res.message);
         }
       },
-      error: (error) => {
+      error: (error: Error) => {
         this.snackbarService.error(error.message);
       },
     });

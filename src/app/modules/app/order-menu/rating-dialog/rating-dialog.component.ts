@@ -2,7 +2,6 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { getMatFormFieldMissingControlError } from '@angular/material/form-field';
-import { DialogData } from 'src/app/modules/admin/containers/category/category.component';
 
 @Component({
   selector: 'app-rating-dialog',

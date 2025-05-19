@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { CategoryComponent } from './modules/admin/containers/category/category.component';
 import { LoginGuard } from './modules/auth/helper/login.guard';
 // import { LayoutComponent } from './admin/app.component';
 // import { AppComponent } from './app.component';
@@ -43,13 +42,6 @@ const routes: Routes = [
     data: { roles: [Role.Super_Admin, Role.Account_Manager] },
 
     children: [
-      {
-        path: 'category',
-        canActivate: [AuthGuard, LoginGuard],
-
-        component: CategoryComponent,
-        data: { roles: [Role.Super_Admin, Role.Account_Manager] }
-      },
       {
         path: 'menu',
         canActivate: [AuthGuard, LoginGuard],

@@ -14,7 +14,7 @@ import {
   MatDialog,
   MatDialogRef,
 } from '@angular/material/dialog';
-import { CategoryListService } from '../../category/_services/category-list.service';
+import { CategoryListService } from './_services/category-list.service';
 import { ItemsService } from './_services/items.service';
 import { ModifierService} from '../modifier/_services/modifier.service';
 import { SnackbarService } from 'src/app/shared/_services/snackbar.service';

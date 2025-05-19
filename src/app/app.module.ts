@@ -10,13 +10,11 @@ import { AdminModule } from './modules/admin/admin.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AuthService } from './modules/auth/_services/auth.service';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
-import { CategoryModule } from './modules/admin/containers/category/category.module';
 import { LoggingInterceptor } from './shared/interceptors/logging.interceptor';
-
+import { Dialog } from '@angular/cdk/dialog';
 // import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { CommonDialogModule } from './modules/admin/containers/category/dialogs/common-dialog.module';
 import { SharedModule } from './shared/shared-module.module';
 import { MatSelectModule } from '@angular/material/select';
 import { HeadersInterceptor } from './shared/interceptors/headers.interceptor';
@@ -38,9 +36,7 @@ import { FirstLoginInterceptor } from './modules/auth/interceptors/first-login.i
     LoginModule,
     NgbModule,
     AdminModule,
-    CategoryModule,
     HttpClientModule,
-    CommonDialogModule,
     MatButtonModule,
     SharedModule,
     MatSelectModule,

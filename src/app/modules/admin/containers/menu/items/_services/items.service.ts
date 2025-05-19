@@ -14,10 +14,6 @@ export class ItemsService {
 
   access_token = this.authservice.getToken();
 
-  httpHeaders = new HttpHeaders({
-    Authorization: `Bearer ${this.access_token}`,
-  });
-
   addFavourite(itemId: number) {
     return this.http.get(environment.baseURL + `item/add-favourite/${itemId}`);
   }
@@ -43,51 +39,35 @@ export class ItemsService {
     return this.http.get(environment.baseURL + `items/favourites`);
   }
   uploadImage(formData: any) {
-    return this.http.post(environment.baseURL + `upload-image`, formData, {
-      headers: this.httpHeaders,
-    });
+    return this.http.post(environment.baseURL + `upload-image`, formData);
   }
 
   removeImage(formData: any) {
-    return this.http.delete(environment.baseURL + `upload-image/${formData}`, {
-      headers: this.httpHeaders,
-    });
+    return this.http.delete(environment.baseURL + `upload-image/${formData}`);
   }
 
   getItemData() {
-    return this.http.get(environment.baseURL + `item`, {
-      headers: this.httpHeaders,
-    });
+    return this.http.get(environment.baseURL + `item`);
   }
 
   getSingleItem(id: any) {
-    return this.http.get(environment.baseURL + `item/${id}`, {
-      headers: this.httpHeaders,
-    });
+    return this.http.get(environment.baseURL + `item/${id}`);
   }
 
   addItem(data: any): Observable<any> {
-    return this.http.post(environment.baseURL + `item`, data, {
-      headers: this.httpHeaders,
-    });
+    return this.http.post(environment.baseURL + `item`, data);
   }
 
   addItemList(data: any) {
-    return this.http.put(environment.baseURL + `item`, data, {
-      headers: this.httpHeaders,
-    });
+    return this.http.put(environment.baseURL + `item`, data);
   }
 
   removeItem(id: number) {
-    return this.http.delete(environment.baseURL + `item/` + id, {
-      headers: this.httpHeaders,
-    });
+    return this.http.delete(environment.baseURL + `item/` + id);
   }
 
   removeItemById(id: any) {
-    return this.http.delete(environment.baseURL + `item`, {
-      headers: this.httpHeaders,
-    });
+    return this.http.delete(environment.baseURL + `item`);
   }
 
   editItem(element: any) {

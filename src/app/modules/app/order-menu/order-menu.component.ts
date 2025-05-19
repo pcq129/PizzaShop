@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { CategoryListService } from '../../admin/containers/category/_services/category-list.service';
+import { CategoryListService } from '../../admin/containers/menu/items/_services/category-list.service';
 import { ItemsService } from '../../admin/containers/menu/items/_services/items.service';
 import { ModifierService } from '../../admin/containers/menu/modifier/_services/modifier.service';
 import { SnackbarService } from 'src/app/shared/_services/snackbar.service';
