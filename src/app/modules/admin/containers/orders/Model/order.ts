@@ -8,9 +8,9 @@ export interface IOrder {
   rating?: string;
   comment?: string;
   order_data?: any;
-  created_at? : Date,
-  deleted_at? : Date|null,
-  updated_at? : Date
+  created_at?: Date;
+  deleted_at?: Date | null;
+  updated_at?: Date;
 }
 
 export enum EOrderStatus {
@@ -29,12 +29,11 @@ export enum EPaymentStatus {
 }
 
 export interface IOngoingOrder extends IOrder {
-  table_ids?: number[]|[];
-  order_id? : number
+  table_ids?: number[] | [];
+  order_id?: number;
 }
 
-
 export interface IFeedback {
-  rating:string,
-  comment : string
+  rating: string;
+  comment: string;
 }

@@ -10,7 +10,7 @@ import { ItemsService } from './modules/admin/containers/menu/items/_services/it
 export class AppComponent {
   constructor(
     public authService: AuthService,
-    private itemsList: ItemsService
+    private itemsList: ItemsService,
   ) {}
   title = 'PizzaShop';
 }

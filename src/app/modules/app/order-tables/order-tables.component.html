@@ -62,7 +62,11 @@
         >
           Assign
         </button>
-        <button mat-stroked-button type="button" (click)="drawer.toggle(); cancelAssign()">
+        <button
+          mat-stroked-button
+          type="button"
+          (click)="drawer.toggle(); cancelAssign()"
+        >
           Cancel
         </button>
       </div>
@@ -115,7 +119,7 @@
           [expanded]="currentSection == section.id"
           (opened)="setCurrentSection(section)"
           (closed)="clearSelection()"
-          *ngIf="section.tables.length>0"
+          *ngIf="section.tables.length > 0"
         >
           <mat-expansion-panel-header>
             <mat-panel-title>

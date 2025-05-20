@@ -19,7 +19,7 @@ export class ProfileComponent implements OnInit {
     private authService: AuthService,
     private userService: UserService,
     private snackbarService: SnackbarService,
-    private router: Router
+    private router: Router,
   ) {
     this.authService.role$.subscribe({
       next: (res: string | null) => {

@@ -1,4 +1,4 @@
-.body{
+.body {
   height: 100%;
   width: 100%;
   background-color: #212529;
@@ -20,15 +20,15 @@
   width: 400px;
 }
 
-.active{
+.active {
   background-color: #ac0b51;
 }
 
-.title{
+.title {
   margin-left: 10px;
 }
 
-.tabBody{
+.tabBody {
   padding-left: 20px;
   padding-right: 20px;
   margin-left: 20px;
@@ -36,7 +36,7 @@
   height: 70%;
 }
 
-.waitingListCount{
+.waitingListCount {
   display: inline-flex;
   align-items: center;
   margin-left: 12px;
@@ -50,10 +50,10 @@
   font-weight: 500;
 }
 
-.tabGroup{
+.tabGroup {
   height: 100%;
 }
 
-.waitingList{
+.waitingList {
   width: 100%;
 }

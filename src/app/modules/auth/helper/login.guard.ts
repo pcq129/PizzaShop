@@ -13,7 +13,10 @@ import { AuthService } from '../_services/auth.service';
   providedIn: 'root',
 })
 export class LoginGuard implements CanActivate {
-  constructor(private router: Router, private authService: AuthService) {
+  constructor(
+    private router: Router,
+    private authService: AuthService,
+  ) {
     this.authService.role$.subscribe({
       next: (res: string | null) => {
         if (res) {
@@ -28,7 +31,7 @@ export class LoginGuard implements CanActivate {
 
   canActivate(
     route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
+    state: RouterStateSnapshot,
   ):
     | Observable<boolean | UrlTree>
     | Promise<boolean | UrlTree>
@@ -57,7 +60,6 @@ export class LoginGuard implements CanActivate {
       }
       return true;
     } else {
-
       if (
         route.routeConfig?.path == 'login' ||
         route.routeConfig?.path == 'forgot-password' ||

@@ -11,7 +11,6 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { modifierDialog } from 'src/app/modules/app/order-menu/modifier-dialog.component';
 import { whitespaceValidator } from 'src/app/shared/validators/validators';
 
-
 @Component({
   selector: 'app-user-dialog',
   templateUrl: './user-dialog.component.html',
@@ -20,7 +19,7 @@ import { whitespaceValidator } from 'src/app/shared/validators/validators';
 export class UserDialogComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<modifierDialog>,
-    @Inject(MAT_DIALOG_DATA) public data: any
+    @Inject(MAT_DIALOG_DATA) public data: any,
   ) {
     console.log(data);
     this.passwords = this.data.passwords;
@@ -29,49 +28,57 @@ export class UserDialogComponent implements OnInit {
       {
         first_name: new FormControl(this.data.userData?.first_name, [
           Validators.required,
-          whitespaceValidator
+          whitespaceValidator,
         ]),
         last_name: new FormControl(this.data.userData?.last_name, [
           Validators.required,
-          whitespaceValidator
+          whitespaceValidator,
         ]),
         username: new FormControl(this.data.userData?.user_name, [
           Validators.required,
-          whitespaceValidator
+          whitespaceValidator,
         ]),
         email: new FormControl(this.data.userData?.email, [
           Validators.required,
           Validators.email,
         ]),
-        phone: new FormControl((this.data.userData?.phone.replace(/\D/g, '')), Validators.required),
+        phone: new FormControl(
+          this.data.userData?.phone.replace(/\D/g, ''),
+          Validators.required,
+        ),
         country: new FormControl(this.data.userData?.country, [
           Validators.required,
-          whitespaceValidator
+          whitespaceValidator,
         ]),
         state: new FormControl(this.data.userData?.state, [
           Validators.required,
-          whitespaceValidator
+          whitespaceValidator,
         ]),
         city: new FormControl(this.data.userData?.city, [
           Validators.required,
-          whitespaceValidator
+          whitespaceValidator,
         ]),
         address: new FormControl(this.data.userData?.address, [
           Validators.required,
-          whitespaceValidator
+          whitespaceValidator,
         ]),
         zipcode: new FormControl(this.data.userData?.zipcode, [
           Validators.required,
-          whitespaceValidator
+          whitespaceValidator,
         ]),
         password: new FormControl('', [
           Validators.required,
-          whitespaceValidator
+          whitespaceValidator,
         ]),
-        confirmPassword: new FormControl('', [whitespaceValidator, Validators.required]),
-        role: new FormControl(`${this.data.userData?.roles[0].name}`, [Validators.required]),
+        confirmPassword: new FormControl('', [
+          whitespaceValidator,
+          Validators.required,
+        ]),
+        role: new FormControl(`${this.data.userData?.roles[0].name}`, [
+          Validators.required,
+        ]),
       },
-      { validators: this.checkPasswords }
+      { validators: this.checkPasswords },
     );
     if (this.data.passwords == false) {
       this.passwords = false;
@@ -81,7 +88,6 @@ export class UserDialogComponent implements OnInit {
     }
   }
   ngOnInit(): void {}
-
 
   userData: any = [];
   onNoClick(): void {
@@ -104,14 +110,13 @@ export class UserDialogComponent implements OnInit {
     const confirmVal = confirmPassword.value;
 
     if (newVal !== confirmVal) {
-      console.log("setting passwordMismatch");
+      console.log('setting passwordMismatch');
 
       confirmPassword.setErrors({ passwordMismatch: true });
-
     } else {
       // only clear if previously set by this validator
       if (confirmPassword.hasError('passwordMismatch')) {
-      console.log("unset");
+        console.log('unset');
         confirmPassword.setErrors(null);
       }
     }
@@ -120,7 +125,7 @@ export class UserDialogComponent implements OnInit {
   }
 
   public whitespaceValidator(control: FormControl) {
-    const isWhitespace = (String(control.value || '')).trim().length === 0;
+    const isWhitespace = String(control.value || '').trim().length === 0;
     const isValid = !isWhitespace;
     return isValid ? null : { whitespace: true };
   }
@@ -224,7 +229,6 @@ export class UserDialogComponent implements OnInit {
     return;
   }
 
-
   getConfirmPasswordError() {
     const confirmControl = this.userForm.controls.confirmPassword;
     if (confirmControl.hasError('required')) {
@@ -238,7 +242,6 @@ export class UserDialogComponent implements OnInit {
     }
     return;
   }
-
 
   getRoleError() {
     if (this.userForm.controls.city.hasError('required')) {

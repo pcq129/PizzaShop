@@ -20,7 +20,6 @@ import { ProfileModule } from './containers/profile/profile.module';
 import { UsersModule } from './containers/users/users.module';
 import { RolePermissionModule } from './containers/role-permission/role-permission.module';
 
-
 @NgModule({
   declarations: [AdminComponent],
   imports: [
@@ -42,7 +41,7 @@ import { RolePermissionModule } from './containers/role-permission/role-permissi
     ChangePasswordModule,
     ProfileModule,
     UsersModule,
-    RolePermissionModule
+    RolePermissionModule,
   ],
   exports: [AdminComponent],
 })

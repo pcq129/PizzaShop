@@ -11,7 +11,7 @@
           (click)="loadItems(-1)"
           class="itemCategory"
           [color]="-1 == currentCategory ? 'accent' : 'none'"
-          id='-1'
+          id="-1"
         >
           Favourites
         </button>
@@ -46,11 +46,22 @@
         <h3 class="itemsTitle">Items</h3>
         <mat-form-field class="searchItem">
           <mat-label>Search Item</mat-label>
-          <input matInput #searchItem >
-          <button *ngIf="searchItem.value" matSuffix mat-icon-button aria-label="Clear" (click)="resetSearch(); searchItem.value=''">
+          <input matInput #searchItem />
+          <button
+            *ngIf="searchItem.value"
+            matSuffix
+            mat-icon-button
+            aria-label="Clear"
+            (click)="resetSearch(); searchItem.value = ''"
+          >
             <mat-icon>close</mat-icon>
           </button>
-          <button matSuffix mat-icon-button aria-label="Clear" (click)="searchOrderItem(searchItem.value, $event)">
+          <button
+            matSuffix
+            mat-icon-button
+            aria-label="Clear"
+            (click)="searchOrderItem(searchItem.value, $event)"
+          >
             <mat-icon>search</mat-icon>
           </button>
         </mat-form-field>
@@ -84,10 +95,20 @@
             </h6>
             <p class="price">₹{{ getItemAmount(item) }}</p>
           </div>
-          <mat-icon *ngIf="!item.is_favourite" mat-icon-button (click)="addFavourite(item.id, $event)" class="wishlist"
-            >favorite_border</mat-icon>
-          <mat-icon  *ngIf="item.is_favourite" mat-icon-button (click)="addFavourite(item.id, $event)" class="wishlist favourite"
-            >favorite</mat-icon>
+          <mat-icon
+            *ngIf="!item.is_favourite"
+            mat-icon-button
+            (click)="addFavourite(item.id, $event)"
+            class="wishlist"
+            >favorite_border</mat-icon
+          >
+          <mat-icon
+            *ngIf="item.is_favourite"
+            mat-icon-button
+            (click)="addFavourite(item.id, $event)"
+            class="wishlist favourite"
+            >favorite</mat-icon
+          >
         </mat-card>
       </div>
     </div>

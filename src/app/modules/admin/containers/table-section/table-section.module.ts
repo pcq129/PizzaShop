@@ -18,7 +18,13 @@ import { SharedModule } from 'src/app/shared/shared-module.module';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @NgModule({
-  declarations: [TableSectionComponent, SectionDialog, SectionDeleteDialog, TableDialog, TableDeleteDialog],
+  declarations: [
+    TableSectionComponent,
+    SectionDialog,
+    SectionDeleteDialog,
+    TableDialog,
+    TableDeleteDialog,
+  ],
   imports: [
     CommonModule,
     MatSidenavModule,
@@ -35,7 +41,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     MatOptionModule,
     MatSelectModule,
     SharedModule,
-    MatCheckboxModule
+    MatCheckboxModule,
   ],
 })
 export class TableSectionModule {}

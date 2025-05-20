@@ -1,9 +1,9 @@
-.modifier{
+.modifier {
   width: 160px;
   margin: 4px;
 }
 
-.bottom{
+.bottom {
   display: flex;
   flex-direction: row-reverse;
   margin-top: 20px;
@@ -21,21 +21,21 @@
   color: #dddcdc;
 }
 
-.modifierContainer{
+.modifierContainer {
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
 }
 
-.selected{
+.selected {
   background-color: skyblue;
   color: black;
 
-  .productPrice{
+  .productPrice {
     color: black;
   }
 }
 
-.modifierDialog{
+.modifierDialog {
   margin-top: 10px;
 }

@@ -22,7 +22,7 @@ export class ResetPasswordComponent implements OnInit {
     private router: Router,
     private snackbarService: SnackbarService,
     private authService: AuthService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
   ) {}
   ngOnInit(): void {
     this.passwordData = new FormGroup(
@@ -30,7 +30,7 @@ export class ResetPasswordComponent implements OnInit {
         newPassword: new FormControl('', [Validators.required]),
         confirmPassword: new FormControl('', [Validators.required]),
       },
-      { validators: this.checkPasswords }
+      { validators: this.checkPasswords },
     );
 
     // Force revalidation when either field changes

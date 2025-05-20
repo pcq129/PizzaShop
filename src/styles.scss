@@ -1,5 +1,3 @@
-
-
 html,
 body {
   height: 100%;
@@ -34,15 +32,21 @@ body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
 
 .mat-simple-snackbar {
   font-size: 1.1em;
   color: white;
   font-weight: 800;
   height: fit-content;
-  line-height:1.3em;
+  line-height: 1.3em;
 }
 
 .snackbar-error {

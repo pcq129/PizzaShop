@@ -3,14 +3,12 @@
   // margin: 20px;
 }
 
-
-.titlebar{
+.titlebar {
   display: flex;
   justify-content: space-between;
   align-items: center;
   flex-direction: row;
 }
-
 
 .summaryCard {
   padding: 16px;
@@ -68,19 +66,15 @@
   margin-top: 12px;
 }
 
-
-
-.right{
+.right {
   display: flex;
   flex-direction: row-reverse;
 }
 
-.table{
+.table {
   width: 100%;
   // background-color: grey;
 }
-
-
 
 // .serial{
 // }
@@ -96,8 +90,6 @@
 // .modifierQuantity{}
 // .modifierPrice{}
 // .modifierAmount{}
-
-
 
 .itemTable {
   width: 100%;
@@ -122,20 +114,19 @@
   border-top: 1px solid white;
 }
 
-.billItemRow{
+.billItemRow {
   border-top: 1px solid #1a68b6;
 }
 
 // .modifierRow {
 //   // background-color: #f9f9f9;
 //   font-size: 13px;
-  // color: #777;
+// color: #777;
 // }
 
 .modifierRow td {
   padding-left: 24px;
 }
-
 
 // .taxEntry strong{
 //   position: absolute;
@@ -151,7 +142,6 @@
 
 // styles for fixing invoice printing
 
-
 .taxEntry,
 .totalAmount {
   display: flex;
@@ -159,13 +149,16 @@
   gap: 8px;
 }
 
-
-.itemsCard, .detailCard, .summaryCard {
+.itemsCard,
+.detailCard,
+.summaryCard {
   page-break-inside: avoid;
   break-inside: avoid;
 }
 
-.itemTable tr, .itemTable th, .itemTable td {
+.itemTable tr,
+.itemTable th,
+.itemTable td {
   page-break-inside: avoid;
   break-inside: avoid;
 }
@@ -188,18 +181,15 @@
   // background-color: #202020;
   // color: white;
   border-color: #2f2f2f;
-
 }
 
-.pdf-dark th, .pdf-dark td {
+.pdf-dark th,
+.pdf-dark td {
   // border: 1px solid white;
 }
 
-
-
 // end for fixing invoice printint
 
-
-.orderStatus{
+.orderStatus {
   background-color: green;
 }

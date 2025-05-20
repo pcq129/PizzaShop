@@ -14,7 +14,6 @@ import { RouterLink, RouterOutlet } from '@angular/router';
 import { AuthService } from '../_services/auth.service';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 
-
 // const routes: Routes = [
 //   {
 //     path: 'forgot-password',

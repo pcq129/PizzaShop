@@ -18,7 +18,7 @@ import { PhonePipe } from 'src/app/shared/pipes/phone.pipe';
 import { SharedModule } from 'src/app/shared/shared-module.module';
 
 @NgModule({
-  declarations: [UsersComponent, UserDialogComponent,RoleLabelPipe, PhonePipe],
+  declarations: [UsersComponent, UserDialogComponent, RoleLabelPipe, PhonePipe],
   imports: [
     CommonModule,
     MatCardModule,
@@ -34,9 +34,9 @@ import { SharedModule } from 'src/app/shared/shared-module.module';
     MatDialogModule,
     MatSelectModule,
     DeleteDialogModule,
-    SharedModule
+    SharedModule,
   ],
   providers: [],
-  exports: [RoleLabelPipe, PhonePipe]
+  exports: [RoleLabelPipe, PhonePipe],
 })
 export class UsersModule {}

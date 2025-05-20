@@ -1,4 +1,12 @@
-import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  ViewChild,
+} from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 
 @Component({
@@ -20,8 +28,7 @@ export class PaginatorComponent implements OnInit, AfterViewInit {
   @ViewChild('paginator') paginator!: MatPaginator;
 
   constructor() {}
-  ngAfterViewInit(): void {
-  }
+  ngAfterViewInit(): void {}
 
   ngOnInit(): void {}
 
@@ -35,6 +42,5 @@ export class PaginatorComponent implements OnInit, AfterViewInit {
     this.pageChange.emit(pageChange);
     console.log(pageChange);
     this.ngOnInit();
-
   }
 }

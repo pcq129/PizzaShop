@@ -10,13 +10,17 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { OrderDetailsModule } from './order-details/order-details.module';
-import {MatPaginatorModule} from '@angular/material/paginator';
+import { MatPaginatorModule } from '@angular/material/paginator';
 import { PaginatorComponent } from 'src/app/shared/components/paginator/paginator.component';
 import { SharedModule } from 'src/app/shared/shared-module.module';
 
 import { MatSelectModule } from '@angular/material/select';
-import {MatDatepickerModule} from '@angular/material/datepicker';
-import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import {
+  DateAdapter,
+  MAT_DATE_FORMATS,
+  MAT_DATE_LOCALE,
+} from '@angular/material/core';
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 
@@ -28,16 +32,12 @@ const MY_DATE_FORMAT = {
     dateInput: 'DD/MM/YYYY', // this is how your date will get displayed on the Input
     monthYearLabel: 'MMMM YYYY',
     dateA11yLabel: 'LL',
-    monthYearA11yLabel: 'MMMM YYYY'
-  }
+    monthYearA11yLabel: 'MMMM YYYY',
+  },
 };
 
-
-
 @NgModule({
-  declarations: [
-    OrdersComponent
-  ],
+  declarations: [OrdersComponent],
   imports: [
     MatCardModule,
     MatSlideToggleModule,
@@ -54,9 +54,17 @@ const MY_DATE_FORMAT = {
     SharedModule,
     MatSelectModule,
     MatDatepickerModule,
-    MatMomentDateModule
+    MatMomentDateModule,
   ],
-  providers: [{ provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
-  { provide: MAT_DATE_FORMATS, useValue: MY_DATE_FORMAT }, DatePipe,{ provide: MAT_DATE_LOCALE, useValue: 'en-GB' }]
+  providers: [
+    {
+      provide: DateAdapter,
+      useClass: MomentDateAdapter,
+      deps: [MAT_DATE_LOCALE],
+    },
+    { provide: MAT_DATE_FORMATS, useValue: MY_DATE_FORMAT },
+    DatePipe,
+    { provide: MAT_DATE_LOCALE, useValue: 'en-GB' },
+  ],
 })
-export class OrdersModule { }
+export class OrdersModule {}

@@ -12,7 +12,7 @@ export class TaxFeesService {
   toggleTaxes(taxId: number, data: any) {
     return this.http.put(
       environment.baseURL + `tax-fees-toggle/${taxId}`,
-      data
+      data,
     );
   }
 

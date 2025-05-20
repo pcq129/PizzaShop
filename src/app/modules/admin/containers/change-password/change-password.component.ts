@@ -13,19 +13,18 @@ import { SnackbarService } from 'src/app/shared/_services/snackbar.service';
 import { IPasswordChange } from './model/password';
 import { Observable } from 'rxjs';
 
-
 @Component({
   selector: 'app-change-password',
   templateUrl: './change-password.component.html',
   styleUrls: ['./change-password.component.scss'],
 })
 export class ChangePasswordComponent implements OnInit {
-  email: string|undefined;
+  email: string | undefined;
 
   constructor(
     private router: Router,
     private snackbarService: SnackbarService,
-    private authService: AuthService
+    private authService: AuthService,
   ) {}
   ngOnInit(): void {
     this.passwordData = new FormGroup(
@@ -34,7 +33,7 @@ export class ChangePasswordComponent implements OnInit {
         newPassword: new FormControl('', [Validators.required]),
         confirmPassword: new FormControl('', [Validators.required]),
       },
-      { validators: this.checkPasswords }
+      { validators: this.checkPasswords },
     );
 
     // Force revalidation when either field changes
@@ -73,10 +72,10 @@ export class ChangePasswordComponent implements OnInit {
 
     if (newVal !== confirmVal) {
       confirmPassword.setErrors({ passwordMismatch: true });
-    }else if(newVal == currentPasswordVal){
-      currentPassword?.setErrors({ invalidPassword: true })
-    }else if(newVal != currentPasswordVal){
-      currentPassword?.setErrors(null)
+    } else if (newVal == currentPasswordVal) {
+      currentPassword?.setErrors({ invalidPassword: true });
+    } else if (newVal != currentPasswordVal) {
+      currentPassword?.setErrors(null);
     } else {
       if (confirmPassword.hasError('passwordMismatch')) {
         confirmPassword.setErrors(null);
@@ -86,7 +85,7 @@ export class ChangePasswordComponent implements OnInit {
     return null;
   }
 
-  changePassword(passwordData: IPasswordChange):void {
+  changePassword(passwordData: IPasswordChange): void {
     this.authService.updatePassword(passwordData).subscribe({
       next: (res: any) => {
         if (!res.status) {
@@ -95,9 +94,9 @@ export class ChangePasswordComponent implements OnInit {
           console.log(res);
           this.snackbarService.success(res.message);
           localStorage.removeItem('access_token');
-          if(res.access_token!=null){
+          if (res.access_token != null) {
             localStorage.setItem('access_token', res.access_token);
-          }else{
+          } else {
             this.authService.clear();
           }
           this.router.navigate(['pizzashop/dashboard']);

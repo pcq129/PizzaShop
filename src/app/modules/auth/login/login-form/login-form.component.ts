@@ -38,7 +38,7 @@ export class LoginFormComponent implements OnInit {
     private snackbar: SnackbarService,
     private _snackBar: MatSnackBar,
     private router: Router,
-    private authService: AuthService
+    private authService: AuthService,
   ) {
     const url = router.url;
     // console.log(url);

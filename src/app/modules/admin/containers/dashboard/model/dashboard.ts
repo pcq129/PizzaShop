@@ -7,12 +7,8 @@ export interface IDashboardData {
   waitinglist_count: number;
   average_waiting_minutes: number;
   new_customer_count: number;
-  top_selling: [
-    {name: string, sell_count: number}
-  ];
-  least_selling: [
-    {name: string, sell_count: number}
-  ];
+  top_selling: [{ name: string; sell_count: number }];
+  least_selling: [{ name: string; sell_count: number }];
 }
 
 export interface IGraph {

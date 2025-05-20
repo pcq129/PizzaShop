@@ -19,19 +19,18 @@
   height: 40px;
 }
 
-.matCardBody{
+.matCardBody {
   height: fit-content;
-  min-height:600px;
+  min-height: 600px;
 }
 
-.title{
+.title {
   margin-left: 10px;
 }
 
-.customerData{
+.customerData {
   width: 100%;
 }
-
 
 .search {
   font-size: 16px;
@@ -40,7 +39,7 @@
   padding-top: 15px;
 }
 
-.noDataBanner{
+.noDataBanner {
   height: 70%;
   width: 100%;
   display: flex;

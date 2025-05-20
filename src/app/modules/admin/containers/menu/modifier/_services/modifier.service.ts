@@ -15,7 +15,7 @@ export class ModifierService {
     };
     return this.http.get(
       environment.baseURL + `modifier/search/${modifierName}`,
-      { params }
+      { params },
     );
   }
 
@@ -39,11 +39,11 @@ export class ModifierService {
     return this.http.put(environment.baseURL + `modifier/${data.id}`, data);
   }
 
-  deleteMultipleModifiers(modifierIds : number[]){
+  deleteMultipleModifiers(modifierIds: number[]) {
     const data = {
-      modifierIds : modifierIds
-    }
-    return this.http.post(environment.baseURL + 'delete-modifiers' , data);
+      modifierIds: modifierIds,
+    };
+    return this.http.post(environment.baseURL + 'delete-modifiers', data);
   }
 
   getModifierData() {
@@ -63,7 +63,7 @@ export class ModifierService {
   editModifierGroup(data: ModifierGroup) {
     return this.http.put(
       environment.baseURL + `modifier-group/${data.id}`,
-      data
+      data,
     );
   }
 
@@ -73,7 +73,7 @@ export class ModifierService {
 
   deleteModifierGroup(modifierId: any) {
     return this.http.delete(
-      environment.baseURL + `modifier-group` + '/' + modifierId
+      environment.baseURL + `modifier-group` + '/' + modifierId,
     );
   }
 
@@ -88,7 +88,7 @@ export class ModifierService {
 
     return this.http.get(
       environment.baseURL + `modifiergroup-modifiers/${groupId}`,
-      { params: params }
+      { params: params },
     );
   }
 }

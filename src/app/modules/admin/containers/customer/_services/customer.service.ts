@@ -8,8 +8,6 @@ import { ApiResponse } from 'src/app/core/model/api-response';
 import { environment } from 'src/environments/environment';
 import { IFilter } from '../model/customer';
 
-
-
 @Injectable({
   providedIn: 'root',
 })
@@ -27,7 +25,6 @@ export class CustomerService {
       start_date = '0';
       end_date = '0';
     }
-
 
     const params = {
       startDate: start_date,

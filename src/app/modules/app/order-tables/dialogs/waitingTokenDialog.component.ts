@@ -1,29 +1,26 @@
-import { Component, Inject } from "@angular/core";
-import { FormControl, FormGroup, Validators } from "@angular/forms";
-import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
-import { TableSectionService } from "src/app/modules/admin/containers/table-section/_services/table-section.service";
-import { whitespaceValidator } from "src/app/shared/validators/validators";
+import { Component, Inject } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { TableSectionService } from 'src/app/modules/admin/containers/table-section/_services/table-section.service';
+import { whitespaceValidator } from 'src/app/shared/validators/validators';
 
 @Component({
   selector: 'waitingTokenDialog',
   templateUrl: 'waitingTokenDialog.component.html',
-  styleUrls : ['../order-tables.component.scss']
+  styleUrls: ['../order-tables.component.scss'],
 })
 export class waitingTokenDialog {
-
-
   constructor(
     public dialogRef: MatDialogRef<waitingTokenDialog>,
-    @Inject(MAT_DIALOG_DATA) public data: any,private tableSectionService: TableSectionService
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private tableSectionService: TableSectionService,
   ) {
     console.log(this.data);
-
   }
 
   onNoClick(): void {
     this.dialogRef.close();
   }
-
 
   mobilePattern = '^[0-9_-]{10,12}';
   // searchedCustomers: any = {};
@@ -60,7 +57,6 @@ export class waitingTokenDialog {
   //   });
   // }
 
-
   // {
   //   "id": 6,
   //   "mobile": "4356465434",
@@ -74,15 +70,16 @@ export class waitingTokenDialog {
   //   "section_id": 2
   // }
 
-
-
   customerData = new FormGroup({
     email: new FormControl(this.data.waitingToken?.email, [
       Validators.required,
       Validators.email,
-      whitespaceValidator
+      whitespaceValidator,
     ]),
-    name: new FormControl(this.data.waitingToken?.name, [Validators.required,whitespaceValidator]),
+    name: new FormControl(this.data.waitingToken?.name, [
+      Validators.required,
+      whitespaceValidator,
+    ]),
     mobile: new FormControl(this.data.waitingToken?.mobile, [
       Validators.required,
       Validators.pattern(this.mobilePattern),
@@ -92,13 +89,11 @@ export class waitingTokenDialog {
       Validators.min(1),
       Validators.max(75),
     ]),
-    sectionId : new FormControl(this.data.waitingToken?.section_id, [
-      Validators.required
+    sectionId: new FormControl(this.data.waitingToken?.section_id, [
+      Validators.required,
     ]),
-    id : new FormControl(this.data.waitingToken?.id),
+    id: new FormControl(this.data.waitingToken?.id),
   });
-
-
 
   getEmailError() {
     if (this.customerData.controls.email.hasError('email')) {
@@ -145,5 +140,4 @@ export class waitingTokenDialog {
     }
     return;
   }
-
 }

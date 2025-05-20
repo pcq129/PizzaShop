@@ -7,15 +7,10 @@ import { KotDialogComponent } from './kot-dialog/kot-dialog.component';
 import { MatInputModule } from '@angular/material/input';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
-import {MatCheckboxModule} from '@angular/material/checkbox';
-
-
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @NgModule({
-  declarations: [
-    KotComponent,
-    KotDialogComponent
-  ],
+  declarations: [KotComponent, KotDialogComponent],
   imports: [
     CommonModule,
     MatTabsModule,
@@ -23,7 +18,7 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
     MatInputModule,
     MatDialogModule,
     MatButtonModule,
-    MatCheckboxModule
-  ]
+    MatCheckboxModule,
+  ],
 })
-export class KotModule { }
+export class KotModule {}

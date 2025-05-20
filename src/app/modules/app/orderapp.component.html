@@ -1,33 +1,69 @@
 <mat-toolbar class="toolbar">
   <div>
-    <img class="logo" src="assets/logos/brandLogo.png">
-  <span class="brandName">PizzaShop</span>
+    <img class="logo" src="assets/logos/brandLogo.png" />
+    <span class="brandName">PizzaShop</span>
   </div>
-  <div class="chipsAndProfile ">
+  <div class="chipsAndProfile">
     <mat-chip-list class="chips">
       <!--  -->
-      <mat-chip *ngIf="forbidden" selected="{{selected('dashboard')}}"  (click)="navigate('pizzashop/dashboard')" class="clickable" ><mat-icon>dashboard</mat-icon>Dashboard</mat-chip>
-      <mat-chip  selected="{{selected('kot')}}"  (click)="navigate('orderapp/kot')" class="clickable" ><mat-icon>assignment</mat-icon>KOT</mat-chip>
-      <mat-chip *ngIf="forbidden" selected="{{selected('waiting-list')}}"  (click)="navigate('orderapp/waiting-list')" class="clickable" ><mat-icon>access_time</mat-icon>Waiting List</mat-chip>
-      <mat-chip *ngIf="forbidden" selected="{{selected('tables')}}"  (click)="navigate('orderapp/tables')" class="clickable" ><mat-icon>crop_square</mat-icon>Tables</mat-chip>
-      <mat-chip *ngIf="forbidden" selected="{{selected('menu')}}"  (click)="navigate('orderapp/menu')" class="clickable" ><mat-icon>restaurant_menu</mat-icon>Menu</mat-chip>
+      <mat-chip
+        *ngIf="forbidden"
+        selected="{{ selected('dashboard') }}"
+        (click)="navigate('pizzashop/dashboard')"
+        class="clickable"
+        ><mat-icon>dashboard</mat-icon>Dashboard</mat-chip
+      >
+      <mat-chip
+        selected="{{ selected('kot') }}"
+        (click)="navigate('orderapp/kot')"
+        class="clickable"
+        ><mat-icon>assignment</mat-icon>KOT</mat-chip
+      >
+      <mat-chip
+        *ngIf="forbidden"
+        selected="{{ selected('waiting-list') }}"
+        (click)="navigate('orderapp/waiting-list')"
+        class="clickable"
+        ><mat-icon>access_time</mat-icon>Waiting List</mat-chip
+      >
+      <mat-chip
+        *ngIf="forbidden"
+        selected="{{ selected('tables') }}"
+        (click)="navigate('orderapp/tables')"
+        class="clickable"
+        ><mat-icon>crop_square</mat-icon>Tables</mat-chip
+      >
+      <mat-chip
+        *ngIf="forbidden"
+        selected="{{ selected('menu') }}"
+        (click)="navigate('orderapp/menu')"
+        class="clickable"
+        ><mat-icon>restaurant_menu</mat-icon>Menu</mat-chip
+      >
       <!-- <mat-chip (click)="navigate('orderapp/running')" class="clickable"><mat-icon>timer</mat-icon>Running Orders </mat-chip> -->
-
     </mat-chip-list>
 
     <div>
-      <img class="userProfile clickable" src="assets/pfp.png" [matMenuTriggerFor]="menu">
+      <img
+        class="userProfile clickable"
+        src="assets/pfp.png"
+        [matMenuTriggerFor]="menu"
+      />
     </div>
     <mat-menu #menu="matMenu">
       <button *ngIf="forbidden" mat-menu-item (click)="loadUserData()">
         <mat-icon>person</mat-icon>
         <span>My Profile</span>
       </button>
-      <button *ngIf="forbidden" mat-menu-item (click)="redirect('pizzashop/profile-password')">
+      <button
+        *ngIf="forbidden"
+        mat-menu-item
+        (click)="redirect('pizzashop/profile-password')"
+      >
         <mat-icon>refresh</mat-icon>
         <span>Change Password</span>
       </button>
-<!--
+      <!--
       <button *ngIf="!forbidden" mat-menu-item (click)="loadChefData()">
         <mat-icon>person</mat-icon>
         <span>My Profile</span>
@@ -37,12 +73,11 @@
         <span>Change Password</span>
       </button> -->
 
-      <button  mat-menu-item (click)="logout()">
+      <button mat-menu-item (click)="logout()">
         <mat-icon>exit_to_app</mat-icon>
         <span>Logout</span>
       </button>
     </mat-menu>
-
   </div>
 </mat-toolbar>
 <router-outlet></router-outlet>

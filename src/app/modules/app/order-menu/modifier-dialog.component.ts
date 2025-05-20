@@ -8,9 +8,9 @@ import {
 export interface selectedModifers {
   item_id: number;
   item_name: string;
-  item_rate : number,
+  item_rate: number;
   modifiers: any[];
-  multiplier : number
+  multiplier: number;
 }
 
 @Component({
@@ -21,25 +21,26 @@ export interface selectedModifers {
 export class modifierDialog {
   constructor(
     public dialogRef: MatDialogRef<modifierDialog>,
-    @Inject(MAT_DIALOG_DATA) public data: any
+    @Inject(MAT_DIALOG_DATA) public data: any,
   ) {
     console.log(data);
   }
 
-  currentMG : number = 0;
+  currentMG: number = 0;
 
   onNoClick(): void {
     this.dialogRef.close();
   }
 
-  modifier_ids:any[]=[];
+  modifier_ids: any[] = [];
 
   selectedModifiers: selectedModifers = {
     item_id: this.data.id,
     item_name: this.data.name,
-    item_rate : this.data.rate + this.data.rate*(this.data.tax_percentage/100),
+    item_rate:
+      this.data.rate + this.data.rate * (this.data.tax_percentage / 100),
     modifiers: [],
-    multiplier: 1
+    multiplier: 1,
   };
 
   selectModifier(modifier: any) {

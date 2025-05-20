@@ -8,9 +8,8 @@ describe('OrderTablesComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ OrderTablesComponent ]
-    })
-    .compileComponents();
+      declarations: [OrderTablesComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(OrderTablesComponent);
     component = fixture.componentInstance;

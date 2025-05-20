@@ -5,16 +5,14 @@ import { DeleteDialogComponent } from 'src/app/shared/components/dialogs/delete-
 @Component({
   selector: 'app-kot-dialog',
   templateUrl: './kot-dialog.component.html',
-  styleUrls: ['./kot-dialog.component.scss']
+  styleUrls: ['./kot-dialog.component.scss'],
 })
 export class KotDialogComponent implements OnInit {
-
   constructor(
     public dialogRef: MatDialogRef<KotDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any
+    @Inject(MAT_DIALOG_DATA) public data: any,
   ) {
     console.log(data);
-
   }
   ngOnInit(): void {
     throw new Error('Method not implemented.');
@@ -25,16 +23,14 @@ export class KotDialogComponent implements OnInit {
     this.dialogRef.close();
   }
 
-
-  selectKot(kotId : number){
-    if(this.selectedKots.includes(kotId)){
+  selectKot(kotId: number) {
+    if (this.selectedKots.includes(kotId)) {
       let index = this.selectedKots.indexOf(kotId);
       this.selectedKots.splice(index, 1);
-    }else{
+    } else {
       this.selectedKots.push(kotId);
     }
     console.log(this.selectedKots);
-
   }
-  selectedKots : number[] = [];
+  selectedKots: number[] = [];
 }

@@ -13,10 +13,9 @@ import { MatInputModule } from '@angular/material/input';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDividerModule } from '@angular/material/divider';
-import {MatRadioModule} from '@angular/material/radio';
+import { MatRadioModule } from '@angular/material/radio';
 import { ConfirmationDialogModule } from 'src/app/shared/components/dialogs/confirmation-dialog/confirmation-dialog.module';
 import { RatingDialogComponent } from './rating-dialog/rating-dialog.component';
-
 
 @NgModule({
   declarations: [OrderMenuComponent, modifierDialog, RatingDialogComponent],
@@ -35,8 +34,8 @@ import { RatingDialogComponent } from './rating-dialog/rating-dialog.component';
     MatSelectModule,
     MatDividerModule,
     MatRadioModule,
-    ConfirmationDialogModule
+    ConfirmationDialogModule,
   ],
-  exports:[]
+  exports: [],
 })
 export class OrderMenuModule {}

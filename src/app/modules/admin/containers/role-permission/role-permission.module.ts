@@ -10,23 +10,17 @@ import { MatTableModule } from '@angular/material/table';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatButtonModule } from '@angular/material/button';
 
-
-
 @NgModule({
-  declarations: [
-    RolePermissionComponent
-  ],
+  declarations: [RolePermissionComponent],
   imports: [
     CommonModule,
     MatChipsModule,
     MatCardModule,
     MatTableModule,
     MatSlideToggleModule,
-    MatButtonModule
+    MatButtonModule,
   ],
-  providers: [
-    UserService, SnackbarService
-  ],
-  exports: [RolePermissionComponent]
+  providers: [UserService, SnackbarService],
+  exports: [RolePermissionComponent],
 })
-export class RolePermissionModule { }
+export class RolePermissionModule {}

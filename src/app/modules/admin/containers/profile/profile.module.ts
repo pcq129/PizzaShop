@@ -24,9 +24,9 @@ import { AuthService } from 'src/app/modules/auth/_services/auth.service';
     ReactiveFormsModule,
     MatSelectModule,
     MatInputModule,
-    MatButtonModule
+    MatButtonModule,
   ],
   providers: [AuthService],
-  exports: [ProfileComponent]
+  exports: [ProfileComponent],
 })
 export class ProfileModule {}

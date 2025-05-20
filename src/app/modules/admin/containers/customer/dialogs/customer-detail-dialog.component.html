@@ -27,7 +27,7 @@
         </li>
         <li>
           <strong>Customer since: </strong
-          ><span>{{ data.created_at | date : "dd/MM/yyyy" }}</span>
+          ><span>{{ data.created_at | date: "dd/MM/yyyy" }}</span>
         </li>
         <li>
           <strong>Total Visits: </strong><span>{{ visits }}</span>
@@ -41,7 +41,7 @@
       <ng-container matColumnDef="orderDate">
         <th mat-header-cell *matHeaderCellDef>Order Date</th>
         <td mat-cell *matCellDef="let order">
-          {{ order.created_at | date : "dd/MM/yyyy" }}
+          {{ order.created_at | date: "dd/MM/yyyy" }}
         </td>
       </ng-container>
 

@@ -49,20 +49,13 @@
       "name": "Demo groupsdfsasdf",
       "description": "test12tretwretadfadsf",
       "id": 51,
-      "isSelected": [
-        57,
-        55
-      ]
+      "isSelected": [57, 55]
     },
     {
       "name": "Size Optionsadfaf",
       "description": "fgdfgfdgasdfadsfadfadf",
       "id": 52,
-      "isSelected": [
-        60,
-        58,
-        57
-      ]
+      "isSelected": [60, 58, 57]
     }
   ],
   "modifier": [
@@ -124,4 +117,3 @@
     }
   ]
 }
-

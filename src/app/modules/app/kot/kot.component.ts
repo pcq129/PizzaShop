@@ -17,7 +17,7 @@ export class KotComponent implements OnInit {
     private kotService: KotService,
     private snackbarService: SnackbarService,
     private orderService: OrderService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
   ) {
     this.getOrderKotData();
     this.getKotData();

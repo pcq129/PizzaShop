@@ -1,32 +1,36 @@
-<h1 mat-dialog-title>Order ID : # {{data.orderId}} </h1>
+<h1 mat-dialog-title>Order ID : # {{ data.orderId }}</h1>
 <mat-dialog-content>
   <div class="itemsHeader">
-    <span>
-      Items
-    </span>
-    <span>
-      Quantity
-    </span>
+    <span> Items </span>
+    <span> Quantity </span>
   </div>
-  <ng-container *ngFor="let kot of data.items" >
-  <div class="item" *ngIf="kot.status==data.viewItems">
-    <div class="itemData">
-      <div class="itemRow">
-        <mat-checkbox (change)="selectKot(kot.id)">
-        <span class="itemName">{{ kot.item_data.items.item_name }}</span>
-      </mat-checkbox>
+  <ng-container *ngFor="let kot of data.items">
+    <div class="item" *ngIf="kot.status == data.viewItems">
+      <div class="itemData">
+        <div class="itemRow">
+          <mat-checkbox (change)="selectKot(kot.id)">
+            <span class="itemName">{{ kot.item_data.items.item_name }}</span>
+          </mat-checkbox>
+        </div>
+        <ul class="modifiersList">
+          <li *ngFor="let modifier of kot.item_data.items.modifiers">
+            {{ modifier.modifier_name }}
+          </li>
+        </ul>
       </div>
-      <ul class="modifiersList">
-        <li *ngFor="let modifier of kot.item_data.items.modifiers">
-          {{ modifier.modifier_name }}
-        </li>
-      </ul>
-    </div>
-    <span class="itemQty">{{ kot.item_data.items.multiplier }}</span>
+      <span class="itemQty">{{ kot.item_data.items.multiplier }}</span>
     </div>
   </ng-container>
 </mat-dialog-content>
 <div mat-dialog-actions class="right">
-  <button color="primary" mat-raised-button [disabled]="selectedKots.length == 0" [mat-dialog-close]="selectedKots" cdkFocusInitial>{{data.viewItems==0?'Mark as Prepared':'Mark as In Progress'}}</button>
+  <button
+    color="primary"
+    mat-raised-button
+    [disabled]="selectedKots.length == 0"
+    [mat-dialog-close]="selectedKots"
+    cdkFocusInitial
+  >
+    {{ data.viewItems == 0 ? "Mark as Prepared" : "Mark as In Progress" }}
+  </button>
   <button mat-button (click)="onCancel()">Cancel</button>
 </div>

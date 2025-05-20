@@ -1,21 +1,37 @@
 <div class="orderContainer" id="invoice">
   <div class="titlebar">
     <h2>Order-Details</h2>
-  <button class="backButton" (click)="redirect('pizzashop/orders')" mat-stroked-button>Back</button>
+    <button
+      class="backButton"
+      (click)="redirect('pizzashop/orders')"
+      mat-stroked-button
+    >
+      Back
+    </button>
   </div>
 
   <mat-card class="summaryCard">
     <div class="summaryHeader">
-      <div><strong>Invoice No.:</strong> {{data.id}}</div>
-      <mat-chip class="{{data.order_status == 'Completed' ? 'orderStatus' : ''}}">{{data.order_status}}</mat-chip>
+      <div><strong>Invoice No.:</strong> {{ data.id }}</div>
+      <mat-chip
+        class="{{ data.order_status == 'Completed' ? 'orderStatus' : '' }}"
+        >{{ data.order_status }}</mat-chip
+      >
     </div>
     <div class="summaryDates">
       <span><strong>Paid on:</strong></span>
-      <span><strong>Placed on:</strong>{{convertDate(data.created_at)}}</span>
-      <span><strong>Modified on:</strong> {{convertDate(data.updated_at)}}</span>
+      <span><strong>Placed on:</strong>{{ convertDate(data.created_at) }}</span>
+      <span
+        ><strong>Modified on:</strong> {{ convertDate(data.updated_at) }}</span
+      >
       <span><strong>Order Duration:</strong></span>
     </div>
-    <button mat-flat-button (click)="generateInvoice()" color="primary" class="exportBtn">
+    <button
+      mat-flat-button
+      (click)="generateInvoice()"
+      color="primary"
+      class="exportBtn"
+    >
       <mat-icon>file_download</mat-icon> Export
     </button>
   </mat-card>
@@ -23,24 +39,24 @@
   <div class="detailSection">
     <mat-card class="detailCard">
       <h3><mat-icon>person</mat-icon> Customer Details</h3>
-      <p>Name: {{data.customer.name}}</p>
-      <p>Phone: {{data.customer.mobile}}</p>
-      <p>No of Person: {{data.order_data.number_of_persons}}</p>
-      <p>Email: {{data.customer.email}}</p>
+      <p>Name: {{ data.customer.name }}</p>
+      <p>Phone: {{ data.customer.mobile }}</p>
+      <p>No of Person: {{ data.order_data.number_of_persons }}</p>
+      <p>Email: {{ data.customer.email }}</p>
     </mat-card>
 
     <mat-card class="detailCard">
       <h3><mat-icon>table_restaurant</mat-icon> Table Details</h3>
       <p>
         Table:
-        <span *ngFor="let table of orderData.table_names">{{table}} </span>
+        <span *ngFor="let table of orderData.table_names">{{ table }} </span>
       </p>
-      <p>Section:
-        <span>{{orderData.section_name}} </span>
+      <p>
+        Section:
+        <span>{{ orderData.section_name }} </span>
       </p>
     </mat-card>
   </div>
-
 
   <mat-card class="itemsCard">
     <h3>Order Items</h3>
@@ -57,45 +73,74 @@
       </thead>
       <tbody *ngFor="let item of orderData.items; let i = index">
         <tr class="itemRow">
-          <td class="serial">{{i+1}}</td>
-          <td class="itemName"><strong>{{item.item_name}}</strong></td>
-          <td class="itemQuantity">{{item.multiplier}}</td>
-          <td class="itemPrice">{{item.item_rate}}</td>
-          <td class="itemAmount">{{calculateItemAmount(item)}}</td>
+          <td class="serial">{{ i + 1 }}</td>
+          <td class="itemName">
+            <strong>{{ item.item_name }}</strong>
+          </td>
+          <td class="itemQuantity">{{ item.multiplier }}</td>
+          <td class="itemPrice">{{ item.item_rate }}</td>
+          <td class="itemAmount">{{ calculateItemAmount(item) }}</td>
         </tr>
         <tr *ngFor="let modifier of item.modifiers" class="modifierRow">
           <td></td>
-          <td class="modifierName">• {{modifier.modifier_name}}</td>
-          <td class="modifierQuantity">{{item.multiplier}}</td>
-          <td class="modifierPrice">{{modifier.modifier_rate}}</td>
-          <td class="modifierAmount">{{calculateModifierTotal(modifier, item.multiplier)}}</td>
+          <td class="modifierName">• {{ modifier.modifier_name }}</td>
+          <td class="modifierQuantity">{{ item.multiplier }}</td>
+          <td class="modifierPrice">{{ modifier.modifier_rate }}</td>
+          <td class="modifierAmount">
+            {{ calculateModifierTotal(modifier, item.multiplier) }}
+          </td>
         </tr>
       </tbody>
     </table>
 
     <div class="totals">
-      <p class="taxEntry"><strong>Subtotal:</strong> ₹{{orderData.subTotal}}</p>
+      <p class="taxEntry">
+        <strong>Subtotal:</strong> ₹{{ orderData.subTotal }}
+      </p>
 
-      <p  class="taxEntry" *ngFor="let tax of  taxData"><strong>{{tax[0]}}:</strong> ₹{{tax[1]}}</p>
+      <p class="taxEntry" *ngFor="let tax of taxData">
+        <strong>{{ tax[0] }}:</strong> ₹{{ tax[1] }}
+      </p>
 
-      <h3 class="totalAmount"><strong>Total:</strong> ₹{{totalRoundOff(orderData.total)}}</h3>
+      <h3 class="totalAmount">
+        <strong>Total:</strong> ₹{{ totalRoundOff(orderData.total) }}
+      </h3>
     </div>
   </mat-card>
 
-  <div id="invoicePdf" [hidden]="!invoiceVisibility" style=" font-family: Arial, sans-serif; padding: 20px; color: #000;">
-    <div style="text-align: center;
-    align-items: center;
-    display: flex;
-    justify-content: center;">
-      <img src="assets\logos\brandLogo.png" alt="Logo" style="height: 90px;
-  display: inline;" />
-      <h2 style="color: #0070c0;
-      margin: 10px 0;
-      display: inline;
-      font-weight: 600;">PIZZASHOP</h2>
+  <div
+    id="invoicePdf"
+    [hidden]="!invoiceVisibility"
+    style="font-family: Arial, sans-serif; padding: 20px; color: #000"
+  >
+    <div
+      style="
+        text-align: center;
+        align-items: center;
+        display: flex;
+        justify-content: center;
+      "
+    >
+      <img
+        src="assets\logos\brandLogo.png"
+        alt="Logo"
+        style="height: 90px; display: inline"
+      />
+      <h2
+        style="
+          color: #0070c0;
+          margin: 10px 0;
+          display: inline;
+          font-weight: 600;
+        "
+      >
+        PIZZASHOP
+      </h2>
     </div>
 
-    <div style="display: flex; justify-content: space-between; margin-bottom: 20px;">
+    <div
+      style="display: flex; justify-content: space-between; margin-bottom: 20px"
+    >
       <div>
         <strong>Customer Details</strong><br />
         Name: {{ data.customer.name }}<br />
@@ -110,8 +155,14 @@
       </div>
     </div>
 
-    <table border="0" cellspacing="0" cellpadding="5" width="100%" style="border-collapse: collapse; margin-bottom: 20px;">
-      <thead style="background-color: #0070c0; color: white;">
+    <table
+      border="0"
+      cellspacing="0"
+      cellpadding="5"
+      width="100%"
+      style="border-collapse: collapse; margin-bottom: 20px"
+    >
+      <thead style="background-color: #0070c0; color: white">
         <tr>
           <th>Sr.No.</th>
           <th>Item</th>
@@ -121,48 +172,58 @@
         </tr>
       </thead>
 
-        <tbody *ngFor="let item of orderData.items; let i = index">
-          <tr class="itemRow">
-            <td class="serial">{{i+1}}</td>
-            <td class="itemName"><strong>{{item.item_name}}</strong></td>
-            <td class="itemQuantity">{{item.multiplier}}</td>
-            <td class="itemPrice">{{item.item_rate}}</td>
-            <td class="itemAmount">{{calculateItemAmount(item)}}</td>
-          </tr>
-          <tr *ngFor="let modifier of item.modifiers" class="modifierRow">
-            <td></td>
-            <td class="modifierName">• {{modifier.modifier_name}}</td>
-            <td class="modifierQuantity">{{item.multiplier}}</td>
-            <td class="modifierPrice">{{modifier.modifier_rate}}</td>
-            <td class="modifierAmount">{{calculateModifierTotal(modifier, item.multiplier)}}</td>
-          </tr>
-        </tbody>
-
-
-
-
+      <tbody *ngFor="let item of orderData.items; let i = index">
+        <tr class="itemRow">
+          <td class="serial">{{ i + 1 }}</td>
+          <td class="itemName">
+            <strong>{{ item.item_name }}</strong>
+          </td>
+          <td class="itemQuantity">{{ item.multiplier }}</td>
+          <td class="itemPrice">{{ item.item_rate }}</td>
+          <td class="itemAmount">{{ calculateItemAmount(item) }}</td>
+        </tr>
+        <tr *ngFor="let modifier of item.modifiers" class="modifierRow">
+          <td></td>
+          <td class="modifierName">• {{ modifier.modifier_name }}</td>
+          <td class="modifierQuantity">{{ item.multiplier }}</td>
+          <td class="modifierPrice">{{ modifier.modifier_rate }}</td>
+          <td class="modifierAmount">
+            {{ calculateModifierTotal(modifier, item.multiplier) }}
+          </td>
+        </tr>
+      </tbody>
     </table>
 
-    <div style="text-align: right; margin-right: 10px;">
-      <p style="justify-content: space-between;" class="taxEntry"><strong>Subtotal:</strong> ₹{{orderData.subTotal}}</p>
+    <div style="text-align: right; margin-right: 10px">
+      <p style="justify-content: space-between" class="taxEntry">
+        <strong>Subtotal:</strong> ₹{{ orderData.subTotal }}
+      </p>
 
-      <p style="justify-content: space-between;"  class="taxEntry" *ngFor="let tax of  taxData"><strong class="floatLeft">{{tax[0]}} :</strong> ₹{{tax[1]}}</p>
-
+      <p
+        style="justify-content: space-between"
+        class="taxEntry"
+        *ngFor="let tax of taxData"
+      >
+        <strong class="floatLeft">{{ tax[0] }} :</strong> ₹{{ tax[1] }}
+      </p>
 
       <!-- <p>Sub Total: {{ orderData.subTotal.toFixed(2) }}</p>
       <p>CGST: {{ orderData.taxes.CGST.toFixed(2) }}</p>
       <p>SGST: {{ orderData.taxes.SGST.toFixed(2) }}</p>
       <p>GST: {{ orderData.taxes.GST.toFixed(2) }}</p>
       <p>Other: 0.00</p> -->
-      <h3 style="justify-content: space-between;color: #0070c0;"><strong>Total Amount Due :</strong> {{ orderData.total.toFixed(2) }}</h3>
+      <h3 style="justify-content: space-between; color: #0070c0">
+        <strong>Total Amount Due :</strong> {{ orderData.total.toFixed(2) }}
+      </h3>
     </div>
 
-    <div style="margin-top: 30px;">
+    <div style="margin-top: 30px">
       <strong>Payment Information</strong><br />
       Payment Method: {{ data.payment_mode }}
     </div>
 
-    <div style="text-align: center; margin-top: 40px; font-weight: bold;">THANK YOU!</div>
+    <div style="text-align: center; margin-top: 40px; font-weight: bold">
+      THANK YOU!
+    </div>
   </div>
-
 </div>

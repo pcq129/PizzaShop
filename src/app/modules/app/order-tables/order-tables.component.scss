@@ -5,16 +5,16 @@
   margin: 15px 35px 15px 35px;
 }
 
-.title{
+.title {
   font-weight: 800;
   font-size: 30px;
 }
 
-.clickable{
+.clickable {
   cursor: pointer;
 }
 
-.dot{
+.dot {
   height: 10px;
   width: 10px;
   border-radius: 50%;
@@ -23,61 +23,64 @@
   margin-left: 20px;
 }
 
-.noBullets{
+.noBullets {
   list-style-type: none;
   padding-left: 2px;
   margin-top: auto;
   margin-bottom: auto;
 }
 
-.horizontal{
+.horizontal {
   display: flex;
   flex-direction: row;
 }
 
-.selected{
+.selected {
   border-width: 2px;
   border-style: solid;
   border-color: greenyellow;
 }
 
-.available, .Available{
+.available,
+.Available {
   background-color: gray;
 }
 
-.assigned, .Assigned{
+.assigned,
+.Assigned {
   background-color: rgb(135, 189, 53);
 }
 
-.running, .Running{
+.running,
+.Running {
   background-color: skyblue;
 }
 
-.bottomMargin{
+.bottomMargin {
   margin-bottom: auto;
 }
 
-.accordion{
+.accordion {
   margin: 5px;
 }
 
-.expansionPanel{
+.expansionPanel {
   margin-left: 30px;
   margin-right: 30px;
 }
 
-.status{
+.status {
   margin-top: 6px;
   margin-bottom: auto;
   float: right;
   align-items: center;
 }
 
-.statusContainer{
-  justify-content : end;
+.statusContainer {
+  justify-content: end;
 }
 
-.tableCard{
+.tableCard {
   width: 400px;
   margin-left: 10px;
   margin-right: 10px;
@@ -88,92 +91,91 @@
   padding-bottom: 20px;
 }
 
-.tableCardContainer{
+.tableCardContainer {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
 }
 
-.assignButton{
+.assignButton {
   float: right;
 }
 
-.body{
-  height: 100vh ;
+.body {
+  height: 100vh;
   width: 100vw;
 }
 
-
-.drawer{
+.drawer {
   width: 500px;
   overflow-y: auto;
 }
 
-.itemDetailInput{
+.itemDetailInput {
   width: 90%;
   margin-left: 20px;
   margin-right: 20px;
 }
 
-.customerDataButtons{
+.customerDataButtons {
   margin-left: 20px;
 }
-.customerDataButtons button{
+.customerDataButtons button {
   margin: 10px;
 }
 
-.customerDataFormTitle{
+.customerDataFormTitle {
   margin: 20px;
 }
 
-.foundRecords{
+.foundRecords {
   width: inherit;
   display: flex;
   flex-direction: column;
   padding: 16px;
 }
 
-.foundCustomer{
+.foundCustomer {
   display: flex;
   width: 100%;
   justify-content: space-between;
   padding: 5px;
 }
 
-.customerName{
+.customerName {
   position: absolute;
   left: 4px;
 }
 
-.customerEmail{
+.customerEmail {
   position: absolute;
   right: 20px;
 }
 
-mat-drawer-content{
+mat-drawer-content {
   padding: 20px;
 }
 
-.waitingTokenBtn{
+.waitingTokenBtn {
   padding-left: 2px;
   padding-right: 10px;
   margin-left: 30px;
   z-index: 1;
 
-  mat-icon{
+  mat-icon {
     padding-right: 30px;
     padding-left: 5px;
   }
 }
 
-.titlebarDescription{
+.titlebarDescription {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
 }
 
-.right{
+.right {
   display: flex;
   flex-direction: row-reverse;
   padding-right: 20px;

@@ -23,7 +23,6 @@ mat-drawer-content {
   margin-left: 400px;
 }
 
-
 .header {
   display: flex;
   align-items: center;
@@ -47,13 +46,13 @@ mat-drawer-content {
 
 .editIcon {
   position: absolute;
-    right: 4px;
+  right: 4px;
   top: 7px;
 }
 
-.matCardBody{
+.matCardBody {
   height: fit-content;
-  min-height:600px;
+  min-height: 600px;
 }
 
 .sectionButton {
@@ -78,8 +77,6 @@ mat-drawer-content {
   display: flex;
   flex-direction: row-reverse;
 }
-
-
 
 .sectionHeader {
   display: flex;
@@ -126,7 +123,6 @@ mat-drawer-content {
   width: 100%;
 }
 
-
 .search {
   font-size: 16px;
   width: 400px;
@@ -134,7 +130,7 @@ mat-drawer-content {
   padding-top: 15px;
 }
 
-.noDataBanner{
+.noDataBanner {
   height: 70%;
   width: 100%;
   display: flex;
@@ -142,8 +138,7 @@ mat-drawer-content {
   align-items: center;
 }
 
-.right{
+.right {
   display: flex;
   flex-direction: row-reverse;
-
 }

@@ -63,7 +63,11 @@
               </button>
             </mat-form-field>
 
-            <button [disabled]="selection.length == 0" mat-icon-button (click)="multipleDelete(selection)">
+            <button
+              [disabled]="selection.length == 0"
+              mat-icon-button
+              (click)="multipleDelete(selection)"
+            >
               <mat-icon>delete_outline</mat-icon>
             </button>
 

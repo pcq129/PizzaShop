@@ -8,9 +8,8 @@ describe('KotDialogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ KotDialogComponent ]
-    })
-    .compileComponents();
+      declarations: [KotDialogComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(KotDialogComponent);
     component = fixture.componentInstance;

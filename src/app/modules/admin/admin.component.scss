@@ -1,35 +1,33 @@
-
-
-mat-drawer-container{
-    height: 100vh;
+mat-drawer-container {
+  height: 100vh;
 }
 
-mat-drawer{
-    width: 270px;
-    display: flex;
-    justify-content: start;
-    align-items: center;
+mat-drawer {
+  width: 270px;
+  display: flex;
+  justify-content: start;
+  align-items: center;
 }
 
-.brandLogo{
-    margin-right: 12px;
-    margin-left: 12px;
-    width:40%;
-    height: auto;
+.brandLogo {
+  margin-right: 12px;
+  margin-left: 12px;
+  width: 40%;
+  height: auto;
 }
 
-.branding{
-    display: flex;
-    align-items: center;
-    margin-top: 10px;
-    height: 100px;
+.branding {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+  height: 100px;
 }
 
-.brand{
-    font-size: 20px;
+.brand {
+  font-size: 20px;
 }
 
-.navItem{
+.navItem {
   width: 100%;
   display: flex;
   align-items: center;
@@ -37,8 +35,7 @@ mat-drawer{
   height: 100%;
 }
 
-
-nav{
+nav {
   height: 8vh;
   background-color: skyblue;
   display: flex;
@@ -46,31 +43,30 @@ nav{
   flex-direction: row-reverse;
 }
 
-.profile{
+.profile {
   float: right;
   margin-right: 15px;
   height: 5vh;
 }
 
-.profilePicture{
+.profilePicture {
   height: 100%;
 }
 
-.clickable{
-cursor: pointer;
+.clickable {
+  cursor: pointer;
 }
 
-.navtoggle{
+.navtoggle {
   position: absolute;
   left: 18px;
 }
 
-.selected{
+.selected {
   background-color: skyblue;
   color: black;
 }
 
-.forbidden{
-display: none;
+.forbidden {
+  display: none;
 }
-

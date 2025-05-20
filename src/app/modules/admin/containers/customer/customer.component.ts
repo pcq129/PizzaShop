@@ -21,7 +21,7 @@ export class CustomerComponent implements OnInit {
   constructor(
     public dialog: MatDialog,
     private customerService: CustomerService,
-    private snackbarService: SnackbarService
+    private snackbarService: SnackbarService,
   ) {
     this.getCustomerData();
     this.minDate = new Date(2025, 0, 1);
@@ -31,14 +31,14 @@ export class CustomerComponent implements OnInit {
   ngOnInit(): void {}
 
   @ViewChild('paginator') paginator!: PaginatorComponent;
-  customerList: ICustomer[]|undefined;
-  viewCustomerList: ICustomer[]|undefined;
+  customerList: ICustomer[] | undefined;
+  viewCustomerList: ICustomer[] | undefined;
   resultLength: number = 0;
   minDate: Date | undefined;
   maxDate: Date | undefined;
   nodata: boolean = false;
   searchData: boolean = false;
-  searchQuery: IFilter|undefined;
+  searchQuery: IFilter | undefined;
 
   displayedColumns = ['name', 'email', 'phone', 'date', 'totalOrders'];
   pageSize = 5;
@@ -46,8 +46,8 @@ export class CustomerComponent implements OnInit {
   searchForm = new FormGroup({
     search: new FormControl(''),
     // status: new FormControl('0', Validators.required),
-    endDate: new FormControl( undefined, Validators.required),
-    startDate: new FormControl(undefined,  Validators.required),
+    endDate: new FormControl(undefined, Validators.required),
+    startDate: new FormControl(undefined, Validators.required),
   });
 
   exportCustomers(query: IFilter): void {
@@ -55,20 +55,20 @@ export class CustomerComponent implements OnInit {
       next: (res: Blob) => {
         saveAs(res, 'Customers');
       },
-      error: (error : Error) => {
-        this.snackbarService.error("Error occured, pleaset try again later.");
+      error: (error: Error) => {
+        this.snackbarService.error('Error occured, pleaset try again later.');
         console.error(error);
       },
     });
   }
-  pageChange(event: PageEvent):void {
+  pageChange(event: PageEvent): void {
     if (this.searchData) {
       this.searchCustomer(this.searchQuery!, event);
     } else {
       this.getCustomerData(event);
     }
   }
-  getCustomerData(pageEvent?: PageEvent):void {
+  getCustomerData(pageEvent?: PageEvent): void {
     this.customerService.getCustomerData(pageEvent).subscribe({
       next: (res: ApiResponse) => {
         if (res.status) {
@@ -90,7 +90,7 @@ export class CustomerComponent implements OnInit {
     });
   }
 
-  customerDataPopup(customer: ICustomer):void {
+  customerDataPopup(customer: ICustomer): void {
     const dialog = this.dialog.open(customerDetailDialog, {
       width: '1000px',
       data: customer,
@@ -100,13 +100,11 @@ export class CustomerComponent implements OnInit {
   resetSearch(): void {
     this.nodata = false;
     this.searchData = false;
-    this.searchQuery = undefined ;
+    this.searchQuery = undefined;
     this.getCustomerData();
   }
 
-
-
-  searchCustomer(searchQuery: IFilter, pageChange?: PageEvent):void {
+  searchCustomer(searchQuery: IFilter, pageChange?: PageEvent): void {
     this.customerService.searchCustomer(searchQuery, pageChange).subscribe({
       next: (res: ApiResponse) => {
         if (!res.status) {
@@ -129,7 +127,7 @@ export class CustomerComponent implements OnInit {
           this.nodata = true;
         }
       },
-      error: (error : Error) => {
+      error: (error: Error) => {
         this.nodata = true;
         this.viewCustomerList = [];
         console.error(error.message);

@@ -16,18 +16,18 @@ export class UserService {
     return this.http.get(environment.baseURL + `user`, { params: params });
   }
 
-  getCountries(countryId? : number){
+  getCountries(countryId?: number) {
     const params = {
-      countryId : countryId || 0
-    }
-    return this.http.get(environment.baseURL + `countries`, {params: params});
+      countryId: countryId || 0,
+    };
+    return this.http.get(environment.baseURL + `countries`, { params: params });
   }
 
-  getStates(countryCode: number){
+  getStates(countryCode: number) {
     return this.http.get(environment.baseURL + `countries/${countryCode}`);
   }
 
-  getCities(stateCode: number){
+  getCities(stateCode: number) {
     return this.http.get(environment.baseURL + `states/${stateCode}`);
   }
 

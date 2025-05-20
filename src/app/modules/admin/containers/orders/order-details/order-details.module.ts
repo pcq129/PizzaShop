@@ -8,8 +8,6 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
 
-
-
 @NgModule({
   declarations: [OrderDetailsComponent],
   imports: [
@@ -21,6 +19,6 @@ import { MatTableModule } from '@angular/material/table';
     MatTableModule,
   ],
   providers: [OrderService],
-  exports:[OrderDetailsComponent]
+  exports: [OrderDetailsComponent],
 })
-export class OrderDetailsModule { }
+export class OrderDetailsModule {}

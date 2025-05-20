@@ -1,6 +1,10 @@
-import { Component, Inject , OnInit} from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
+import {
+  MatDialogRef,
+  MAT_DIALOG_DATA,
+  MatDialog,
+} from '@angular/material/dialog';
 import { SnackbarService } from 'src/app/shared/_services/snackbar.service';
 
 import { TaxFeesService } from './_services/tax-fees.service';
@@ -10,73 +14,74 @@ import { whitespaceValidator } from 'src/app/shared/validators/validators';
 @Component({
   selector: 'app-tax-fees',
   templateUrl: './tax-fees.component.html',
-  styleUrls: ['./tax-fees.component.scss']
+  styleUrls: ['./tax-fees.component.scss'],
 })
 export class TaxFeesComponent implements OnInit {
-
-  constructor(private snackbarservice:SnackbarService,
-    private taxfeeservice :TaxFeesService,
-    private dialog: MatDialog
+  constructor(
+    private snackbarservice: SnackbarService,
+    private taxfeeservice: TaxFeesService,
+    private dialog: MatDialog,
   ) {
     this.getTaxList();
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
-  toggleEnabledState(tax: any, state: boolean, toggle: string){
+  toggleEnabledState(tax: any, state: boolean, toggle: string) {
     let data = {
-      'state': state,
-      'toggle': toggle
-    }
+      state: state,
+      toggle: toggle,
+    };
     let taxId = tax.id;
-      this.taxfeeservice.toggleTaxes(taxId, data).subscribe({
-      next: (res)=>{
+    this.taxfeeservice.toggleTaxes(taxId, data).subscribe({
+      next: (res) => {
         this.getTaxList();
       },
-      error: (error)=>{
+      error: (error) => {
         console.log(error);
-
-      }
-    })
+      },
+    });
   }
 
   taxList: any;
-  viewTaxList: any
-  getTaxList(){
+  viewTaxList: any;
+  getTaxList() {
     this.taxfeeservice.getAllTaxFeesData().subscribe({
-      next: (res: any)=>{
-        if(!res.status){
+      next: (res: any) => {
+        if (!res.status) {
           this.snackbarservice.error(res.message);
-        }
-        else{
+        } else {
           console.log(res);
 
           this.taxList = res.data;
           this.viewTaxList = res.data;
         }
       },
-      error: (error)=>{
+      error: (error) => {
         this.snackbarservice.error(error.message);
         console.log(error);
-
-      }
-    })
+      },
+    });
   }
 
-  displayedColumns = ['name','amount', 'type', 'enabled', 'default', 'actions'];
+  displayedColumns = [
+    'name',
+    'amount',
+    'type',
+    'enabled',
+    'default',
+    'actions',
+  ];
 
-
-  nodata : boolean =false;
- searchTax(taxName: string) {
-
+  nodata: boolean = false;
+  searchTax(taxName: string) {
     if (taxName.length < 2) {
       this.nodata = false;
       setTimeout(() => {
         this.viewTaxList = this.taxList;
       }, 500);
       return;
-    }else{
+    } else {
       this.taxfeeservice.search(taxName).subscribe({
         next: (res: any) => {
           if (!res.status) {
@@ -100,20 +105,19 @@ export class TaxFeesComponent implements OnInit {
     }
   }
 
-  resetTableList(){
-    this.nodata=false;
+  resetTableList() {
+    this.nodata = false;
     setTimeout(() => {
-    this.viewTaxList=this.taxList;
+      this.viewTaxList = this.taxList;
     }, 1000);
   }
-
 
   addTax() {
     const addDialog = this.dialog.open(TaxFeeDialog, {
       width: '300px',
       data: {
         enabled: 0,
-        default: 0
+        default: 0,
       },
     });
 
@@ -141,18 +145,17 @@ export class TaxFeesComponent implements OnInit {
     });
   }
 
-  editTax(tax : TaxFees) {
+  editTax(tax: TaxFees) {
     console.log(tax);
-
 
     const editDialog = this.dialog.open(TaxFeeDialog, {
       width: '300px',
       data: {
-        name : tax.name,
-        type :tax.type,
-        amount : tax.amount,
-        enabled : tax.enabled,
-        default : tax.default
+        name: tax.name,
+        type: tax.type,
+        amount: tax.amount,
+        enabled: tax.enabled,
+        default: tax.default,
       },
     });
 
@@ -181,7 +184,7 @@ export class TaxFeesComponent implements OnInit {
     });
   }
 
-  deleteTax(tax : TaxFees) {
+  deleteTax(tax: TaxFees) {
     {
       console.log(tax);
 
@@ -217,12 +220,6 @@ export class TaxFeesComponent implements OnInit {
   }
 }
 
-
-
-
-
-
-
 @Component({
   selector: 'tax-fees-dialog',
   templateUrl: './dialog/tax-dialog.html',
@@ -231,28 +228,30 @@ export class TaxFeesComponent implements OnInit {
 export class TaxFeeDialog {
   constructor(
     public dialogRef: MatDialogRef<TaxFeeDialog>,
-    @Inject(MAT_DIALOG_DATA) public data: any
+    @Inject(MAT_DIALOG_DATA) public data: any,
   ) {}
 
   onNoClick(): void {
     this.dialogRef.close();
   }
 
-
   taxFeesData = new FormGroup({
     name: new FormControl(this.data.name, [
       Validators.required,
-      whitespaceValidator
+      whitespaceValidator,
     ]),
-    type : new FormControl(this.data.type, Validators.required),
+    type: new FormControl(this.data.type, Validators.required),
     amount: new FormControl(this.data.amount, [Validators.required]),
     enabled: new FormControl(this.data.enabled),
-    default : new FormControl(this.data.default)
+    default: new FormControl(this.data.default),
   });
 
-  getTaxError(){
-    if(this.taxFeesData.controls.type.value === "percentage" && this.taxFeesData.controls.amount.value>=50){
-      return 'Tax percentage cannot exceed 50%'
+  getTaxError() {
+    if (
+      this.taxFeesData.controls.type.value === 'percentage' &&
+      this.taxFeesData.controls.amount.value >= 50
+    ) {
+      return 'Tax percentage cannot exceed 50%';
     }
     return;
   }
@@ -267,17 +266,14 @@ export class TaxFeeDialog {
     return;
   }
 
-
-
-  public taxValidator(control: FormControl){
-    const taxPercentage = (control.value);
-    if(taxPercentage>=50){
+  public taxValidator(control: FormControl) {
+    const taxPercentage = control.value;
+    if (taxPercentage >= 50) {
       console.log('invalid');
-      return {taxValidator: true}
+      return { taxValidator: true };
     }
-    return {taxValidator: false};
+    return { taxValidator: false };
   }
-
 }
 
 @Component({
@@ -288,11 +284,10 @@ export class TaxFeeDialog {
 export class TaxFeeDeleteDialog {
   constructor(
     public dialogRef: MatDialogRef<TaxFeeDeleteDialog>,
-    @Inject(MAT_DIALOG_DATA) public data: any
+    @Inject(MAT_DIALOG_DATA) public data: any,
   ) {}
 
   onNoClick(): void {
     this.dialogRef.close();
   }
 }
-

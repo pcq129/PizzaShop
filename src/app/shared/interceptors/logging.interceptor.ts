@@ -12,16 +12,18 @@ import { Observable, tap } from 'rxjs';
 
 @Injectable()
 export class LoggingInterceptor implements HttpInterceptor {
-
   constructor(private router: Router) {}
 
-  intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
+  intercept(
+    request: HttpRequest<unknown>,
+    next: HttpHandler,
+  ): Observable<HttpEvent<unknown>> {
     console.log('Outgoing HTTP request', request);
 
     return next.handle(request).pipe(
       tap((event: HttpEvent<any>) => {
         console.log('Incoming HTTP response', event);
-      })
+      }),
     );
   }
 }

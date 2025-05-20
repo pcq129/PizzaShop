@@ -11,6 +11,8 @@ export class DashboardService {
   constructor(private http: HttpClient) {}
 
   getDashboardData(filter?: number): Observable<ApiResponse> {
-    return this.http.get<ApiResponse>(environment.baseURL + `dashboard/${filter}`);
+    return this.http.get<ApiResponse>(
+      environment.baseURL + `dashboard/${filter}`,
+    );
   }
 }

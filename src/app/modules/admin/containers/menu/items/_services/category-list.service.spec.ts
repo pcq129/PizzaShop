@@ -1,6 +1,5 @@
 import { TestBed } from '@angular/core/testing';
 
-
 import { CategoryListService } from './category-list.service';
 
 describe('CategoryListService', () => {

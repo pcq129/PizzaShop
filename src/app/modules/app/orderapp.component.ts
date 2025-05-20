@@ -4,45 +4,44 @@ import { AuthService } from '../auth/_services/auth.service';
 import { TableSectionService } from '../admin/containers/table-section/_services/table-section.service';
 import { SnackbarService } from 'src/app/shared/_services/snackbar.service';
 
-
 @Component({
   selector: 'app-orderapp',
   templateUrl: './orderapp.component.html',
   styleUrls: ['./orderapp.component.scss'],
 })
 export class OrderappComponent implements OnInit {
-  constructor(private authService : AuthService,
-              private router: Router,
-              private tableSectionService: TableSectionService,
-              private snackbarService : SnackbarService
-            ) {
-              this.authService.role$.subscribe({
-                next: (res: string | null)=>{
-                  if(res && res!='super_admin' && res!='account_manager'){
-                    console.log(res);
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private tableSectionService: TableSectionService,
+    private snackbarService: SnackbarService,
+  ) {
+    this.authService.role$.subscribe({
+      next: (res: string | null) => {
+        if (res && res != 'super_admin' && res != 'account_manager') {
+          console.log(res);
 
-                    this.forbidden=false;
-                  }
-                  else{
-                    this.forbidden = true;
-                  }
-                }
-               });
-            }
+          this.forbidden = false;
+        } else {
+          this.forbidden = true;
+        }
+      },
+    });
+  }
 
-            forbidden : boolean = false;
+  forbidden: boolean = false;
   ngOnInit(): void {}
   logout() {
     this.authService.clear();
   }
-  currentPage : string = '';
-  navigate(link: string){
+  currentPage: string = '';
+  navigate(link: string) {
     this.currentPage = link;
     this.router.navigateByUrl(link);
   }
 
-  selected(page : string){
-    if(this.router.url.endsWith(page)){
+  selected(page: string) {
+    if (this.router.url.endsWith(page)) {
       return true;
     }
     return false;
@@ -64,11 +63,11 @@ export class OrderappComponent implements OnInit {
     this.router.navigateByUrl(url);
   }
 
-  loadUserData(){
+  loadUserData() {
     // this.authService.fetchUserData();
     console.log(this.authService.user$);
 
-    this.redirect('pizzashop/profile')
+    this.redirect('pizzashop/profile');
   }
 
   // loadChefData(){

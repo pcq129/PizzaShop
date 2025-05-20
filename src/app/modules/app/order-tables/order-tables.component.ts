@@ -23,7 +23,7 @@ export class OrderTablesComponent implements OnInit {
     private tableSectionService: TableSectionService,
     private cdr: ChangeDetectorRef,
     private orderService: OrderService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
   ) {
     this.getSectionData();
   }
@@ -60,7 +60,7 @@ export class OrderTablesComponent implements OnInit {
       sectionId == this.currentSection
     ) {
       console.log(
-        '!this.selectedTables.includes(table.id) && sectionId == this.currentSection'
+        '!this.selectedTables.includes(table.id) && sectionId == this.currentSection',
       );
 
       if (table.status != 'Available') {
@@ -98,7 +98,7 @@ export class OrderTablesComponent implements OnInit {
     email: new FormControl('', [
       Validators.required,
       Validators.email,
-      whitespaceValidator
+      whitespaceValidator,
     ]),
     name: new FormControl('', [Validators.required, whitespaceValidator]),
     mobile: new FormControl('', [
@@ -116,13 +116,13 @@ export class OrderTablesComponent implements OnInit {
     table_names: new FormControl(this.selectedTablesNames),
   });
 
-  setHeadCount(){
-    this.customerData.controls.headCount.setValidators(Validators.max(this.capacityCount));
+  setHeadCount() {
+    this.customerData.controls.headCount.setValidators(
+      Validators.max(this.capacityCount),
+    );
     this.customerData.controls.table_ids.setValue(this.selectedTables);
     this.customerData.controls.table_names.setValue(this.selectedTablesNames);
   }
-
-
 
   getEmailError() {
     if (this.customerData.controls.email.hasError('email')) {
@@ -156,7 +156,9 @@ export class OrderTablesComponent implements OnInit {
       return 'Minimum 1 person required';
     }
     if (this.customerData.controls.headCount.hasError('max')) {
-      return 'People cannot exceed '+this.capacityCount+' in single seating';
+      return (
+        'People cannot exceed ' + this.capacityCount + ' in single seating'
+      );
     }
     return;
   }
@@ -173,7 +175,7 @@ export class OrderTablesComponent implements OnInit {
     this.customerData.controls.section.patchValue(`${section.name}`);
     console.log(section.name);
     this.customerData.controls.section_id.setValue(section.id);
-    this.capacityCount=0;
+    this.capacityCount = 0;
   }
 
   clearSelection() {
@@ -215,12 +217,11 @@ export class OrderTablesComponent implements OnInit {
     });
   }
 
-  cancelAssign(){
+  cancelAssign() {
     this.customerData.reset();
-    this.capacityCount=0;
+    this.capacityCount = 0;
     this.currentSection = 0;
     this.searchedCustomers = {};
-
   }
 
   assignTable(data: any) {
@@ -295,18 +296,20 @@ export class OrderTablesComponent implements OnInit {
   }
 
   loadCustomerData(customer: any) {
-    if(this.capacityCount >=   customer.head_count){
+    if (this.capacityCount >= customer.head_count) {
       this.customerData.controls.email.setValue(customer.email);
       this.customerData.controls.mobile.setValue(customer.mobile);
       this.customerData.controls.name.setValue(customer.name);
       this.customerData.controls.headCount.setValue(customer.head_count);
-      this.customerData.controls.headCount.addValidators([Validators.required, Validators.min(1), Validators.max(this.capacityCount) ])
+      this.customerData.controls.headCount.addValidators([
+        Validators.required,
+        Validators.min(1),
+        Validators.max(this.capacityCount),
+      ]);
       this.customerData.controls['headCount'].updateValueAndValidity();
       return;
+    } else {
+      this.snackbarService.error('Please select more tables');
     }
-    else{
-      this.snackbarService.error("Please select more tables")
-    }
-
   }
 }

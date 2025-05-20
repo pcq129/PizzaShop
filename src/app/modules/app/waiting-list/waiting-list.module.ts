@@ -7,19 +7,15 @@ import { MatCardModule } from '@angular/material/card';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatTableModule } from '@angular/material/table';
 
-
-
 @NgModule({
-  declarations: [
-    WaitingListComponent
-  ],
+  declarations: [WaitingListComponent],
   imports: [
     CommonModule,
     MatIconModule,
     MatButtonModule,
     MatCardModule,
     MatTabsModule,
-    MatTableModule
-  ]
+    MatTableModule,
+  ],
 })
-export class WaitingListModule { }
+export class WaitingListModule {}

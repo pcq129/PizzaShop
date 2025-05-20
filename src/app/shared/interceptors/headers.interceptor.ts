@@ -20,7 +20,7 @@ export class HeadersInterceptor implements HttpInterceptor {
     private router: Router,
     private snackbarservice: SnackbarService,
     private authservice: AuthService,
-    private matDialog: MatDialog
+    private matDialog: MatDialog,
   ) {}
 
   handleAuthError(err: HttpErrorResponse): Observable<any> {
@@ -46,19 +46,18 @@ export class HeadersInterceptor implements HttpInterceptor {
     if (err.status >= 500) {
       console.log(err.status);
 
-      if(url == '/login'){
+      if (url == '/login') {
         this.snackbarservice.error('Unable to connect to server');
-      }
-      else{
+      } else {
         this.snackbarservice.error(err.message);
       }
-  }
+    }
     return throwError(err);
   }
 
   intercept(
     request: HttpRequest<unknown>,
-    next: HttpHandler
+    next: HttpHandler,
   ): Observable<HttpEvent<unknown>> {
     console.log(request);
     let access_token = this.authservice.getToken();

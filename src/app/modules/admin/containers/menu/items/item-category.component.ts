@@ -16,7 +16,7 @@ import {
 } from '@angular/material/dialog';
 import { CategoryListService } from './_services/category-list.service';
 import { ItemsService } from './_services/items.service';
-import { ModifierService} from '../modifier/_services/modifier.service';
+import { ModifierService } from '../modifier/_services/modifier.service';
 import { SnackbarService } from 'src/app/shared/_services/snackbar.service';
 import { DeleteDialogComponent } from 'src/app/shared/components/dialogs/delete-dialog/delete-dialog.component';
 import { ItemDialogComponent } from './dialog/item-dialog/item-dialog.component';
@@ -42,7 +42,7 @@ export class ItemCategoryComponent implements OnInit {
     private snackbarService: SnackbarService,
     private itemService: ItemsService,
     private categoryService: CategoryListService,
-    private modifierService: ModifierService
+    private modifierService: ModifierService,
   ) {
     this.getModifierGroupList();
   }
@@ -120,11 +120,11 @@ export class ItemCategoryComponent implements OnInit {
   getImage(itemType: string) {
     switch (itemType) {
       case 'veg':
-        return '../../../assets/icons/veg-icon.svg'
+        return '../../../assets/icons/veg-icon.svg';
       case 'non-veg':
-        return '../../../assets/icons/non-veg-icon.svg'
+        return '../../../assets/icons/non-veg-icon.svg';
       case 'vegan':
-        return '../../../assets/icons/vegan-icon.svg'
+        return '../../../assets/icons/vegan-icon.svg';
       default:
         return;
     }
@@ -439,7 +439,7 @@ export class ItemCategoryComponent implements OnInit {
       },
       (error) => {
         this.snackbarService.success('Error deleting item');
-      }
+      },
     );
   }
 
@@ -486,7 +486,6 @@ export class ItemCategoryComponent implements OnInit {
       next: (res: any) => {
         if (!res.status) {
           this.snackbarService.error(res.message);
-
         } else {
           this.snackbarService.success(`Item updated successfully`);
           // this.refreshCategoryData.emit(true);

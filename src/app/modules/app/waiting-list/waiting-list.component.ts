@@ -16,11 +16,10 @@ export class WaitingListComponent implements OnInit {
     private orderService: OrderService,
     private snackbarService: SnackbarService,
     private dialog: MatDialog,
-    private sectionService: TableSectionService
+    private sectionService: TableSectionService,
   ) {
     this.getWaitingTokenData();
     console.log(this.waitingTokenData);
-
   }
 
   ngOnInit(): void {}
@@ -86,14 +85,14 @@ export class WaitingListComponent implements OnInit {
     });
   }
 
-  editWaitingToken(waitingToken : any) {
+  editWaitingToken(waitingToken: any) {
     console.log(waitingToken);
 
     const newTokenDialog = this.dialog.open(waitingTokenDialog, {
       width: '400px',
       data: {
         sectionList: this.waitingTokenData,
-        waitingToken : waitingToken
+        waitingToken: waitingToken,
       },
     });
 
@@ -121,7 +120,7 @@ export class WaitingListComponent implements OnInit {
       }
     });
   }
-  deleteWaitingToken(waitingToken : any) {
+  deleteWaitingToken(waitingToken: any) {
     console.log(waitingToken);
     let id = waitingToken.id;
 
@@ -129,15 +128,15 @@ export class WaitingListComponent implements OnInit {
       width: '600px',
       data: {
         // sectionList: this.waitingTokenData,
-        waitingToken : waitingToken
+        waitingToken: waitingToken,
       },
     });
 
     newTokenDialog.afterClosed().subscribe((res: any) => {
       let data = {
         id: res.waitingToken,
-        delete: true
-      }
+        delete: true,
+      };
       if (res) {
         this.sectionService.updateWaitingToken(data).subscribe({
           next: (res: any) => {

@@ -46,8 +46,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     MatDialogModule,
     DeleteDialogModule,
     SharedModule,
-    MatCheckboxModule
-],
+    MatCheckboxModule,
+  ],
   exports: [ModifierComponent],
 })
 export class ModifierModule {}

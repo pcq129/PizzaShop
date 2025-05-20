@@ -14,7 +14,10 @@ export class CategoryListService {
   getCategoryName(id: any) {
     return this.http.get(environment.baseURL + `categories` + '/' + id);
   }
-  constructor(private http: HttpClient, private authservice: AuthService) {}
+  constructor(
+    private http: HttpClient,
+    private authservice: AuthService,
+  ) {}
   categoryList: CategoryInterface[] = [];
 
   access_token = this.authservice.getToken();
@@ -42,7 +45,8 @@ export class CategoryListService {
   editCategory(element: any) {
     return this.http.put(
       environment.baseURL + `category` + '/' + element.id,
-      element);
+      element,
+    );
     // .map((response: Response) => response.json());
   }
 }

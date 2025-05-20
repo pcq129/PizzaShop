@@ -11,9 +11,11 @@ import { SnackbarService } from 'src/app/shared/_services/snackbar.service';
 })
 export class ForgotPasswordComponent implements OnInit {
   ngOnInit(): void {}
-  constructor(private router: Router, private authService : AuthService, private snackbarService : SnackbarService){
-
-  }
+  constructor(
+    private router: Router,
+    private authService: AuthService,
+    private snackbarService: SnackbarService,
+  ) {}
 
   forgotPassword = new FormGroup({
     email: new FormControl('', [Validators.email, Validators.required]),
@@ -21,7 +23,6 @@ export class ForgotPasswordComponent implements OnInit {
 
   brandLogo = '../../assets/logos/brandLogo.png';
   login = '';
-
 
   //material components
   email = this.forgotPassword.controls.email;
@@ -33,33 +34,28 @@ export class ForgotPasswordComponent implements OnInit {
     return this.email.hasError('email') ? 'Not a valid email' : '';
   }
 
-
-  requestReset(forgotPassword : any){
-    this.snackbarService.info('Checking Email')
+  requestReset(forgotPassword: any) {
+    this.snackbarService.info('Checking Email');
     this.authService.requestReset(forgotPassword).subscribe({
-      next: (res: any)=>{
-        if(res.status == "passwords.sent"){
-          this.snackbarService.success("Reset link sent successfully");
+      next: (res: any) => {
+        if (res.status == 'passwords.sent') {
+          this.snackbarService.success('Reset link sent successfully');
           this.router.navigate(['login']);
-
-        }
-        else if(res.status == "passwords.user"){
-          this.snackbarService.error("User not found");
+        } else if (res.status == 'passwords.user') {
+          this.snackbarService.error('User not found');
           console.log(res);
-        }
-        else if(res.status == "passwords.throttled"){
-          this.snackbarService.info("Too many requests, Please try again later");
+        } else if (res.status == 'passwords.throttled') {
+          this.snackbarService.info(
+            'Too many requests, Please try again later',
+          );
           console.log(res);
+        } else {
+          this.snackbarService.error('Error');
         }
-        else{
-          this.snackbarService.error("Error")
-        }
-
       },
-      error: (err)=>{
+      error: (err) => {
         console.log(err);
-
-      }
-    })
+      },
+    });
   }
 }

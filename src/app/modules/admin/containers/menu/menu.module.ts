@@ -9,7 +9,6 @@ import { ItemCategoryModule } from './items/item-category.module';
 import { ModifierModule } from './modifier/modifier.module';
 import { SharedModule } from 'src/app/shared/shared-module.module';
 
-
 @NgModule({
   declarations: [MenuComponent],
   imports: [

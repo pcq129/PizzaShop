@@ -55,14 +55,28 @@
     <div class="header">
       <h4 class="subHeading">Modifiers</h4>
       <div class="header">
-        <mat-form-field class="search" appearance="outline" (input)="searchModifier(userSearch.value)">
+        <mat-form-field
+          class="search"
+          appearance="outline"
+          (input)="searchModifier(userSearch.value)"
+        >
           <mat-label>Search</mat-label>
-          <input class="" matInput placeholder="Search" #userSearch/>
-          <button *ngIf="userSearch.value" (click)="userSearch.value = ''" matSuffix mat-icon-button aria-label="Clear">
+          <input class="" matInput placeholder="Search" #userSearch />
+          <button
+            *ngIf="userSearch.value"
+            (click)="userSearch.value = ''"
+            matSuffix
+            mat-icon-button
+            aria-label="Clear"
+          >
             <mat-icon>close</mat-icon>
           </button>
         </mat-form-field>
-        <button [disabled]="selection.length == 0" mat-icon-button (click)="multipleDelete(selection)">
+        <button
+          [disabled]="selection.length == 0"
+          mat-icon-button
+          (click)="multipleDelete(selection)"
+        >
           <mat-icon>delete_outline</mat-icon>
         </button>
         <button mat-button class="border-2" (click)="addModifierPopup()">
@@ -79,9 +93,8 @@
       [dataSource]="viewModifiers"
       class="mat-elevation-z8 modifiersTable"
     >
-
-       <!-- Checkbox Column -->
-       <ng-container matColumnDef="select">
+      <!-- Checkbox Column -->
+      <ng-container matColumnDef="select">
         <th mat-header-cell *matHeaderCellDef>
           <mat-checkbox
             (change)="toggleAllRows()"
@@ -164,6 +177,13 @@
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
     </table>
-    <app-paginator #modifierPaginator class="paginator" [hidden]="nodata"  [length]="resultsLength" (pageChange)="onPageChange($event)" [pageSize]="pageSize"></app-paginator>
+    <app-paginator
+      #modifierPaginator
+      class="paginator"
+      [hidden]="nodata"
+      [length]="resultsLength"
+      (pageChange)="onPageChange($event)"
+      [pageSize]="pageSize"
+    ></app-paginator>
   </mat-drawer-content>
 </mat-drawer-container>

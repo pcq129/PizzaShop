@@ -7,7 +7,12 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { Shared } from './shared-module.component';
 
 @NgModule({
-  declarations: [NameByIdPipe, PageNotFoundComponent, PaginatorComponent, Shared],
+  declarations: [
+    NameByIdPipe,
+    PageNotFoundComponent,
+    PaginatorComponent,
+    Shared,
+  ],
   imports: [CommonModule, MatPaginatorModule],
   exports: [NameByIdPipe, PaginatorComponent],
 })

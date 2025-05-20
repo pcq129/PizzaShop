@@ -13,7 +13,7 @@ export class OrderDetailsComponent implements OnInit {
   constructor(
     private orderService: OrderService,
     private snackbarService: SnackbarService,
-    private router: Router
+    private router: Router,
   ) {
     this.orderService.currentOrderInvoice.subscribe({
       next: (res: any) => {
@@ -169,7 +169,8 @@ export class OrderDetailsComponent implements OnInit {
   justify-content: space-between;
   gap: 8px;"><strong>${key} :</strong><span>${numValue.toFixed(2)}</span></p>
   `;
-  taxCount ++;  }
+      taxCount++;
+    }
 
     const htmlContent = `
       <div id="invoicePdf" style=" font-family: Arial, sans-serif; padding: 20px; color: #000;">
@@ -222,13 +223,13 @@ export class OrderDetailsComponent implements OnInit {
       <p style="display: flex;
   justify-content: space-between;
   gap: 8px;"><strong>Sub Total :</strong><span> ${this.orderData.subTotal.toFixed(
-    2
+    2,
   )}</span></p>
       ${taxes}
       <h4 style="display: flex;
   justify-content: space-between;
   gap: 8px; color :#0070c0"><strong>Total Amount Due :</strong> ${this.orderData.total.toFixed(
-    2
+    2,
   )}</h4>
     </div>
 

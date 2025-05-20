@@ -3,7 +3,6 @@ import { CategoryListService } from './items/_services/category-list.service';
 import { ModifierService } from './modifier/_services/modifier.service';
 import { SnackbarService } from 'src/app/shared/_services/snackbar.service';
 
-
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.component.html',
@@ -13,7 +12,7 @@ export class MenuComponent implements OnInit {
   constructor(
     private categoryService: CategoryListService,
     private snackbarService: SnackbarService,
-    private modifierService: ModifierService
+    private modifierService: ModifierService,
   ) {
     this.getCategoryData();
     this.getModifierGroupData();

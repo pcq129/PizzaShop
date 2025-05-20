@@ -1,18 +1,18 @@
-.menuContainer{
+.menuContainer {
   height: 100vh;
   border: 1px solid rgba(0, 0, 0, 0.5);
 }
 
-.sidenav{
+.sidenav {
   width: 270px;
 }
 
-.noBullets{
+.noBullets {
   list-style-type: none;
   padding-left: 2px;
 }
 
-.horizontal{
+.horizontal {
   display: flex;
   flex-direction: row;
   margin-bottom: auto;
@@ -20,7 +20,7 @@
   margin-right: 20px;
 }
 
-.dot{
+.dot {
   height: 10px;
   width: 10px;
   border-radius: 50%;
@@ -29,7 +29,7 @@
   margin-left: 20px;
 }
 
-.itemCategory{
+.itemCategory {
   width: 80%;
   margin-top: 4px;
   margin-bottom: 4px;
@@ -38,46 +38,44 @@
   display: flex;
 }
 
-.searchItem{
+.searchItem {
   width: 300px;
   margin-top: 15px;
 }
 
-.itemCategoryContainer{
+.itemCategoryContainer {
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.navHeader{
+.navHeader {
   margin: 20px;
 }
 
-.itemsTitle{
+.itemsTitle {
   margin-left: 20px;
   margin-top: 16px;
 }
 
-.itemsHeader{
+.itemsHeader {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-
-
-.grid{
+.grid {
   height: 90%;
 }
 
-.drawerBody{
+.drawerBody {
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
-  width:100%;
+  width: 100%;
 }
 
-.item{
+.item {
   height: 130px;
   width: 250px;
   border-radius: 10px;
@@ -86,30 +84,28 @@
   align-items: center;
   justify-content: space-between;
   cursor: pointer;
-
 }
 
-.orderDetailsCard{
+.orderDetailsCard {
   float: right;
   width: 500px;
   margin-top: 20px;
   border-radius: 8px;
-  height: 600px ;
+  height: 600px;
 }
 
-.itemsContainer{
+.itemsContainer {
   width: 100%;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
 }
 
-.menu{
+.menu {
   width: 50%;
 }
 
-
-.itemIndicator{
+.itemIndicator {
   position: relative;
   left: 0;
   top: 0;
@@ -150,17 +146,15 @@
   position: absolute;
   bottom: 8px;
   right: 8px;
-
 }
 
-.favourite{
+.favourite {
   color: rgb(104, 177, 206);
-
 }
 
 //
 
-.dot{
+.dot {
   height: 10px;
   width: 10px;
   border-radius: 50%;
@@ -169,14 +163,13 @@
   margin-left: 20px;
 }
 
-
 //ready made component
 
 .billingContainer {
   padding: 16px;
   border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-  font-family: 'Arial', sans-serif;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  font-family: "Arial", sans-serif;
   width: 600px;
   margin-top: 20px;
   margin-bottom: 30px;
@@ -217,8 +210,6 @@
   gap: 4px;
 }
 
-
-
 .quantityControl {
   display: flex;
   align-items: center;
@@ -248,7 +239,8 @@
   border-top: 1px solid #ccc;
 }
 
-.summaryRow, .totalRow {
+.summaryRow,
+.totalRow {
   display: flex;
   justify-content: space-between;
   margin: 4px 0;
@@ -273,7 +265,7 @@
   margin-top: 12px;
 }
 
-.itemImage{
+.itemImage {
   height: 100px;
   width: 100px;
   // background-image: url('../../../assets/dining-menu.png');
@@ -286,79 +278,78 @@
   right: 0;
   width: 0;
   height: 0;
-  border-top: 26px solid ;
+  border-top: 26px solid;
   border-left: 26px solid transparent;
   border-top-right-radius: 8px;
 }
 
-.veg{
+.veg {
   border-top-color: green;
 }
 
-.nonveg, .non-veg{
+.nonveg,
+.non-veg {
   border-top-color: red;
-
 }
 
-.vegan{
+.vegan {
   border-top-color: orange;
 }
 
-.green{
+.green {
   background-color: green;
 }
-.red{
+.red {
   background-color: red;
 }
-.orange{
+.orange {
   background-color: orange;
 }
 
-.price{
+.price {
   position: absolute;
   right: 15px;
   top: 12px;
 }
 
-.itm{
+.itm {
   padding-left: 4px;
   margin-left: 12px;
 }
-.amount{
-  padding-right: 4px
+.amount {
+  padding-right: 4px;
 }
-.quantity{
+.quantity {
   margin-left: 6px;
 }
 
-
-.modifierInBill{
+.modifierInBill {
   display: flex;
   justify-content: space-between;
   align-items: center;
   color: #ddd;
 }
 
-.modifierPrice{
+.modifierPrice {
   margin-right: 100px;
 }
 
 .scrollableContainer {
-  height: 300px;         /* Set your fixed height */
-  overflow-y: auto;      /* Enables vertical scrolling */
-  overflow-x: hidden;    /* Optional: hide horizontal scroll */
-  padding: 1rem;         /* Optional: inner spacing */
+  height: 300px; /* Set your fixed height */
+  overflow-y: auto; /* Enables vertical scrolling */
+  overflow-x: hidden; /* Optional: hide horizontal scroll */
+  padding: 1rem; /* Optional: inner spacing */
 }
 
-.checkboxContainer{
+.checkboxContainer {
   margin-left: 10px;
 }
 
-.checkbox{
+.checkbox {
   padding: 10px;
 }
 
-.noItemBanner{
+.noItemBanner {
   height: 80vh;
   width: 100%;
   display: flex;
@@ -366,7 +357,7 @@
   align-items: center;
 }
 
-.noBillItem{
+.noBillItem {
   height: 100%;
   width: 100%;
   display: flex;

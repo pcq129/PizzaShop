@@ -1,16 +1,16 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { OrderService } from './_services/order.service';
-import { ConfirmationDialogComponent } from 'src/app/shared/components/dialogs/confirmation-dialog/confirmation-dialog.component';
-import { SnackbarService } from 'src/app/shared/_services/snackbar.service';
-
-import { Router } from '@angular/router';
 import { saveAs } from 'file-saver';
-import { PageEvent } from '@angular/material/paginator';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { PaginatorComponent } from 'src/app/shared/components/paginator/paginator.component';
+import { Router } from '@angular/router';
 import { IOngoingOrder } from './Model/order';
+import { IFilter } from '../customer/model/customer';
+import { MatDialog } from '@angular/material/dialog';
+import { PageEvent } from '@angular/material/paginator';
+import { OrderService } from './_services/order.service';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ApiResponse } from 'src/app/core/model/api-response';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { SnackbarService } from 'src/app/shared/_services/snackbar.service';
+import { PaginatorComponent } from 'src/app/shared/components/paginator/paginator.component';
+import { ConfirmationDialogComponent } from 'src/app/shared/components/dialogs/confirmation-dialog/confirmation-dialog.component';
 
 @Component({
   selector: 'app-orders',
@@ -32,8 +32,8 @@ export class OrdersComponent implements OnInit {
   ngOnInit(): void {}
   resultsLength: number = 100;
   pagesize: number = 5;
-  orderData: IOngoingOrder[]=[];
-  viewOrderData: IOngoingOrder[]=[];
+  orderData: IOngoingOrder[] = [];
+  viewOrderData: IOngoingOrder[] = [];
   displayedColumns = [
     'order',
     'date',
@@ -97,17 +97,10 @@ export class OrdersComponent implements OnInit {
   }
 
   onPageChange(event: PageEvent): void {
-    console.log(event);
-    //   {
-    //     "previousPageIndex": 0,
-    //     "pageIndex": 1,
-    //     "pageSize": 5,
-    //     "length": 14
-    // }
     this.getOrderData(event);
   }
 
-  convertDate(isoDate: any): string {
+  convertDate(isoDate: string): string {
     const date = new Date(isoDate);
     const day = String(date.getUTCDate()).padStart(2, '0');
     const month = String(date.getUTCMonth() + 1).padStart(2, '0'); // Months are zero-indexed
@@ -128,10 +121,10 @@ export class OrdersComponent implements OnInit {
     });
 
     confirmation.afterClosed().subscribe({
-      next: (res: any) => {
+      next: (res) => {
         if (res.id) {
           this.orderService.completeOrder(id).subscribe({
-            next: (res: any) => {
+            next: (res: ApiResponse) => {
               if (!res.status) {
                 this.snackbarService.error(res.message);
               } else {
@@ -139,8 +132,9 @@ export class OrdersComponent implements OnInit {
                 this.getOrderData();
               }
             },
-            error: (err) => {
-              this.snackbarService.error(err);
+            error: (error: Error) => {
+              this.snackbarService.error(error.message);
+              console.error(error);
             },
           });
         }
@@ -148,15 +142,10 @@ export class OrdersComponent implements OnInit {
     });
   }
 
-  viewOrderDetail(order: any): void {
+  viewOrderDetail(order: IOngoingOrder): void {
     console.log(order);
     this.orderService.setOrderData(order);
     this.router.navigate(['pizzashop/orders/details']);
-
-    // const orderDetailDialog = this.dialog.open(OrderDetailDialogComponent, {
-    //   data: order,
-    //   width: '1000px',
-    // });
   }
 
   resetData(): void {
@@ -165,17 +154,11 @@ export class OrdersComponent implements OnInit {
   }
 
   nodata: boolean = false;
-  filterOrders(orderId: string): void  {
-    // if (!orderId) {
-    //   this.nodata = false;
-    //   setTimeout(() => {
-    //     this.viewOrderData = this.orderData;
-    //   }, 500);
-    // } else {
+  filterOrders(orderId: string): void {
     this.paginator.resetToFirstPage();
 
     this.orderService.searchOrder(this.searchData.value).subscribe({
-      next: (res: any) => {
+      next: (res: ApiResponse) => {
         console.log(res);
 
         if (res.code == 204 || !res.status) {
@@ -192,9 +175,11 @@ export class OrdersComponent implements OnInit {
           this.nodata = true;
         }
       },
-      error: (err: any) => {
+      error: (error: Error) => {
         this.nodata = true;
         this.viewOrderData = [];
+        this.snackbarService.error(error.message);
+        console.error(error);
       },
     });
     // }
@@ -206,40 +191,24 @@ export class OrdersComponent implements OnInit {
     endDate: new FormControl(new Date(), Validators.required),
     startDate: new FormControl(new Date(), Validators.required),
   });
-  exportOrders(filter: any): void  {
+  exportOrders(filter: IFilter): void {
     console.log(filter);
 
     this.orderService.exportOrdersToExcel(filter).subscribe({
       next: (res: Blob) => {
         saveAs(res, 'All Orders');
       },
-      error: (err: any) => {
-        console.log('failed');
+      error: (error: Error) => {
+        console.error(error.message);
       },
     });
-
-    // for proper response formatting
-
-    // next: (res: any) => {
-    //   if (!res.status) {
-    //     console.log('failed');
-    //   } else {
-    //     let data: any;
-    //     if (res.data) {
-    //       data = res.data;
-    //       (data: Blob) => {
-    //         saveAs(data, 'fileName');
-    //       };
-    //     }
-    //   }
-    // },
   }
-  getRating(rating: any) : JSON {
+  getRating(rating: string): JSON {
     let compoundRating = JSON.parse(rating);
     return compoundRating.food;
   }
   Ratings = [1, 2, 3, 4, 5];
-  getOrderRating(rating: string):number {
+  getOrderRating(rating: string): number {
     let parsedRating = JSON.parse(rating);
     return parsedRating.food;
   }

@@ -66,29 +66,25 @@ body {
   flex-direction: column;
 }
 
-.iconContainer{
+.iconContainer {
   display: flex;
   justify-content: end;
 }
-.icon{
+.icon {
   width: 60px;
   height: 60px;
   padding: 10px;
-
 }
 
-
-.filter{
+.filter {
   font-size: 16px;
-
 }
 
-.iconFrame{
+.iconFrame {
   background: wheat;
   border: 5px white solid;
   border-radius: 50px;
 }
-
 
 .card h3 {
   font-size: 16px;
@@ -107,11 +103,11 @@ body {
   margin: 6px 0;
 }
 
-.graph{
+.graph {
   height: 250px;
 }
 
-.chartsContainer{
+.chartsContainer {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -124,12 +120,9 @@ body {
   height: 200px !important;
 }
 
-
-
-
 .chart {
   flex: 1;
-  min-width: 400px  ;
+  min-width: 400px;
 }
 
 .chart h3 {

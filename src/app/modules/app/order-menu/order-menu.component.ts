@@ -25,18 +25,17 @@ export class OrderMenuComponent implements OnInit {
     private orderService: OrderService,
     private taxService: TaxFeesService,
     private cdr: ChangeDetectorRef,
-    private router: Router
+    private router: Router,
   ) {
     this.getCategoryData();
     this.orderService.currentData.subscribe((res: any) => {
       if (!res) {
         // this.snackbarService.info('Please assign tables first');
         // this.router.navigate(['orderapp/tables']);
-      }
-      else{
+      } else {
         this.orderData = res;
-      this.placingOrder = true;
-      console.log(res);
+        this.placingOrder = true;
+        console.log(res);
       }
     });
     this.getTaxData();
@@ -70,7 +69,7 @@ export class OrderMenuComponent implements OnInit {
   selectedModifiers: number[] = [];
   orderData: any;
   taxData: any = {};
-  placingOrder : boolean = false;
+  placingOrder: boolean = false;
 
   //new order data (temp store)
   items: any[] = [];
@@ -78,8 +77,8 @@ export class OrderMenuComponent implements OnInit {
   taxBreakup: any = {};
   amount: number = 0;
 
-  favouriteItems : any = [];
-  getFavouriteItems(){
+  favouriteItems: any = [];
+  getFavouriteItems() {
     this.itemService.getFavouriteItems().subscribe({
       next: (res: any) => {
         if (!res.status) {
@@ -88,32 +87,32 @@ export class OrderMenuComponent implements OnInit {
           this.favouriteItems = res.data;
           this.viewItemData = res.data;
         }
-      }
+      },
     });
   }
 
-  resetSearch(){
+  resetSearch() {
     this.currentCategory = 0;
     this.loadItems(0);
   }
-  searchOrderItem(item : string, event: Event){
-    if(!item){
+  searchOrderItem(item: string, event: Event) {
+    if (!item) {
       return;
     }
     event.stopPropagation();
     this.itemService.searchItem(item, this.currentCategory).subscribe({
-      next: (res:any)=>{
-        if(res.status){
+      next: (res: any) => {
+        if (res.status) {
           this.viewItemData = res.data;
-        }else{
+        } else {
           this.snackbarService.error(res.message);
           this.viewItemData = [];
         }
       },
-      error: (error)=>{
+      error: (error) => {
         this.snackbarService.error(error.message);
-      }
-    })
+      },
+    });
   }
 
   getCategoryData() {
@@ -162,8 +161,7 @@ export class OrderMenuComponent implements OnInit {
   // }
 
   addModifierPopup(item_id: number) {
-
-    if(!this.placingOrder){
+    if (!this.placingOrder) {
       return;
     }
     this.itemService.getSingleItem(item_id).subscribe({
@@ -233,14 +231,12 @@ export class OrderMenuComponent implements OnInit {
       this.viewItemData = data;
 
       // return entries.flatMap(entry => entry.items);
-    }
-    else if(id == -1){
+    } else if (id == -1) {
       // this.viewItemData=this.favouriteItems;
       this.getFavouriteItems();
-    }
-    else {
+    } else {
       let items = this.categoryData.find(
-        (category) => category.id === id
+        (category) => category.id === id,
       ).items;
       this.viewItemData = items;
     }
@@ -250,24 +246,22 @@ export class OrderMenuComponent implements OnInit {
     return category.items;
   }
 
-  addFavourite(item_id: number, event : Event) {
+  addFavourite(item_id: number, event: Event) {
     event.stopPropagation();
-    this.itemService.addFavourite(item_id).subscribe(
-      {
-        next: (res:any)=>{
-          if(res.status==true){
-            this.snackbarService.success(res.message);
-            this.getCategoryData();
-          }else{
-            this.snackbarService.error(res.message);
-          }
-        },
-        error: (error)=>{
-          this.snackbarService.error(error.message)
-          throw new Error(error);
+    this.itemService.addFavourite(item_id).subscribe({
+      next: (res: any) => {
+        if (res.status == true) {
+          this.snackbarService.success(res.message);
+          this.getCategoryData();
+        } else {
+          this.snackbarService.error(res.message);
         }
-      }
-    )
+      },
+      error: (error) => {
+        this.snackbarService.error(error.message);
+        throw new Error(error);
+      },
+    });
   }
 
   calculateSubTotal(orderData: any) {

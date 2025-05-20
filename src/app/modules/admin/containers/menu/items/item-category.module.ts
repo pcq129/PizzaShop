@@ -46,7 +46,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     DeleteDialogModule,
     SharedModule,
     MatPaginatorModule,
-    MatCheckboxModule
+    MatCheckboxModule,
   ],
   exports: [ItemCategoryComponent],
 })

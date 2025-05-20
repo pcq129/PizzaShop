@@ -9,7 +9,6 @@ import { DeleteDialogComponent } from 'src/app/shared/components/dialogs/delete-
 import { MatPaginator } from '@angular/material/paginator';
 import { PaginatorComponent } from 'src/app/shared/components/paginator/paginator.component';
 
-
 // const ELEMENT_DATA = [
 //   { role: 1, name: 'Hydrogen', email: 1.0079, status: 'H' },
 //   { role: 2, name: 'Helium', email: 4.0026, status: 'He' },
@@ -33,7 +32,7 @@ export class UsersComponent implements OnInit {
     private router: Router,
     private userService: UserService,
     private snackbarService: SnackbarService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
   ) {
     this.getUserData();
   }
@@ -60,7 +59,7 @@ export class UsersComponent implements OnInit {
   getUserData(event?: any) {
     this.userService.getUserData(event).subscribe({
       next: (res: any) => {
-        if (res.status && res.code!=204) {
+        if (res.status && res.code != 204) {
           this.userData = res.data.data;
           this.viewUserData = res.data.data;
           this.dataLength = res.data.total;
@@ -72,7 +71,7 @@ export class UsersComponent implements OnInit {
     });
   }
 
-  resetSearch(){
+  resetSearch() {
     this.viewUserData = this.userData;
     this.searchData = false;
     this.nodata = false;
@@ -201,7 +200,7 @@ export class UsersComponent implements OnInit {
           this.searchData = true;
           this.viewUserData = res.data.data;
           this.searchQuery = search;
-          if(!pageChange){
+          if (!pageChange) {
             this.paginator.resetToFirstPage();
           }
           return;

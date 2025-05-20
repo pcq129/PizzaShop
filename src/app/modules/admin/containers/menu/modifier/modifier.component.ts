@@ -16,7 +16,7 @@ export class ModifierComponent implements OnInit {
   constructor(
     private snackbarService: SnackbarService,
     private dialog: MatDialog,
-    private modifierService: ModifierService
+    private modifierService: ModifierService,
   ) {
     // this.extractAllModifiers(this.modifierGroupData);
   }
@@ -176,7 +176,6 @@ export class ModifierComponent implements OnInit {
           (res: any) => {
             if (!res.status) {
               this.snackbarService.error(res.message);
-
             } else {
               this.snackbarService.success('Modifier Group added successfully');
               this.loadModifiers(this.currentModifierGroup);
@@ -186,7 +185,7 @@ export class ModifierComponent implements OnInit {
           },
           (err) => {
             this.snackbarService.error('Failed to add modifier');
-          }
+          },
         );
       }
     });
@@ -206,7 +205,6 @@ export class ModifierComponent implements OnInit {
         (res: any) => {
           if (!res.status) {
             this.snackbarService.error(res.message);
-
           } else {
             this.snackbarService.success('Modifier group deleted successfully');
             this.loadModifiers(this.currentModifierGroup);
@@ -216,7 +214,7 @@ export class ModifierComponent implements OnInit {
         },
         (err) => {
           this.snackbarService.error('Failed to delete modifier group');
-        }
+        },
       );
     });
   }
@@ -248,7 +246,6 @@ export class ModifierComponent implements OnInit {
       this.modifierService.editModifierGroup(result).subscribe((res: any) => {
         if (!res.status) {
           this.snackbarService.error(res.message);
-
         } else {
           this.snackbarService.success('Modifier Group updated successfully');
           this.loadModifiers(this.currentModifierGroup);
@@ -285,7 +282,6 @@ export class ModifierComponent implements OnInit {
           (res: any) => {
             if (!res.status) {
               this.snackbarService.error(res.message);
-
             } else {
               this.snackbarService.success(`Modifier added successfully`);
               this.loadModifiers(this.currentModifierGroup);
@@ -295,7 +291,7 @@ export class ModifierComponent implements OnInit {
           },
           (err) => {
             this.snackbarService.error('Error adding modifier');
-          }
+          },
         );
       }
     });
@@ -325,7 +321,6 @@ export class ModifierComponent implements OnInit {
         (res: any) => {
           if (!res.status) {
             this.snackbarService.error(res.message);
-
           } else {
             this.snackbarService.success(`Modifier updated successfully`);
             this.loadModifiers(this.currentModifierGroup);
@@ -335,7 +330,7 @@ export class ModifierComponent implements OnInit {
         },
         (err) => {
           this.snackbarService.error('Error updating modifier ' + err);
-        }
+        },
       );
     });
   }
@@ -354,7 +349,6 @@ export class ModifierComponent implements OnInit {
         (res: any) => {
           if (!res.status) {
             this.snackbarService.error(res.message);
-
           } else {
             this.snackbarService.success(`Modifier deleted successfully`);
             this.loadModifiers(this.currentModifierGroup);
@@ -364,7 +358,7 @@ export class ModifierComponent implements OnInit {
         },
         (err) => {
           this.snackbarService.error('Error deleting modifier');
-        }
+        },
       );
     });
   }

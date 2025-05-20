@@ -26,7 +26,7 @@ export class ModifierGroupDialogComponent implements OnInit {
   }
   constructor(
     public dialogRef: MatDialogRef<ModifierGroupDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any
+    @Inject(MAT_DIALOG_DATA) public data: any,
   ) {}
   ngOnInit(): void {
     console.log(this.data);
@@ -49,12 +49,10 @@ export class ModifierGroupDialogComponent implements OnInit {
     modifiers: new FormControl(this.modifiers),
     name: new FormControl(this.data.name, [
       Validators.required,
-      whitespaceValidator
+      whitespaceValidator,
     ]),
     description: new FormControl(this.data.description, []),
   });
-
-
 
   getNameError() {
     if (this.modifierGroupForm.controls.name.hasError('required')) {

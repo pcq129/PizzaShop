@@ -23,7 +23,7 @@ import { OrderappModule } from './modules/app/orderapp.module';
 import { PageNotFoundModule } from './shared/components/page-not-found/page-not-found.module';
 import { RouterModule } from '@angular/router';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
-import {MatNativeDateModule} from '@angular/material/core';
+import { MatNativeDateModule } from '@angular/material/core';
 import { FirstLoginInterceptor } from './modules/auth/interceptors/first-login.interceptor';
 
 @NgModule({
@@ -44,7 +44,7 @@ import { FirstLoginInterceptor } from './modules/auth/interceptors/first-login.i
     MatIconModule,
     OrderappModule,
     PageNotFoundModule,
-    MatNativeDateModule
+    MatNativeDateModule,
   ],
   providers: [
     AuthService,
@@ -61,7 +61,7 @@ import { FirstLoginInterceptor } from './modules/auth/interceptors/first-login.i
     {
       provide: HTTP_INTERCEPTORS,
       useClass: FirstLoginInterceptor,
-      multi: true
+      multi: true,
     },
     {
       provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,

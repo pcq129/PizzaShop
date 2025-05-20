@@ -28,11 +28,11 @@ export class TableSectionService {
     });
   }
 
-  multipleDelete(selection : number[]){
+  multipleDelete(selection: number[]) {
     let data = {
-      tableIds : selection
-    }
-    return this.http.post(environment.baseURL + `delete-tables`, data)
+      tableIds: selection,
+    };
+    return this.http.post(environment.baseURL + `delete-tables`, data);
   }
 
   addTable(data: any) {
@@ -67,7 +67,7 @@ export class TableSectionService {
   updateWaitingToken(data: any) {
     return this.http.post(
       environment.baseURL + 'customer/update-waiting-token',
-      data
+      data,
     );
   }
 

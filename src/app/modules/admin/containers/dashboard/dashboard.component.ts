@@ -38,16 +38,15 @@ export class DashboardComponent implements OnInit {
         this.dashboardData = res.data;
         console.log(res.data);
 
-        if(isNaN(res.data.average_waiting_minutes)){
+        if (isNaN(res.data.average_waiting_minutes)) {
           this.waitingTimeHours = 0;
           this.watitngTimeMinutes = 0;
-        }else{
+        } else {
           this.waitingTimeHours = Math.floor(
-            res.data.average_waiting_minutes / 60
+            res.data.average_waiting_minutes / 60,
           );
           this.watitngTimeMinutes = res.data.average_waiting_minutes % 60;
         }
-
 
         this.revenueChart = {
           labels: this.dashboardData.revenue.labels,
@@ -84,7 +83,7 @@ export class DashboardComponent implements OnInit {
 
   calculateAverageOrder() {
     let average_order = Math.floor(
-      this.dashboardData.total_sales / this.dashboardData.order_count
+      this.dashboardData.total_sales / this.dashboardData.order_count,
     );
     console.log(average_order);
 
@@ -100,17 +99,21 @@ export class DashboardComponent implements OnInit {
     new_customer_count: 0,
     revenue: 0,
     customer_growth: 0,
-    top_selling: [{
-      name : '',
-      sell_count : 0
-    }],
-    least_selling: [{
-      name : '',
-      sell_count : 0
-    }]
+    top_selling: [
+      {
+        name: '',
+        sell_count: 0,
+      },
+    ],
+    least_selling: [
+      {
+        name: '',
+        sell_count: 0,
+      },
+    ],
   };
   waitingTimeHours: number = 0;
   watitngTimeMinutes: number = 0;
   revenueChart: IGraph | undefined;
-  customerGrowthChart: IGraph|undefined;
+  customerGrowthChart: IGraph | undefined;
 }

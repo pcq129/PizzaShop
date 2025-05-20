@@ -25,7 +25,7 @@ export class ItemDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
     private itemService: ItemsService,
     private snackbarSerice: SnackbarService,
-    private modifierService: ModifierService
+    private modifierService: ModifierService,
   ) {
     // this.formatModifierGroups();
     this.getCurrentImage();
@@ -70,7 +70,8 @@ export class ItemDialogComponent implements OnInit {
   dataForm = new FormGroup({
     name: new FormControl(this.data.name, [
       Validators.required,
-whitespaceValidator    ]),
+      whitespaceValidator,
+    ]),
     description: new FormControl(this.data.description),
     item_type: new FormControl(this.data.item_type, [Validators.required]),
     tax_percentage: new FormControl(this.data.tax_percentage, [
@@ -82,18 +83,16 @@ whitespaceValidator    ]),
     short_code: new FormControl(this.data.short_code, []),
     available: new FormControl(
       this.data.available ? this.data.available : false,
-      [Validators.required]
+      [Validators.required],
     ),
     default_tax: new FormControl(
       this.data.default_tax ? this.data.default_tax : false,
-      [Validators.required]
+      [Validators.required],
     ),
     category_id: new FormControl(this.data.category_id, [Validators.required]),
     modifier_groups_id: new FormControl(this.data.modifier_group_ids, []),
     image: new FormControl(),
   });
-
-
 
   onNoClick(): void {
     if (this.uploadedImage) {
@@ -217,7 +216,7 @@ whitespaceValidator    ]),
         (error: any) => {
           this.snackbarSerice.error(error.message);
           this.disableForm = false;
-        }
+        },
       );
     } else {
       this.snackbarSerice.error('Image must be jpg or png');

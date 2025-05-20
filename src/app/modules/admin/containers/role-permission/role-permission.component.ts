@@ -11,16 +11,22 @@ import { UserService } from '../users/_services/user.service';
 })
 export class RolePermissionComponent implements OnInit {
   disableSaveBtn: boolean = true;
-checkChange() {
-  if(this.currentRolePermission.length === this.currentRoleData.allPermission.length && this.currentRolePermission.every((value, index) => value === this.currentRoleData.allPermission[index])){
-    return true;
+  checkChange() {
+    if (
+      this.currentRolePermission.length ===
+        this.currentRoleData.allPermission.length &&
+      this.currentRolePermission.every(
+        (value, index) => value === this.currentRoleData.allPermission[index],
+      )
+    ) {
+      return true;
+    }
+    return false;
   }
-  return false;
-}
   constructor(
     private snackbarService: SnackbarService,
     private userService: UserService,
-    private router: Router
+    private router: Router,
   ) {
     this.getRoles();
   }
@@ -35,7 +41,7 @@ checkChange() {
 
   currentRole: number = 0;
   currentRoleData: any = {};
-  currentRolePermission: string[] = []
+  currentRolePermission: string[] = [];
   rolesData: any;
   getRoles() {
     this.userService.getRoles().subscribe({
@@ -113,34 +119,36 @@ checkChange() {
     }
   }
 
-  changePermissions(permission : string){
+  changePermissions(permission: string) {
     this.checkChange();
     this.disableSaveBtn = false;
-    if(this.currentRolePermission.includes(permission)){
+    if (this.currentRolePermission.includes(permission)) {
       let index = this.currentRolePermission.indexOf(permission);
       this.currentRolePermission.splice(index, 1);
-    }else{
+    } else {
       this.currentRolePermission.push(permission);
     }
   }
 
-  resetPermissions(){
+  resetPermissions() {
     this.currentRolePermission = [...this.currentRoleData.allPermission];
     this.disableSaveBtn = true;
   }
-  updatePermissions(){
-    this.userService.updateRoles(this.currentRole, this.currentRolePermission).subscribe({
-      next: (res:any)=>{
-        console.log(res);
-        if(res.status){
-          this.snackbarService.success(res.message);
-        }else{
-          this.snackbarService.error(res.message);
-        }
-      },
-      error: (error:any)=>{
-        console.log(error.message);
-      }
-    });
+  updatePermissions() {
+    this.userService
+      .updateRoles(this.currentRole, this.currentRolePermission)
+      .subscribe({
+        next: (res: any) => {
+          console.log(res);
+          if (res.status) {
+            this.snackbarService.success(res.message);
+          } else {
+            this.snackbarService.error(res.message);
+          }
+        },
+        error: (error: any) => {
+          console.log(error.message);
+        },
+      });
   }
 }

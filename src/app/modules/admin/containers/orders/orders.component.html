@@ -27,26 +27,25 @@
         <mat-date-range-picker #filterDate></mat-date-range-picker>
       </mat-form-field>
 
-      <mat-form-field
-        appearance="outline"
-        class="filterInput"
-      >
+      <mat-form-field appearance="outline" class="filterInput">
         <mat-label>Status</mat-label>
         <mat-select value="0" formControlName="status">
-          <mat-option value="0">
-            All
-          </mat-option>
+          <mat-option value="0"> All </mat-option>
           <mat-option *ngFor="let status of status" [value]="status">
             {{ status }}
           </mat-option>
         </mat-select>
       </mat-form-field>
-      <mat-form-field
-        class="search"
-        appearance="outline"
-      >
+      <mat-form-field class="search" appearance="outline">
         <mat-label>Search</mat-label>
-        <input class="" matInput placeholder="Order ID" #Search type="number" formControlName="search"/>
+        <input
+          class=""
+          matInput
+          placeholder="Order ID"
+          #Search
+          type="number"
+          formControlName="search"
+        />
         <button
           *ngIf="Search.value"
           (click)="Search.value = ''; resetData()"

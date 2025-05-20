@@ -1,14 +1,14 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { OrderTablesComponent } from './order-tables.component';
-import {MatExpansionModule} from '@angular/material/expansion';
-import {  MatIconModule } from '@angular/material/icon';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatDividerModule } from '@angular/material/divider';
-import {  MatCardModule } from '@angular/material/card';
+import { MatCardModule } from '@angular/material/card';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import {MatSidenavModule} from '@angular/material/sidenav';
+import { MatSidenavModule } from '@angular/material/sidenav';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
@@ -21,9 +21,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { DeleteDialogModule } from 'src/app/shared/components/dialogs/delete-dialog/delete-dialog.module';
 
 @NgModule({
-  declarations: [
-    OrderTablesComponent, waitingTokenDialog,
-  ],
+  declarations: [OrderTablesComponent, waitingTokenDialog],
   imports: [
     CommonModule,
     MatToolbarModule,
@@ -43,9 +41,8 @@ import { DeleteDialogModule } from 'src/app/shared/components/dialogs/delete-dia
     MatRadioModule,
     MatDialogModule,
     MatSelectModule,
-    DeleteDialogModule
+    DeleteDialogModule,
   ],
-  providers: [OrderService]
-
+  providers: [OrderService],
 })
-export class OrderTablesModule { }
+export class OrderTablesModule {}

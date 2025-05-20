@@ -1,34 +1,34 @@
-.toolbar{
+.toolbar {
   background-color: skyblue;
   height: 80px;
   display: flex;
   justify-content: space-between;
 }
 
-.logo{
+.logo {
   height: 60px;
 }
 
-.brandName{
+.brandName {
   margin-left: 10px;
   color: white;
 }
 
-.userProfile{
+.userProfile {
   height: 40px;
   margin-left: 20px;
 }
 
-.chipsAndProfile{
+.chipsAndProfile {
   display: flex;
   direction: row;
   justify-content: center;
 }
 
-.chips{
+.chips {
   align-items: center;
 }
 
-.clickable{
+.clickable {
   cursor: pointer;
 }

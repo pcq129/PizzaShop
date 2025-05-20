@@ -10,7 +10,10 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root',
 })
 export class AuthService {
-  constructor(private router: Router, private http: HttpClient) {}
+  constructor(
+    private router: Router,
+    private http: HttpClient,
+  ) {}
 
   getToken() {
     return localStorage.getItem('access_token');
@@ -48,7 +51,7 @@ export class AuthService {
     }
   }
 
-  firstLoginReset(data: any){
+  firstLoginReset(data: any) {
     return this.http.post(environment.baseURL + `first-login-reset`, data);
   }
 
@@ -131,7 +134,7 @@ export class AuthService {
   updatePassword(passwordData: any) {
     return this.http.post(
       environment.baseURL + 'update-password',
-      passwordData
+      passwordData,
     );
   }
 

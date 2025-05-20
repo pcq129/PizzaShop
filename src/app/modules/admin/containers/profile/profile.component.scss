@@ -7,51 +7,49 @@
   margin: 15px 15px 15px 15px;
 }
 
-
-.title{
+.title {
   margin-left: 10px;
 }
 
-.profile-card{
+.profile-card {
   margin: 15px;
   padding: 10px;
 }
 
-.avatar{
+.avatar {
   height: 100px;
   width: 100px;
 }
 
-.email{
+.email {
   position: absolute;
   top: 15px;
   right: 15px;
 }
 
-.form-row{
+.form-row {
   display: flex;
 
-  mat-form-field{
+  mat-form-field {
     flex-grow: 1;
     margin: 5px;
   }
 }
 
-
-.form-actions{
+.form-actions {
   display: flex;
   justify-content: end;
   margin: 10px;
 
-  button{
+  button {
     margin: 5px;
   }
 }
 
-.readonly{
+.readonly {
   color: grey;
 }
 
-.user-info{
+.user-info {
   padding: 15px;
 }

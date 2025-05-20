@@ -24,7 +24,7 @@ export class TableSectionComponent implements OnInit {
   constructor(
     private sectionTableService: TableSectionService,
     private snackbarservice: SnackbarService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
   ) {
     this.getSectionData();
     // this.getTableData();
@@ -32,62 +32,54 @@ export class TableSectionComponent implements OnInit {
 
   @ViewChild('paginator') paginator!: PaginatorComponent;
 
-
   // group delete
-  toggleAllRows(){
-    if(this.isAllSelected()){
-      this.selection=[];
-    }else{
-      this.tablesList.forEach((element:any) => {
-        if(!this.selection.includes(element.id)){
-          this.selection.push(element.id)
+  toggleAllRows() {
+    if (this.isAllSelected()) {
+      this.selection = [];
+    } else {
+      this.tablesList.forEach((element: any) => {
+        if (!this.selection.includes(element.id)) {
+          this.selection.push(element.id);
         }
       });
     }
   }
-  selection: number[]=[];
-  isAllSelected(){
-    return this.selection.length==this.tablesList.length;
+  selection: number[] = [];
+  isAllSelected() {
+    return this.selection.length == this.tablesList.length;
   }
-  selectTable(tableId:number){
-    if(this.selection.includes(tableId)){
+  selectTable(tableId: number) {
+    if (this.selection.includes(tableId)) {
       let index = this.selection.indexOf(tableId);
       this.selection.splice(index, 1);
-    }else{
+    } else {
       this.selection.push(tableId);
     }
     console.log(this.selection);
-
   }
 
-
-
-  multipleDelete(selection : number[]){
-
+  multipleDelete(selection: number[]) {
     const dialogRef = this.dialog.open(DeleteDialogComponent, {
       width: '250px',
       data: { id: selection },
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      if(result){
+      if (result) {
         this.sectionTableService.multipleDelete(selection).subscribe({
-          next: (res:any)=>{
-            if(res.status == true){
+          next: (res: any) => {
+            if (res.status == true) {
               this.snackbarservice.success(res.message);
               this.getTableDataBySection(this.currentSection);
               this.selection = [];
-            }else{
+            } else {
               this.snackbarservice.error(res.message);
             }
-          }
-        })
+          },
+        });
       }
     });
-
-
   }
-
 
   ngOnInit(): void {}
   // displayedColumns = ['select', 'name', 'capacity', 'status', 'action'];
@@ -102,8 +94,8 @@ export class TableSectionComponent implements OnInit {
     // this.getTableData();
   }
 
-  isSelected(id: number){
-    if(this.currentSection==id){
+  isSelected(id: number) {
+    if (this.currentSection == id) {
       return true;
     }
     return false;
@@ -119,7 +111,7 @@ export class TableSectionComponent implements OnInit {
           this.getTableDataBySection(this.currentSection);
           console.log(this.currentSection);
         }
-        this.selection=[];
+        this.selection = [];
       },
       error: (error) => {
         // if this request returns error code 401(Unauthoized) then error will be handled by
@@ -152,7 +144,6 @@ export class TableSectionComponent implements OnInit {
   resultsLength: number = 0;
   resetPaginator: boolean = false;
   getTableDataBySection(sectionId: number, pageChange?: any) {
-
     // this is where the first table data entry is fetched
     return this.sectionTableService
       .getTableDataBySection(sectionId, pageChange)
@@ -165,11 +156,11 @@ export class TableSectionComponent implements OnInit {
             this.tablesList = res.data.data;
             this.resultsLength = res.data.total;
             this.searchData = false;
-            this.currentSection=sectionId;
+            this.currentSection = sectionId;
             if (!pageChange) {
               this.paginator.resetToFirstPage();
             }
-            this.selection=[];
+            this.selection = [];
           }
         },
         error: (error) => {
@@ -179,7 +170,6 @@ export class TableSectionComponent implements OnInit {
           this.snackbarservice.error(error);
         },
       });
-
   }
 
   editSection(section: Section) {
@@ -280,8 +270,8 @@ export class TableSectionComponent implements OnInit {
     });
   }
 
-  @ViewChild('tableSearch') tableSearch! : MatInput;
-  resetSearch(){
+  @ViewChild('tableSearch') tableSearch!: MatInput;
+  resetSearch() {
     this.getTableDataBySection(this.currentSection);
     this.nodata = false;
     this.searchData = false;
@@ -460,7 +450,7 @@ export class TableSectionComponent implements OnInit {
 export class TableDialog {
   constructor(
     public dialogRef: MatDialogRef<TableDialog>,
-    @Inject(MAT_DIALOG_DATA) public data: any
+    @Inject(MAT_DIALOG_DATA) public data: any,
   ) {}
 
   onNoClick(): void {
@@ -470,7 +460,7 @@ export class TableDialog {
   tableData = new FormGroup({
     name: new FormControl(this.data.name, [
       Validators.required,
-      whitespaceValidator
+      whitespaceValidator,
     ]),
     status: new FormControl(this.data.status, [Validators.required]),
     capacity: new FormControl(this.data.capacity, [
@@ -479,8 +469,6 @@ export class TableDialog {
     ]),
     section_id: new FormControl(this.data.section_id),
   });
-
-
 
   getNameError() {
     if (this.tableData.controls.name.hasError('required')) {
@@ -511,7 +499,7 @@ export class TableDialog {
 export class TableDeleteDialog {
   constructor(
     public dialogRef: MatDialogRef<TableDeleteDialog>,
-    @Inject(MAT_DIALOG_DATA) public data: any
+    @Inject(MAT_DIALOG_DATA) public data: any,
   ) {}
 
   onNoClick(): void {
@@ -527,7 +515,7 @@ export class TableDeleteDialog {
 export class SectionDialog {
   constructor(
     public dialogRef: MatDialogRef<SectionDialog>,
-    @Inject(MAT_DIALOG_DATA) public data: Section
+    @Inject(MAT_DIALOG_DATA) public data: Section,
   ) {}
 
   onNoClick(): void {
@@ -537,12 +525,10 @@ export class SectionDialog {
   sectionData = new FormGroup({
     name: new FormControl(this.data.name, [
       Validators.required,
-      whitespaceValidator
+      whitespaceValidator,
     ]),
     description: new FormControl(this.data.description),
   });
-
-
 
   getNameError() {
     if (this.sectionData.controls.name.hasError('required')) {
@@ -573,7 +559,7 @@ export class SectionDialog {
 export class SectionDeleteDialog {
   constructor(
     public dialogRef: MatDialogRef<SectionDeleteDialog>,
-    @Inject(MAT_DIALOG_DATA) public data: Section
+    @Inject(MAT_DIALOG_DATA) public data: Section,
   ) {}
 
   onNoClick(): void {
